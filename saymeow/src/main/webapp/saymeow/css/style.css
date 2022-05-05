@@ -1,0 +1,143 @@
+@charset "EUC-KR";
+
+* {
+	margin : 0;
+	padding: 0;
+	color : #808080;
+}
+
+#bootstrap-overrides{
+	width: 100vw;
+	height: 56.25vw;
+	max-height: 100vh;
+}
+
+
+/*top.jsp*/
+.top{
+	width:100vw;
+    text-align: center;
+    height:15.25vw;
+}
+
+
+#bootstrap-overrides .collapse{
+	height: 50px;
+}
+
+#bootstrap-overrides .navbar-brand{
+	color:#A13FFF;
+	vertical-align: middle;
+	line-height: 1; 
+	margin-left:10px;
+}
+
+#bootstrap-overrides .input-group{
+	text-align:center;
+	padding-left:10%;
+	width: 50vw;
+}
+
+#bootstrap-overrides .form-control{
+	width:30vw;
+}
+
+#bootstrap-overrides .input-group-text{
+	display:inline;
+	width:10vw;
+	text-align: center;
+	text-decoration-line: none;
+	background-color:#A13FFF;
+	color:white;
+}
+
+#bootstrap-overrides .aTags{
+	
+	width:15vw;
+}
+
+#bootstrap-overrides .aTag {
+	color:#808080;
+	text-align: center;
+	font-size: 1.1em;
+	width:10vw;
+	text-decoration-line: none;
+}
+
+#bootstrap-overrides .top-aTag{
+	background-color:#A13FFF;
+	color:white;
+	margin: 0 2px;
+	border: 3px solid #A13FFF;
+  	border-radius: 5px;
+}
+
+#bootstrap-overrides .categories{
+	width:50vw;
+	font-size: 1.5em;
+	margin: 0 auto;
+	display: flex;
+    align-items: center;
+    justify-content: center;
+    color:#d3d3d3;
+}
+
+
+
+
+
+
+
+
+/*review.jsp*/
+#review-board-container {
+	height:30vw;
+	width:60vw;
+	margin:5vh auto;
+	border: 1px solid #ccc;
+  	border-radius: 5px;
+}
+
+#review-board-container .title{
+	margin-top:2vh;
+}
+
+#review-board-container .review-form{
+	display: inline-block;
+    text-align: center;
+    margin-top:3vh;
+}
+
+#review-board-container .form-label{
+	font-size:1em;
+}
+
+#review-board-container #exampleFormControlTextarea1 {
+	height:20vh;
+}
+#review-board-container .submitBtn
+
+
+
+/*bottom.jsp*/
+
+.footer{
+	width:100vw;
+	height:11vh;
+	text-align: center;
+}
+
+#bootstrap-overrides .text-white{
+	background: linear-gradient(to right, #A13FFF, #FFB4FF);
+	color:#d3d3d3;
+}
+
+
+
+#bootstrap-overrides .bottom-aTag{
+	background:none;
+}
+
+#bootstrap-overrides .bottom-copyright{
+	color: white;
+}
