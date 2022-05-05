@@ -19,7 +19,8 @@
 		<div class="review-section">
 			<h3 class="title">상품구매리뷰</h3>
 			<!-- 리뷰 작성 폼 -->
-			<form class="review-form" action="ReviewFormProc.jsp" method="post" 
+			<!-- GET방식과 multipart 같이 사용 -->
+			<form class="review-form" action="ReviewFormProc.jsp?pnum=<%=pnum%>" method="post" 
 			enctype="multipart/form-data"> <!-- 파일업로드 할 수도 있으므로 post로 보내기 -->
 				<div class="mb-3">
   					<label for="exampleFormControlInput1" class="form-label">제목</label>
