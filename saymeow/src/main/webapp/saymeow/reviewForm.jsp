@@ -1,4 +1,3 @@
-<!-- 대문자명 표기 틀렸음 -->
 <%@page import="java.util.Vector"%>
 <%@page import="saymeow.ReviewBean"%>
 <%@page contentType="text/html; charset=EUC-KR"%>
