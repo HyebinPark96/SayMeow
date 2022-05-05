@@ -1,7 +1,21 @@
-<!-- 리뷰 작성 후 게시판으로 업로드하기 위한 처리페이지 -->
-<%@page contentType="text/html; charset=EUC-KR" pageEncoding="EUC-KR"%>
-<jsp:useBean id="rMgr" class="saymeow.ReviewMgr"></jsp:useBean>
+<!-- 리뷰등록 처리페이지 -->
+<!-- 대문자명 표기 틀렸음 -->
+<%@page import="saymeow.ReviewMgr"%>
+<%@page contentType="text/html; charset=EUC-KR"%>
+<jsp:useBean id="rMgr" class="saymeow.ReviewMgr"/>
 <%
-	rMgr.insertReview(request);
-	response.sendRedirect("main.jsp");
-%>
+	String subject = request.getParameter("subject");
+	String content = request.getParameter("content");
+	if(rMgr.insertReview(request)){/*true 반환 -> 등록성공*/%>
+	<script>
+		alert('a'); // 한글깨짐. JSP->JS인코딩 방법 생각해보기
+		location.href="main.jsp";
+	</script>
+	<%} else if(!rMgr.insertReview(request)){/*false반환 -> 등록실패*/%>
+		<script>
+			alert('d');
+			history.back();
+		</script>
+	<%}%>
+
+	
