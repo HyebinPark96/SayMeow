@@ -41,10 +41,10 @@
 				<input type="hidden" name="onum" value="<%=onum%>"> <!-- 마이페이지에서 들고오기 -->
 				<input type="hidden" name="id" value="<%=id%>">
 				<input type="hidden" name="pnum" value="<%=pnum%>">
+				<div class="d-grid gap-2 d-md-block">
+  					<input type="submit" class="btn btn-primary submitBtn" type="submit" value="글쓰기">
+				</div>
 			</form>
-		</div>
-		<div class="d-grid gap-2 d-md-block">
-  			<input type="submit" class="btn btn-primary submitBtn" type="submit" value="글쓰기">
 		</div>
 	</div>
 	
