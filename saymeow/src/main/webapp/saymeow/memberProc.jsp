@@ -7,7 +7,7 @@
 <html>
 <head>
 <title>회원가입 확인</title>
-<link href="style.css" rel="stylesheet" type="text/css">
+<link href="styleTW.css" rel="stylesheet" type="text/css">
 <html>
 <body bgcolor="#FFFFCC">
 <br/><br/>
