@@ -1,0 +1,90 @@
+@charset "EUC-KR";
+
+#bootstrap-overrides .navbar {
+	margin:0;
+	padding:0;
+}
+
+#bootstrap-overrides .container-fluid{
+	margin: 0;
+	padding: 0;
+}
+
+#bootstrap-overrides .collapse{
+	height: 50px;
+}
+
+#bootstrap-overrides .navbar-brand{
+	color:#A13FFF;
+	vertical-align: middle;
+	line-height: 1; 
+	margin-left:10px;
+}
+
+#bootstrap-overrides .input-group{
+	text-align:center;
+	padding-left:10%;
+	width: 70%;
+}
+
+#bootstrap-overrides .form-control{
+	width:30%;
+}
+
+#bootstrap-overrides .input-group-text{
+	display:inline;
+	width:20%;
+	text-align: center;
+	text-decoration-line: none;
+	background-color:#A13FFF;
+	color:white;
+}
+
+#bootstrap-overrides .aTag {
+	color:#808080;
+	width:15%;
+	text-align: center;
+	font-size: 1.1em;
+	text-decoration-line: none;
+}
+
+#bootstrap-overrides .top-aTag{
+	background-color:#A13FFF;
+	color:white;
+	margin: 0 2px;
+	border: 3px solid #A13FFF;
+  	border-radius: 5px;
+
+}
+
+#bootstrap-overrides .second-nav{
+	height: 100%;
+}
+
+#bootstrap-overrides .categories{
+	width:50%;
+	font-size: 1.5em;
+	margin: 0 auto;
+	display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    color:#d3d3d3;
+}
+
+
+#bootstrap-overrides .text-white{
+	background: linear-gradient(to right, #A13FFF, #FFB4FF);
+	color:#d3d3d3;
+}
+
+#bootstrap-overrides .container{
+	height:80px;
+	display: flex;
+	justify-content: center;
+	align-items:center;
+}
+
+#bootstrap-overrides .bottom-aTag{
+	background:none;
+}
