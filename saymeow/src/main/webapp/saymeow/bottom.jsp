@@ -1,5 +1,5 @@
 <!-- 푸터 -->
-<%@page contentType="text/html; charset=EUC-KR" pageEncoding="EUC-KR"%>
+<%@page contentType="text/html; charset=EUC-KR"%>
 <%
 
 %>
