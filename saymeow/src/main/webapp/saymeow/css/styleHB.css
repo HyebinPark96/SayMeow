@@ -1,11 +1,10 @@
 @charset "EUC-KR";
-
 /*reviewForm.jsp*/
 #review-board-container {
 	margin:5vh auto;
 	text-align:center;
-
 }
+
 #review-board-container .review-section{
 	border: 1px solid #ccc;
   	border-radius: 5px;
@@ -61,4 +60,19 @@
 	display: inline-block;
 	margin:3vh 0;
 }
+
+
+
+/*reviewBoard.jsp*/
+#review-board .review-board-aTag{
+	text-decoration-line: none;
+	color:black;
+}
+
+
+
+
+
+
+
 

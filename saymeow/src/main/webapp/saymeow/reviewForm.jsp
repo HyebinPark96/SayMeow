@@ -1,4 +1,3 @@
-<!-- 리뷰페이지 -->
 <%@page import="java.util.Vector"%>
 <%@page import="saymeow.ReviewBean"%>
 <%@page contentType="text/html; charset=EUC-KR"%>
@@ -10,6 +9,7 @@
 	// 테스트
 	int onum = 1;
 	int pnum = 1; 
+	String rid = "aaa";
 %>
 <!DOCTYPE html>
 <html>
@@ -37,7 +37,7 @@
 			<h3 class="title">상품구매리뷰</h3>
 			<!-- 리뷰 작성 폼 -->
 			<!-- GET방식과 multipart 같이 사용 -->
-			<form class="review-form" action="ReviewFormProc.jsp?pnum=<%=pnum%>" method="post" 
+			<form class="review-form" action="reviewFormProc.jsp?pnum=<%=pnum%>" method="post" 
 			enctype="multipart/form-data"> <!-- 파일업로드 할 수도 있으므로 post로 보내기 -->
 				<div class="mb-3">
   					<label for="exampleFormControlInput1" class="form-label">제목</label>
@@ -57,7 +57,7 @@
   					<input type="range" oninput="star(this)" value="1" step="1" min="0" max="10" name="score"> <!-- 오픈소스 참고 -->
 				</span>
 				<input type="hidden" name="onum" value="<%=onum%>"> <!-- 마이페이지에서 들고오기 -->
-				<input type="hidden" name="id" value="<%=id%>">
+				<input type="hidden" name="rid" value="<%=rid%>">
 				<input type="hidden" name="pnum" value="<%=pnum%>">
 				<input type="hidden" name="rnum">
 				<div class="d-grid gap-2 d-md-block">
