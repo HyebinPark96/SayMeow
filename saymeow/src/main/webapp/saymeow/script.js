@@ -113,6 +113,10 @@ function idCheck(id){
 		window.open(url,"post","width=300,height=150");
 	}
 }
+function printName() {
+const name = document.getElementById('name').value;
+document.getElementById("result").innerText = name;
+}
 
 
 function win_close(){
