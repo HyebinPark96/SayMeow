@@ -1,0 +1,141 @@
+@charset "EUC-KR";
+
+/* 
+1. 이 파일은 top.jsp와 bottom.jsp의 스타일시트 입니다. 
+또한, top.jsp와 bottom.jsp에 위 스타일시트 경로가 지정되어 있으므로 
+특정 jsp 파일에 탑과 바텀을 추가하고자 한다면 
+<%@ include file="top.jsp" %> 을 jsp파일의 지시자들 중 가장 아래에 적고,
+<%@ include file="bottom.jsp"%> 는 jsp파일의 가장 마지막 줄에 추가하면 됩니다. 
+
+2. 탑과 바텀에 <body> 태그 있으므로, body안에 들어가는 코드만 적어주시면 되고
+최상단 코드의 id를 review-board-container 부여하고, (ex. <div id="review-board-container">...</div>)
+아래 코드는 본인 css파일에 추가해주시면 됩니다.
+
+#review-board-container {
+	height:30vw; // 필수
+	width:60vw; // 100vw 이내로 바꿔도 됨
+	margin:5vh auto; 
+}
+
+3. 충돌방지 위해 절대 수정 금지! 필요시 협의
+*/
+
+* {
+	margin : 0;
+	padding: 0;
+	color : #808080;
+}
+
+#bootstrap-overrides{
+	width: 100vw;
+	height: 56.25vw;
+	max-height: 100vh;
+}
+
+
+
+
+
+
+/*top.jsp*/
+.top{
+	width:100vw;
+    text-align: center;
+    height:15.25vw;
+}
+
+
+#bootstrap-overrides .collapse{
+	height: 50px;
+}
+
+#bootstrap-overrides .navbar-brand{
+	color:#A13FFF;
+	vertical-align: middle;
+	line-height: 1; 
+	margin-left:10px;
+}
+
+#bootstrap-overrides .input-group{
+	text-align:center;
+	padding-left:10%;
+	width: 50vw;
+}
+
+#bootstrap-overrides .form-control{
+	width:30vw;
+}
+
+#bootstrap-overrides .input-group-text{
+	display:inline;
+	width:10vw;
+	text-align: center;
+	text-decoration-line: none;
+	background-color:#A13FFF;
+	color:white;
+}
+
+#bootstrap-overrides .top-aTags{
+	width:17vw;
+}
+
+#bootstrap-overrides .aTag {
+	color:#808080;
+	text-align: center;
+	font-size: 1.1em;
+	width:10vw;
+	text-decoration-line: none;
+}
+
+#bootstrap-overrides .top-aTag{
+	background-color:#A13FFF;
+	color:white;
+	margin: 0 2px;
+	border: 3px solid #A13FFF;
+  	border-radius: 5px;
+}
+
+#bootstrap-overrides .categories{
+	width:50vw;
+	font-size: 1.5em;
+	margin: 0 auto;
+	display: flex;
+    align-items: center;
+    justify-content: center;
+    color:#d3d3d3;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+/*bottom.jsp*/
+
+.footer{
+	width:100vw;
+	height:11vh;
+	text-align: center;
+}
+
+#bootstrap-overrides .text-white{
+	background: linear-gradient(to right, #A13FFF, #FFB4FF);
+	color:#d3d3d3;
+}
+
+
+#bootstrap-overrides .bottom-aTag{
+	background:none;
+}
+
+#bootstrap-overrides .bottom-copyright{
+	color: white;
+}
+
+
