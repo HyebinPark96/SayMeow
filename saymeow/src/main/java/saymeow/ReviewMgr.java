@@ -96,46 +96,6 @@ public class ReviewMgr {
 	}
 	
 	
-	// 상품별 전체 리뷰 가져오기 SELECT (별점 컬럼 값 불러와서 빈별->채운별 이미지 변경)
-	public Vector<ReviewBean> getAllReviews(int pnum){
-		Connection con = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		String sql = null;
-		Vector<ReviewBean> vlist = new Vector<ReviewBean>();
-		try {
-			con = pool.getConnection();
-			sql = "SELECT * "
-				+ "FROM review "
-				+ "WHERE pnum = ? ";
-			pstmt = con.prepareStatement(sql);
-			pstmt.setInt(1, pnum); 
-			rs = pstmt.executeQuery();
-			
-			while(rs.next()) {
-				ReviewBean rBean = new ReviewBean(); // 빈즈 객체 생성
-				
-				rBean.setRnum(rs.getInt(1));
-				rBean.setOnum(rs.getInt(2));
-				rBean.setRid(rs.getString(3));
-				rBean.setPnum(rs.getInt(4));
-				rBean.setDate(rs.getString(5)); // (sql)Date형식 -> (java)String형식
-				rBean.setSubject(rs.getString(6));
-				rBean.setContent(rs.getString(7));
-				rBean.setScore(rs.getInt(8));
-				rBean.setFilename(rs.getString(9));
-				rBean.setFilesize(rs.getInt(10));
-				
-				vlist.addElement(rBean); // 빈즈단위로 벡터에 담기
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			pool.freeConnection(con, pstmt, rs);
-		}
-		return vlist;
-	}
-	
 	
 	// 관리자 댓글 작성
 	public void insertRComment(RCommentBean rBean) { // jsp 측에서 bean.setXXX 
@@ -239,7 +199,8 @@ public class ReviewMgr {
 			if(keyWord==null||keyWord.trim().equals("")) { // 검색이 아닐 때
 				sql = "SELECT * "
 					+ "FROM review "
-					+ "LIMIT ?,? "; /*LIMIT : 첫번째 물음표 이후 레코드부터 가져오되, 두번째물음표 갯수만큼 가져오기*/
+					+ "ORDER BY rnum DESC "
+					+ "LIMIT ?,? "; /*LIMIT : 첫번째 물음표 이후 레코드부터 가져오되, 두번째물음표 갯수만큼 가져오기*/ 
 				pstmt = con.prepareStatement(sql);
 				pstmt.setInt(1, start);
 				pstmt.setInt(2, cnt);
@@ -247,7 +208,8 @@ public class ReviewMgr {
 				sql = "SELECT * "
 					+ "FROM review "
 					+ "WHERE " + keyField + " LIKE ? " // 띄워쓰기 중요!!
-					+ "LIMIT ?,? ";
+					+ "ORDER BY rnum DESC "
+					+ "LIMIT ?,? " ;
 				pstmt = con.prepareStatement(sql);
 				pstmt.setString(1, "%"+keyWord+"%"); // 자동으로 따옴표 생성 like %'aaa'%
 				pstmt.setInt(2, start);
