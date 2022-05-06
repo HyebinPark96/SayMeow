@@ -13,6 +13,8 @@ import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 
+
+
 public class ReviewMgr {
 	// 수영장 튜브 공기 빼지 않고 재사용하는 것과 같은 원리
 	private DBConnectionMgr pool; // pool 객체 생성
@@ -70,11 +72,11 @@ public class ReviewMgr {
 			}
 			
 			con = pool.getConnection();
-			sql = "INSERT INTO review(onum,id,pnum,date,subject,content,score,filename,filesize) "
+			sql = "INSERT INTO review(onum,rid,pnum,date,subject,content,score,filename,filesize) "
 				+ "VALUES(?,?,?,now(),?,?,?,?,?) ";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, Integer.parseInt(multi.getParameter("onum"))); // multi는 object로 리턴되므로 형변환해서 받아주기
-			pstmt.setString(2, multi.getParameter("id"));
+			pstmt.setString(2, multi.getParameter("rid"));
 			pstmt.setInt(3, Integer.parseInt(multi.getParameter("pnum"))); 
 			pstmt.setString(4, multi.getParameter("subject"));
 			pstmt.setString(5, multi.getParameter("content"));
@@ -94,45 +96,6 @@ public class ReviewMgr {
 	}
 	
 	
-	// 상품별 전체 리뷰 가져오기 SELECT (별점 컬럼 값 불러와서 빈별->채운별 이미지 변경)
-	public Vector<ReviewBean> getAllReviews(int pnum){
-		Connection con = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		String sql = null;
-		Vector<ReviewBean> vlist = new Vector<ReviewBean>();
-		try {
-			con = pool.getConnection();
-			sql = "SELECT * "
-				+ "FROM tblReview "
-				+ "WHERE pnum = ? ";
-			pstmt = con.prepareStatement(sql);
-			pstmt.setInt(1, pnum); 
-			rs = pstmt.executeQuery();
-			
-			while(rs.next()) {
-				ReviewBean rBean = new ReviewBean(); // 빈즈 객체 생성
-				
-				rBean.setRnum(rs.getInt(1));
-				rBean.setOnum(rs.getInt(2));
-				rBean.setId(rs.getString(3));
-				rBean.setPnum(rs.getInt(4));
-				rBean.setDate(rs.getString(5)); // (sql)Date형식 -> (java)String형식
-				rBean.setSubject(rs.getString(6));
-				rBean.setContent(rs.getString(7));
-				rBean.setScore(rs.getInt(8));
-				rBean.setPhoto(rs.getString(9));
-				
-				vlist.addElement(rBean); // 빈즈단위로 벡터에 담기
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			pool.freeConnection(con, pstmt, rs);
-		}
-		return vlist;
-	}
-	
 	
 	// 관리자 댓글 작성
 	public void insertRComment(RCommentBean rBean) { // jsp 측에서 bean.setXXX 
@@ -141,11 +104,11 @@ public class ReviewMgr {
 		String sql = null;
 		try {
 			con = pool.getConnection();
-			sql = "INSERT INTO tblRComment(rnum, id, pnum, rcDate, comment) "
+			sql = "INSERT INTO rComment(rcNum, cid, pnum, rcDate, comment) "
 				+ "VALUES(?,?,?,now(),?) ";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, rBean.getRnum());
-			pstmt.setString(2, rBean.getId());
+			pstmt.setString(2, rBean.getCid());
 			pstmt.setInt(3, rBean.getPnum());
 			pstmt.setString(4, rBean.getRcDate());
 			pstmt.setString(5, rBean.getComment());
@@ -159,41 +122,272 @@ public class ReviewMgr {
 	}
 	
 	
-	// 특정 리뷰의 관리자 작성 댓글 불러오기 -> 댓글 달린 리뷰는 반복문으로 볼 수 있게끔
-	public RCommentBean getRComment(int rnum) {
+	//////////////////////////////////////////////////// reviewBoard.jsp
+	
+	// Board Max Num : rnum의 최대값
+	public int getMaxNum() {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		String sql = null;
-		RCommentBean rcBean = new RCommentBean();
+		int maxNum = 0;
 		try {
 			con = pool.getConnection();
-			sql = "SELECT * "
-				+ "FROM tblRComment "
-				+ "WHERE rnum = ? ";
+			sql = "SELECT MAX(rnum) "
+				+ "FROM review ";
 			pstmt = con.prepareStatement(sql);
-			pstmt.setInt(1, rnum);
+			
 			rs = pstmt.executeQuery();
-			if(rs.next()) {
-				rcBean.setRcNum(rs.getInt(1));
-				rcBean.setRnum(rs.getInt(2));
-				rcBean.setId(rs.getString(3));
-				rcBean.setPnum(rs.getInt(4));
-				rcBean.setRcDate(rs.getString(5)); // (sql)Date형식 -> (java)String형식
-				rcBean.setComment(rs.getString(6));
+			if(rs.next()) 
+				maxNum = rs.getInt(1); // 불러온 max num값을 넣음
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			pool.freeConnection(con, pstmt, rs);
+		}
+		return maxNum;
+	}
+	
+	// Board Total Count : (페이징 처리위해) 총 리뷰 수 // 검색하든 안하든 동일하게 적용되는 메소드 
+	// keyField : id, subject, content 들어올 수 있음
+	public int getTotalCount(String keyField, String keyWord) { 
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = null;
+		int totalCount = 0;
+		try {
+			con = pool.getConnection();
+			if(keyWord.trim().equals("") || keyWord==null) {
+				// 검색이 아닐 때
+				sql = "SELECT COUNT(*) "
+					+ "FROM review ";
+				pstmt = con.prepareStatement(sql);
+			} else {
+				// 검색일 때 keyField : name, subject, content 들어올 수 있음
+				sql = "SELECT COUNT(*) "
+					+ "FROM review "
+					+ "WHERE " + keyField + " like ? "; // like '%test%'
+				pstmt = con.prepareStatement(sql);
+				pstmt.setString(1, "%" + keyWord + "%"); // '' 자동으로 붙여줌	
+			}  
+			
+			rs = pstmt.executeQuery(); // 실행
+			
+			if(rs.next())
+				totalCount = rs.getInt(1); // 결과의 첫번째 값 들고옴
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			pool.freeConnection(con, pstmt, rs);
+		}
+		return totalCount; // 전체 게시글 수 반환
+	}
+	
+	// Board List (SELECT) : 검색기능 // 검색하든 안하든 동일하게 적용되는 메소드 
+	public Vector<ReviewBean> getBoardList(String keyField, String keyWord, int start, int cnt) { /*뒤 두개는 limit - SQL문*/
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = null;
+		
+		// 10개단위로 Vector로 들고오기, 10으로안나뉘는 레코드갯수는 마지막에 나머지 2,3,... 이렇게 들고올 수도 있음
+		Vector<ReviewBean> vlist = new Vector<ReviewBean>();
+		
+		try {
+			con = pool.getConnection();
+			if(keyWord==null||keyWord.trim().equals("")) { // 검색이 아닐 때
+				sql = "SELECT * "
+					+ "FROM review "
+					+ "ORDER BY rnum DESC "
+					+ "LIMIT ?,? "; /*LIMIT : 첫번째 물음표 이후 레코드부터 가져오되, 두번째물음표 갯수만큼 가져오기*/ 
+				pstmt = con.prepareStatement(sql);
+				pstmt.setInt(1, start);
+				pstmt.setInt(2, cnt);
+			} else { // 검색일 때 
+				sql = "SELECT * "
+					+ "FROM review "
+					+ "WHERE " + keyField + " LIKE ? " // 띄워쓰기 중요!!
+					+ "ORDER BY rnum DESC "
+					+ "LIMIT ?,? " ;
+				pstmt = con.prepareStatement(sql);
+				pstmt.setString(1, "%"+keyWord+"%"); // 자동으로 따옴표 생성 like %'aaa'%
+				pstmt.setInt(2, start);
+				pstmt.setInt(3, cnt);
+			}
+			
+			rs = pstmt.executeQuery(); // 실행
+			
+			while(rs.next()) {
+				ReviewBean bean = new ReviewBean(); // 객체 생성
+				
+				// 페이징처리에 필요한 것만 가져오기
+				bean.setRnum(rs.getInt("rnum")); // 리뷰순번
+				// bean.setOnum(rs.getInt("onum")); // 주문번호는 필요없을 듯
+				bean.setRid(rs.getString("rid")); // 리뷰 작성자 id 
+				bean.setPnum(rs.getInt("pnum")); // 상품번호 
+				bean.setDate(rs.getString("date"));
+				bean.setSubject(rs.getString("subject"));
+				bean.setContent(rs.getString("content"));
+				bean.setScore(rs.getInt("score"));
+				bean.setFilename(rs.getString("filename"));
+				
+				vlist.addElement(bean); // 벡터에 빈즈단위로 담기
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			pool.freeConnection(con, pstmt, rs);
 		}
-		return rcBean;
+		return vlist;
 	}
 	
+	// Board Read : 한 개의 리뷰 읽기, 10개 컬럼 빈즈에 모두 저장
+	public ReviewBean getBoard(int rnum) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = null;
+		ReviewBean bean = new ReviewBean();
+		try {
+			con = pool.getConnection();
+			sql = "SELECT * "
+				+ "FROM review "
+				+ "WHERE rnum = ? ";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, rnum);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				bean.setRnum(rs.getInt("rnum"));
+				bean.setOnum(rs.getInt("onum"));
+				bean.setRid(rs.getString("rid"));
+				bean.setPnum(rs.getInt("pnum"));
+				bean.setDate(rs.getString("date"));
+				bean.setSubject(rs.getString("subject"));
+				bean.setContent(rs.getString("content"));
+				bean.setScore(rs.getInt("score"));
+				bean.setFilename(rs.getString("filename"));
+				bean.setFilesize(rs.getInt("filesize"));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			pool.freeConnection(con, pstmt, rs);
+		}
+		return bean; // 한개 게시글 빈즈 리턴
+	}
 	
-	// 별점 통계 (1점 - 2개, 2점 - 5개, ...)
+	// Board Delete : 파일있든 없든 리뷰 삭제
+	public void deleteBoard(int rnum, String filename/*DB 안가면서 게시물 삭제 가능*/) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		String sql = null;
+		try {
+			if(filename!=null&&!filename.equals("")) { // 업로드 파일 있는 리뷰라면
+				File f = new File(SAVEFOLDER+filename);
+				if(f.exists()) { // storage 폴더에 파일이 존재한다면
+					f.delete(); // 삭제
+				}
+			}
+			con = pool.getConnection();
+			sql = "DELETE FROM review "
+				+ "WHERE rnum = ? "; // 게시글 순번으로 조회하여 삭제
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, rnum);
+			pstmt.executeUpdate(); // 실행
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			pool.freeConnection(con, pstmt);
+		}
+	}
 	
+	// Board Update : 리뷰 수정 (업로드 파일까지 수정기능 추가)
+	public void updateBoard(MultipartRequest multi) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		String sql = null;
+		try {
+			con = pool.getConnection();
+			
+			// 리뷰 작성 시 rnum 보내는 것 받아와서 int형 변환
+			int rnum = Integer.parseInt(multi.getParameter("rnum")); 
+			
+			// 새로운 파일 속성들
+			String rid = multi.getParameter("rid");
+			String subject = multi.getParameter("subject");
+			String content = multi.getParameter("content");
+			String filename = multi.getFilesystemName("filename"); // !!새로운 파일명!!
+			
+			// 파일 수정 시 조건문
+			if(filename!=null&&!filename.equals("")) { // 새 파일명 있음 -> 새 파일로 수정하는 경우
+				ReviewBean bean = getBoard(rnum); // 기존 저장되어있던 빈즈로 리뷰 한 개의 정보 가져오기
+				String tempFile = bean.getFilename(); // !!기존 파일명!!
+				if(tempFile!=null&&tempFile.equals("")) { // 기존 파일 있다면
+					File f = new File(SAVEFOLDER+tempFile);
+					if(f.exists()) {
+						f.delete(); // storage폴더의 기존 파일 삭제
+					}
+				}
+				
+				// 새로운 업로드 파일의 크기
+				int filesize = (int)multi.getFile("filename").length();
+				sql = "UPDATE review "
+					+ "SET rid=?, subject=?, content=?, filename=?, filesize=? "
+					+ "WHERE rnum = ? ";
+				pstmt = con.prepareStatement(sql);
+				
+				pstmt.setString(1, rid);
+				pstmt.setString(2, subject);
+				pstmt.setString(3, content);
+				pstmt.setString(4, filename);
+				pstmt.setInt(5, filesize);
+				pstmt.setInt(6, rnum);
+				
+			} else { // 기존 업로드된 파일 없다면 파일 조건 제외
+				sql = "UPDATE review "
+					+ "SET rid=?, subject=?, content=? "
+					+ "WHERE num = ? ";
+					pstmt = con.prepareStatement(sql);
+					
+					pstmt.setString(1, rid);
+					pstmt.setString(2, subject);
+					pstmt.setString(3, content);
+					pstmt.setInt(4, rnum);
+			}
+			pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			pool.freeConnection(con, pstmt);
+		}
+	}
 	
+	// (테스트용 메소드) Post 1000 : (한 페이지당 10개의 게시글)1000개의 게시물 입력 
+	public void post1000(){
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		String sql = null;
+		try {
+			con = pool.getConnection();
+			sql = "INSERT review(onum,rid,pnum,date,subject,content,score,filename,filesize) "
+				+ "VALUES (1, 'aaa', 1, now(),'Hello','World!', 3, null, 0);";
+			pstmt = con.prepareStatement(sql);
+			for (int i = 0; i < 1000; i++) {
+				pstmt.executeUpdate(); // 실행
+			}
+			System.out.println("Post1000 Success"); 
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			pool.freeConnection(con, pstmt);
+		}
+	}
 	
+	// 메인메소드
+	public static void main(String[] args) {
+		ReviewMgr rMgr = new ReviewMgr(); 
+		rMgr.post1000(); // 테스트용 1000개 레코드 입력 메소드 호출
+	}
 	
 }

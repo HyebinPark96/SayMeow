@@ -3,13 +3,14 @@ package saymeow;
 public class ReviewBean {
 	private int rnum; // 리뷰순번
 	private int onum; // 주문번호
-	private String id; // 리뷰 작성 아이디
+	private String rid; // 리뷰 작성 아이디
 	private int pnum; // 상품번호
 	private String date; // 리뷰 작성 날짜
 	private String subject; // 리뷰 제목
 	private String content; // 리뷰 내용
 	private int score; // (5점만점)점수
-	private String photo; // 리뷰사진
+	private String filename; // 파일명
+	private int filesize; // 파일크기
 	
 	public int getRnum() {
 		return rnum;
@@ -23,11 +24,11 @@ public class ReviewBean {
 	public void setOnum(int onum) {
 		this.onum = onum;
 	}
-	public String getId() {
-		return id;
+	public String getRid() {
+		return rid;
 	}
-	public void setId(String id) {
-		this.id = id;
+	public void setRid(String rid) {
+		this.rid = rid;
 	}
 	public int getPnum() {
 		return pnum;
@@ -59,10 +60,19 @@ public class ReviewBean {
 	public void setScore(int score) {
 		this.score = score;
 	}
-	public String getPhoto() {
-		return photo;
+	public String getFilename() {
+		return filename;
 	}
-	public void setPhoto(String photo) {
-		this.photo = photo;
+	public void setFilename(String filename) {
+		this.filename = filename;
 	}
+	public int getFilesize() {
+		return filesize;
+	}
+	public void setFilesize(int filesize) {
+		this.filesize = filesize;
+	}
+	
+
+	
 }

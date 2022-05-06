@@ -3,10 +3,11 @@ package saymeow;
 public class RCommentBean {
 	private int rcNum; // 코멘트 순번
 	private int rnum; // 리뷰 순번
-	private String id; // 코멘트 작성 아이디
+	private String cid; // 코멘트 작성 아이디
 	private int pnum; // 상품번호
 	private String rcDate; // 코멘트 작성 날짜
 	private String comment; // 코멘트 내용
+	
 	
 	public int getRcNum() {
 		return rcNum;
@@ -20,11 +21,11 @@ public class RCommentBean {
 	public void setRnum(int rnum) {
 		this.rnum = rnum;
 	}
-	public String getId() {
-		return id;
+	public String getCid() {
+		return cid;
 	}
-	public void setId(String id) {
-		this.id = id;
+	public void setCid(String cid) {
+		this.cid = cid;
 	}
 	public int getPnum() {
 		return pnum;
@@ -44,4 +45,8 @@ public class RCommentBean {
 	public void setComment(String comment) {
 		this.comment = comment;
 	}
+
+	
+	
+	
 }
