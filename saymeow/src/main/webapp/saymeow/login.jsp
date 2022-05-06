@@ -1,4 +1,6 @@
-<%@page contentType="text/html; charset=EUC-KR" pageEncoding="EUC-KR"%>                                      
+<%@page contentType="text/html; charset=EUC-KR" pageEncoding="EUC-KR"%>
+<jsp:useBean id="mBean" class="saymeow.MemberBean" />
+<jsp:useBean id="mMgr" class="saymeow.MemberMgr" />                                      
 <%
 	
 %>
@@ -29,6 +31,7 @@
 			<td colspan="2" align="center"><input type="submit" value="login">
 		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
 		<input type="button" value="회원가입" onclick="location.href='member.jsp';">
+		<input type="button" value="아이디/비밀번호찾기" onclick="location.href='sendAccount.jsp?id=aaa">
 			</td>
 		</tr>
 </table>
