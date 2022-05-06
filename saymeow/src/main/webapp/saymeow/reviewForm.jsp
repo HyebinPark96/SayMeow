@@ -1,3 +1,4 @@
+<!-- ¸®ºäÆäÀÌÁö -->
 <%@page import="java.util.Vector"%>
 <%@page import="saymeow.ReviewBean"%>
 <%@page contentType="text/html; charset=EUC-KR"%>
