@@ -1,0 +1,64 @@
+@charset "EUC-KR";
+
+/*reviewForm.jsp*/
+#review-board-container {
+	margin:5vh auto;
+	text-align:center;
+
+}
+#review-board-container .review-section{
+	border: 1px solid #ccc;
+  	border-radius: 5px;
+  	width: 60vw;
+  	margin: 0 auto;
+}
+
+#review-board-container .title{
+	padding-top:1vw;
+}
+
+#review-board-container .review-form{
+	display: inline-block;
+    padding-top:2vh;
+    margin: 0 auto;
+}
+
+#review-board-container .form-label{
+	font-size:1em;
+}
+
+#review-board-container #exampleFormControlTextarea1 {
+	height:13vh;
+}
+
+#review-board-container .star { /*전체 별점을 감싸는 span태그*/
+    position: relative; /*부모요소*/
+    font-size: 2rem;
+    color: #ddd;
+}
+  
+#review-board-container .star input { /*바*/
+	/*position 속성으로 인해 왼쪽을 기준으로 하여 부모요소에 꽉 맞게 찬다.*/
+    width: 100%;
+    height: 100%;
+    position: absolute; /*자식요소*/
+    left: 0; 
+    opacity: 0;
+    cursor: pointer;
+}
+  
+#review-board-container .star span { /*배경색 있는 별*/
+	/*position 속성으로 인해 왼쪽을 기준으로 하여 부모요소에 꽉 맞게 찬다.*/
+    width: 0;
+    position: absolute; /*자식요소*/
+    left: 0;
+    color: red;
+    overflow: hidden; /*width에서 초과되는 부분은 숨김처리*/
+    pointer-events: none;
+}
+
+#review-board-container .submitBtn{
+	display: inline-block;
+	margin:3vh 0;
+}
+
