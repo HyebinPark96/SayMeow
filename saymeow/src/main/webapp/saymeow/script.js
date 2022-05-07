@@ -113,10 +113,42 @@ function idCheck(id){
 		window.open(url,"post","width=300,height=150");
 	}
 }
-function printName() {
-const name = document.getElementById('name').value;
-document.getElementById("result").innerText = name;
-}
+
+function id_search() { 
+	 	var frm = document.idfindscreen;
+
+	 	if (frm.name.value.length < 1) {
+		  alert("이름을 입력해주세요");
+		  return;
+		 }
+
+		 if (frm.phone.value.length != 10) {
+			  alert("핸드폰번호를 정확하게 입력해주세요");
+			  return;
+		 }
+
+	 frm.method = "post";
+	 frm.action = "findIdResult.jsp"; //넘어간화면
+	 frm.submit();  
+	 }
+	  function pw_search(){
+
+  var frm=document.pwfindscreen;
+
+  if(frm.mid.value.length<1){
+   alert("아이디를 올바르게 입력해주세요");
+   return;
+  }
+
+   if (frm.phone.value.length != 10) {
+			  alert("핸드폰번호를 정확하게 입력해주세요");
+			  return;
+		 }
+	
+  frm.method="post";
+  frm.action="findPwResult.jsp"; //넘어간화면
+  frm.submit(); 
+  }
 
 
 function win_close(){
