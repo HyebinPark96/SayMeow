@@ -4,7 +4,10 @@
 <jsp:useBean id="rMgr" class="saymeow.ReviewMgr"/>
 <%
 /* 	int onum = Integer.parseInt(request.getParameter("onum"));
-	int pnum = Integer.parseInt(request.getParameter("pnum")); */
+	int pnum = Integer.parseInt(request.getParameter("pnum")); 
+	// 마이페이지의 주문내역조회에 리뷰쓰기 버튼 활성화시키고, 세션에 저장된 id값으로 리뷰 작성자 id 받아오기
+	String rid = session.getAttribute("idKey"); 
+	*/
 	
 	// 테스트
 	int onum = 1;

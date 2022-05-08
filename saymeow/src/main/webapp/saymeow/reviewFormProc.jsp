@@ -9,7 +9,7 @@
 	
 	if(rMgr.insertReview(request)){/*true 반환 -> 등록성공*/%>
 	<script>
-		alert('Yes'); // 한글깨짐. JSP->JS인코딩 방법 생각해보기
+		alert('Yes'); // 한글깨짐. JS인코딩 방법 생각해보기
 		location.href="reviewBoard.jsp?pnum=<%=pnum%>"; // 상품상세페이지는 GET방식으로 pnum값 전달받음
 	</script>
 	<%} else if(!rMgr.insertReview(request)){/*false반환 -> 등록실패*/%>

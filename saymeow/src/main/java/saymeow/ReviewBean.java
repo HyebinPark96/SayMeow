@@ -8,7 +8,7 @@ public class ReviewBean {
 	private String date; // 리뷰 작성 날짜
 	private String subject; // 리뷰 제목
 	private String content; // 리뷰 내용
-	private int score; // (5점만점)점수
+	private double score; // (5점만점 0~5점 선택) 0.5점단위
 	private String filename; // 파일명
 	private int filesize; // 파일크기
 	
@@ -54,10 +54,10 @@ public class ReviewBean {
 	public void setContent(String content) {
 		this.content = content;
 	}
-	public int getScore() {
+	public double getScore() {
 		return score;
 	}
-	public void setScore(int score) {
+	public void setScore(double score) {
 		this.score = score;
 	}
 	public String getFilename() {
@@ -73,6 +73,7 @@ public class ReviewBean {
 		this.filesize = filesize;
 	}
 	
+
 
 	
 }

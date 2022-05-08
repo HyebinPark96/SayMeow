@@ -1,24 +1,26 @@
-<!-- 깃헙으로 복붙하면 임포트 에러날 가능성있으므로, 에러나면 지우고 다시 임포트해오기 -->
+<!-- 임포트 에러난다면 지우고 다시 임포트하면 해결됨 -->
 <%@page import="saymeow.ReviewBean"%>
 <%@page import="java.util.Vector"%>
 <%@page import="saymeow.UtilMgr"%>
 <%@page contentType="text/html; charset=EUC-KR"%>
+<!-- 리뷰와 댓글 mgr 객체생성 -->
 <jsp:useBean id="rMgr" class="saymeow.ReviewMgr" />
 <jsp:useBean id="cMgr" class="saymeow.RCommentMgr" />
-<%
-int totalRecord = 0; // 총 게시물 수
-int numPerPage = 10; // 한 페이지당 불러올 레코드 개수 (응용해서 5,10,15,30 기능 추가 예정)
-int pagePerBlock = 15; // 한 블럭당 총 15개 페이지 불러오기 (Ex. 한 블럭에 1~15페이지 나열)
-int totalPage = 0; // 총 페이지 개수
-int totalBlock = 0; // 총 블럭 개수 (15페이지씩 몇 블럭이 있는가?)
-int nowPage = 1; // 현재 페이지
-int nowBlock = 1; // 현재 블럭
+
+<% // 페이징 처리에 필요한 변수 선언
+int totalRecord = 0; // 총 게시물 수 (최초 0개)
+int numPerPage = 10; // 한 페이지당 불러올 레코드 개수 (디폴트 10개)
+int pagePerBlock = 15; // 한 블럭당 총 15개 페이지 불러오기
+int totalPage = 0; // 총 페이지 개수 (최초 0개)
+int totalBlock = 0; // 총 블럭 개수
+int nowPage = 1; // 현재 페이지 (최초 1페이지)
+int nowBlock = 1; // 현재 블럭 (최초 1페이지 -> 1블럭에 위치)
 
 if (request.getParameter("numPerPage") != null) { // x개씩보기 옵션 바꾸면 재귀호출되면서 다시 numPerPage 셋팅
-	numPerPage = UtilMgr.parseInt(request, "numPerPage");
+	numPerPage = UtilMgr.parseInt(request, "numPerPage"); // 전달받은 numPerPage 값을 int형변환
 }
 
-// 검색에 필요한 변수 
+// 검색 후 and 페이지 이동 시 재귀호출되므로 유지되어있음
 String keyField = "", keyWord = ""; // 검색 전 디폴트
 if (request.getParameter("keyWord") != null) { // 검색했다면
 	keyField = request.getParameter("keyField");
@@ -31,11 +33,10 @@ if (request.getParameter("reload") != null && request.getParameter("reload").equ
 	keyWord = "";
 }
 
-// mgr getTotalCount 메소드 : 검색일 때 아닐 때 구분하여 SQL문 달리 작성되어 있음 
+// 최종 전체 리뷰 수 
 totalRecord = rMgr.getTotalCount(keyField, keyWord); // 검색일 때만 keyField, keyWord 값 설정되어 있고, 아닐 때는 "" 값 가짐
-// out.println(totalRecord); // (테스트용) 1000 리턴
 
-// 페이지 클릭 OR 게시글 읽고 '리스트로' 클릭 -> GET방식으로 위치해있던 nowPage 전달 (+keyField, keyWord도 유지됨)
+// 페이지 클릭(list()함수) OR 게시글 읽고 '리스트로' 클릭 -> GET방식으로 위치해있던 nowPage 전달
 if (request.getParameter("nowPage") != null) {
 	nowPage = UtilMgr.parseInt(request, "nowPage");
 }
@@ -53,10 +54,6 @@ totalBlock = (int) Math.ceil((double) totalPage / pagePerBlock); // Ex. 총 67페�
 // 현재 몇번째 블럭인지 
 nowBlock = (int) Math.ceil((double) nowPage / pagePerBlock); // Ex. 현재 1페이지 / 한 블럭당 15페이지
 
-// 테스트용
-// out.println("totalPage : "+ totalPage + "<br>");
-// out.println("totalBlock : "+ totalBlock + "<br>");
-// out.println("nowBlock : "+ nowBlock + "<br>");
 %>
 <!DOCTYPE html>
 <html>
@@ -87,7 +84,7 @@ nowBlock = (int) Math.ceil((double) nowPage / pagePerBlock); // Ex. 현재 1페이지
 	// (처음으로 버튼 눌러야만 실행되는 메소드) 목록 이동
 	function list() {
 		document.listFrm.action = "reviewBoard.jsp";
-		document.listFrm.submit(); // reload와 nowPage post방식으로 전달하여 재귀호출
+		document.listFrm.submit(); // reload와 nowPage VALUE를 POST방식으로 전달하여 재귀호출
 	}
 
 	// 검색
@@ -103,8 +100,8 @@ nowBlock = (int) Math.ceil((double) nowPage / pagePerBlock); // Ex. 현재 1페이지
 	// 게시글 읽기
 	function read(rnum) {
 		document.readFrm.rnum.value = rnum;
-		document.readFrm.action = "#";
-		document.readFrm.submit();
+		document.readFrm.action = "reviewRead.jsp"; // JS에서 action 지정 가능
+		document.readFrm.submit(); // 값 전달
 	}
 </script>
 <!-- 혜빈 JS -->
@@ -121,29 +118,30 @@ nowBlock = (int) Math.ceil((double) nowPage / pagePerBlock); // Ex. 현재 1페이지
 <body>
 	<div align="center" id="review-board">
 		<br />
-		<h2>리뷰보기</h2>
-		<br />
+		<h2 class="review-board-topic">리뷰</h2>
+		<label>해당 상품은 총 <b><%=totalRecord%></b>개의 리뷰가 있습니다!</label>
+		<br/>
 		<table>
 			<tr>
-				<td width="600">
-					Total : <%=totalRecord%>Articles(<font color="red"> <%=nowPage + "/" + totalPage%> Pages</font>)
-				</td>
-				<td align="right">
+				<td>
 					<!-- action 생략이므로 재귀호출 -->
 					<form name="npFrm" method="post">
 						<!-- select태그의 size속성 : 한번에 보일 옵션의 개수, onchange() : 아이템 바꿀 때마다 -->
-						<select name="numPerPage" size="1" onchange="numPerFn(this.form.numPerPage.value)">
+						<select name="numPerPage" size="1" onchange="numPerFn(this.form.numPerPage.value)" class="npFrm-td form-select form-select-numPerPage">
 							<!-- 5,10,15,20 중 하나 -->
-							<option value="5">5개 보기</option>
-							<option value="10" selected>10개 보기</option>
-							<option value="15">15개 보기</option>
-							<option value="30">30개 보기</option>
+							<option value="5">5개씩 보기</option>
+							<option value="10" selected>10개씩 보기</option>
+							<option value="15">15개씩 보기</option>
+							<option value="30">30개씩 보기</option>
 						</select>
 					</form> 
 					<script>
 						<!-- if) '20개 보기' 선택 후, 게시글 읽고 리스트로 돌아와도 기존 numPerPage 유지된 상태로 list.jsp 호출하기 위함-->
 						document.npFrm.numPerPage.value = <%=numPerPage%>;
 					</script>
+				</td>
+				<td width="600" align="right" class="npFrm-td">
+					현재페이지 : <%=nowPage%> / 전체 페이지 : <%=totalPage%>
 				</td>
 			</tr>
 		</table>
@@ -152,16 +150,16 @@ nowBlock = (int) Math.ceil((double) nowPage / pagePerBlock); // Ex. 현재 1페이지
 			<tr>
 				<td align="center" colspan="2">
 					<%
-					Vector<ReviewBean> vlist = rMgr.getBoardList(keyField, keyWord, start, cnt);
+					Vector<ReviewBean> vlist = rMgr.getReviewList(keyField, keyWord, start, cnt);
 					int listSize = vlist.size(); // 각 페이지가 담는 총 레코드갯수 (최대 10개, 마지막 페이지는 10 이하의 값을 가질 수도 있음)
-
 					if (vlist.isEmpty()) {
 						out.println("등록된 게시물이 없습니다.");
 					} else {
 					%>
-					<table cellspacing="0">
-						<tr align="center" bgcolor="#D0D0D0">
+					<table cellspacing="0" class="table table-hover">
+						<tr align="center" class="table-column">
 							<td width="100">번 호</td>
+							<td width="150">별 점</td>
 							<td width="250">제 목</td>
 							<td width="100">아이디</td>
 							<td width="150">날 짜</td>
@@ -185,7 +183,7 @@ nowBlock = (int) Math.ceil((double) nowPage / pagePerBlock); // Ex. 현재 1페이지
 							String date = bean.getDate();
 							String subject = bean.getSubject();
 							String content = bean.getContent();
-							int score = bean.getScore();
+							double score = bean.getScore();
 							String filename = bean.getFilename(); // 파일 업로드 한 경우 제목 옆 아이콘 뜨게
 							int filesize = bean.getFilesize();
 
@@ -194,16 +192,17 @@ nowBlock = (int) Math.ceil((double) nowPage / pagePerBlock); // Ex. 현재 1페이지
 						%>
 						<!-- 각 열(주제)에 맞는 값 반복문으로 들고옴 -->
 						<tr align="center">
-							<td><%=totalRecord - start - i%></td>
-							<!-- 리뷰순번 -->
-							<td align="left"><a href="javascript:read('<%=rnum%>')"
-								class="review-board-aTag"> <%=subject%></a> <!-- 리뷰제목 --> 
-								<%if (filename != null && !filename.equals("")) {%>
-								<img src="img/file_icon1.png" width="15px" height="15px" align="middle"> <!-- 파일있으면 이모티콘 보임 -->
-								<%}%> 
+							<td><%=totalRecord - start - i%></td><!-- 리뷰순번 : 가장 최신글이 위에 오는 구조 -->
+							<td><%=score%></td>
+							<td align="left">
+								<a href="javascript:read('<%=rnum%>')" class="review-board-aTag"><%=subject%></a> <!-- 리뷰제목 --> 
+								<%if (filename != null) {%>
+									<img src="img/file_icon1.png" width="15px" height="15px" align="middle"> <!-- 파일있으면 이모티콘 보임 -->
+								<%}%>
 								<%if (rCount > 0) {%> <!-- 댓글있다면 --> 
-									<font color="red">(<%=rnum%>)</font> <!-- 빨간색으로 (댓글수) 보임 --> 
-									<%}%></td>
+									<font color="red">(<%=rCount%>)</font> <!-- 빨간색으로 (댓글수) 보임 --> 
+									<%}%>
+							</td>
 							<td><%=rid%></td><!-- 리뷰작성자 -->
 							<td><%=date%></td><!-- 리뷰작성날짜 -->
 						</tr>
@@ -216,50 +215,56 @@ nowBlock = (int) Math.ceil((double) nowPage / pagePerBlock); // Ex. 현재 1페이지
 				<br>
 			</tr>
 			<tr>
-				<td>
-					<!-- 페이징 및 블럭 Start --> <!-- 이전블럭 이동(첫블럭에서는 없어야 함)--> 
+				<td align="center">
+					<!-- 페이징 및 블럭 Start --> 
+					<!-- 이전블럭 이동(첫블럭에서는 없어야 함)--> 
 					<%if (nowBlock > 1) {%>
-					<a href="javascript:block('<%=nowBlock - 1/*이전블럭*/%>')"
-					class="review-board-aTag">prev...</a> 
+						<a href="javascript:block('<%=nowBlock - 1/*이전블럭*/%>')" class="review-board-aTag">&nbsp이전&nbsp</a> 
 					<%}%> <!-- 페이징(특정블럭) --> 
 					<%// 아래변수로 for문 돌리면 최초 1~16 -> 1~15까지 반복
-					int pageStart = (nowBlock - 1) * pagePerBlock + 1; /*최초1부터시작 */
+					int pageStart = (nowBlock - 1) * pagePerBlock + 1; /*최초1, 16, 31, ...*/
 					/*마지막 블럭은 15페이지가 안될 수 있으므로 삼항연산자 사용*/
 					int pageEnd = (pageStart + pagePerBlock /*15*/) < totalPage ? pageStart + pagePerBlock : totalPage + 1; 
 
- 					// 반복문
+ 					// 반복문 (15번씩 반복, 마지막 블럭에서는 91~101페이지까지만 반복됨)
  					for (; pageStart < pageEnd; pageStart++) { // 비워진 조건 초기식은? pageStart = 1;부터 시작%> 
  						<a href="javascript:pageing('<%=pageStart%>')" class="review-board-aTag"> 
  							<%if (pageStart == nowPage) {%>
- 							<font color="blue"><%}%> [<%=pageStart%>] 
+ 							<font color="#A13FFF"><%}%> [<%=pageStart%>] 
 								<%if (pageStart == nowPage) {%>
 									</font>
 								<%}%> <!-- if절 두개인 이유: 조건에 맞아야만 font 코드 적용되도록-->
 						</a> 
-				<%} // --- for%> 
-				<!-- 다음블럭 이동 기능 (마지막블럭은 없는 기능)--> 
+					<%} // --- for%> 
+				<!-- 다음블럭 이동 기능 (마지막블럭만 없는 기능)--> 
 				<%if (totalBlock > nowBlock) {%>
-					<a href="javascript:block('<%=nowBlock + 1%>')" class="review-board-aTag">...next</a> 
+					<a href="javascript:block('<%=nowBlock + 1%>')" class="review-board-aTag">&nbsp다음&nbsp</a> 
 				<%}%> 
 				<!-- 페이징 및 블럭 End -->
 				</td>
-				<!-- 처음으로 버튼 눌렀을 때 list()함수 호출 -->
-				<td align="right"><a href="javascript:list()" class="review-board-aTag">[처음으로]</a> 
+				</tr>
+				<tr>
+				<!-- '처음으로' 버튼 눌렀을 때 list()함수 호출 -> listFrm submut -> reload = true 전달 -> keyField, keyWord 초기화됨 -->
+				<td align="right">
+					<a href="javascript:list()" class="review-board-aTag"><button type="button" class="btn btn-outline-secondary">처음으로</button></a> 
 				</td>
 			</tr>
 		</table>
 		<!-- 게시물 리스트 End -->
-		<hr width="750">
-		<form name="searchFrm">
+
+		<form name="searchFrm" class="searchFrm">
 			<table width="600" cellpadding="4" cellspacing="0">
 				<tr>
-					<td align="center" valign="bottom"><select name="keyField" size="1">
-							<option value="name">이 름</option>
+					<td align="center" valign="bottom">
+						<select name="keyField" size="1" class="form-select">
+							<option value="rid">작성자 ID</option>
 							<option value="subject">제 목</option>
 							<option value="content">내 용</option>
-					</select> <!-- 디폴트 text type --> <input name="keyWord" size="16"> 
-					<input type="hidden" name="nowPage" value="1"> <!-- 검색 후 초기화 : 보통 검색 결과가 1페이지부터 보여지므로-->
-					<input type="button" value="찾기" onclick="check()"></td>
+						</select> <!-- 디폴트 text type --> 
+						<input name="keyWord" size="16" class="form-control"> 
+						<input type="hidden" name="nowPage" value="1"> <!-- 검색 후 초기화 : 보통 검색 결과가 1페이지부터 보여지므로-->
+						<input type="button" value="Search" onclick="check()" class="btn btn-outline-secondary reviewSearchBtn">
+					</td>
 				</tr>
 			</table>
 		</form>
