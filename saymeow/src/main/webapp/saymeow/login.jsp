@@ -31,7 +31,7 @@
 			<td colspan="2" align="center"><input type="submit" value="login">
 		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
 		<input type="button" value="회원가입" onclick="location.href='member.jsp';">
-		<input type="button" value="아이디/비밀번호찾기" onclick="location.href='sendAccount.jsp?id=aaa">
+		<input type="button" value="아이디/비밀번호찾기" onclick="location.href='findid.jsp'">
 			</td>
 		</tr>
 </table>
