@@ -216,7 +216,7 @@ nowBlock = (int) Math.ceil((double) nowPage / pagePerBlock); // Ex. 현재 1페이지
 							<td><%=date%></td><!-- 리뷰작성날짜 -->
 							
 							<td>
-								<%if(id.equals(rid) || id==rid){%>
+								<%if(id.equals(rid) || id==rid || id=="admin" || id.equals("admin")){%>
 									<form name="deleteReviewFrm" action="reviewDeleteProc.jsp" method="post">
 										<input type="hidden" name="rnum" value="<%=rnum%>">
 										<input type="hidden" name="filename" value="<%=filename%>">
@@ -286,7 +286,7 @@ nowBlock = (int) Math.ceil((double) nowPage / pagePerBlock); // Ex. 현재 1페이지
 							<%if(id=="admin") {%>
 								<form name="commentFrm" action="admin/commentInsertProc.jsp" method="post">
 									<input type="hidden" name="rnum" value="<%=rnum%>">
-									<input type="hidden" name="cid" value="<%=rcBean.getCid()%>">
+									<input type="hidden" name="cid" value="<%=id%>">
 									<input type="hidden" name="pnum" value="<%=pnum%>">
 									<input type="text" name="comment">
 									<input type="submit" class="btn btn-primary submitBtn" value="작성">

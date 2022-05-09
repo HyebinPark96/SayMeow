@@ -39,7 +39,7 @@ public class RCommentMgr {
 		}
 	}
 	
-	// 리뷰 댓글 전체보기 : 필요있을까?
+	// 리뷰 댓글 전체보기
 	public Vector<RCommentBean> listRComment(int rnum /*리뷰순번*/) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
