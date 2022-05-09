@@ -64,14 +64,40 @@
 
 
 /*reviewBoard.jsp*/
-#review-board .review-board-aTag{
+#review-board .review-board-topic{
+	margin-bottom:1vw;
+}
+
+#review-board .npFrm-td{ /*5개씩, 10개씩, ... 보기*/
+	margin:1vw;
+}
+
+#review-board .table-column{/*리뷰게시판 컬럼*/
+	background-color:#E0B0FF;
+}
+
+#review-board .review-board-aTag{ /*리뷰게시판 a태그들*/
 	text-decoration-line: none;
 	color:black;
 }
 
+#review-board .form-select{ /*x개씩 보기 옵션, 검색 조건 옵션*/
+	width:9vw;
+	display:inline;
+}
 
+#review-board .searchFrm{
+	margin:2vh;
+}
 
+#review-board .form-control{ /*리뷰 검색창*/
+	width:18vw;
+	display:inline;
+}
 
+#review-board .reviewSearchBtn {/*리뷰 검색창 검색버튼*/
+	margin:0 0 0.7vh 0.3vw;
+}
 
 
 

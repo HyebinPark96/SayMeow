@@ -6,9 +6,10 @@
 	int rnum = UtilMgr.parseInt(request, "rnum");
 	String filename = request.getParameter("filename");
 	rMgr.deleteReview(rnum, filename);
+	cMgr.deleteAllRComment(rnum);
 	
-	String msg = "ì‚­ì œë˜ì—ˆìŠµë‹ˆë‹¤!";
-	//cMgr.deleteRComment(rcNum); // ëŒ“ê¸€ì€ ì•„ì§ 
+	String msg = "»èÁ¦µÇ¾ú½À´Ï´Ù!";
+	//cMgr.deleteRComment(rcNum); // ´ñ±ÛÀº ¾ÆÁ÷ 
 %>
 
 <script>
