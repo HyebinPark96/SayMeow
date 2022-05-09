@@ -7,10 +7,10 @@
 			id = (String) session.getAttribute("idKey");
 		} */
 	/* 테스트용 id, mode 임의설정*/
-	id = "admin";
+	id = "aaa";
 		
 	// int mode = request.getParameter("mode");
-	int mode = 1; 
+	int mode = 0; 
 	%>
 	<header class="header">
 		<nav class="navbar navbar-expand-lg navbar-light bg-light">
