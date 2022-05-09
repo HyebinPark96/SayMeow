@@ -11,7 +11,6 @@
 	*/
 	
 	// 테스트
-	int rnum = Integer.parseInt(request.getParameter("rnum"));
 	int onum = 1;
 	int pnum = 1; 
 	String rid = "aaa";
@@ -59,7 +58,6 @@
   					<!-- DB insert할때는 /2 해서 insert -->
   					<input type="range" oninput="star(this)" value="0" step="1" min="0" max="10" name="score"> <!-- 오픈소스 참고 -->
 				</span>
-				<input type="hidden" name="rnum" value="<%=rnum%>">
 				<input type="hidden" name="onum" value="<%=onum%>"> <!-- 마이페이지에서 들고오기 -->
 				<input type="hidden" name="rid" value="<%=rid%>">
 				<input type="hidden" name="pnum" value="<%=pnum%>">

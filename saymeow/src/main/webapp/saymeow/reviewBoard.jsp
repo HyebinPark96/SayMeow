@@ -171,6 +171,7 @@ nowBlock = (int) Math.ceil((double) nowPage / pagePerBlock); // Ex. 현재 1페이지
 							<td width="200">제 목</td>
 							<td width="200">아이디</td>
 							<td width="200">날 짜</td>
+							<td width="100">&nbsp;</td>
 						</tr>
 						<%
 						/* for문 if절의 조건인 i==listSize의 listSize는 LIMIT 함수로 게시글을 불러와서 담은 Vector의 크기이며,
@@ -213,6 +214,16 @@ nowBlock = (int) Math.ceil((double) nowPage / pagePerBlock); // Ex. 현재 1페이지
 							</td>
 							<td><%=rid%></td><!-- 리뷰작성자 -->
 							<td><%=date%></td><!-- 리뷰작성날짜 -->
+							
+							<td>
+								<%if(id.equals(rid) || id==rid){%>
+									<form name="deleteReviewFrm" action="reviewDeleteProc.jsp" method="post">
+										<input type="hidden" name="rnum" value="<%=rnum%>">
+										<input type="hidden" name="filename" value="<%=filename%>">
+										<input type="submit" class="btn btn-primary submitBtn" value="삭제">
+									</form>
+								<%}%>
+							</td>
 						</tr>
 						
 						
@@ -220,7 +231,8 @@ nowBlock = (int) Math.ceil((double) nowPage / pagePerBlock); // Ex. 현재 1페이지
 					
 						<tr style="display:none; text-align:left" class="reviewDetail">
 							<td colspan="5" align="left" style="background-color:pink; width:200;">
-								<form name="reviewDetailFrm" action="reviewUpdate.jsp?rnum=<%=rnum%>" method="POST">
+								<form name="reviewDetailFrm" action="reviewUpdate.jsp?rnum=<%=rnum%>" method="POST" class="reviewDetailFrm">
+									<input type="hidden" name="rnum" value="<%=rnum%>">
 									<input type="hidden" name="onum" value="<%=onum%>">
 									<input type="hidden" name="rid" value="<%=rid%>">
 									<input type="hidden" name="pnum" value="<%=pnum%>">
@@ -239,7 +251,7 @@ nowBlock = (int) Math.ceil((double) nowPage / pagePerBlock); // Ex. 현재 1페이지
 										<img src="storage/<%=filename%>" width="50px" height="50px"><br><br>
 										<input type="hidden" name="filename" value="<%=filename%>">
 									<%} %>
-									<%if(id.equals(rid)) { /*본인리뷰라면 수정버튼 활성화*/%>
+									<%if(id.equals(rid) || id==rid) { /*본인리뷰라면 수정버튼 활성화*/%>
 										<input type="submit" class="btn btn-primary submitBtn" value="수정">
 									<%}%>
 									<hr>
