@@ -2,7 +2,7 @@
 <jsp:useBean id="mBean" class="saymeow.MemberBean" />
 <jsp:useBean id="mMgr" class="saymeow.MemberMgr" />                                      
 <%
-	
+	//<input type="button" value="회원정보수정" onclick="location.href='memberUpdate.jsp';"><<회원정보수정 버튼
 %>
 <!DOCTYPE html> 
 <html> 
