@@ -1,3 +1,4 @@
+<%@page import="saymeow.UtilMgr"%>
 <%@page import="java.util.Vector"%>
 <%@page import="saymeow.ReviewBean"%>
 <%@page contentType="text/html; charset=EUC-KR"%>
@@ -10,6 +11,7 @@
 	*/
 	
 	// 테스트
+	int rnum = Integer.parseInt(request.getParameter("rnum"));
 	int onum = 1;
 	int pnum = 1; 
 	String rid = "aaa";
@@ -33,8 +35,6 @@
 <%@ include file="top.jsp" %>
 </head>
 <body>
-	<%//if(id!=null){%> 
-	<%if(true){%> <!-- 테스트 끝나면 위 코드로 수정하기 -->
 	<div id="review-board-container" style="text-align:center;">
 		<div class="review-section">
 			<h3 class="title">상품구매리뷰</h3>
@@ -57,24 +57,20 @@
   					★★★★★ <!-- 빈 별 -->
   					<span>★★★★★</span> <!-- 배경색 있는 별 -->
   					<!-- DB insert할때는 /2 해서 insert -->
-  					<input type="range" oninput="star(this)" value="1" step="1" min="0" max="10" name="score"> <!-- 오픈소스 참고 -->
+  					<input type="range" oninput="star(this)" value="0" step="1" min="0" max="10" name="score"> <!-- 오픈소스 참고 -->
 				</span>
+				<input type="hidden" name="rnum" value="<%=rnum%>">
 				<input type="hidden" name="onum" value="<%=onum%>"> <!-- 마이페이지에서 들고오기 -->
 				<input type="hidden" name="rid" value="<%=rid%>">
 				<input type="hidden" name="pnum" value="<%=pnum%>">
-				<input type="hidden" name="rnum">
+				
 				<div class="d-grid gap-2 d-md-block">
   					<input type="submit" class="btn btn-primary submitBtn" type="submit" value="글쓰기">
 				</div>
 			</form>
 		</div>
 	</div>
-	
-	<%} else {%>	
-		<div id="review-board-container">
-			<%out.println("로그인을 먼저 진행해주세요");%>
-		</div>
-	<%}%>
+
 <!-- 부트스트랩 JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" 
         integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"

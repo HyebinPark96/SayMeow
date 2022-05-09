@@ -45,7 +45,7 @@ public class RCommentMgr {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		String sql = null;
-		Vector<RCommentBean> vlist = new Vector<RCommentBean>();
+		Vector<RCommentBean> cvlist = new Vector<RCommentBean>();
 		try {
 			con = pool.getConnection();
 			sql = "SELECT * "
@@ -56,23 +56,23 @@ public class RCommentMgr {
 			rs = pstmt.executeQuery();
 			// 아래 과정 빠뜨리지 말 것 
 			while(rs.next()) {
-				RCommentBean bean = new RCommentBean();
+				RCommentBean rcBean = new RCommentBean();
 				
-				bean.setRcNum(rs.getInt("rcNum"));
-				bean.setRnum(rs.getInt("rnum"));
-				bean.setCid(rs.getString("cid"));
-				bean.setPnum(rs.getInt("pnum"));
-				bean.setRcDate(rs.getString("rcDate"));
-				bean.setComment(rs.getString("comment"));
+				rcBean.setRcNum(rs.getInt("rcNum"));
+				rcBean.setRnum(rs.getInt("rnum"));
+				rcBean.setCid(rs.getString("cid"));
+				rcBean.setPnum(rs.getInt("pnum"));
+				rcBean.setRcDate(rs.getString("rcDate"));
+				rcBean.setComment(rs.getString("comment"));
 				
-				vlist.addElement(bean);
+				cvlist.addElement(rcBean);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			pool.freeConnection(con, pstmt, rs);
 		}
-		return vlist;
+		return cvlist;
 	}
 	
 	// 리뷰 댓글 한 개 삭제

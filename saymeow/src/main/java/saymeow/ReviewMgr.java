@@ -286,7 +286,7 @@ public class ReviewMgr {
 			// 새로운 리뷰 속성들
 			String subject = multi.getParameter("subject");
 			String content = multi.getParameter("content");
-			double score = Integer.parseInt(multi.getParameter("score"));
+			double score = (Double.parseDouble(multi.getParameter("score"))/2);// 0.5점단위로 받기
 			String filename = multi.getFilesystemName("filename"); // !!새로운 파일명!!
 			
 			if(filename!=null&&!filename.equals("")) { // 같은 파일명 업로드할 수 있으니 기존파일은 무조건 삭제함

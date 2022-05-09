@@ -23,6 +23,11 @@
 		document.reviewReadFrm.action = "reviewDeleteProc.jsp"; // 액션 지정
 		document.reviewReadFrm.submit(); // 제출
 	}
+	
+	function submitForUpdate() { // 수정용 폼 제출
+		document.reviewReadFrm.action = "reviewUpdate.jsp"; // 액션 지정
+		document.reviewReadFrm.submit(); // 제출
+	}
 </script>
 <!-- 부트스트랩 CSS -->
 <link
@@ -38,12 +43,14 @@
 		<div class="review-section">
 			<h3 class="title" style="text-align:center;">상품구매리뷰</h3>
 			<!-- 리뷰 작성 폼 -->
-			<!-- GET방식과 multipart 같이 사용 -->
-			<form name="reviewReadFrm" method="post" 
-			> <!-- 파일업로드 할 수도 있으므로 post로 보내기 -->
+			<form name="reviewReadFrm" method="post"> <!-- 파일업로드 할 수도 있으므로 post로 보내기 -->
 				<div class="mb-3">
   					<label for="exampleFormControlInput1" class="form-label">순번 :&nbsp</label>
   					<input name="rnum" value="<%=rBean.getRnum()%>" readonly>
+				</div>
+				<div class="mb-3">
+  					<label for="exampleFormControlInput1" class="form-label">작성자 :&nbsp</label>
+  					<input name="rid" value="<%=rBean.getRid()%>" readonly>
 				</div>
 				<div class="mb-3">
   					<label for="exampleFormControlInput1" class="form-label">제목 :&nbsp</label>
@@ -80,20 +87,16 @@
 					</div>
 				<input type="hidden" name="pnum" value="<%=rBean.getPnum()%>" readonly>
 				
-				<%if(id == rBean.getRid()){ /*로그인id와 리뷰작성자id 같다면*/%>
+				<%if(id.equals(rBean.getRid())){ /*로그인id와 리뷰작성자id 같다면*/%>
 				<div class="d-grid gap-2 d-md-block" style="text-align:center;">
-  					<input type="submit" class="btn btn-primary submitBtn" value="수정" >
-				</div>
-				<div class="d-grid gap-2 d-md-block" style="text-align:center;">
-  					<input type="submit" class="btn btn-primary submitBtn" value="삭제" >
+  					<input type="submit" class="btn btn-primary submitBtn" value="수정" onclick="submitForUpdate()">
+  					<input type="submit" class="btn btn-primary submitBtn" value="삭제" onclick="submitForDelete()">
 				</div>
 				<%} else if(id=="admin"){%>
 				<div class="d-grid gap-2 d-md-block" style="text-align:center;">
   					<input type="submit" class="btn btn-primary submitBtn" onclick="submitForDelete()" value="[관리자권한] 삭제">
 				</div>
-				<%} else{%>
-					
-				<%} %>
+				<%}%>
 			</form>
 		</div>
 	</div>

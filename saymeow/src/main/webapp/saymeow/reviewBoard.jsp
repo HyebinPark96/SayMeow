@@ -1,4 +1,6 @@
 <!-- 임포트 에러난다면 지우고 다시 임포트하면 해결됨 -->
+
+<%@page import="saymeow.RCommentBean"%>
 <%@page import="saymeow.ReviewBean"%>
 <%@page import="java.util.Vector"%>
 <%@page import="saymeow.UtilMgr"%>
@@ -6,6 +8,7 @@
 <!-- 리뷰와 댓글 mgr 객체생성 -->
 <jsp:useBean id="rMgr" class="saymeow.ReviewMgr" />
 <jsp:useBean id="cMgr" class="saymeow.RCommentMgr" />
+<jsp:useBean id="rcBean" class="saymeow.RCommentBean"/>
 
 <% // 페이징 처리에 필요한 변수 선언
 int totalRecord = 0; // 총 게시물 수 (최초 0개)
@@ -98,10 +101,15 @@ nowBlock = (int) Math.ceil((double) nowPage / pagePerBlock); // Ex. 현재 1페이지
 	}
 
 	// 게시글 읽기
-	function read(rnum) {
-		document.readFrm.rnum.value = rnum;
-		document.readFrm.action = "reviewRead.jsp"; // JS에서 action 지정 가능
-		document.readFrm.submit(); // 값 전달
+	function read(i) {
+		// document.readFrm.rnum.value = rnum;
+		// document.readFrm.action = "reviewRead.jsp"; // JS에서 action 지정 가능
+		// document.readFrm.submit(); // 값 전달
+		
+		/*테스트 : 토글식으로 구현해보기*/
+		if(document.getElementsByClassName('reviewDetail')[i].style.display = 'hidden'){
+			document.getElementsByClassName('reviewDetail')[i].setAttribute("style","display:block");
+		}
 	}
 </script>
 <!-- 혜빈 JS -->
@@ -158,11 +166,11 @@ nowBlock = (int) Math.ceil((double) nowPage / pagePerBlock); // Ex. 현재 1페이지
 					%>
 					<table cellspacing="0" class="table table-hover">
 						<tr align="center" class="table-column">
-							<td width="100">번 호</td>
-							<td width="150">별 점</td>
-							<td width="250">제 목</td>
-							<td width="100">아이디</td>
-							<td width="150">날 짜</td>
+							<td width="200">번 호</td>
+							<td width="200">별 점</td>
+							<td width="200">제 목</td>
+							<td width="200">아이디</td>
+							<td width="200">날 짜</td>
 						</tr>
 						<%
 						/* for문 if절의 조건인 i==listSize의 listSize는 LIMIT 함수로 게시글을 불러와서 담은 Vector의 크기이며,
@@ -195,7 +203,7 @@ nowBlock = (int) Math.ceil((double) nowPage / pagePerBlock); // Ex. 현재 1페이지
 							<td><%=totalRecord - start - i%></td><!-- 리뷰순번 : 가장 최신글이 위에 오는 구조 -->
 							<td><%=score%></td>
 							<td align="left">
-								<a href="javascript:read('<%=rnum%>')" class="review-board-aTag"><%=subject%></a> <!-- 리뷰제목 --> 
+								<a href="javascript:read('<%=i%>')" class="review-board-aTag"><%=subject%></a> <!-- 리뷰제목 --> 
 								<%if (filename != null) {%>
 									<img src="img/file_icon1.png" width="15px" height="15px" align="middle"> <!-- 파일있으면 이모티콘 보임 -->
 								<%}%>
@@ -206,6 +214,82 @@ nowBlock = (int) Math.ceil((double) nowPage / pagePerBlock); // Ex. 현재 1페이지
 							<td><%=rid%></td><!-- 리뷰작성자 -->
 							<td><%=date%></td><!-- 리뷰작성날짜 -->
 						</tr>
+						
+						
+						<!-- 리뷰누르면 페이지 이동없이 아래로 뜨도록 -->
+					
+						<tr style="display:none; text-align:left" class="reviewDetail">
+							<td colspan="5" align="left" style="background-color:pink; width:200;">
+								<form name="reviewDetailFrm" action="reviewUpdate.jsp?rnum=<%=rnum%>" method="POST">
+									<input type="hidden" name="onum" value="<%=onum%>">
+									<input type="hidden" name="rid" value="<%=rid%>">
+									<input type="hidden" name="pnum" value="<%=pnum%>">
+									<input type="hidden" name="date" value="<%=date%>">
+									<input type="hidden" name="subject" value="<%=subject%>">
+									<input type="hidden" name="content" value="<%=content%>">
+									<input type="hidden" name="score" value="<%=score%>">
+									
+									[게시글]<br>
+									작성자 ID : <%=rid%><br>
+									작성날짜 : <%=date%><br>
+									제목 : <%=subject%><br>
+									내용 : <%=content%><br>
+									별점 : <%=score%><br>
+									<%if(filename!=null){ %>
+										<img src="storage/<%=filename%>" width="50px" height="50px"><br><br>
+										<input type="hidden" name="filename" value="<%=filename%>">
+									<%} %>
+									<%if(id.equals(rid)) { /*본인리뷰라면 수정버튼 활성화*/%>
+										<input type="submit" class="btn btn-primary submitBtn" value="수정">
+									<%}%>
+									<hr>
+								</form>
+									[댓글]<br>
+									<%
+									Vector<RCommentBean> cvlist = cMgr.listRComment(rnum);
+									for(int j=0; j<cvlist.size(); j++){
+										rcBean = cvlist.get(j);
+										
+										int rcNum = rcBean.getRcNum();
+										String cid = rcBean.getCid();
+										String rcDate = rcBean.getRcDate();
+										String comment = rcBean.getComment();
+										
+										if(!cvlist.isEmpty()) {
+									%>
+										<form name="commentListFrm" action="admin/commentDeleteProc.jsp" method="POST">
+											순번 : <%=j+1%><br>
+											작성자 ID : <%=cid %><br>
+											작성날짜 : <%=rcDate %><br>
+											댓글내용 : <%=comment%><br>
+											<%if(id=="admin" || id.equals("admin")){%> <!-- 관리자만 모든 댓글 삭제 가능 -->
+											<input type="hidden" name="rcNum" value="<%=rcNum%>">
+											<input type="submit" class="btn btn-primary submitBtn" value="삭제">
+											<%}%>
+											<br><br>
+										</form>
+									<%} %>
+								<%} %>
+									<hr>
+							<%if(id=="admin") {%>
+								<form name="commentFrm" action="admin/commentInsertProc.jsp" method="post">
+									<input type="hidden" name="rnum" value="<%=rnum%>">
+									<input type="hidden" name="cid" value="<%=rcBean.getCid()%>">
+									<input type="hidden" name="pnum" value="<%=pnum%>">
+									<input type="text" name="comment">
+									<input type="submit" class="btn btn-primary submitBtn" value="작성">
+								</form>
+							<%}%>
+							</td>
+						</tr>
+						
+						
+						
+						
+						
+						
+						
+						
 						<%} // --- for문%>
 					</table> <%} // ---if-else문%>
 				</td>
