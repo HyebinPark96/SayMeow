@@ -1,11 +1,11 @@
-<!-- 푸터 -->
-<%@page contentType="text/html; charset=EUC-KR" pageEncoding="EUC-KR"%>
+<!-- bottom.jsp : 페이지 하단 레이아웃 -->
+<%@page contentType="text/html; charset=EUC-KR"%>
 <%
 
 %>
-   <section class="footer">
+   <section class="footer" style="text-align: center;">
         <!-- Footer -->
-        <footer class="text-center text-white">
+        <footer class="text-center text-white" style="background: linear-gradient(to right, #A13FFF, #FFB4FF); color:#d3d3d3;">
           <!-- Grid container -->
           <div class="container p-4 pb-0">
             <!-- Section: CTA -->
@@ -22,19 +22,11 @@
           <!-- Grid container -->
       
           <!-- Copyright -->
-          <div class="text-center p-3 bottom-copyright" style="background-color: rgba(0, 0, 0, 0.2);">
-            &copy; 2022 Copyright:
-            <a class="text-white bottom-aTag" href="#">saymeow.com</a>
+          <div class="text-center p-3 bottom-copyright" style="background-color: rgba(0, 0, 0, 0.2); color:white;">
+				<label>&copy; 2022 Copyright:</label>
+            	<a class="text-white bottom-aTag" style="background:none;" href="#">saymeow.com</a>
           </div>
           <!-- Copyright -->
         </footer>
         <!-- Footer -->
       </section>
-      
-	<!-- 부트스트랩 JS -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" 
-        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
-        crossorigin="anonymous">
-</script>
-</body>
-</html>

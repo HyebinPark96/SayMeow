@@ -1,17 +1,17 @@
 @charset "EUC-KR";
 
-/* 
-이 파일은 top.jsp의 스타일시트 입니다. 
-충돌방지 위해 절대 수정 금지!!
-*/
+#bootstrap-overrides .navbar {
+	margin:0;
+	padding:0;
+}
 
-* {
-	margin : 0;
+#bootstrap-overrides .container-fluid{
+	margin: 0;
 	padding: 0;
 }
 
-.top{
-    text-align: center;
+#bootstrap-overrides .collapse{
+	height: 50px;
 }
 
 #bootstrap-overrides .navbar-brand{
@@ -21,41 +21,30 @@
 	margin-left:10px;
 }
 
-#bootstrap-overrides .nav-item-space{
-	font-size:1.3em;
-	letter-spacing: 5px; 
-	margin:0 10px;
-	
-}
-
 #bootstrap-overrides .input-group{
 	text-align:center;
 	padding-left:10%;
-	width: 50vw;
+	width: 70%;
 }
 
 #bootstrap-overrides .form-control{
-	width:30vw;
+	width:30%;
 }
 
 #bootstrap-overrides .input-group-text{
 	display:inline;
-	width:10vw;
+	width:20%;
 	text-align: center;
 	text-decoration-line: none;
 	background-color:#A13FFF;
 	color:white;
 }
 
-#bootstrap-overrides .top-aTags{
-	width:17vw;
-}
-
 #bootstrap-overrides .aTag {
 	color:#808080;
+	width:15%;
 	text-align: center;
 	font-size: 1.1em;
-	width:10vw;
 	text-decoration-line: none;
 }
 
@@ -65,14 +54,37 @@
 	margin: 0 2px;
 	border: 3px solid #A13FFF;
   	border-radius: 5px;
+
+}
+
+#bootstrap-overrides .second-nav{
+	height: 100%;
 }
 
 #bootstrap-overrides .categories{
-	width:50vw;
+	width:50%;
 	font-size: 1.5em;
 	margin: 0 auto;
 	display: flex;
     align-items: center;
     justify-content: center;
+    height: 100%;
     color:#d3d3d3;
+}
+
+
+#bootstrap-overrides .text-white{
+	background: linear-gradient(to right, #A13FFF, #FFB4FF);
+	color:#d3d3d3;
+}
+
+#bootstrap-overrides .container{
+	height:80px;
+	display: flex;
+	justify-content: center;
+	align-items:center;
+}
+
+#bootstrap-overrides .bottom-aTag{
+	background:none;
 }
