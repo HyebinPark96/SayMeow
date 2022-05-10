@@ -134,46 +134,48 @@ function read(i) {
     		<a href="adminSales.jsp"><button class="nav-link" id="v-pills-settings-tab" data-bs-toggle="pill" data-bs-target="#v-pills-settings" type="button" role="tab" aria-controls="v-pills-settings" aria-selected="false">매출관리</button></a>
     		<a href="#"><button class="nav-link" id="v-pills-settings-tab" data-bs-toggle="pill" data-bs-target="#v-pills-settings" type="button" role="tab" aria-controls="v-pills-settings" aria-selected="false">판매데이터</button></a>
 		</div>
-		<div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">리뷰관리</div>
-    		<div align="center" id="review-board">
-			<br />
-			<h2 class="review-board-topic">리뷰</h2>
-			<br/>
-			<table>
-				<tr>
-					<td>
-						<!-- action 생략이므로 재귀호출 -->
-						<form name="npFrm" method="post">
-							<!-- select태그의 size속성 : 한번에 보일 옵션의 개수, onchange() : 아이템 바꿀 때마다 -->
-							<select name="numPerPage" size="1" onchange="numPerFn(this.form.numPerPage.value)" class="npFrm-td form-select form-select-numPerPage">
-								<!-- 5,10,15,20 중 하나 -->
-								<option value="5">5개씩 보기</option>
-								<option value="10" selected>10개씩 보기</option>
-								<option value="15">15개씩 보기</option>
-								<option value="30">30개씩 보기</option>
-							</select>
-						</form> 
-						<script>
-							<!-- if) '20개 보기' 선택 후, 게시글 읽고 리스트로 돌아와도 기존 numPerPage 유지된 상태로 list.jsp 호출하기 위함-->
-							document.npFrm.numPerPage.value = <%=numPerPage%>;
-						</script>
-					</td>
-					<td width="600" align="right" class="npFrm-td">
-						현재페이지 : <%=nowPage%> / 전체 페이지 : <%=totalPage%>
-					</td>
-				</tr>
-			</table>
-			<!-- 게시물 리스트 Start -->
-			<table>
-				<tr>
-					<td align="center" colspan="2">
-						<%
-						Vector<ReviewBean> vlist = rMgr.getReviewList(keyField, keyWord, start, cnt);
-						int listSize = vlist.size(); // 각 페이지가 담는 총 레코드갯수 (최대 10개, 마지막 페이지는 10 이하의 값을 가질 수도 있음)
-						if (vlist.isEmpty()) {
-							out.println("등록된 게시물이 없습니다.");
-						} else {
-						%>
+		<div class="tab-content" id="v-pills-tabContent">
+			리뷰관리
+		</div>
+    	<div align="center" id="review-board">
+		<br />
+		<h2 class="review-board-topic">리뷰</h2>
+		<br/>
+		<table>
+			<tr>
+				<td>
+					<!-- action 생략이므로 재귀호출 -->
+					<form name="npFrm" method="post">
+						<!-- select태그의 size속성 : 한번에 보일 옵션의 개수, onchange() : 아이템 바꿀 때마다 -->
+						<select name="numPerPage" size="1" onchange="numPerFn(this.form.numPerPage.value)" class="npFrm-td form-select form-select-numPerPage">
+							<!-- 5,10,15,20 중 하나 -->
+							<option value="5">5개씩 보기</option>
+							<option value="10" selected>10개씩 보기</option>
+							<option value="15">15개씩 보기</option>
+							<option value="30">30개씩 보기</option>
+						</select>
+					</form> 
+					<script>
+						<!-- if) '20개 보기' 선택 후, 게시글 읽고 리스트로 돌아와도 기존 numPerPage 유지된 상태로 list.jsp 호출하기 위함-->
+						document.npFrm.numPerPage.value = <%=numPerPage%>;
+					</script>
+				</td>
+				<td width="600" align="right" class="npFrm-td">
+					현재페이지 : <%=nowPage%> / 전체 페이지 : <%=totalPage%>
+				</td>
+			</tr>
+		</table>
+		<!-- 게시물 리스트 Start -->
+		<table>
+			<tr>
+				<td align="center" colspan="2">
+					<%
+					Vector<ReviewBean> vlist = rMgr.getReviewList(keyField, keyWord, start, cnt);
+					int listSize = vlist.size(); // 각 페이지가 담는 총 레코드갯수 (최대 10개, 마지막 페이지는 10 이하의 값을 가질 수도 있음)
+					if (vlist.isEmpty()) {
+						out.println("등록된 게시물이 없습니다.");
+					} else {
+					%>
 						<table cellspacing="0" class="table table-hover">
 							<tr align="center" class="table-column">
 								<td width="200">번 호</td>
@@ -338,7 +340,12 @@ function read(i) {
 						</td>
 					</tr>
 					<tr>
-						<!-- '처음으로' 버튼 눌렀을 때 list()함수 호출 -> listFrm submut -> reload = true 전달 -> keyField, keyWord 초기화됨 -->
+						<td>
+							<input type="button" value="전체삭제" name="allDeleteBtn">
+						</td>
+					</tr>
+					<tr>
+						<!-- '처음으로' 버튼 눌렀을 때 list()함수 호출 -> listFrm submit -> reload = true 전달 -> keyField, keyWord 초기화됨 -->
 						<td align="right">
 							<a href="javascript:list()" class="review-board-aTag"><button type="button" class="btn btn-outline-secondary">처음으로</button></a> 
 						</td>
