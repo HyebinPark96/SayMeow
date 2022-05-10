@@ -100,5 +100,16 @@
 }
 
 
+/*adminMain.jsp*/
+/*adminReviewBoard.jsp*/
+#adminMain .nav > a{
+	text-decoration-line: none;
+}
 
+
+
+/*adminReviewBoard.jsp*/
+#adminReviewBoard .nav > a{
+	text-decoration-line: none;
+}
 
