@@ -11,6 +11,25 @@
 <jsp:useBean id="cMgr" class="saymeow.RCommentMgr" />
 <jsp:useBean id="rcBean" class="saymeow.RCommentBean"/>
 
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>회원 리뷰관리</title>
+
+<!-- 혜빈 CSS -->
+<link rel="stylesheet" href="css/styleHB.css">
+<!-- 혜빈 JS -->
+<script src="scriptHB.js"></script>
+<!-- 외부 CSS -->
+<link rel="stylesheet" href="css/style.css">
+<!-- 부트스트랩 CSS -->
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+	crossorigin="anonymous">
+<%@ include file="top.jsp" %>
 <% // 페이징 처리에 필요한 변수 선언
 int totalRecord = 0; // 총 게시물 수 (최초 0개)
 int numPerPage = 10; // 한 페이지당 불러올 레코드 개수 (디폴트 10개)
@@ -38,7 +57,7 @@ if (request.getParameter("reload") != null && request.getParameter("reload").equ
 }
 
 // 최종 전체 리뷰 수 
-totalRecord = rMgr.getTotalCount(keyField, keyWord); // 검색일 때만 keyField, keyWord 값 설정되어 있고, 아닐 때는 "" 값 가짐
+totalRecord = rMgr.getTotalCountById(id); // 검색일 때만 keyField, keyWord 값 설정되어 있고, 아닐 때는 "" 값 가짐
 
 // 페이지 클릭(list()함수) OR 게시글 읽고 '리스트로' 클릭 -> GET방식으로 위치해있던 nowPage 전달
 if (request.getParameter("nowPage") != null) {
@@ -59,11 +78,9 @@ totalBlock = (int) Math.ceil((double) totalPage / pagePerBlock); // Ex. 총 67페�
 nowBlock = (int) Math.ceil((double) nowPage / pagePerBlock); // Ex. 현재 1페이지 / 한 블럭당 15페이지
 
 %>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="EUC-KR">
-<title>관리자 리뷰관리</title>
+
+
+
 <script type="text/javascript">
 // 페이징 처리
 function pageing(page) {
@@ -109,58 +126,19 @@ function read(i) {
 }
 
 </script>
-<!-- 혜빈 CSS -->
-<link rel="stylesheet" href="../css/styleHB.css">
-<!-- 혜빈 JS -->
-<script src="../scriptHB.js"></script>
-<!-- 외부 CSS -->
-<link rel="stylesheet" href="../css/style.css">
-<!-- 부트스트랩 CSS -->
-<link
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
-	rel="stylesheet"
-	integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
-	crossorigin="anonymous">
-<%@ include file="../top.jsp" %>
 </head>
 <body id="adminReviewBoard">
 	<div class="d-flex align-items-start">
 		<div class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-			<a href="adminOrder.jsp"><button class="nav-link" id="v-pills-home-tab" data-bs-toggle="pill" data-bs-target="#v-pills-home" type="button" role="tab" aria-controls="v-pills-home" aria-selected="true">주문관리</button></a>
-    		<a href="adminMember.jsp"><button class="nav-link" id="v-pills-profile-tab" data-bs-toggle="pill" data-bs-target="#v-pills-profile" type="button" role="tab" aria-controls="v-pills-profile" aria-selected="false">회원관리</button></a>
-    		<a href="adminReviewBoard.jsp"><button class="nav-link active" id="v-pills-messages-tab" data-bs-toggle="pill" data-bs-target="#v-pills-messages" type="button" role="tab" aria-controls="v-pills-messages" aria-selected="false">리뷰관리</button></a>
-    		<a href="adminProduct.jsp"><button class="nav-link" id="v-pills-settings-tab" data-bs-toggle="pill" data-bs-target="#v-pills-settings" type="button" role="tab" aria-controls="v-pills-settings" aria-selected="false">상품관리</button></a>
-    		<a href="adminSales.jsp"><button class="nav-link" id="v-pills-settings-tab" data-bs-toggle="pill" data-bs-target="#v-pills-settings" type="button" role="tab" aria-controls="v-pills-settings" aria-selected="false">매출관리</button></a>
-    		<a href="#"><button class="nav-link" id="v-pills-settings-tab" data-bs-toggle="pill" data-bs-target="#v-pills-settings" type="button" role="tab" aria-controls="v-pills-settings" aria-selected="false">판매데이터</button></a>
+			<a href="adminOrder.jsp"><button class="nav-link" id="v-pills-home-tab" data-bs-toggle="pill" data-bs-target="#v-pills-home" type="button" role="tab" aria-controls="v-pills-home" aria-selected="true">주문내역조회</button></a>
+    		<a href="adminMember.jsp"><button class="nav-link" id="v-pills-profile-tab" data-bs-toggle="pill" data-bs-target="#v-pills-profile" type="button" role="tab" aria-controls="v-pills-profile" aria-selected="false">회원정보 수정</button></a>
+    		<a href="adminReviewBoard.jsp"><button class="nav-link active" id="v-pills-messages-tab" data-bs-toggle="pill" data-bs-target="#v-pills-messages" type="button" role="tab" aria-controls="v-pills-messages" aria-selected="false">내리뷰목록</button></a>
+    		<a href="adminProduct.jsp"><button class="nav-link" id="v-pills-settings-tab" data-bs-toggle="pill" data-bs-target="#v-pills-settings" type="button" role="tab" aria-controls="v-pills-settings" aria-selected="false">회원탈퇴</button></a>
 		</div>
     	<div align="center" id="review-board" style="margin:0 auto;">
 		<br />
-		<h2 class="review-board-topic">리뷰</h2>
+		<h2 class="review-board-topic">내가 작성한 리뷰</h2>
 		<br/>
-		<table>
-			<tr>
-				<td>
-					<!-- action 생략이므로 재귀호출 -->
-					<form name="npFrm" method="post">
-						<!-- select태그의 size속성 : 한번에 보일 옵션의 개수, onchange() : 아이템 바꿀 때마다 -->
-						<select name="numPerPage" size="1" onchange="numPerFn(this.form.numPerPage.value)" class="npFrm-td form-select form-select-numPerPage">
-							<!-- 5,10,15,20 중 하나 -->
-							<option value="5">5개씩 보기</option>
-							<option value="10" selected>10개씩 보기</option>
-							<option value="15">15개씩 보기</option>
-							<option value="30">30개씩 보기</option>
-						</select>
-					</form> 
-					<script>
-						<!-- if) '20개 보기' 선택 후, 게시글 읽고 리스트로 돌아와도 기존 numPerPage 유지된 상태로 list.jsp 호출하기 위함-->
-						document.npFrm.numPerPage.value = <%=numPerPage%>;
-					</script>
-				</td>
-				<td width="600" align="right" class="npFrm-td">
-					현재페이지 : <%=nowPage%> / 전체 페이지 : <%=totalPage%>
-				</td>
-			</tr>
-		</table>
 		<!-- 게시물 리스트 Start -->
 		<table>
 			<tr>
@@ -206,6 +184,7 @@ function read(i) {
 
 								// 리뷰 댓글 수 count
 								int rCount = cMgr.getRCommentCount(rnum);
+								if(rid.equals(id)){
 						%>
 							<!-- 각 열(주제)에 맞는 값 반복문으로 들고옴 -->
 							<tr align="center">
@@ -214,7 +193,7 @@ function read(i) {
 								<td align="left">
 									<a href="javascript:read('<%=i%>')" class="review-board-aTag"><%=subject%></a> <!-- 리뷰제목 --> 
 									<%if (filename != null) {%>
-										<img src="../img/file_icon1.png" width="15px" height="15px" align="middle"> <!-- 파일있으면 이모티콘 보임 -->
+										<img src="img/file_icon1.png" width="15px" height="15px" align="middle"> <!-- 파일있으면 이모티콘 보임 -->
 									<%}%>
 									<%if (rCount > 0) {%> <!-- 댓글있다면 --> 
 										<font color="red">(<%=rCount%>)</font> <!-- 빨간색으로 (댓글수) 보임 --> 
@@ -223,13 +202,11 @@ function read(i) {
 								<td><%=rid%></td><!-- 리뷰작성자 -->
 								<td><%=date%></td><!-- 리뷰작성날짜 -->
 								<td>
-									<%if(id.equals(rid) || id==rid || id=="admin" || id.equals("admin")){%>
-										<form name="deleteReviewFrm" action="reviewDeleteProc.jsp" method="post">
-											<input type="hidden" name="rnum" value="<%=rnum%>">
-											<input type="hidden" name="filename" value="<%=filename%>">
-											<input type="submit" class="btn btn-primary submitBtn" value="삭제">
-										</form>
-									<%}%>
+									<form name="deleteReviewFrm" action="reviewDeleteProc.jsp" method="post">
+										<input type="hidden" name="rnum" value="<%=rnum%>">
+										<input type="hidden" name="filename" value="<%=filename%>">
+										<input type="submit" class="btn btn-primary submitBtn" value="삭제">
+									</form>
 								</td>
 							</tr>
 							<!-- 리뷰누르면 페이지 이동없이 아래로 뜨도록 -->
@@ -260,7 +237,7 @@ function read(i) {
 										<%}%>
 										<hr>
 									</form>
-									[댓글]<br>
+																		[댓글]<br>
 									<%
 									Vector<RCommentBean> cvlist = cMgr.listRComment(rnum);
 									for(int j=0; j<cvlist.size(); j++){
@@ -287,103 +264,79 @@ function read(i) {
 										<%} %>
 									<%} %>
 									<hr>
-								<%if(id=="admin") {%>
-									<form name="commentFrm" action="admin/commentInsertProc.jsp" method="post">
-										<input type="hidden" name="rnum" value="<%=rnum%>">
-										<input type="hidden" name="cid" value="<%=id%>">
-										<input type="hidden" name="pnum" value="<%=pnum%>">
-										<input type="text" name="comment">
-										<input type="submit" class="btn btn-primary submitBtn" value="작성">
-									</form>
-								<%}%>
 								</td>
 							</tr>
-							<%} // --- for문%>
-						</table> <%} // ---if-else문%>
+						<%} //-- if(rid==id)문%>
+					<%} // --- for문%>
+					</table> 
+				<%} // ---if-else문%>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2"><br><br>
+		</tr>
+		<%if(totalRecord>1){ %>
+		<%-- <%out.println(totalRecord); %> 테스트용 !! --%>
+		<tr>
+			<td align="center">
+				<!-- 페이징 및 블럭 Start --> 
+				<!-- 이전블럭 이동(첫블럭에서는 없어야 함)--> 
+				<%if (nowBlock > 1) {%>
+					<a href="javascript:block('<%=nowBlock - 1/*이전블럭*/%>')" class="review-board-aTag">&nbsp;이전&nbsp;</a> 
+				<%}%> <!-- 페이징(특정블럭) --> 
+				<%// 아래변수로 for문 돌리면 최초 1~16 -> 1~15까지 반복
+				int pageStart = (nowBlock - 1) * pagePerBlock + 1; /*최초1, 16, 31, ...*/
+				/*마지막 블럭은 15페이지가 안될 수 있으므로 삼항연산자 사용*/
+				int pageEnd = (pageStart + pagePerBlock /*15*/) < totalPage ? pageStart + pagePerBlock : totalPage + 1; 
+
+ 				// 반복문 (15번씩 반복, 마지막 블럭에서는 91~101페이지까지만 반복됨)
+ 				for (; pageStart < pageEnd; pageStart++) { // 비워진 조건 초기식은? pageStart = 1;부터 시작%> 
+ 					<a href="javascript:pageing('<%=pageStart%>')" class="review-board-aTag"> 
+ 						<%if (pageStart == nowPage) {%>
+ 								<font color="#A13FFF">
+ 						<%}%> 
+ 						[<%=pageStart%>] 
+						<%if (pageStart == nowPage) {%>
+							</font>
+						<%}%> <!-- if절 두개인 이유: 조건에 맞아야만 font 코드 적용되도록-->
+						</a> 
+					<%} // --- for%> 
+					<!-- 다음블럭 이동 기능 (마지막블럭만 없는 기능)--> 
+					<%if (totalBlock > nowBlock) {%>
+						<a href="javascript:block('<%=nowBlock + 1%>')" class="review-board-aTag">&nbsp;다음&nbsp;</a> 
+					<%}%> 
+					<!-- 페이징 및 블럭 End -->
+				</td>
+			</tr>
+			<%} // --totalRecord>1 if문 %>
+				<tr>
+					<!-- '처음으로' 버튼 눌렀을 때 list()함수 호출 -> listFrm submit -> reload = true 전달 -> keyField, keyWord 초기화됨 -->
+					<td align="right">
+						<a href="javascript:list()" class="review-board-aTag"><button type="button" class="btn btn-outline-secondary">처음으로</button></a> 
 					</td>
 				</tr>
-				<tr>
-					<td colspan="2"><br>
-					<br>
-				</tr>
-				<tr>
-					<td align="center">
-						<!-- 페이징 및 블럭 Start --> 
-						<!-- 이전블럭 이동(첫블럭에서는 없어야 함)--> 
-						<%if (nowBlock > 1) {%>
-							<a href="javascript:block('<%=nowBlock - 1/*이전블럭*/%>')" class="review-board-aTag">&nbsp;이전&nbsp;</a> 
-						<%}%> <!-- 페이징(특정블럭) --> 
-						<%// 아래변수로 for문 돌리면 최초 1~16 -> 1~15까지 반복
-						int pageStart = (nowBlock - 1) * pagePerBlock + 1; /*최초1, 16, 31, ...*/
-						/*마지막 블럭은 15페이지가 안될 수 있으므로 삼항연산자 사용*/
-						int pageEnd = (pageStart + pagePerBlock /*15*/) < totalPage ? pageStart + pagePerBlock : totalPage + 1; 
+			</table>
+			<!-- 게시물 리스트 End -->
+			<!-- 처음으로 버튼 누르면 list() 메소드를 위해 post방식으로 전달 (초기화)-->
+			<form name="listFrm" method="post">
+				<input type="hidden" name="reload" value="true"> 
+				<input type="hidden" name="nowPage" value="1">
+			</form>
 
- 						// 반복문 (15번씩 반복, 마지막 블럭에서는 91~101페이지까지만 반복됨)
- 						for (; pageStart < pageEnd; pageStart++) { // 비워진 조건 초기식은? pageStart = 1;부터 시작%> 
- 							<a href="javascript:pageing('<%=pageStart%>')" class="review-board-aTag"> 
- 								<%if (pageStart == nowPage) {%>
- 									<font color="#A13FFF"><%}%> [<%=pageStart%>] 
-									<%if (pageStart == nowPage) {%>
-										</font>
-									<%}%> <!-- if절 두개인 이유: 조건에 맞아야만 font 코드 적용되도록-->
-									</a> 
-								<%} // --- for%> 
-						<!-- 다음블럭 이동 기능 (마지막블럭만 없는 기능)--> 
-						<%if (totalBlock > nowBlock) {%>
-							<a href="javascript:block('<%=nowBlock + 1%>')" class="review-board-aTag">&nbsp;다음&nbsp;</a> 
-						<%}%> 
-						<!-- 페이징 및 블럭 End -->
-						</td>
-					</tr>
-					<tr>
-						<!-- '처음으로' 버튼 눌렀을 때 list()함수 호출 -> listFrm submit -> reload = true 전달 -> keyField, keyWord 초기화됨 -->
-						<td align="right">
-							<a href="javascript:list()" class="review-board-aTag"><button type="button" class="btn btn-outline-secondary">처음으로</button></a> 
-						</td>
-					</tr>
-				</table>
-				<!-- 게시물 리스트 End -->
-				
-				<!-- check() 메소드 호출 - 액션값 없으므로 재귀호출됨 -->
-				<form name="searchFrm" class="searchFrm">
-					<table width="600" cellpadding="4" cellspacing="0">
-						<tr>
-							<td align="center" valign="bottom">
-								<select name="keyField" size="1" class="form-select">
-									<option value="pnum">상 품</option>
-									<option value="rid">작성자 ID</option>
-									<option value="subject">제 목</option>
-									<option value="content">내 용</option>
-								</select> <!-- 디폴트 text type --> 
-								<input name="keyWord" size="16" class="form-control"> 
-								<input type="hidden" name="nowPage" value="1"> <!-- 검색 후 초기화 : 검색 결과가 1페이지부터 보여지므로-->
-								<input type="button" value="Search" onclick="check()" class="btn btn-outline-secondary reviewSearchBtn">
-							</td>
-						</tr>
-					</table>
-				</form>
-
-				<!-- 처음으로 버튼 누르면 list() 메소드를 위해 post방식으로 전달 (초기화)-->
-				<form name="listFrm" method="post">
-					<input type="hidden" name="reload" value="true"> 
-					<input type="hidden" name="nowPage" value="1">
-				</form>
-
-				<!-- 아래 값들을 GET방식으로 전달하며, 10개 15개 등 아이템 바꿀때마다 재귀호출 -->
-				<form name="readFrm">
-					<input type="hidden" name="nowPage" value="<%=nowPage%>"> 
-					<input type="hidden" name="numPerPage" value="<%=numPerPage%>"> 
-					<input type="hidden" name="keyField" value="<%=keyField%>"> 
-					<input type="hidden" name="keyWord" value="<%=keyWord%>"> 
-					<input type="hidden" name="rnum">
-				</form>
-			</div>
+			<!-- 아래 값들을 GET방식으로 전달하며, 10개 15개 등 아이템 바꿀때마다 재귀호출 -->
+			<form name="readFrm">
+				<input type="hidden" name="nowPage" value="<%=nowPage%>"> 
+				<input type="hidden" name="numPerPage" value="<%=numPerPage%>"> 
+				<input type="hidden" name="keyField" value="<%=keyField%>"> 
+				<input type="hidden" name="keyWord" value="<%=keyWord%>"> 
+			</form>
 		</div>
+	</div>
 <!-- 부트스트랩 JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" 
         integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
         crossorigin="anonymous">
 </script>
-<%@ include file="../bottom.jsp" %>
+<%@ include file="bottom.jsp" %>
 </body>
 </html>
