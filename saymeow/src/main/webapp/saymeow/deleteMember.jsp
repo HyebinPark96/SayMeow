@@ -3,7 +3,7 @@
 <jsp:useBean id="mBean" class="saymeow.MemberBean" /> 
 <jsp:setProperty name="mBean" property="*" />
 <%
-	String id = (String)session.getAttribute("idKey");	
+	//String id = (String)session.getAttribute("idKey");	
 %>
 <!DOCTYPE html> 
 <html> 
@@ -12,6 +12,7 @@
 <title>회원탈퇴</title>
 </head> 
 <body> 
+<%@ include file="top.jsp" %>
 	<div align="center"><br><br>
 	<h4>회원탈퇴</h4>
 	<form method="psot" action="deleteMemberProc.jsp">
@@ -21,5 +22,6 @@
 	</form><br>
 	*회원탈퇴를 위해서 비밀번호를 입력하세요.
 	</div>
+	<%@ include file="bottom.jsp" %> 
 </body> 
 </html>
