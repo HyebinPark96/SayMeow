@@ -1,11 +1,13 @@
 <%@page contentType="text/html; charset=EUC-KR"%>
 <%
+request.setCharacterEncoding("EUC-KR");
 	String id = null;
 	/* 	if(session.getAttribute("idKey")!=null){ // id값이 세션으로 저장되어 있다면
 			id = (String) session.getAttribute("idKey");
 		} */
 	// 테스트용 임의설정 
 	id = "aaa";
+	String keyWord = request.getParameter("keyWord");	
 %>
 <!DOCTYPE html>
 <html>
@@ -29,12 +31,12 @@ function btn(btnId) { // 버튼활성/비활성화
 <!-- 로고 / 검색창 / 로그인 버튼 -->
 <section class = "ssection">
 <div>
-    <img class="logo" src="image/logo1.png">
+    <a href="index.jsp"><img class="logo" src="image/logo1.png"></a>
     </div>
     	<!-- 검색창 -->
     	<div class="search">
-    	<form class="serachFrm">
-		<input class="sTf" type="search" placeholder="원하는 상품이 있다면 검색해보세요!" aria-label="Search">
+    	<form method="post" action="searchProc.jsp">
+		<input class="sTf" name="keyWord" type="search" placeholder="원하는 상품이 있다면 검색해보세요!" aria-label="Search">
 		<button class="searchBtn" type="submit">Search</button>
 		</form>
 		</div>

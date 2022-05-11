@@ -128,7 +128,7 @@ public class ProductMgr {
 	}	
 	
 	
-	// 메인 상품리스트업
+	// 메인화면 상품리스트업
 	public Vector<ProductBean> getP3() {
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -157,6 +157,46 @@ public class ProductMgr {
 		return vlist;
 		
 	}
+	
+	// 특정 상품검색 (상품이름으로)
+	public Vector<ProductBean> getPList(String keyWord){
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = null;
+		Vector<ProductBean> vlist = new Vector<ProductBean>();
+		try {
+			con = pool.getConnection();
+			sql = "SELECT * From product "
+				+ "WHERE pname LIKE ?";  
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, "%"+keyWord+"%");
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				ProductBean bean = new ProductBean();
+				bean.setPnum(rs.getInt(1)); 
+				bean.setPname(rs.getString(2));
+				bean.setMclass(rs.getString(3));
+				bean.setSclass(rs.getString(4));				
+				bean.setPrice1(rs.getInt(5)); 
+				bean.setPrice2(rs.getInt(6)); 
+				bean.setPrice3(rs.getInt(7)); 
+				bean.setImage(rs.getString(8));
+				bean.setDetail(rs.getString(9));
+				bean.setPstat(rs.getInt(10));
+				bean.setStock(rs.getInt(11));
+				vlist.addElement(bean); 
+				System.out.println("keyword="+keyWord);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			pool.freeConnection(con, pstmt, rs);
+		}
+		System.out.println("[ProductMgr] getPList실행");
+		return vlist;
+	}
+	
 }
 
 
