@@ -1,5 +1,6 @@
 package saymeow;
 
+
 public class ReviewBean {
 	private int rnum; // 리뷰순번
 	private int onum; // 주문번호
@@ -11,6 +12,7 @@ public class ReviewBean {
 	private double score; // (5점만점 0~5점 선택) 0.5점단위
 	private String filename; // 파일명
 	private int filesize; // 파일크기
+	
 	
 	public int getRnum() {
 		return rnum;
@@ -72,8 +74,5 @@ public class ReviewBean {
 	public void setFilesize(int filesize) {
 		this.filesize = filesize;
 	}
-	
-
-
 	
 }

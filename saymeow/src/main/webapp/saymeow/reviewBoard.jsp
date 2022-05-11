@@ -97,7 +97,7 @@ nowBlock = (int) Math.ceil((double) nowPage / pagePerBlock); // Ex. 현재 1페이지
 			document.searchFrm.keyWord.focus();
 			return;
 		}
-		document.searchFrm.submit(); // readFrm에 값들 전송
+		document.searchFrm.submit();
 	}
 
 	// 게시글 읽기
@@ -315,7 +315,7 @@ nowBlock = (int) Math.ceil((double) nowPage / pagePerBlock); // Ex. 현재 1페이지
 					<!-- 페이징 및 블럭 Start --> 
 					<!-- 이전블럭 이동(첫블럭에서는 없어야 함)--> 
 					<%if (nowBlock > 1) {%>
-						<a href="javascript:block('<%=nowBlock - 1/*이전블럭*/%>')" class="review-board-aTag">&nbsp이전&nbsp</a> 
+						<a href="javascript:block('<%=nowBlock - 1/*이전블럭*/%>')" class="review-board-aTag">&nbsp;이전&nbsp;</a> 
 					<%}%> <!-- 페이징(특정블럭) --> 
 					<%// 아래변수로 for문 돌리면 최초 1~16 -> 1~15까지 반복
 					int pageStart = (nowBlock - 1) * pagePerBlock + 1; /*최초1, 16, 31, ...*/
@@ -334,7 +334,7 @@ nowBlock = (int) Math.ceil((double) nowPage / pagePerBlock); // Ex. 현재 1페이지
 					<%} // --- for%> 
 				<!-- 다음블럭 이동 기능 (마지막블럭만 없는 기능)--> 
 				<%if (totalBlock > nowBlock) {%>
-					<a href="javascript:block('<%=nowBlock + 1%>')" class="review-board-aTag">&nbsp다음&nbsp</a> 
+					<a href="javascript:block('<%=nowBlock + 1%>')" class="review-board-aTag">&nbsp;다음&nbsp;</a> 
 				<%}%> 
 				<!-- 페이징 및 블럭 End -->
 				</td>
