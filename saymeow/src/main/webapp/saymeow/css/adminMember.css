@@ -1,0 +1,29 @@
+/* adminMember.jsp(包府磊:雀盔包府) css*/
+@charset "EUC-KR";
+
+* {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+
+.contents {
+	display: block;
+    align-items: center;
+    background-color: beige;
+    height: 360px;
+    align-content: center;
+    text-align: center;
+}
+
+.mlist {
+	margin: auto;
+}
+
+table {
+	margin: auto;
+}
+
+.memberSearch {
+	margin: auto;
+}
