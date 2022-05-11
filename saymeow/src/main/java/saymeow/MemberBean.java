@@ -14,7 +14,6 @@ public class MemberBean {
 	private String petGender;
 	private String petBreed;
 	private int grade, mode;
-	
 	public String getId() {
 		return id;
 	}

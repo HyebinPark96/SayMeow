@@ -10,7 +10,7 @@ public class AdminMemberMgr {
 
 		private DBConnectionMgr pool;
 		public static final String SAVEDIRECTORY = 
-				"C:/Jsp/myapp/src/main/webapp/saymeow/image/"; // 경로수정할것
+				"C:/Jsp/test/src/main/webapp/saymeow/image/"; //경로주의
 		public static final String ENCODING = "EUC-KR";
 		public static final int MAXPOSTSIZE = 10*1024*1024;//10mb
 
@@ -58,7 +58,6 @@ public class AdminMemberMgr {
 	}
 	
 	// 2. 회원 검색 (id값으로 검색)
-	
 	public Vector<MemberBean> searchM(String id) {
 		Connection con = null;
 		PreparedStatement pstmt = null;

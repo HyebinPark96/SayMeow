@@ -60,10 +60,8 @@ if(id==null || id.equals("")) {
 		</thead>
 		<tbody>
 <%		
-
 	for (int i=0; i < mvlist.size(); i++) {
-		MemberBean mbean = mvlist.get(i); // 왜안됨 선언해줬잖아 
-	
+		MemberBean mbean = mvlist.get(i); 
 %>
 		<tr>
 		<td><%=mbean.getId()%></td>
@@ -71,7 +69,7 @@ if(id==null || id.equals("")) {
 		<td><%=mbean.getPhone()%></td>
 		<td><%=mbean.getEmail()%></td>
 		<td><%=mbean.getGrade()%></td>
-		<td><a href="../memberUpdate.jsp/id?<%=mbean.getId()%>">수정</a></td>
+		<td><a href="../memberUpdate.jsp?id=<%=mbean.getId()%>">수정</a></td>
 		<td><a href="#">메일발송</a></td> <!-- 추후 구현 -->
 		<td><a href="#">회원삭제</a></td> <!-- 바로 회원탈퇴페이지로 이어지도록 -->
 		</tr>
