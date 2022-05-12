@@ -344,8 +344,34 @@ input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-i
     const btnD = document.querySelector('.down')
     const btnS = document.querySelector('.show')
     const det = document.querySelector('.detail')
+	const basket = document.querySelector('#basket')
+    const buyBtn = document.querySelector('#buyBtn')
 
+    const idKey = '<%=(String)session.getAttribute("idKey")%>';
+    
+    console.log("idkey")
+    console.log(idKey)
 
+    basket.addEventListener('click', function(){
+    	 if(idKey=="null"){ 
+   	        alert("로그인 후 이용해주세요.")
+   	        location.href="../member/login.jsp"
+   	     }
+   	     else{
+   	    	 
+   	        location.href("../cartInsertProc.jsp");//장바구니->로그인
+   	     }
+    })
+    
+    buyBtn.addEventListener('click', function(){
+    	 if(idKey=="null"){ 
+   	        alert("로그인 후 이용해주세요.")
+   	        location.href="../member/login.jsp"
+   	     }
+   	     else{
+   	        location.href("../cartInsertProc.jsp");//바로구매->로그인
+   	     }
+    })
 
     console.log(btnS.length)
 
@@ -448,7 +474,7 @@ function costCount() {
 				</dl>
 
 				<div class="btn_wrap">
-					<a href="#" class="side_btn">바로구매</a> <a href="#" class="side_btn">장바구니</a>
+					<a href="" class="side_btn" onclick="">바로구매</a> <a href="" class="side_btn" onclick="">장바구니</a>
 				</div>
 			</div>
 			<div class="detail">
@@ -506,6 +532,7 @@ function costCount() {
 						</tbody>
 					</table>
 				</div>
+				<input type="button" value="<BACK" onClick="history.go(-1)"><!-- 이전페이지로 돌아가기 -->
 				<%@ include file="../bottom.jsp"%>
 				</main>
 				</html>
