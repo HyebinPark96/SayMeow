@@ -1,3 +1,4 @@
+<!-- 특정삼품 상세페이지 아래에 뜨는 리뷰게시판임 -->
 <!-- 임포트 에러난다면 지우고 다시 임포트하면 해결됨 -->
 
 <%@page import="saymeow.RCommentBean"%>
@@ -126,7 +127,7 @@ nowBlock = (int) Math.ceil((double) nowPage / pagePerBlock); // Ex. 현재 1페이지
 <body>
 	<div align="center" id="review-board">
 		<br />
-		<h2 class="review-board-topic">리뷰</h2>
+		<h2 class="review-board-topic">리뷰</h2> <!-- pnum의 리뷰라고 하고, 어차피 상품상세에서 pnum받아옴 -->
 		<label>해당 상품은 총 <b><%=totalRecord%></b>개의 리뷰가 있습니다!</label>
 		<br/>
 		<table>
@@ -166,12 +167,12 @@ nowBlock = (int) Math.ceil((double) nowPage / pagePerBlock); // Ex. 현재 1페이지
 					%>
 					<table class="table table-hover">
 						<tr align="center" class="table-column">
-							<td width="200">번 호</td>
-							<td width="200">별 점</td>
-							<td width="200">제 목</td>
-							<td width="200">아이디</td>
-							<td width="200">날 짜</td>
-							<td width="100">&nbsp;</td>
+							<th width="100">번 호</th>
+							<th width="100">별 점</th>
+							<th width="200">제 목</th>
+							<th width="100">아이디</th>
+							<th width="100">날 짜</th>
+							<th width="100">&nbsp;</th>
 						</tr>
 						<%
 						/* for문 if절의 조건인 i==listSize의 listSize는 LIMIT 함수로 게시글을 불러와서 담은 Vector의 크기이며,
@@ -307,15 +308,11 @@ nowBlock = (int) Math.ceil((double) nowPage / pagePerBlock); // Ex. 현재 1페이지
 				</td>
 			</tr>
 			<tr>
-				<td colspan="2"><br>
-				<br>
-			</tr>
-			<tr>
-				<td align="center">
+				<td align="center" style="font-size:1em;">
 					<!-- 페이징 및 블럭 Start --> 
 					<!-- 이전블럭 이동(첫블럭에서는 없어야 함)--> 
 					<%if (nowBlock > 1) {%>
-						<a href="javascript:block('<%=nowBlock - 1/*이전블럭*/%>')" class="review-board-aTag">&nbsp;이전&nbsp;</a> 
+						<a href="javascript:block('<%=nowBlock - 1/*이전블럭*/%>')" class="review-board-aTag">&nbsp;이 전&nbsp;</a> 
 					<%}%> <!-- 페이징(특정블럭) --> 
 					<%// 아래변수로 for문 돌리면 최초 1~16 -> 1~15까지 반복
 					int pageStart = (nowBlock - 1) * pagePerBlock + 1; /*최초1, 16, 31, ...*/
@@ -334,36 +331,37 @@ nowBlock = (int) Math.ceil((double) nowPage / pagePerBlock); // Ex. 현재 1페이지
 					<%} // --- for%> 
 				<!-- 다음블럭 이동 기능 (마지막블럭만 없는 기능)--> 
 				<%if (totalBlock > nowBlock) {%>
-					<a href="javascript:block('<%=nowBlock + 1%>')" class="review-board-aTag">&nbsp;다음&nbsp;</a> 
+					<a href="javascript:block('<%=nowBlock + 1%>')" class="review-board-aTag">&nbsp;다 음&nbsp;</a> 
 				<%}%> 
 				<!-- 페이징 및 블럭 End -->
 				</td>
-				</tr>
-				<tr>
+			</tr>
+			<tr>
+				<td colspan="6">
+					<div style="text-align:center; margin: 2vw;">
+						<form name="searchFrm" class="searchFrm">
+							<select name="keyField" size="1" class="form-select" style="display:inline">
+								<option value="rid">작성자 ID</option>
+								<option value="subject">제 목</option>
+								<option value="content">내 용</option>
+							</select> <!-- 디폴트 text type --> 
+							<input name="keyWord" size="16" class="form-control" style="display:inline"> 
+							<input type="hidden" name="nowPage" value="1"> <!-- 검색 후 초기화 : 보통 검색 결과가 1페이지부터 보여지므로-->
+							<input type="button" value="검색" onclick="check()" class="btn btn-primary reviewSearchBtn">
+						</form>
+					</div>
+				</td>
+			</tr>
+			<tr>
 				<!-- '처음으로' 버튼 눌렀을 때 list()함수 호출 -> listFrm submut -> reload = true 전달 -> keyField, keyWord 초기화됨 -->
 				<td align="right">
-					<a href="javascript:list()" class="review-board-aTag"><button type="button" class="btn btn-outline-secondary">처음으로</button></a> 
+					<a href="javascript:list()" class="review-board-aTag"><button type="button" class="btn btn-primary" style="margin-bottom:1.5vh;">처음으로</button></a> 
 				</td>
 			</tr>
 		</table>
 		<!-- 게시물 리스트 End -->
-
-		<form name="searchFrm" class="searchFrm">
-			<table width="600" cellpadding="4" cellspacing="0">
-				<tr>
-					<td align="center" valign="bottom">
-						<select name="keyField" size="1" class="form-select">
-							<option value="rid">작성자 ID</option>
-							<option value="subject">제 목</option>
-							<option value="content">내 용</option>
-						</select> <!-- 디폴트 text type --> 
-						<input name="keyWord" size="16" class="form-control"> 
-						<input type="hidden" name="nowPage" value="1"> <!-- 검색 후 초기화 : 보통 검색 결과가 1페이지부터 보여지므로-->
-						<input type="button" value="Search" onclick="check()" class="btn btn-outline-secondary reviewSearchBtn">
-					</td>
-				</tr>
-			</table>
-		</form>
+		
+		
 
 		<!-- 처음으로 버튼 누르면 list() 메소드를 위해 post방식으로 전달 (초기화)-->
 		<form name="listFrm" method="post">

@@ -104,7 +104,7 @@ function check() {
 function read(i) {
 	/*테스트 : 토글식으로 구현해보기*/
 	if(document.getElementsByClassName('reviewDetail')[i].style.display = 'hidden'){
-		document.getElementsByClassName('reviewDetail')[i].setAttribute("style","display:block");
+		document.getElementsByClassName('reviewDetail')[i].setAttribute("style","display:table-row"); // block 대신 table-row해야 colspan 먹힘
 	}
 }
 
@@ -135,7 +135,7 @@ function read(i) {
 		</div>
     	<div align="center" id="review-board" style="margin:0 auto;">
 		<br />
-		<h2 class="review-board-topic">리뷰</h2>
+		<h2>리뷰관리</h2>
 		<br/>
 		<table>
 			<tr>
@@ -174,12 +174,13 @@ function read(i) {
 					%>
 						<table cellspacing="0" class="table table-hover">
 							<tr align="center" class="table-column">
-								<td width="200">번 호</td>
-								<td width="200">별 점</td>
-								<td width="200">제 목</td>
-								<td width="200">아이디</td>
-								<td width="200">날 짜</td>
-								<td width="100">&nbsp;</td>
+								<th width="100">순 번</td>
+								<th width="100">상품번호</td>
+								<th width="100">별 점</td>
+								<th width="150">제 목</td>
+								<th width="100">아이디</td>
+								<th width="150">날 짜</td>
+								<th width="100">&nbsp;</td>
 							</tr>
 						<%
 						/* for문 if절의 조건인 i==listSize의 listSize는 LIMIT 함수로 게시글을 불러와서 담은 Vector의 크기이며,
@@ -210,6 +211,7 @@ function read(i) {
 							<!-- 각 열(주제)에 맞는 값 반복문으로 들고옴 -->
 							<tr align="center">
 								<td><%=totalRecord - start - i%></td><!-- 리뷰순번 : 가장 최신글이 위에 오는 구조 -->
+								<td><%=pnum %></td>
 								<td><%=score%></td>
 								<td align="left">
 									<a href="javascript:read('<%=i%>')" class="review-board-aTag"><%=subject%></a> <!-- 리뷰제목 --> 
@@ -224,7 +226,7 @@ function read(i) {
 								<td><%=date%></td><!-- 리뷰작성날짜 -->
 								<td>
 									<%if(id.equals(rid) || id==rid || id=="admin" || id.equals("admin")){%>
-										<form name="deleteReviewFrm" action="reviewDeleteProc.jsp" method="post">
+										<form name="deleteReviewFrm" action="adminReviewDeleteProc.jsp" method="post">
 											<input type="hidden" name="rnum" value="<%=rnum%>">
 											<input type="hidden" name="filename" value="<%=filename%>">
 											<input type="submit" class="btn btn-primary submitBtn" value="삭제">
@@ -234,7 +236,7 @@ function read(i) {
 							</tr>
 							<!-- 리뷰누르면 페이지 이동없이 아래로 뜨도록 -->
 							<tr style="display:none; text-align:left" class="reviewDetail">
-								<td colspan="5" align="left" style="background-color:pink; width:200;">
+								<td colspan="6" align="left" style="background-color:pink; width:200;">
 									<form name="reviewDetailFrm" action="reviewUpdate.jsp?rnum=<%=rnum%>" method="POST" class="reviewDetailFrm">
 										<input type="hidden" name="rnum" value="<%=rnum%>">
 										<input type="hidden" name="onum" value="<%=onum%>">
@@ -287,8 +289,8 @@ function read(i) {
 										<%} %>
 									<%} %>
 									<hr>
-								<%if(id=="admin") {%>
-									<form name="commentFrm" action="admin/commentInsertProc.jsp" method="post">
+								<%if(id=="admin"||id.equals("admin")) {%>
+									<form name="commentFrm" action="commentInsertProc.jsp" method="post">
 										<input type="hidden" name="rnum" value="<%=rnum%>">
 										<input type="hidden" name="cid" value="<%=id%>">
 										<input type="hidden" name="pnum" value="<%=pnum%>">
@@ -303,15 +305,11 @@ function read(i) {
 					</td>
 				</tr>
 				<tr>
-					<td colspan="2"><br>
-					<br>
-				</tr>
-				<tr>
-					<td align="center">
+					<td align="center" style="font-size:1em;">
 						<!-- 페이징 및 블럭 Start --> 
 						<!-- 이전블럭 이동(첫블럭에서는 없어야 함)--> 
 						<%if (nowBlock > 1) {%>
-							<a href="javascript:block('<%=nowBlock - 1/*이전블럭*/%>')" class="review-board-aTag">&nbsp;이전&nbsp;</a> 
+							<a href="javascript:block('<%=nowBlock - 1/*이전블럭*/%>')" class="review-board-aTag">&nbsp;이 전&nbsp;</a> 
 						<%}%> <!-- 페이징(특정블럭) --> 
 						<%// 아래변수로 for문 돌리면 최초 1~16 -> 1~15까지 반복
 						int pageStart = (nowBlock - 1) * pagePerBlock + 1; /*최초1, 16, 31, ...*/
@@ -330,38 +328,39 @@ function read(i) {
 								<%} // --- for%> 
 						<!-- 다음블럭 이동 기능 (마지막블럭만 없는 기능)--> 
 						<%if (totalBlock > nowBlock) {%>
-							<a href="javascript:block('<%=nowBlock + 1%>')" class="review-board-aTag">&nbsp;다음&nbsp;</a> 
+							<a href="javascript:block('<%=nowBlock + 1%>')" class="review-board-aTag">&nbsp;다 음&nbsp;</a> 
 						<%}%> 
 						<!-- 페이징 및 블럭 End -->
 						</td>
 					</tr>
 					<tr>
+						<td colspan="7">
+							<div style="text-align:center; margin: 2vw;">
+								<!-- check() 메소드 호출 - 액션값 없으므로 재귀호출됨 -->
+								<form name="searchFrm" class="searchFrm">
+									<select name="keyField" size="1" class="form-select" style="display:inline">
+										<option value="pnum">상품번호</option>
+										<option value="rid">작성자 ID</option>
+										<option value="subject">제 목</option>
+										<option value="content">내 용</option>
+									</select> <!-- 디폴트 text type --> 
+									<input name="keyWord" size="16" class="form-control" style="display:inline"> 
+									<input type="hidden" name="nowPage" value="1"> <!-- 검색 후 초기화 : 검색 결과가 1페이지부터 보여지므로-->
+									<input type="button" value="검색" onclick="check()" class="btn btn-primary reviewSearchBtn">
+								</form>
+							</div>
+						</td>
+					</tr>
+					<tr>
 						<!-- '처음으로' 버튼 눌렀을 때 list()함수 호출 -> listFrm submit -> reload = true 전달 -> keyField, keyWord 초기화됨 -->
 						<td align="right">
-							<a href="javascript:list()" class="review-board-aTag"><button type="button" class="btn btn-outline-secondary">처음으로</button></a> 
+							<a href="javascript:list()" class="review-board-aTag"><button type="button" class="btn btn-primary" style="margin-bottom: 1.5vh;">처음으로</button></a> 
 						</td>
 					</tr>
 				</table>
 				<!-- 게시물 리스트 End -->
 				
-				<!-- check() 메소드 호출 - 액션값 없으므로 재귀호출됨 -->
-				<form name="searchFrm" class="searchFrm">
-					<table width="600" cellpadding="4" cellspacing="0">
-						<tr>
-							<td align="center" valign="bottom">
-								<select name="keyField" size="1" class="form-select">
-									<option value="pnum">상 품</option>
-									<option value="rid">작성자 ID</option>
-									<option value="subject">제 목</option>
-									<option value="content">내 용</option>
-								</select> <!-- 디폴트 text type --> 
-								<input name="keyWord" size="16" class="form-control"> 
-								<input type="hidden" name="nowPage" value="1"> <!-- 검색 후 초기화 : 검색 결과가 1페이지부터 보여지므로-->
-								<input type="button" value="Search" onclick="check()" class="btn btn-outline-secondary reviewSearchBtn">
-							</td>
-						</tr>
-					</table>
-				</form>
+
 
 				<!-- 처음으로 버튼 누르면 list() 메소드를 위해 post방식으로 전달 (초기화)-->
 				<form name="listFrm" method="post">

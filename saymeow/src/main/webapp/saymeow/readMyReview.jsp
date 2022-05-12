@@ -103,7 +103,7 @@ function numPerFn(numPerPage) {
 
 // (처음으로 버튼 눌러야만 실행되는 메소드) 목록 이동
 function list() {
-	document.listFrm.action = "adminReviewBoard.jsp";
+	document.listFrm.action = "readMyReviews.jsp";
 	document.listFrm.submit(); // reload와 nowPage VALUE를 POST방식으로 전달하여 재귀호출
 }
 
@@ -121,7 +121,7 @@ function check() {
 function read(i) {
 	/*테스트 : 토글식으로 구현해보기*/
 	if(document.getElementsByClassName('reviewDetail')[i].style.display = 'hidden'){
-		document.getElementsByClassName('reviewDetail')[i].setAttribute("style","display:block");
+		document.getElementsByClassName('reviewDetail')[i].setAttribute("style","display:table-row"); // block 대신 table-row해야 colspan 먹힘
 	}
 }
 
@@ -144,7 +144,7 @@ function read(i) {
 			<tr>
 				<td align="center" colspan="2">
 					<%
-					Vector<ReviewBean> vlist = rMgr.getReviewList(keyField, keyWord, start, cnt);
+					Vector<ReviewBean> vlist = rMgr.getReviewList(keyField, keyWord, start, cnt, id);
 					int listSize = vlist.size(); // 각 페이지가 담는 총 레코드갯수 (최대 10개, 마지막 페이지는 10 이하의 값을 가질 수도 있음)
 					if (vlist.isEmpty()) {
 						out.println("등록된 게시물이 없습니다.");
@@ -152,12 +152,12 @@ function read(i) {
 					%>
 						<table cellspacing="0" class="table table-hover">
 							<tr align="center" class="table-column">
-								<td width="200">번 호</td>
-								<td width="200">별 점</td>
-								<td width="200">제 목</td>
-								<td width="200">아이디</td>
-								<td width="200">날 짜</td>
-								<td width="100">&nbsp;</td>
+								<th width="100">번 호</th>
+								<th width="100">별 점</th>
+								<th width="200">제 목</th>
+								<th width="100">아이디</th>
+								<th width="100">날 짜</th>
+								<th width="100">&nbsp;</th>
 							</tr>
 						<%
 						/* for문 if절의 조건인 i==listSize의 listSize는 LIMIT 함수로 게시글을 불러와서 담은 Vector의 크기이며,
@@ -202,7 +202,7 @@ function read(i) {
 								<td><%=rid%></td><!-- 리뷰작성자 -->
 								<td><%=date%></td><!-- 리뷰작성날짜 -->
 								<td>
-									<form name="deleteReviewFrm" action="reviewDeleteProc.jsp" method="post">
+									<form name="deleteReviewFrm" action="myReviewDeleteProc.jsp" method="post">
 										<input type="hidden" name="rnum" value="<%=rnum%>">
 										<input type="hidden" name="filename" value="<%=filename%>">
 										<input type="submit" class="btn btn-primary submitBtn" value="삭제">
@@ -272,17 +272,14 @@ function read(i) {
 				<%} // ---if-else문%>
 			</td>
 		</tr>
-		<tr>
-			<td colspan="2"><br><br>
-		</tr>
 		<%if(totalRecord>1){ %>
 		<%-- <%out.println(totalRecord); %> 테스트용 !! --%>
 		<tr>
-			<td align="center">
+			<td align="center" style="font-size:1em;">
 				<!-- 페이징 및 블럭 Start --> 
 				<!-- 이전블럭 이동(첫블럭에서는 없어야 함)--> 
 				<%if (nowBlock > 1) {%>
-					<a href="javascript:block('<%=nowBlock - 1/*이전블럭*/%>')" class="review-board-aTag">&nbsp;이전&nbsp;</a> 
+					<a href="javascript:block('<%=nowBlock - 1/*이전블럭*/%>')" class="review-board-aTag">&nbsp;이 전&nbsp;</a> 
 				<%}%> <!-- 페이징(특정블럭) --> 
 				<%// 아래변수로 for문 돌리면 최초 1~16 -> 1~15까지 반복
 				int pageStart = (nowBlock - 1) * pagePerBlock + 1; /*최초1, 16, 31, ...*/
@@ -303,7 +300,7 @@ function read(i) {
 					<%} // --- for%> 
 					<!-- 다음블럭 이동 기능 (마지막블럭만 없는 기능)--> 
 					<%if (totalBlock > nowBlock) {%>
-						<a href="javascript:block('<%=nowBlock + 1%>')" class="review-board-aTag">&nbsp;다음&nbsp;</a> 
+						<a href="javascript:block('<%=nowBlock + 1%>')" class="review-board-aTag">&nbsp;다 음&nbsp;</a> 
 					<%}%> 
 					<!-- 페이징 및 블럭 End -->
 				</td>
@@ -312,7 +309,7 @@ function read(i) {
 				<tr>
 					<!-- '처음으로' 버튼 눌렀을 때 list()함수 호출 -> listFrm submit -> reload = true 전달 -> keyField, keyWord 초기화됨 -->
 					<td align="right">
-						<a href="javascript:list()" class="review-board-aTag"><button type="button" class="btn btn-outline-secondary">처음으로</button></a> 
+						<a href="javascript:list()" class="review-board-aTag"><button type="button" class="btn btn-primary" style="margin:1vw;">처음으로</button></a> 
 					</td>
 				</tr>
 			</table>
