@@ -122,6 +122,11 @@
 	color:black;
 }
 
+#adminOrder .dateSearchBtn{
+	display:inline-block;
+	font-size:0.5em;
+}
+
 #adminOrder .form-select, #adminOrder .form-text-input{
 	display:inline;
 	width:10vw;

@@ -33,6 +33,12 @@
 		keyWord = request.getParameter("keyWord");
 	}
 	
+	// (오늘기준으로) 원하는 기간만 보기
+	String interval = "";
+	if(request.getParameter("interval")!=null){
+		interval = request.getParameter("interval");
+	}
+	
 	totalRecord = aoMgr.getCountRecord(keyField, keyWord);
 	
 	if(request.getParameter("nowPage")!=null){
@@ -43,17 +49,10 @@
 	int start = (nowPage * numPerPage) - numPerPage; // 1페이지일때 0, 2페이지일때 10, 3페이지일때 20, ...
 	int cnt = numPerPage;
 	
-
-	
-
-	
 	totalPage = (int)Math.ceil((double)totalRecord / numPerPage); // 올림
 	totalBlock = (int)Math.ceil((double)totalPage / pagePerBlock); // 올림
 	nowBlock = (int)Math.ceil((double)nowPage / pagePerBlock); // 올림
 	
-
-
-
 %>
 <!DOCTYPE html>
 <html>
@@ -79,6 +78,12 @@
 		keyField = ""; // 초기화
 		keyWord = ""; // 초기화
 		document.resetOrderFrm.submit(); // 재귀호출
+	}
+	
+	
+	function moveDate(interval){
+		document.orderDateSearchFrm.interval.value = interval; // 매개변수로 들어온 값을 기간 값으로 전달한다.
+		document.orderDateSearchFrm.submit(); // 재귀호출
 	}
 	
 	function pageing(page){ // 페이지이동기능
@@ -162,7 +167,7 @@
 							<th width="130"><input type="checkbox" class="allCheckChb" onclick="allCheck()">&nbsp;[전체선택]</th>
 						</tr>
 						<%
-						Vector<OrderBean> vlist = aoMgr.getOrderList(keyField, keyWord, start, cnt);
+						Vector<OrderBean> vlist = aoMgr.getOrderList(keyField, keyWord, start, cnt, interval);
 						if(vlist.size()==0){%>
 							<tr>
 								<td colspan="8" width="300" align="center">
@@ -197,8 +202,20 @@
 							<td><input type="checkbox" class="chb" name="chb" value="<%=onum%>"></td>
 						</tr>
 						<%} // -- 반복문 끝%>
-						<%} // -- if-else문 끝%>
+					<%} // -- if-else문 끝%>
 					</table>			
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<form name="orderDateSearchFrm">
+						<a href="javascript:moveDate('12')"><input type="button" value="1년이내" class="btn btn-primary dateSearchBtn"></a>
+						<a href="javascript:moveDate('6')"><input type="button" value="6개월이내" class="btn btn-primary dateSearchBtn"></a>
+						<a href="javascript:moveDate('3')"><input type="button" value="3개월이내" class="btn btn-primary dateSearchBtn"></a>
+						<a href="javascript:moveDate('1')"><input type="button" value="1개월이내" class="btn btn-primary dateSearchBtn"></a>
+						<a href="javascript:moveDate('all')"><input type="button" value="전체" class="btn btn-primary dateSearchBtn"></a>
+						<input type="hidden" name="interval" value="">
+					</form>
 				</td>
 			</tr>
 			<tr>
@@ -239,7 +256,7 @@
 		
 		<div style="text-align:center;">
 		  	<!-- 검색 폼 -->
-  			<form name="searchOrderFrm" style=""> <!-- 재귀호출되도록 -->
+  			<form name="searchOrderFrm"> <!-- 재귀호출되도록 -->
 				<select name="keyField" class="form-select"> <!-- 선택한 값이 keyField의 value로 가나요? -->
 					<option value="oid">주문자 ID</option>
 					<option value="pnum">상품번호</option>
@@ -256,6 +273,7 @@
 			<input type="hidden" name="keyField" value="<%=keyField%>">
 			<input type="hidden" name="keyWord" value="<%=keyWord%>">
 			<input type="hidden" name="numPerPage" value="<%=numPerPage%>">
+			<input type="hidden" name="interval" value="<%=interval%>">
 		</form>
 		
   		
