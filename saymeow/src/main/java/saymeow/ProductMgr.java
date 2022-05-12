@@ -168,7 +168,8 @@ public class ProductMgr {
 		try {
 			con = pool.getConnection();
 			sql = "SELECT * From product "
-				+ "WHERE pname LIKE ?";  
+				+ "WHERE pname LIKE ? "
+				+ "AND pstat = 1";  
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, "%"+keyWord+"%");
 			rs = pstmt.executeQuery();

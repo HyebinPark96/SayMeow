@@ -24,7 +24,7 @@ Vector<ProductBean> pvlist = mgr.getP2(mClass, sClass, sort);
 <meta charset="EUC-KR">
 <title>food</title>
 <meta name='viewport' content='width=device-width, initial-scale=1'>
-<link rel='stylesheet' type='text/css' media='screen'href='css/plist.css'>
+<link rel='stylesheet' type='text/css' media='screen'href='../css/plist.css'>
 <jsp:include page = "../top2.jsp"/>
 </head>
 <script>
