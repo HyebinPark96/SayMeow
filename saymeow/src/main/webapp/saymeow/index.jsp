@@ -50,9 +50,10 @@ function send_form(frmId) { // form ¡¶√‚
 						for (int i=0; i<pvlist.size(); i++) {
 						ProductBean pbean = pvlist.get(i);
 					%>
-					<li><a href="#" onclick="send_form('frmP')"><img
-							src="image/<%=pbean.getImage()%>" height="200" width="200">
-							<%=pbean.getPname()%></a>
+					<li>
+					<a href="#" onclick="send_form('frmP')">
+					<img src="image/<%=pbean.getImage()%>" height="200" width="200">
+						<%=pbean.getPname()%></a>
 						<form method="post" id="frmP" action="product/productDetail.jsp">
 							<input type=hidden name="id" value="<%=id%>">
 							<input type=hidden name="pnum" value="<%=pbean.getPnum()%>">
