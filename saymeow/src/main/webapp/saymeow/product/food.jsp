@@ -25,6 +25,7 @@ Vector<ProductBean> pvlist = mgr.getP2(mClass, sClass, sort);
 <title>food</title>
 <meta name='viewport' content='width=device-width, initial-scale=1'>
 <link rel='stylesheet' type='text/css' media='screen'href='../css/plist.css'>
+<jsp:include page = "../top2.jsp"/>
 </head>
 <script>
 function send_form(frmId) { // form 제출
@@ -34,12 +35,10 @@ function send_form(frmId) { // form 제출
 
 function sel(){ 
 	var langSelect = document.getElementById("sort"); 
-	
 	// select element에서 선택된 option의 value가 저장된다. 
 	var selectValue = langSelect.options[langSelect.selectedIndex].value; 
 	// select element에서 선택된 option의 text가 저장된다. 
 	var selectText = langSelect.options[langSelect.selectedIndex].text; 
-
 }
 
 </script>

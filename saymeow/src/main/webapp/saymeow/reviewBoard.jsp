@@ -97,7 +97,7 @@ nowBlock = (int) Math.ceil((double) nowPage / pagePerBlock); // Ex. 현재 1페이지
 			document.searchFrm.keyWord.focus();
 			return;
 		}
-		document.searchFrm.submit(); // readFrm에 값들 전송
+		document.searchFrm.submit();
 	}
 
 	// 게시글 읽기
@@ -108,7 +108,7 @@ nowBlock = (int) Math.ceil((double) nowPage / pagePerBlock); // Ex. 현재 1페이지
 		
 		/*테스트 : 토글식으로 구현해보기*/
 		if(document.getElementsByClassName('reviewDetail')[i].style.display = 'hidden'){
-			document.getElementsByClassName('reviewDetail')[i].setAttribute("style","display:block");
+			document.getElementsByClassName('reviewDetail')[i].setAttribute("style","display:table-row"); // block 대신 table-row해야 colspan 먹힘
 		}
 	}
 </script>
@@ -164,7 +164,7 @@ nowBlock = (int) Math.ceil((double) nowPage / pagePerBlock); // Ex. 현재 1페이지
 						out.println("등록된 게시물이 없습니다.");
 					} else {
 					%>
-					<table cellspacing="0" class="table table-hover">
+					<table class="table table-hover">
 						<tr align="center" class="table-column">
 							<td width="200">번 호</td>
 							<td width="200">별 점</td>
@@ -229,8 +229,8 @@ nowBlock = (int) Math.ceil((double) nowPage / pagePerBlock); // Ex. 현재 1페이지
 						
 						<!-- 리뷰누르면 페이지 이동없이 아래로 뜨도록 -->
 					
-						<tr style="display:none; text-align:left" class="reviewDetail">
-							<td colspan="5" align="left" style="background-color:pink; width:200;">
+						<tr style="display:none;" class="reviewDetail">
+							<td colspan="6" width="500" align="left" style="background-color:pink; margin:0 auto;">
 								<form name="reviewDetailFrm" action="reviewUpdate.jsp?rnum=<%=rnum%>" method="POST" class="reviewDetailFrm">
 									<input type="hidden" name="rnum" value="<%=rnum%>">
 									<input type="hidden" name="onum" value="<%=onum%>">
@@ -242,17 +242,17 @@ nowBlock = (int) Math.ceil((double) nowPage / pagePerBlock); // Ex. 현재 1페이지
 									<input type="hidden" name="score" value="<%=score%>">
 									
 									[게시글]<br>
-									작성자 ID : <%=rid%><br>
+									<br>작성자 ID : <%=rid%><br>
 									작성날짜 : <%=date%><br>
 									제목 : <%=subject%><br>
 									내용 : <%=content%><br>
-									별점 : <%=score%><br>
+									별점 : <%=score%><br><br><br>
 									<%if(filename!=null){ %>
-										<img src="storage/<%=filename%>" width="50px" height="50px"><br><br>
+										<img src="storage/<%=filename%>" width="800vw" height="400vw" style="display:block; margin: 0 auto; object-fit: cover;"><br>
 										<input type="hidden" name="filename" value="<%=filename%>">
 									<%} %>
 									<%if(id.equals(rid) || id==rid) { /*본인리뷰라면 수정버튼 활성화*/%>
-										<input type="submit" class="btn btn-primary submitBtn" value="수정">
+										<input type="submit" class="btn btn-primary submitBtn" value="수정"><br>
 									<%}%>
 									<hr>
 								</form>
@@ -270,15 +270,14 @@ nowBlock = (int) Math.ceil((double) nowPage / pagePerBlock); // Ex. 현재 1페이지
 										if(!cvlist.isEmpty()) {
 									%>
 										<form name="commentListFrm" action="admin/commentDeleteProc.jsp" method="POST">
-											순번 : <%=j+1%><br>
+											<br>순번 : <%=j+1%><br>
 											작성자 ID : <%=cid %><br>
 											작성날짜 : <%=rcDate %><br>
 											댓글내용 : <%=comment%><br>
 											<%if(id=="admin" || id.equals("admin")){%> <!-- 관리자만 모든 댓글 삭제 가능 -->
 											<input type="hidden" name="rcNum" value="<%=rcNum%>">
-											<input type="submit" class="btn btn-primary submitBtn" value="삭제">
+											<input type="submit" class="btn btn-primary submitBtn" value="삭제"><br>
 											<%}%>
-											<br><br>
 										</form>
 									<%} %>
 								<%} %>
@@ -289,7 +288,7 @@ nowBlock = (int) Math.ceil((double) nowPage / pagePerBlock); // Ex. 현재 1페이지
 									<input type="hidden" name="cid" value="<%=id%>">
 									<input type="hidden" name="pnum" value="<%=pnum%>">
 									<input type="text" name="comment">
-									<input type="submit" class="btn btn-primary submitBtn" value="작성">
+									<input type="submit" class="btn btn-primary submitBtn" value="작성"><br>
 								</form>
 							<%}%>
 							</td>
@@ -303,7 +302,8 @@ nowBlock = (int) Math.ceil((double) nowPage / pagePerBlock); // Ex. 현재 1페이지
 						
 						
 						<%} // --- for문%>
-					</table> <%} // ---if-else문%>
+					</table> 
+					<%} // ---if-else문%>
 				</td>
 			</tr>
 			<tr>
@@ -315,7 +315,7 @@ nowBlock = (int) Math.ceil((double) nowPage / pagePerBlock); // Ex. 현재 1페이지
 					<!-- 페이징 및 블럭 Start --> 
 					<!-- 이전블럭 이동(첫블럭에서는 없어야 함)--> 
 					<%if (nowBlock > 1) {%>
-						<a href="javascript:block('<%=nowBlock - 1/*이전블럭*/%>')" class="review-board-aTag">&nbsp이전&nbsp</a> 
+						<a href="javascript:block('<%=nowBlock - 1/*이전블럭*/%>')" class="review-board-aTag">&nbsp;이전&nbsp;</a> 
 					<%}%> <!-- 페이징(특정블럭) --> 
 					<%// 아래변수로 for문 돌리면 최초 1~16 -> 1~15까지 반복
 					int pageStart = (nowBlock - 1) * pagePerBlock + 1; /*최초1, 16, 31, ...*/
@@ -334,7 +334,7 @@ nowBlock = (int) Math.ceil((double) nowPage / pagePerBlock); // Ex. 현재 1페이지
 					<%} // --- for%> 
 				<!-- 다음블럭 이동 기능 (마지막블럭만 없는 기능)--> 
 				<%if (totalBlock > nowBlock) {%>
-					<a href="javascript:block('<%=nowBlock + 1%>')" class="review-board-aTag">&nbsp다음&nbsp</a> 
+					<a href="javascript:block('<%=nowBlock + 1%>')" class="review-board-aTag">&nbsp;다음&nbsp;</a> 
 				<%}%> 
 				<!-- 페이징 및 블럭 End -->
 				</td>

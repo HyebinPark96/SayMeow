@@ -12,7 +12,7 @@
 	
 	// Å×½ºÆ®
 	int onum = 1;
-	int pnum = 1; 
+	int pnum = 1;
 	String rid = "aaa";
 %>
 <!DOCTYPE html>

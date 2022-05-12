@@ -7,8 +7,6 @@ String sClass = request.getParameter("sClass");
 String sort = request.getParameter("sort");
 
 
-
-
 if (sClass!=null) { // 중분류 선택 %>
 	<form method="post" id="frm" action="<%=mClass%>.jsp">
 		<input type=hidden name="mClass" value="<%=mClass%>">
@@ -27,6 +25,6 @@ if (sClass!=null) { // 중분류 선택 %>
 		document.getElementById('frm').submit();
 	</script>
 	<% 	}	
-	System.out.println("[proProc]mClass:" + mClass + " /sClass:" + sClass + " /sort:" + sort); 
+	// System.out.println("[proProc]mClass:" + mClass + " /sClass:" + sClass + " /sort:" + sort); 
 %>
 
