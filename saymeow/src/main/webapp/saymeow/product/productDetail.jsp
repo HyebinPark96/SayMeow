@@ -9,9 +9,25 @@
 <jsp:useBean id="cMgr" class="saymeow.RCommentMgr" />
 <jsp:useBean id="rcBean" class="saymeow.RCommentBean" />
 <%
+	// pnum 값 받아오기 
 	int pnum = Integer.parseInt(request.getParameter("pnum"));
-
-	/*pnum값 받기*/
+	
+	
+	// id값 받아오기
+	String id = request.getParameter("id"); // product.jsp에서 받아오기
+	if(session.getAttribute("idKey")!=null){ // id값이 세션으로 저장되어 있다면
+		id = (String) session.getAttribute("idKey");
+	} 
+	
+	// 잘 받아왔는지 확인
+	System.out.println("pnum:"+pnum+"   id:"+id);
+	
+	
+	// 테스트용 임의설정 
+	//int pnum = 2;
+	//id = "aaa";
+	
+	
 	ProductBean pbean = pdMgr.getProduct(pnum);
 
 
@@ -370,7 +386,7 @@ function costCount() {
 }
     </script>
 </head>
-<main> <%@ include file="top.jsp"%>
+<jsp:include page = "../top2.jsp"/>
 
 <div sp-edit="text" style="padding: 1rem 0; text-align: center;"
 	class="initialize" area="before">
@@ -490,6 +506,6 @@ function costCount() {
 						</tbody>
 					</table>
 				</div>
-				<%@ include file="bottom.jsp"%>
+				<%@ include file="../bottom.jsp"%>
 				</main>
 				</html>

@@ -5,6 +5,16 @@
 <%@page import="saymeow.ProductMgr"%>
 <%@page contentType="text/html; charset=EUC-KR"%>
 <%
+
+//id값 받아오기
+String id = request.getParameter("id"); // 이전 페이지에서 받아오기
+if(session.getAttribute("idKey")!=null){ // id값이 세션으로 저장되어 있다면
+	id = (String) session.getAttribute("idKey");
+} 
+
+id = "aaa";
+
+
 ProductMgr mgr = new ProductMgr();
 
 String mClass = request.getParameter("mClass");
@@ -24,23 +34,22 @@ Vector<ProductBean> pvlist = mgr.getP2(mClass, sClass, sort);
 <meta charset="EUC-KR">
 <title>food</title>
 <meta name='viewport' content='width=device-width, initial-scale=1'>
-<link rel='stylesheet' type='text/css' media='screen'href='../css/plist.css'>
-<jsp:include page = "../top2.jsp"/>
+<link rel='stylesheet' type='text/css' media='screen'
+	href='../css/plist.css'>
+<jsp:include page="../top2.jsp" />
 </head>
 <script>
-function send_form(frmId) { // form 제출
-	document.getElementById(frmId).submit();
-}
+	function send_form(frmId) { // form 제출
+		document.getElementById(frmId).submit();
+	}
 
-
-function sel(){ 
-	var langSelect = document.getElementById("sort"); 
-	// select element에서 선택된 option의 value가 저장된다. 
-	var selectValue = langSelect.options[langSelect.selectedIndex].value; 
-	// select element에서 선택된 option의 text가 저장된다. 
-	var selectText = langSelect.options[langSelect.selectedIndex].text; 
-}
-
+	function sel() {
+		var langSelect = document.getElementById("sort");
+		// select element에서 선택된 option의 value가 저장된다. 
+		var selectValue = langSelect.options[langSelect.selectedIndex].value;
+		// select element에서 선택된 option의 text가 저장된다. 
+		var selectText = langSelect.options[langSelect.selectedIndex].text;
+	}
 </script>
 <body>
 	상품리스트페이지입니다.
@@ -118,40 +127,48 @@ function sel(){
 		</section>
 		<section class="plist">
 			<div class="ptop">
-			
+
 				현재 카테고리:
-				<%=mClass%> - <%=sClass%>
-				<div class="array">n개의 상품이 있습니다. 
-				<form action="productProc.jsp">
-				<h5>정렬방식
-				<select name="sort" onchange="this.form.submit()">
-				<option value="0">최신순</option>
-				<option value="1">높은가격순</option>
-				<option value="2">낮은가격순</option>
-<!-- 			<option value="3" >인기순</option>
+				<%=mClass%>
+				-
+				<%=sClass%>
+				<div class="array">
+					n개의 상품이 있습니다.
+					<form action="productProc.jsp">
+						<h5>
+							정렬방식 <select name="sort" onchange="this.form.submit()">
+								<option value="0">최신순</option>
+								<option value="1">높은가격순</option>
+								<option value="2">낮은가격순</option>
+								<!-- 			<option value="3" >인기순</option>
 				<option value="4" >리뷰순</option> -->
-				</select>
-				<input type=hidden name="mClass" value="<%=mClass%>">
-				<input type=hidden name="sClass" value="<%=sClass%>">
-				</h5>
-				</form>
+							</select> <input type=hidden name="mClass" value="<%=mClass%>"> <input
+								type=hidden name="sClass" value="<%=sClass%>">
+						</h5>
+					</form>
 				</div>
-				
+
 			</div>
 			<div class="product_list" id="product_list">
 				여기서부터 상품진열<br>
 				<ul class="product_row">
 					<%
-							for (int i=0; i<pvlist.size(); i++) {
-								ProductBean pbean = pvlist.get(i);
-						%>
-					<li><img src="../image/<%=pbean.getImage()%>" height="200"
-						width="200"><br> <%=pbean.getPname()%><br> <%=UtilMgr.monFormat(pbean.getPrice1())%>원<br>
-					</li>
-					<%} //--for%>
-				</ul>	
+					for (int i = 0; i < pvlist.size(); i++) {
+						ProductBean pbean = pvlist.get(i);
+					%>
+					<li><a href="#" onclick="send_form('frmP')">
+					<img src="../image/<%=pbean.getImage()%>" height="200" width="200"><br>
+							<%=pbean.getPname()%></a>
+						<form method="post" id="frmP" action="productDetail.jsp">
+							<input type=hidden name="id" value="<%=id%>">
+							<input type=hidden name="pnum" value="<%=pbean.getPnum()%>">
+						</form>
+						<%=UtilMgr.monFormat(pbean.getPrice1())%>원<br></li>
+					<%
+					} //--for
+					%>
+				</ul>
 			</div>
-
 		</section>
 	</div>
 </body>
