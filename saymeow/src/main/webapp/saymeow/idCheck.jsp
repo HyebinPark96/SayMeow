@@ -12,7 +12,7 @@
 <link href="styleTW.css" rel="stylesheet" type="text/css">
 <script  src="script.js"></script>
 </head>
-<body bgcolor="#FFFFCC">
+<body bgcolor="white">
 <br>
 <div align="center">
 <b><%=id%></b>

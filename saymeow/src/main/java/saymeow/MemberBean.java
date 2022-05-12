@@ -13,7 +13,23 @@ public class MemberBean {
 	private String petAge;
 	private String petGender;
 	private String petBreed;
+	private String grade;
+	private String mode;
+    
 	
+	public MemberBean(String id, String pwd, String name, String email){
+        this.id = id;
+        this.pwd = pwd;
+        this.name = name;
+        this.email = email;
+    }
+	
+	
+	public MemberBean() {
+	
+	}
+
+
 	public String getId() {
 		return id;
 	}
@@ -81,5 +97,17 @@ public class MemberBean {
 	}
 	public void setPetBreed(String petBreed) {
 		this.petBreed = petBreed;
+	}
+	public String getGrade() {
+		return grade;
+	}
+	public void setGrade(String grade) {
+		this.grade = grade;
+	}
+	public String setMode() {
+		return mode;
+	}
+	public void setMode(String mode) {
+		this.mode = mode;
 	}
 }

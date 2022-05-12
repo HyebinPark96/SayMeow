@@ -41,7 +41,7 @@ public class DBConnectionMgr {
     private Vector connections = new Vector(10);
     //private String _driver = "org.gjt.mm.mysql.Driver",
     private String _driver = "com.mysql.cj.jdbc.Driver",
-    _url = "jdbc:mysql://127.0.0.1:3307/saymeow?useUnicode=true&characterEncoding=EUC_KR&serverTimezone=Asia/Seoul",
+    _url = "jdbc:mysql://127.0.0.1:3306/saymeow?useUnicode=true&characterEncoding=EUC_KR&serverTimezone=Asia/Seoul",
     _user = "root",
     _password = "1234";
     
