@@ -211,7 +211,7 @@ public class OrderMgr {
 			sql = "select * from petorder where onum=? and state=?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, onum);
-			pstmt.setString(2, "6");
+			pstmt.setString(2, "5");
 			rs = pstmt.executeQuery();
 			if(rs.next()) {
 				flag=true;

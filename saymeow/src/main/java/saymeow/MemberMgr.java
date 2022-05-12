@@ -120,8 +120,8 @@ public class MemberMgr {
 				bean.setPhone(rs.getString("phone"));
 				bean.setEmail(rs.getString("email"));
 				bean.setAddress(rs.getString("address"));
-				bean.setGrade(rs.getString("grade"));
-				bean.setMode(rs.getString("mode"));
+				bean.setGrade(rs.getInt("grade"));
+				bean.setMode(rs.getInt("mode"));
 				bean.setPetName(rs.getString("petName"));
 				bean.setPetAge(rs.getString("petAge"));
 				bean.setPetGender(rs.getString("petGender"));
@@ -153,8 +153,8 @@ public class MemberMgr {
 			pstmt.setString(5, bean.getPhone());
 			pstmt.setString(6, bean.getEmail());
 			pstmt.setString(7, bean.getAddress());
-			pstmt.setString(8, bean.getGrade());
-			pstmt.setString(9, bean.getMode());
+			pstmt.setInt(8, bean.getGrade());
+			pstmt.setInt(9, bean.getMode());
 			pstmt.setString(10, bean.getPetName());
 			pstmt.setString(11, bean.getPetAge());
 			pstmt.setString(12, bean.getPetGender());

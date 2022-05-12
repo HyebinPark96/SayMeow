@@ -1,3 +1,4 @@
+<%@page import="saymeow.MemberMgr"%>
 <%@page import="saymeow.MemberBean"%>
 <%@page contentType="text/html; charset=EUC-KR"%>
 <jsp:useBean id="mMgr" class="saymeow.MemberMgr" />

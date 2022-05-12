@@ -130,4 +130,33 @@ public class CartMgr {
 		}
 		return flag;
 	}
+	
+	//order check
+	public CartBean checkCart(int cnum) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = null;
+		CartBean cart = new CartBean();
+		try {
+			con = pool.getConnection();
+			sql = "select * from cart where cnum=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, cnum);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				cart.setCnum(rs.getInt("cnum"));
+				cart.setId(rs.getString("id"));
+				cart.setPnum(rs.getInt("pnum"));
+				cart.setPname(rs.getString("pname"));
+				cart.setPrice1(rs.getInt("price1"));
+				cart.setQty(rs.getInt("qty"));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			pool.freeConnection(con, pstmt, rs);
+		}
+		return cart;
+	}
 }

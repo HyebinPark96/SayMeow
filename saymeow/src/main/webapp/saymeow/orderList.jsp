@@ -51,7 +51,11 @@
 		o.btn.disabled = true;//버튼의 비활성화
 		o.btn.style.color = "gray";
 	}
-
+	function ReviewForm(onum,pnum){
+		document.review.onum.value=onum;
+		document.review.pnum.value=pnum;
+		document.review.submit();
+	}
 </script>
 </head>
 	<body>
@@ -116,11 +120,12 @@
 						case"2": out.print("접수");break;
 						case"3": out.print("배송준비");break;
 						case"4": out.print("배송중");break;
-						case"5": out.print("배송완료");break;
+						case"5": %>
+						<input type="button" value="리뷰쓰기" onclick="ReviewForm('<%=order.getOnum()%>','<%=order.getPnum()%>')">
+						<%break;
 						case"6": out.print("주문취소");break;
 					}
 				%>
-				</td>
 			</tr>
 				<%}//--for
 		}//--else-if %>
@@ -133,8 +138,9 @@
 <!-- include bottom Start -->
 
 <!-- include bottom End -->
-	<form name="oDetail" method="post" action="">
+	<form name="review" method="post" action="ReviewForm.jsp">
 		<input type="hidden" name="onum">
+		<input type="hidden" name="pnum">
 	</form>
 </body>
 </html>	 
