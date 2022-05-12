@@ -13,8 +13,6 @@ import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 
-
-
 public class ReviewMgr {
 	// 수영장 튜브 공기 빼지 않고 재사용하는 것과 같은 원리
 	private DBConnectionMgr pool; // pool 객체 생성
@@ -142,6 +140,31 @@ public class ReviewMgr {
 				pstmt = con.prepareStatement(sql);
 				pstmt.setString(1, "%" + keyWord + "%"); // '' 자동으로 붙여줌	
 			}
+			rs = pstmt.executeQuery();
+			if(rs.next())
+				totalCount = rs.getInt(1);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			pool.freeConnection(con, pstmt, rs);
+		}
+		return totalCount; // 전체 게시글 수 반환
+	}
+	
+	// 특정id가 쓴 총 리뷰 수 SELECT 
+	public int getTotalCountById(String id) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = null;
+		int totalCount = 0;
+		try {
+			con = pool.getConnection();
+			sql = "SELECT COUNT(*) "
+				+ "FROM review "
+				+ "WHERE rid = ? ";
+			pstmt = con.prepareStatement(sql); 
+			pstmt.setString(1, id);
 			rs = pstmt.executeQuery();
 			if(rs.next())
 				totalCount = rs.getInt(1);
@@ -365,7 +388,7 @@ public class ReviewMgr {
 		try {
 			con = pool.getConnection();
 			sql = "INSERT review(onum,rid,pnum,date,subject,content,score,filename,filesize) "
-				+ "VALUES (1, 'aaa', 1, now(),'Hello','World!', 3, null, 0);";
+				+ "VALUES (1, 'bbb', 1, now(),'Hello','World!', 3, null, 0);";
 			pstmt = con.prepareStatement(sql);
 			// 1000번 반복
 			for (int i = 0; i < 1000; i++) {

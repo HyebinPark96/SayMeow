@@ -1,26 +1,23 @@
-<!-- 장난감 카테고리 (메인에서 눌러서 들어옴) -->
 <%@page import="saymeow.UtilMgr"%>
 <%@page import="saymeow.ProductBean"%>
 <%@page import="java.util.Vector"%>
 <%@page import="saymeow.ProductMgr"%>
 <%@page contentType="text/html; charset=EUC-KR"%>
 <%
-ProductMgr mgr = new ProductMgr();
-
+request.setCharacterEncoding("EUC-KR");
 String mClass = request.getParameter("mClass");
 String sClass = request.getParameter("sClass");
-String sort = request.getParameter("sort");
-if(mClass==null) {
-mClass="toy";
-} 
-System.out.println("[catfood] mClass:"+ mClass + " /sClass:"+sClass + " /sort:" + sort);
-Vector<ProductBean> pvlist = mgr.getP2(mClass, sClass, sort); 
+String keyWord = request.getParameter("keyWord"); // 검색할 상품이름
+
+ProductMgr mgr = new ProductMgr();
+Vector<ProductBean> pvlist = mgr.getPList(keyWord);
+	
 %>
-<!DOCTYPE html>
+ml>
 <html>
 <head>
 <meta charset="EUC-KR">
-<title>toy</title>
+<title>productSearch</title>
 <meta name='viewport' content='width=device-width, initial-scale=1'>
 <link rel='stylesheet' type='text/css' media='screen'href='../css/plist.css'>
 <jsp:include page = "../top2.jsp"/>
@@ -29,9 +26,18 @@ Vector<ProductBean> pvlist = mgr.getP2(mClass, sClass, sort);
 function send_form(frmId) { // form 제출
 	document.getElementById(frmId).submit();
 }
+
+
+function sel(){ 
+	var langSelect = document.getElementById("sort"); 
+	// select element에서 선택된 option의 value가 저장된다. 
+	var selectValue = langSelect.options[langSelect.selectedIndex].value; 
+	// select element에서 선택된 option의 text가 저장된다. 
+	var selectText = langSelect.options[langSelect.selectedIndex].text; 
+}
+
 </script>
 <body>
-	상품리스트페이지입니다.
 	<div id="container">
 		<!-- 카테고리(sidebar) -->
 		<section class="category">
@@ -106,23 +112,11 @@ function send_form(frmId) { // form 제출
 		</section>
 		<section class="plist">
 			<div class="ptop">
-				현재 카테고리:
-				<%=mClass%> - <%=sClass%>
+			
+				검색어: <%=keyWord%>
 				<div class="array">n개의 상품이 있습니다. 
-				<form action="productProc.jsp">
-				<h5>정렬방식
-				<select name="sort" onchange="this.form.submit()">
-				<option value="0">최신순</option>
-				<option value="1" >높은가격순</option>
-				<option value="2" >낮은가격순</option>
-<!-- 			<option value="3" >인기순</option>
-				<option value="4" >리뷰순</option> -->
-				</select>
-				<input type=hidden name="mClass" value="<%=mClass%>">
-				<input type=hidden name="sClass" value="<%=sClass%>">
-				</h5>
-				</form>
 				</div>
+				
 			</div>
 			<div class="product_list" id="product_list">
 				여기서부터 상품진열<br>
@@ -135,9 +129,8 @@ function send_form(frmId) { // form 제출
 						width="200"><br> <%=pbean.getPname()%><br> <%=UtilMgr.monFormat(pbean.getPrice1())%>원<br>
 					</li>
 					<%} //--for%>
-				</ul>
+				</ul>	
 			</div>
-
 		</section>
 	</div>
 </body>
