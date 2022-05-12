@@ -14,37 +14,55 @@ MemberMgr mgr = new MemberMgr();
 <html> 
 <head> 
 <meta charset="EUC-KR"> 
+<link rel="stylesheet" href="css/styleTW.css">
 </head> 
 <body> 
 	<%@ include file="top.jsp" %>
-	 <form name="idsearch" method="post">
+	 <form name="idsearch" method="post" >
       <%
        if (member_mid != null) {
       %>
-      
-      <div class = "container">
+      <table id="level">
+		<tr><td id="level2">
+		<table id="level3">
+		<tr><td>
+      <div class = "container" >
       	<div class = "found-success">
 	      <h4>  회원님의 아이디는 </h4>  
 	      <div class ="found-id"><%=member_mid%></div>
 	      <h4>  입니다 </h4>
 	     </div>
 	     <div class = "found-login">
- 		    <input type="button" id="btnLogin" value="로그인" onClick ="location.href='login.jsp'"/>
- 		     <input type="button" id="btnLogin" value="비밀번호 찾기" onClick ="location.href='findPw.jsp'"/>
+ 		    <input type="button" class="lbtn"id="btnLogin" value="로그인" onClick ="location.href='login.jsp'"/>
+ 		     <input type="button" class="lbtn"id="btnLogin" value="비밀번호 찾기" onClick ="location.href='findPw.jsp'"/>
        	</div>
        </div>
+       </table>
+ 	</td></tr>
+ 	</table>
       <%
   } else {
  %>
-        <div class = "container">
-      	<div class = "found-fail">
+ <table id="level">
+		<tr><td id="level2">
+		<table id="level3">
+		<tr><td>
+        <div class = "container" >
+      	<div class = "found-fail" >
 	      <h4>  등록된 정보가 없습니다 </h4>  
 	     </div>
-	     <div class = "found-login">
- 		    <input type="button" id="btnback" value="다시 찾기" onClick="history.back()"/>
- 		    <input type="button" id="btnjoin" value="회원가입" onClick="location.href='member.jsp'"/>
-       	</div>
        </div>
+       
+       </td>
+       </tr>
+       <tr><td>
+           <div class = "found-login">
+ 		    <input type="button" class="lbtn"id="btnback" value="다시 찾기" onClick="history.back()"/>
+ 		    <input type="button" class="lbtn"id="btnjoin" value="회원가입" onClick="location.href='member.jsp'"/>
+       	</div>
+       </td></tr>
+       </table>
+       </td></tr></table>
        <%
   }
  %> 

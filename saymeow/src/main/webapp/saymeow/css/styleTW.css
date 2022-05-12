@@ -88,3 +88,76 @@
 #bootstrap-overrides .bottom-aTag{
 	background:none;
 }
+/*login.jsp*/
+#level{
+	height:30vw;
+	width:60vw;
+	margin:5vh auto;
+	border-radius: 5px;
+	border: 3px solid #A13FFF;
+
+}
+#level2{
+	
+	width: 400px;
+	border-collapse: separate;
+	border-spacing: 0 20px;
+}
+#level3{
+	width:50vw;
+	height:15vw;
+	border:1;
+	margin:5vh auto;
+  	border-radius: 5px;
+}
+#level4{
+	height: 5vw;
+	margin:5vh auto;
+	background-color: #A13FFF;
+	color: white;
+}
+.lbtn{
+	border:none;
+	display:inline;
+	width:8vw;
+	height:1.5vw;
+	text-align: center;
+	text-decoration-line: none;
+	background-color:#A13FFF;
+	color:white;
+	border-radius: 5px;
+}
+
+.loginlo{
+
+	font-size: 30px;
+	border-radius: 5px;
+
+}
+.logbtn{
+	border:none;
+	display:inline;
+	width:8vw;
+	height:4vw;
+	text-align: center;
+	text-decoration-line: none;
+	font-size:40px;
+	background-color:#A13FFF;
+	color:white;
+	border-radius: 5px;
+}
+/*member.jsp*/
+
+
+/*memberinsert.jsp*/
+
+/*memberupdate.jsp*/
+
+/*findid.jsp*/
+
+/*findidresult.jsp*/
+
+/*findpw.jsp*/
+
+/*findpwresult.jsp*/
+

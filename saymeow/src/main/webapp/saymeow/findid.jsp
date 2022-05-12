@@ -7,13 +7,20 @@
 <head> 
 <meta charset="EUC-KR"> 
 <script src="script.js"></script>
+<link rel="stylesheet" href="css/styleTW.css">	
 </head> 
 <body> 
 	<%@ include file="top.jsp" %>
 		<form name="idfindscreen" method = "POST">
+		<table id="level">
+		<tr><td id="level2">
+		<table id="level3">
+		<tr><td>
 			<div class = "search-title">
-				<h3>휴대폰 본인확인</h3>
+				<h3><span class="loginlo">휴대폰 본인확인</span></h3>
 			</div>
+			</td></tr>
+			<tr><td>
 		<section class = "form-search">
 			<div class = "find-name">
 				<label>이름</label>
@@ -26,10 +33,16 @@
 			</div>
 			<br>
 	</section>
+	</td></tr>
+	<tr><td>
 	<div class ="btnSearch">
-		<input type="button" name="enter" value="찾기"  onClick="id_search()">
-		<input type="button" name="cancle" value="취소" onClick="location.href='login.jsp'">
+		<input type="button" class="lbtn" name="enter" value="찾기"  onClick="id_search()">
+		<input type="button" class="lbtn" name="cancle" value="취소" onClick="location.href='login.jsp'">
  	</div>
+ 	</td></tr>
+ 	</table>
+ 	</td></tr>
+ 	</table>
  </form>
 	<%@ include file="bottom.jsp" %> 
 </body> 

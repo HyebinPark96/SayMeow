@@ -2,27 +2,33 @@
 <html>
 <head>
 <title>saymeow</title>
-<script src="script.js"></script>
+<script src="script.js"></script>	
 </head>
+<!-- 외부 CSS -->						
+<link rel="stylesheet" href="css/style.css">						
+<link rel="stylesheet" href="css/styleTW.css">						
+<!-- 부트스트랩 CSS -->						
+<link						
+href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"						
+rel="stylesheet"						
+integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"						
+crossorigin="anonymous">
+<%@ include file="top.jsp"%>
+<body >
+<form name="regForm" method="post" action="memberInsert.jsp">
+<table id="level" >
 
-<body bgcolor="#996600" topmargin="100">
-
-	<%@ include file="top.jsp"%>
-
-	<table width="75%" align="center" bgcolor="#FFFF99">
+<tr>  
+	<td id="level2">
+		<table id="level3">
+		<tr align="center" bgcolor="#A13FFF" id="level4">
+			<td colspan="3" id="level4">회원 가입</td>
+		</tr>
 		<tr>
-			<td align="center" bgcolor="#FFFFCC">
-
-				<table width="95%" align="center" bgcolor="#FFFF99" border="1">
-					<form name="regForm" method="post" action="memberInsert.jsp">
-						<tr align="center" bgcolor="#996600">
-							<td colspan="3"><font color="#FFFFFF"><b>회원 가입</b></font></td>
-						</tr>
-						<tr>
 							<td width="16%">아이디</td>
 							<td width="57%"><input name="id" size="17"> <input
 								type="button" value="ID중복확인"
-								onClick="idCheck(this.form.id.value)"></td>
+								onClick="idCheck(this.form.id.value)" class="lbtn"></td>
 							
 						</tr>
 						<tr>
@@ -80,18 +86,19 @@
 							<td><input name="petBreed" size="27"></td>
 						
 						</tr>
-						<tr>
+		<tr> 
 							<td colspan="3" align="center"><input type="button"
-								value="회원가입" onclick="inputCheck()"> &nbsp; &nbsp;
-								&nbsp; &nbsp; &nbsp; &nbsp; <input type="button" value="가입취소" onClick="location.href='login.jsp'">
+								value="회원가입" onclick="inputCheck()" class="lbtn"> &nbsp; &nbsp;
+								&nbsp; &nbsp; &nbsp; &nbsp; <input type="button" value="가입취소" onClick="location.href='login.jsp'" class="lbtn">
 							</td>
-						</tr>
-					</form>
-				</table>
-			</td>
 		</tr>
-	</table>
+		<tr>
+</tr>
+</table>
+</td>
+</tr>
+</table>
+</form>
 	<%@ include file="bottom.jsp"%>
 </body>
 </html>
-

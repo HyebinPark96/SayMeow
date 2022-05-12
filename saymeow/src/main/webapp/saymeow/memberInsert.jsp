@@ -9,7 +9,7 @@
 <title>회원가입 확인</title>
 <script src="script.js"></script>
 </head>
-<body bgcolor="#996600">
+<body>
 	<br>
 
 	<%@ include file="top.jsp"%>
