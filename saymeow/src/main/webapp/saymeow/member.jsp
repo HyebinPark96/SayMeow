@@ -1,4 +1,6 @@
 <%@page contentType="text/html; charset=EUC-KR" pageEncoding="EUC-KR"%>
+<jsp:useBean id="mBean" class="saymeow.MemberBean" />
+<jsp:setProperty name="mBean" property="*" />
 <html>
 <head>
 <title>saymeow</title>
@@ -15,7 +17,7 @@ integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jI
 crossorigin="anonymous">
 <%@ include file="top.jsp"%>
 <body >
-<form name="regForm" method="post" action="memberInsert.jsp">
+<form name="regForm" method="post" action="memberProc.jsp">
 <table id="level" >
 
 <tr>  

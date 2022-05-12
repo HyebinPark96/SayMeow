@@ -9,7 +9,7 @@
 <title>회원가입 확인</title>
 <link href="styleTW.css" rel="stylesheet" type="text/css">
 <html>
-<body bgcolor="#FFFFCC">
+<body>
 <br/><br/>
 <div align="center">
 <%
