@@ -5,6 +5,16 @@
 <%@page contentType="text/html; charset=EUC-KR"%>
 <%
 request.setCharacterEncoding("EUC-KR");
+
+//id값 받아오기
+String id = request.getParameter("id"); // 이전 페이지에서 받아오기
+if(session.getAttribute("idKey")!=null){ // id값이 세션으로 저장되어 있다면
+	id = (String) session.getAttribute("idKey");
+} 
+
+//테스트용 임의설정 
+id = "aaa";
+
 String mClass = request.getParameter("mClass");
 String sClass = request.getParameter("sClass");
 String keyWord = request.getParameter("keyWord"); // 검색할 상품이름
@@ -124,9 +134,16 @@ function sel(){
 					<%
 							for (int i=0; i<pvlist.size(); i++) {
 								ProductBean pbean = pvlist.get(i);
-						%>
-					<li><img src="../image/<%=pbean.getImage()%>" height="200"
-						width="200"><br> <%=pbean.getPname()%><br> <%=UtilMgr.monFormat(pbean.getPrice1())%>원<br>
+					%>
+					<li>
+					<a href="#" onclick="send_form('frmP')">
+					<img src="../image/<%=pbean.getImage()%>" height="200" width="200">
+							<br><%=pbean.getPname()%></a>
+							<form method="post" id="frmP" action="productDetail.jsp">
+								<input type=hidden name="id" value="<%=id%>">
+								<input type=hidden name="pnum" value="<%=pbean.getPnum()%>">
+							</form> 
+						<%=UtilMgr.monFormat(pbean.getPrice1())%>원<br>
 					</li>
 					<%} //--for%>
 				</ul>	
