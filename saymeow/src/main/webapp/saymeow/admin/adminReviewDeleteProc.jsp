@@ -13,5 +13,5 @@
 
 <script>
 	alert('<%=msg%> : <%=rnum%>');
-	location.href="reviewBoard.jsp";
+	location.href="adminReviewBoard.jsp";
 </script>

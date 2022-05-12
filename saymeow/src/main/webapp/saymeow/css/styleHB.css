@@ -65,7 +65,7 @@
 
 /*reviewBoard.jsp*/
 #review-board .review-board-topic{
-	margin-bottom:1vw;
+	margin-bottom:1vh;
 }
 
 #review-board .npFrm-td{ /*5개씩, 10개씩, ... 보기*/
@@ -83,16 +83,10 @@
 
 #review-board .form-select{ /*x개씩 보기 옵션, 검색 조건 옵션*/
 	width:9vw;
-	display:inline;
-}
-
-#review-board .searchFrm{
-	margin:2vh;
 }
 
 #review-board .form-control{ /*리뷰 검색창*/
-	width:18vw;
-	display:inline;
+	width:10vw;
 }
 
 #review-board .reviewSearchBtn {/*리뷰 검색창 검색버튼*/
@@ -101,7 +95,6 @@
 
 
 /*adminMain.jsp*/
-/*adminReviewBoard.jsp*/
 #adminMain .nav > a{
 	text-decoration-line: none;
 }
@@ -119,7 +112,30 @@
 	text-decoration-line: none;	
 }
 
+#adminOrder .table-column{/*리뷰게시판 컬럼*/
+	background-color:#E0B0FF;
+}
+
+
 #adminOrder .page > a {
 	text-decoration-line: none;
 	color:black;
 }
+
+#adminOrder .form-select, #adminOrder .form-text-input{
+	display:inline;
+	width:10vw;
+	margin-bottom:5vh;
+}
+
+#adminOrder .orderSearchBtn{
+	margin-bottom: 0.6vh;
+}
+
+#adminOrder .deleteAllBtn, #adminOrder .deleteBtn{
+	margin-top:2vh;
+}
+
+
+
+

@@ -230,6 +230,63 @@ public class ReviewMgr {
 	}
 	
 	
+	// myReview만 보기
+	// 페이지별 정해진 개수만큼 리뷰 보기 SELECT : 검색하든 안하든 동일하게 적용되는 메소드 
+	public Vector<ReviewBean> getReviewList(String keyField, String keyWord, int start, int cnt, String id) { /*뒤 두개는 limit - SQL문*/
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = null;
+		Vector<ReviewBean> vlist = new Vector<ReviewBean>();
+		try {
+			con = pool.getConnection();
+			if(keyWord==null||keyWord.trim().equals("")) { // 검색이 아닐 때
+				sql = "SELECT * "
+					+ "FROM review "
+					+ "WHERE rid = ? "
+					+ "ORDER BY rnum DESC "
+					+ "LIMIT ?,? ";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setString(1, id);
+				pstmt.setInt(2, start);
+				pstmt.setInt(3, cnt);
+			} else { // 검색일 때 
+				sql = "SELECT * "
+					+ "FROM review "
+					+ "WHERE rid = ? AND " + keyField + " LIKE ? " // 띄워쓰기 중요!!
+					+ "ORDER BY rnum DESC "
+					+ "LIMIT ?,? ";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setString(1, id);
+				pstmt.setString(2, "%"+keyWord+"%"); // 2번째 매개변수 자리의 문자열에 자동으로 따옴표 생성 '%keyWord%'
+				pstmt.setInt(3, start);
+				pstmt.setInt(4, cnt);
+			}
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				ReviewBean bean = new ReviewBean();
+				
+				// 페이징처리에 필요한 것만 가져오기
+				bean.setRnum(rs.getInt("rnum")); // 리뷰순번
+				bean.setRid(rs.getString("rid")); // 리뷰 작성자 id 
+				bean.setPnum(rs.getInt("pnum")); // 상품번호 
+				bean.setDate(rs.getString("date"));
+				bean.setSubject(rs.getString("subject"));
+				bean.setContent(rs.getString("content"));
+				bean.setScore(rs.getDouble("score"));
+				bean.setFilename(rs.getString("filename"));
+				
+				vlist.addElement(bean); // 벡터에 빈즈단위로 담기
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			pool.freeConnection(con, pstmt, rs);
+		}
+		return vlist; // 디폴트로 10개씩 반환되고, 나머지 반환될 수 있음
+	}
+	
+	
 	// 한 개의 리뷰 읽기 SELECT 
 	public ReviewBean getReview(int rnum) {
 		Connection con = null;

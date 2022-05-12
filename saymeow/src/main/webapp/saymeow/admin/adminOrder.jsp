@@ -115,7 +115,7 @@
 			}
 		}
 		console.log(document.deleteFrm.onum.value);
-		document.deleteFrm.action = "deleteOrderProc.jsp?";
+		document.deleteFrm.action = "adminDeleteOrderProc.jsp";
 		document.deleteFrm.submit();
 	}
 	
@@ -144,22 +144,22 @@
 		<a href="adminSales.jsp"><button class="nav-link" id="v-pills-settings-tab" data-bs-toggle="pill" data-bs-target="#v-pills-settings" type="button" role="tab" aria-controls="v-pills-settings" aria-selected="false">매출관리</button></a>
 		<a href="#"><button class="nav-link" id="v-pills-settings-tab" data-bs-toggle="pill" data-bs-target="#v-pills-settings" type="button" role="tab" aria-controls="v-pills-settings" aria-selected="false">판매데이터</button></a>
 	</div>
-	<div class="tab-content" id="v-pills-tabContent">
-		<h1>주문관리</h1>
-		<table class="orderTable" border="1">
+	<div class="tab-content" id="v-pills-tabContent" style="margin:0 auto;">
+		<h2 style="text-align: center; margin: 1.5vw; margin-bottom: 2vw;">주문관리</h2>
+		<table class="orderTable">
 			<tr>
 				<td align="center" colspan="2">
-					<table>
-						<tr>
-							<td width="100">주문순번</td>
-							<td width="100">주문자 ID</td>
-							<td width="100">주문상품번호</td>
-							<td width="100">주문상품이름</td>
-							<td width="100">주문수량</td>
-							<td width="100">주문날짜</td>
-							<td width="100">배송지</td>
-							<td width="100">주문상태</td>
-							<td width="100"><input type="checkbox" class="allCheckChb" onclick="allCheck()">&nbsp;전체선택</td>
+					<table class="table table-hover" >
+						<tr class="table-column">
+							<th width="100">순번</th>
+							<th width="100">주문자 ID</th>
+							<th width="100">상품번호</th>
+							<th width="100">상품명</th>
+							<th width="100">주문수량</th>
+							<th width="150">주문날짜</th>
+							<th width="100">배송지</th>
+							<th width="100">주문상태</th>
+							<th width="130"><input type="checkbox" class="allCheckChb" onclick="allCheck()">&nbsp;[전체선택]</th>
 						</tr>
 						<%
 						Vector<OrderBean> vlist = aoMgr.getOrderList(keyField, keyWord, start, cnt);
@@ -202,9 +202,9 @@
 				</td>
 			</tr>
 			<tr>
-				<td align="center" class="page">
+				<td align="center" class="page" style="font-size:1em;">
 					<%if(nowBlock > 1) {%>
-						<a href="javascript:block('<%=nowBlock-1%>')">&nbsp;이전&nbsp;</a>
+						<a href="javascript:block('<%=nowBlock-1%>')">&nbsp;이 전&nbsp;</a>
 					<%}%>
 					<%
 					// 각 블럭의 첫페이지와 마지막 페이지 계산
@@ -215,40 +215,41 @@
 					out.println("*pageEnd : " + pageEnd); */
 					for(; pageStart<pageEnd; pageStart++){%>
 						<a href="javascript:pageing('<%=pageStart%>')">
-							[<%=pageStart%>]
+							<%if(pageStart == nowPage){%>
+								<font color="#A13FFF">[<%=pageStart%>]</font>
+							<%}else { %>
+								[<%=pageStart%>]
+							<%} %>
 						</a>
 					<%}%>
 					<%if(nowBlock < totalBlock) {%>
-						<a href="javascript:block('<%=nowBlock+1%>')">&nbsp;다음&nbsp;</a>
+						<a href="javascript:block('<%=nowBlock+1%>')">&nbsp;다 음&nbsp;</a>
 					<%}%>
-<%-- 					<%out.println("nowBlock : " + nowBlock);%>
-					<%out.println("nowPage : " + nowPage);%>
-					<%out.println("pagePerBlock : " + pagePerBlock); %>
-					<%out.println("numPerPage : " + numPerPage);  %>
-					<%out.println("*totalRecord : " + totalRecord);  %>
-					<%out.println("start : " + start);  %>
-					<%out.println("cnt : " + cnt);  %> --%>
 				</td>
 			</tr>
 		</table>
-  		
-  		<!-- 검색 폼 -->
-  		<form name="searchOrderFrm"> <!-- 재귀호출되도록 -->
-			<select name="keyField"> <!-- 선택한 값이 keyField의 value로 가나요? -->
-				<option value="oid">주문자 ID</option>
-				<option value="pnum">주문상품번호</option>
-				<option value="pname">주문상품이름</option>
-				<option value="state">주문상태</option>
-			</select>
-			<input type="text" name="keyWord"> <!-- 입력한 값이 keyWord의 value로 가나요? -->
-			<input type="button" onclick="search()" value="검색">
-		</form>
 		
-		<form name="deleteFrm" style="text-align:right" method="post">
+		<div style="text-align:right">
+		<form name="deleteFrm" method="post">
 			<input type="hidden" name="onum">
-			<input type="button" name="deleteBtn" value="삭제" onclick="deleteCheckedBox()">
-			<input type="button" name="deleteAllBtn" value="전체삭제">
+			<input type="button" name="deleteBtn" value="삭제" onclick="deleteCheckedBox()" class="btn btn-primary deleteBtn">
+			<input type="button" name="deleteAllBtn" value="전체삭제" class="btn btn-primary deleteAllBtn">
 		</form>
+		</div>
+		
+		<div style="text-align:center;">
+		  	<!-- 검색 폼 -->
+  			<form name="searchOrderFrm" style=""> <!-- 재귀호출되도록 -->
+				<select name="keyField" class="form-select"> <!-- 선택한 값이 keyField의 value로 가나요? -->
+					<option value="oid">주문자 ID</option>
+					<option value="pnum">상품번호</option>
+					<option value="pname">상품명</option>
+					<option value="state">주문상태</option>
+				</select>
+				<input type="text" name="keyWord" class="form-control form-text-input"> <!-- 입력한 값이 keyWord의 value로 가나요? -->
+				<input type="button" onclick="search()" value="검색" class="btn btn-primary orderSearchBtn">
+		</form>
+		</div>
 		
 		<form name="readFrm">
 			<input type="hidden" name="nowPage" value="<%=nowPage%>">
