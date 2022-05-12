@@ -113,3 +113,13 @@
 	text-decoration-line: none;
 }
 
+
+/*adminOrder.jsp*/
+#adminOrder .nav > a{
+	text-decoration-line: none;	
+}
+
+#adminOrder .page > a {
+	text-decoration-line: none;
+	color:black;
+}
