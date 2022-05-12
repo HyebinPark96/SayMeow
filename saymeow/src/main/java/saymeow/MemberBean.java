@@ -9,11 +9,25 @@ public class MemberBean {
 	private String phone;
 	private String email;
 	private String address;
+	private int grade;
+	private int mode;
 	private String petName;
 	private String petAge;
 	private String petGender;
 	private String petBreed;
 	
+	public int getGrade() {
+		return grade;
+	}
+	public void setGrade(int grade) {
+		this.grade = grade;
+	}
+	public int getMode() {
+		return mode;
+	}
+	public void setMode(int mode) {
+		this.mode = mode;
+	}
 	public String getId() {
 		return id;
 	}
