@@ -18,14 +18,14 @@ request.setCharacterEncoding("EUC-KR");
     <style>
     </style>
 <script>
-function btn(btnId) { // 버튼활성/비활성화
+	 function btn(btnId) { // 버튼활성/비활성화
 	var btn = document.getElementById(btnId);
 	if (btn.style.display == "none" ) {
 		btn.style.display = "flex";
 	}else {
 		btn.style.display = "none";
 	}
-} 
+}  
 </script>
 <body>
 <!-- 로고 / 검색창 / 로그인 버튼 -->
@@ -42,12 +42,12 @@ function btn(btnId) { // 버튼활성/비활성화
 		</div>
 		<!-- 로그인 -->
 		<div class=btns>
-		<form><button id=login type="submit">로그인</button></form>
-		<form><button id=logout type="submit">로그아웃</button></form>
-		<form><button id=join type="submit">회원가입</button></form>
-		<form><button id=my type="submit">마이페이지</button></form>
-		<form><button id=admin type="submit">관리자메뉴</button></form>
-		<form><button id=cart type="submit">장바구니</button></form>
+		<form><button id=login type="submit">로그인</button></form>&nbsp;
+		<form><button id=logout type="submit">로그아웃</button></form>&nbsp;
+		<form><button id=join type="submit">회원가입</button></form>&nbsp;
+		<form><button id=my type="submit">마이페이지</button></form>&nbsp;
+		<form><button id=admin type="submit">관리자메뉴</button></form>&nbsp;
+		<form><button id=cart type="submit">장바구니</button></form>&nbsp;
 		</div>
 		
 		<% if(id==null) { %>

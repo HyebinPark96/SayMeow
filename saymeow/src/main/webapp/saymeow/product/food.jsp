@@ -14,18 +14,16 @@ if(session.getAttribute("idKey")!=null){ // id값이 세션으로 저장되어 있다면
 
 id = "aaa";
 
-
 ProductMgr mgr = new ProductMgr();
 
 String mClass = request.getParameter("mClass");
 String sClass = request.getParameter("sClass");
 String sort = request.getParameter("sort");
 
-if(mClass==null) {
-mClass="food";
-}
+if (sort==null||sort.equals("")) sort="0";
+if(mClass==null) mClass="food";
 
-System.out.println("[product] mClass:"+ mClass + " /sClass:"+sClass + " /sort:" + sort);
+// System.out.println("[product] mClass:"+ mClass + " /sClass:"+sClass + " /sort:" + sort);
 Vector<ProductBean> pvlist = mgr.getP2(mClass, sClass, sort); 
 %>
 <!DOCTYPE html>
@@ -42,17 +40,8 @@ Vector<ProductBean> pvlist = mgr.getP2(mClass, sClass, sort);
 	function send_form(frmId) { // form 제출
 		document.getElementById(frmId).submit();
 	}
-
-	function sel() {
-		var langSelect = document.getElementById("sort");
-		// select element에서 선택된 option의 value가 저장된다. 
-		var selectValue = langSelect.options[langSelect.selectedIndex].value;
-		// select element에서 선택된 option의 text가 저장된다. 
-		var selectText = langSelect.options[langSelect.selectedIndex].text;
-	}
 </script>
 <body>
-	상품리스트페이지입니다.
 	<div id="container">
 		<!-- 카테고리(sidebar) -->
 		<section class="category">
@@ -129,28 +118,28 @@ Vector<ProductBean> pvlist = mgr.getP2(mClass, sClass, sort);
 			<div class="ptop">
 
 				현재 카테고리:
-				<%=mClass%>
-				-
-				<%=sClass%>
+				<%=mClass%> - <%=sClass%>
 				<div class="array">
-					n개의 상품이 있습니다.
-					<form action="productProc.jsp">
+					<%=pvlist.size()%>개의 상품이 있습니다.
+					<form id="select" action="productProc.jsp">
 						<h5>
-							정렬방식 <select name="sort" onchange="this.form.submit()">
-								<option value="0">최신순</option>
-								<option value="1">높은가격순</option>
-								<option value="2">낮은가격순</option>
-								<!-- 			<option value="3" >인기순</option>
-				<option value="4" >리뷰순</option> -->
-							</select> <input type=hidden name="mClass" value="<%=mClass%>"> <input
-								type=hidden name="sClass" value="<%=sClass%>">
+							정렬방식
+							<select name="sort" onchange="this.form.submit()">
+							<option value="0" <%=sort.equals("0")?"selected":""%>>최신순</option>
+							<option value="1" <%=sort.equals("1")?"selected":""%>>높은가격순</option> 
+ 							<option value="2" <%=sort.equals("2")?"selected":""%>>낮은가격순</option> 
+ 						<!--<option value="3" >인기순</option>
+							<option value="4" >리뷰순</option> -->
+							</select> 
+							<input type=hidden name="mClass" value="<%=mClass%>">
+							<input type=hidden name="sClass" value="<%=sClass%>">
 						</h5>
 					</form>
 				</div>
 
 			</div>
 			<div class="product_list" id="product_list">
-				여기서부터 상품진열<br>
+				<br>
 				<ul class="product_row">
 					<%
 					for (int i = 0; i < pvlist.size(); i++) {
