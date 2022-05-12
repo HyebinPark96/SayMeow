@@ -48,8 +48,9 @@
 
 .product_row {
 	position: absolute;
+	justify-content: center;
 	display: grid;
 	grid-auto-rows: 10;
-	grid-template-columns: repeat(4, 250px);
+	grid-template-columns: repeat(5, 250px);
 	text-align: center;
 }

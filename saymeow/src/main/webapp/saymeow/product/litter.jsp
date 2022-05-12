@@ -20,9 +20,10 @@ ProductMgr mgr = new ProductMgr();
 String mClass = request.getParameter("mClass");
 String sClass = request.getParameter("sClass");
 String sort = request.getParameter("sort");
-if(mClass==null) {
-mClass="litter";
-} 
+
+if (sort==null||sort.equals("")) sort="0";
+if(mClass==null) mClass="food";
+
 System.out.println("[catfood] mClass:"+ mClass + " /sClass:"+sClass + " /sort:" + sort);
 Vector<ProductBean> pvlist = mgr.getP2(mClass, sClass, sort); 
 %>
@@ -41,7 +42,6 @@ function send_form(frmId) { // form 제출
 }
 </script>
 <body>
-	상품리스트페이지입니다.
 	<div id="container">
 		<!-- 카테고리(sidebar) -->
 		<section class="category">
@@ -118,16 +118,17 @@ function send_form(frmId) { // form 제출
 			<div class="ptop">
 				현재 카테고리:
 				<%=mClass%> - <%=sClass%>
-				<div class="array">n개의 상품이 있습니다. 
+				<div class="array">
+				<%=pvlist.size()%>개의 상품이 있습니다.<br>
 				<form action="productProc.jsp">
 				<h5>정렬방식
 				<select name="sort" onchange="this.form.submit()">
-				<option value="0">최신순</option>
-				<option value="1" >높은가격순</option>
-				<option value="2" >낮은가격순</option>
-<!-- 			<option value="3" >인기순</option>
-				<option value="4" >리뷰순</option> -->
-				</select>
+							<option value="0" <%=sort.equals("0")?"selected":""%>>최신순</option>
+							<option value="1" <%=sort.equals("1")?"selected":""%>>높은가격순</option> 
+ 							<option value="2" <%=sort.equals("2")?"selected":""%>>낮은가격순</option> 
+ 						<!--<option value="3" >인기순</option>
+							<option value="4" >리뷰순</option> -->
+							</select> 
 				<input type=hidden name="mClass" value="<%=mClass%>">
 				<input type=hidden name="sClass" value="<%=sClass%>">
 				</h5>

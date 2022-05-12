@@ -55,7 +55,7 @@ public class ProductMgr {
 		} finally {
 			pool.freeConnection(con, pstmt, rs);
 		}
-		System.out.println("[Mgr.getP] mClass:"+mClass+" /sClass:"+sClass);
+		// System.out.println("[Mgr.getP] mClass:"+mClass+" /sClass:"+sClass);
 		return vlist;
 	}
 	
@@ -123,7 +123,7 @@ public class ProductMgr {
 		} finally {
 			pool.freeConnection(con, pstmt, rs);
 		}
-		System.out.println("[Mgr.getP] mClass:"+mClass+" /sClass:"+sClass+" /sort:"+sort);
+		// System.out.println("[Mgr.getP2] mClass:"+mClass+" /sClass:"+sClass+" /sort:"+sort);
 		return vlist;
 	}	
 	
@@ -194,7 +194,7 @@ public class ProductMgr {
 		} finally {
 			pool.freeConnection(con, pstmt, rs);
 		}
-		System.out.println("[ProductMgr] getPList실행");
+		// System.out.println("[ProductMgr] getPList실행");
 		return vlist;
 	}
 	
