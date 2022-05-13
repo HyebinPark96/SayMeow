@@ -36,15 +36,15 @@ function send_form(frmId) { // form 제출
 }
 </script>
 <body>
-메인입니다.
+<br><br>
 	<!-- 배너 -->
     <section class="bsection">
-    <img src="image/banner.png" height="360" width="1100"> 
+    <img src="image/banner.png" height="360" width="1100">
     </section>	
 	<!-- 상품리스트업 -->
 	<section class="psection">
 			<div class="plist">
-				<h1>NEW PRODUCT</h1><br>
+				<br><br><br><div class="new">NEW PRODUCT<br><br><br></div>
 				<ul class="prow">
 					<%
 						for (int i=0; i<pvlist.size(); i++) {
@@ -64,7 +64,7 @@ function send_form(frmId) { // form 제출
 				</ul>	
 			</div>
 			<div class="more">
-				<a href="product/food.jsp">more</a>
+				<br><br><a href="product/food.jsp">more</a>
             </div>
 		</section>
 </body>

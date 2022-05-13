@@ -122,7 +122,7 @@ function id_search() {
 		  return;
 		 }
 
-		 if (frm.phone.value.length != 10) {
+		 if (frm.phone.value.length != 11) {
 			  alert("핸드폰번호를 정확하게 입력해주세요");
 			  return;
 		 }
@@ -140,7 +140,7 @@ function id_search() {
    return;
   }
 
-   if (frm.phone.value.length != 10) {
+   if (frm.phone.value.length != 11) {
 			  alert("핸드폰번호를 정확하게 입력해주세요");
 			  return;
 		 }

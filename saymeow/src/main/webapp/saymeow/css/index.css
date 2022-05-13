@@ -7,6 +7,10 @@
 	padding: 0;
 }
 
+body {
+	background-color: beige;
+}
+
 .bsection {
 	display: flex;
     align-items: center;
@@ -21,12 +25,19 @@
 
 
 .psection {
-	background-color: rgb(233, 217, 152);
+	background-color: beige;
     height: 740px;
 }
 
 .plist {
     align-content: center;
+    color: black;
+    font-weight: bold;
+    
+}
+
+.new {
+	text-align: center;
 }
 
 .prow {

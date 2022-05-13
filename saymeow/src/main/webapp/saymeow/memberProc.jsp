@@ -9,18 +9,21 @@
 <title>회원가입 확인</title>
 <link href="styleTW.css" rel="stylesheet" type="text/css">
 <html>
-<body bgcolor="#FFFFCC">
+<body>
 <br/><br/>
 <div align="center">
 <%
-if(flag){
-	  out.println("<b>회원가입을 축하 드립니다.</b><p>");
-	  out.println("<a href=login.jsp>로그인</a>");
-	}else{
-	  out.println("<b>다시 입력하여 주십시오.</b><p>");
-	  out.println("<a href=member.jsp>다시 가입</a>");
-	}
-%>
+if(flag){%>
+	<script>
+	alert("회원가입이 완료 되었습니다.");
+	location.href="main.jsp";
+</script>
+	<%}else{%>
+	 	<script>
+	alert("다시 입력하여 주십시오.");
+	history.back();
+</script>
+	<%}%>
 </div>
 </body>
 </html>
