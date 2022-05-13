@@ -30,7 +30,6 @@
 </head>
 <%}else if(flag.equals("order")){%>
 <body>
-<!-- <%@ include file="top2.jsp" %> -->
 <form method="post" name="chFrm" action="orderProc.jsp">
 <h1>배송 입력</h1>
 <p>수취주소<p><input name="address" size="20">
@@ -59,6 +58,7 @@
 <%}%>
 </table>
 <p>총 주문금액은 <%=allTotal%>원 입니다.</p>
+<input type="button" value="취소" onclick="history.back()">
 <input type="submit" value="결제">
 </form>
 </body>

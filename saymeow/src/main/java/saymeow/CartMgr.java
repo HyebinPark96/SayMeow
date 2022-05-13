@@ -211,4 +211,22 @@ public class CartMgr {
 		}
 		return dorder;
 	}
+	//directorder delete
+	public void deleteDirectOrder(String oid) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		String sql = null;
+		try {
+			con = pool.getConnection();
+			sql = "delete from directorder where oid=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, oid);
+			pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			pool.freeConnection(con, pstmt);
+		}
+		return;
+	}
 }
