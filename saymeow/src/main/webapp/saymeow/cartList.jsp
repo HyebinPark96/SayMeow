@@ -16,6 +16,7 @@
 </script>
 </head>
 <body>
+<%@ include file="top2.jsp" %>
 <form method="post" name="cfrm" action="cartProc.jsp">
 <input type="hidden" name="cch" value="0">
 <h1>내 장바구니</h1>
