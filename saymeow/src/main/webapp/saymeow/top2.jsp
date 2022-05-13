@@ -7,6 +7,7 @@ request.setCharacterEncoding("EUC-KR");
 		} */
 	// 테스트용 임의설정 
 	id = "aaa";
+	String oid = "1";//김지우 호환 테스트용
 	String keyWord = request.getParameter("keyWord");	
 %>
 <!DOCTYPE html>

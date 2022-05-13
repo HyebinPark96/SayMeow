@@ -39,7 +39,6 @@ if(id==null || id.equals("")) {
 		<a href="adminSales.jsp"><button >매출관리</button></a>
 		<a href="#"><button >판매데이터</button></a>
 	</div>
-	
 </section>
 <!-- 본문 -->
 <section class="contents">

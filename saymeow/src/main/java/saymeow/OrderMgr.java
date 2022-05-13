@@ -20,15 +20,14 @@ public class OrderMgr {
 		String sql = null;
 		try {
 			con = pool.getConnection();
-			sql = "insert petorder(pnum, qty, pname, id, regdate, oaddress, state) values(?,?,?,?,?,?,?)";
+			sql = "insert petorder(pnum, qty, pname, oid, regdate, oaddress, state) values(?,?,?,?,now(),?,?)";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, order.getPnum());
 			pstmt.setInt(2, order.getQty());
 			pstmt.setString(3, order.getPname());
-			pstmt.setString(4, order.getId());
-			pstmt.setString(5, UtilMgr.getDay());
-			pstmt.setString(6, order.getOaddress());
-			pstmt.setString(7, "1");
+			pstmt.setString(4, order.getOid());
+			pstmt.setString(5, order.getOaddress());
+			pstmt.setString(6, "1");
 			pstmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -39,7 +38,7 @@ public class OrderMgr {
 	}
 	
 	//list
-	public Vector<OrderBean> getOrderList(String id){
+	public Vector<OrderBean> getOrderList(String oid){
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -47,9 +46,9 @@ public class OrderMgr {
 		Vector<OrderBean> vlist = new Vector<OrderBean>();
 		try {
 			con = pool.getConnection();
-			sql = "select * from petorder where id=? order by onum desc";
+			sql = "select * from petorder where oid=? order by onum desc";
 			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, id);
+			pstmt.setString(1, oid);
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
 				OrderBean order = new OrderBean();
@@ -57,7 +56,7 @@ public class OrderMgr {
 				order.setPnum(rs.getInt("pnum"));
 				order.setQty(rs.getInt("qty"));
 				order.setPname(rs.getString("pname"));
-				order.setId(rs.getString("id"));
+				order.setOid(rs.getString("oid"));
 				order.setRegdate(rs.getString("regdate"));
 				order.setOaddress(rs.getString("oaddress"));
 				order.setState(rs.getString("state"));
@@ -112,7 +111,7 @@ public class OrderMgr {
 				order.setPnum(rs.getInt("pnum"));
 				order.setQty(rs.getInt("qty"));
 				order.setPname(rs.getString("pname"));
-				order.setId(rs.getString("id"));
+				order.setOid(rs.getString("oid"));
 				order.setRegdate(rs.getString("regdate"));
 				order.setOaddress(rs.getString("oaddress"));
 				order.setState(rs.getString("state"));
@@ -143,7 +142,7 @@ public class OrderMgr {
 				order.setPnum(rs.getInt("pnum"));
 				order.setQty(rs.getInt("qty"));
 				order.setPname(rs.getString("pname"));
-				order.setId(rs.getString("id"));
+				order.setOid(rs.getString("oid"));
 				order.setRegdate(rs.getString("regdate"));
 				order.setOaddress(rs.getString("oaddress"));
 				order.setState(rs.getString("state"));
