@@ -145,14 +145,10 @@ Vector<ProductBean> pvlist = mgr.getP2(mClass, sClass, sort);
 					for (int i = 0; i < pvlist.size(); i++) {
 						ProductBean pbean = pvlist.get(i);
 					%>
-					<li><a href="#" onclick="send_form('frmP')">
+					<li><a href="productDetail.jsp?pnum=<%=pbean.getPnum()%>">
 					<img src="../image/<%=pbean.getImage()%>" height="200" width="200"><br>
-							<%=pbean.getPname()%></a>
-						<form method="post" id="frmP" action="productDetail.jsp">
-							<input type=hidden name="id" value="<%=id%>">
-							<input type=hidden name="pnum" value="<%=pbean.getPnum()%>">
-						</form>
-						<%=UtilMgr.monFormat(pbean.getPrice1())%>¿ø<br></li>
+					<%=pbean.getPname()%></a>
+					<br><%=UtilMgr.monFormat(pbean.getPrice1())%>¿ø<br></li>
 					<%
 					} //--for
 					%>

@@ -97,7 +97,7 @@ public class ProductMgr {
 					pstmt = con.prepareStatement(sql1+sql2+sql3);
 					pstmt.setString(1, sClass);	
 				}
-			}else if (sort.equals("2")) // 낮은 가격순
+			}else if (sort.equals("2")) { // 낮은 가격순 
 				if(sClass==null || sClass.equals("null")) { //중분류X
 					sql2 = "WHERE (mclass = ? AND pstat = 1) ";
 					sql3 = "ORDER BY price1 ASC";
@@ -108,7 +108,8 @@ public class ProductMgr {
 					sql3 = "ORDER BY price1 ASC";
 					pstmt = con.prepareStatement(sql1+sql2+sql3);
 					pstmt.setString(1, sClass);	
-				}	
+				}
+			}
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
 				ProductBean bean = new ProductBean();

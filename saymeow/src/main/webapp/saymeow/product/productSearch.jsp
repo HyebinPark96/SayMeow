@@ -136,14 +136,10 @@ function sel(){
 								ProductBean pbean = pvlist.get(i);
 					%>
 					<li>
-					<a href="#" onclick="send_form('frmP')">
+					<a href="productDetail.jsp?pnum=<%=pbean.getPnum()%>">
 					<img src="../image/<%=pbean.getImage()%>" height="200" width="200">
-							<br><%=pbean.getPname()%></a>
-							<form method="post" id="frmP" action="productDetail.jsp">
-								<input type=hidden name="id" value="<%=id%>">
-								<input type=hidden name="pnum" value="<%=pbean.getPnum()%>">
-							</form> 
-						<%=UtilMgr.monFormat(pbean.getPrice1())%>¿ø<br>
+					<br><%=pbean.getPname()%></a>
+					<br><%=UtilMgr.monFormat(pbean.getPrice1())%>¿ø<br>
 					</li>
 					<%} //--for%>
 				</ul>	

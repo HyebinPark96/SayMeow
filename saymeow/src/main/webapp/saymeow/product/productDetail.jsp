@@ -12,7 +12,6 @@
 	// pnum 값 받아오기 
 	int pnum = Integer.parseInt(request.getParameter("pnum"));
 	
-	
 	// id값 받아오기
 	String id = request.getParameter("id"); // product.jsp에서 받아오기
 	if(session.getAttribute("idKey")!=null){ // id값이 세션으로 저장되어 있다면
@@ -20,13 +19,11 @@
 	} 
 	
 	// 잘 받아왔는지 확인
-	System.out.println("pnum:"+pnum+"   id:"+id);
-	
+	System.out.println("[productDetail.jsp] pnum:"+pnum+" / id:"+id);
 	
 	// 테스트용 임의설정 
 	//int pnum = 2;
 	//id = "aaa";
-	
 	
 	ProductBean pbean = pdMgr.getProduct(pnum);
 
@@ -408,7 +405,7 @@ function costCount() {
 
 			<div class="shop_info">
 				<div class="img_area">
-					<img src="<%=image%>" alt="#">
+					<img src="../image/<%=image%>" alt="#">
 				</div>
 
 				<dl class="info_list">
@@ -452,8 +449,8 @@ function costCount() {
 				</div>
 			</div>
 			<div class="detail">
-				<span>상품 상세 이미지</span> <img
-					src="<%=detail%>" alt="">
+				<span>상품 상세 이미지</span> 
+				<img src="../image/<%=detail%>" alt="">
 				<div class="show_btn show">더보기</div>
 			</div>
 			<div class="review">

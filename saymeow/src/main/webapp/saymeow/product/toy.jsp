@@ -22,9 +22,9 @@ String sClass = request.getParameter("sClass");
 String sort = request.getParameter("sort");
 
 if (sort==null||sort.equals("")) sort="0";
-if(mClass==null) mClass="food";
+if(mClass==null) mClass="toy";
 
-System.out.println("[catfood] mClass:"+ mClass + " /sClass:"+sClass + " /sort:" + sort);
+// System.out.println("[catfood] mClass:"+ mClass + " /sClass:"+sClass + " /sort:" + sort);
 Vector<ProductBean> pvlist = mgr.getP2(mClass, sClass, sort); 
 %>
 <!DOCTYPE html>
@@ -143,14 +143,10 @@ function send_form(frmId) { // form 제출
 								ProductBean pbean = pvlist.get(i);
 					%>
 					<li>
-					<a href="#" onclick="send_form('frmP')">
+					<a href="productDetail.jsp?pnum=<%=pbean.getPnum()%>">
 					<br><img src="../image/<%=pbean.getImage()%>" height="200" width="200">
 					<br><%=pbean.getPname()%></a>
-						<form method="post" id="frmP" action="productDetail.jsp">
-							<input type=hidden name="id" value="<%=id%>">
-							<input type=hidden name="pnum" value="<%=pbean.getPnum()%>">
-						</form>
-						<%=UtilMgr.monFormat(pbean.getPrice1())%>원<br>
+					<br><%=UtilMgr.monFormat(pbean.getPrice1())%>원<br>
 					</li>
 					<%} //--for%>
 				</ul>
