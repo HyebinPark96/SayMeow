@@ -8,19 +8,29 @@
 <link href="style.css" rel="stylesheet" type="text/css">
 <script src="script.js"></script>
 </head>
+<!-- 외부 CSS -->						
+<link rel="stylesheet" href="css/style.css">						
+<link rel="stylesheet" href="css/styleTW.css">						
+<!-- 부트스트랩 CSS -->						
+<link						
+href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"						
+rel="stylesheet"						
+integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"						
+crossorigin="anonymous">
+<%@ include file="top.jsp"%>
 <body bgcolor="#996600">
 	<br>
 
-	<%@ include file="top.jsp"%>
+	
 	<%
 		MemberBean mBean = mMgr.getMember(id);
 	%>
 	<form name="regForm" method="post" action="memberUpdateProc.jsp" >
-		<table width="75%" align="center" bgcolor="#FFFF99">
+		<table id="level">
 			<tr>
-				<td align="center" bgcolor="#FFFFCC">
-					<table width="95%" align="center" bgcolor="#FFFF99" border="1">
-						<tr align="center" bgcolor="#996600">
+				<td id="levl2">
+					<table id="level3">
+						<tr align="center" bgcolor="#A13FFF">
 							<td colspan="3"><font color="#FFFFFF"><b> <%=mBean.getName()%>
 										회원님의 정보를 수정합니다.
 								</b></font></td>
@@ -78,9 +88,10 @@
 						</tr>
 						<tr>
 							<td colspan="2" align="center"><input type="submit"
-								value="수정완료"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-								<input type="reset" value="다시쓰기">
-								<input type="button" value="회원탈퇴" onclick="location.href='deleteMember.jsp';">
+								value="수정완료" class="lbtn"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+								<input type="reset" value="다시쓰기" class="lbtn">
+								<input type="button" value="회원탈퇴" onclick="location.href='deleteMember.jsp';"
+								class="lbtn">
 								</td>
 						</tr>
 					</table>
