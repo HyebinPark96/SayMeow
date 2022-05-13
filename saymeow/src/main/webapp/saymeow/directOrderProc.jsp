@@ -1,6 +1,8 @@
+<%@page import="saymeow.DirectOrderBean"%>
 <%@page import="saymeow.OrderBean"%>
 <%@page contentType="text/html; charset=EUC-KR"%>
 <jsp:useBean id="oMgr" class="saymeow.OrderMgr"/>
+<jsp:useBean id="cMgr" class="saymeow.CartMgr"/>
 <%
 	String msg = "주문이 완료되었습니다.";
 	String oid = request.getParameter("oid");
@@ -19,6 +21,7 @@
 	order.setOaddress(address);
 	
 	oMgr.insertOrder(order);
+	cMgr.deleteDirectOrder(oid);
 	
 %>
 <script>

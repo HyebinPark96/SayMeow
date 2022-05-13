@@ -28,6 +28,7 @@
 	<td><%=price1*qty %></td>
 </tr>
 </table>
+<input type="button" value="취소" onclick="history.back()">
 <input type="submit" value="결제">
 
 <input type="hidden" name="pname" value="<%=pname%>">
