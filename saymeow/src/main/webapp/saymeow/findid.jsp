@@ -8,7 +8,7 @@
 <meta charset="EUC-KR"> 
 <script src="script.js"></script>
 <link rel="stylesheet" href="css/styleTW.css">	
-</head> 
+</head>  
 <!-- 외부 CSS -->						
 <link rel="stylesheet" href="css/style.css">						
 <link rel="stylesheet" href="css/styleTW.css">						
