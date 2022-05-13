@@ -1,5 +1,7 @@
 /* 상품 리스트 css 파일 */
 @charset "EUC-KR";
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300&display=swap');
+
 
  a:link { text-decoration: none;}
  a:visited { color: black; text-decoration: none;}
@@ -14,6 +16,7 @@
 #container {
     display: grid;
     grid-template-columns: 200px 1fr;
+    font-family: 'Noto Sans KR', sans-serif;
 }
 
 .category {
@@ -22,6 +25,7 @@
     background-color: beige;
     width: 200px;
     height: 100%;
+    
 }
 
 .plist {
