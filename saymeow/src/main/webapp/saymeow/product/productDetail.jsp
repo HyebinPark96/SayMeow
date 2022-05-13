@@ -8,6 +8,7 @@
 <jsp:useBean id="rMgr" class="saymeow.ReviewMgr" />
 <jsp:useBean id="cMgr" class="saymeow.RCommentMgr" />
 <jsp:useBean id="rcBean" class="saymeow.RCommentBean" />
+
 <%
 	// pnum 값 받아오기 
 	int pnum = Integer.parseInt(request.getParameter("pnum"));
@@ -40,7 +41,7 @@
 <!doctype html>
 <html>
 <head>
-<script src="pscript.js"></script>
+<script src="saymeowScript.js"></script>
 <style>
 img {
 	display: block;
@@ -349,7 +350,7 @@ input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-i
     console.log("idkey")
     console.log(idKey)
 
-    basket.addEventListener('click', function(){
+    basket.addEventListener('click', function(){//로그인체크
     	 if(idKey=="null"){ 
    	        alert("로그인 후 이용해주세요.")
    	        location.href="../member/login.jsp"
@@ -360,7 +361,7 @@ input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-i
    	     }
     })
     
-    buyBtn.addEventListener('click', function(){
+    buyBtn.addEventListener('click', function(){//로그인체크
     	 if(idKey=="null"){ 
    	        alert("로그인 후 이용해주세요.")
    	        location.href="../member/login.jsp"
@@ -404,8 +405,6 @@ function costCount() {
     var cost = infoItem.innerText // 상품 가격
     var count = infoList.querySelector('input').value // 상품 수량
     infoCost.querySelector('span').innerText = count * cost
-
-    
 }
     </script>
 </head>
@@ -469,9 +468,17 @@ function costCount() {
 					</div>
 
 				</dl>
-
+				<form method="post" name="frmC" action="../cartInsertProc.jsp">
 				<div class="btn_wrap">
-					<a href="" class="side_btn" onclick="">바로구매</a> <a href="" class="side_btn" onclick="">장바구니</a>
+				<input type="button" class="side_btn" value="장바구니" onclick="javascript:cartInsert(this.form)">
+				<input type="button" class="side_btn" value="구매하기" onclick="javascript:directOrder(this.form)">
+				<input type="hidden" name="flag" value="insert">
+				<input type="hidden" name="flag" value="direct">
+				<input type="hidden" name="id" value="<%=id%>">
+				<input type="hidden" name="pnum" value="<%=pnum%>">
+				<input type="hidden" name="pname" value="<%=pName%>">
+				<input type="hidden" name="cost" value="<%=price1%>">
+				<input type="hidden" name="count" value="">
 				</div>
 			</div>
 			<div class="detail">
