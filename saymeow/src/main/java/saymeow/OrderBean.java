@@ -5,7 +5,7 @@ public class OrderBean {
 	private int pnum;
 	private int qty;
 	private String pname;
-	private String id;
+	private String oid;
 	private String regdate;
 	private String oaddress;
 	private String state;
@@ -33,11 +33,12 @@ public class OrderBean {
 	public void setPname(String pname) {
 		this.pname = pname;
 	}
-	public String getId() {
-		return id;
+
+	public String getOid() {
+		return oid;
 	}
-	public void setId(String id) {
-		this.id = id;
+	public void setOid(String oid) {
+		this.oid = oid;
 	}
 	public String getRegdate() {
 		return regdate;

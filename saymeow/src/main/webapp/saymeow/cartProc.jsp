@@ -3,7 +3,7 @@
 <jsp:useBean id="cart" class="saymeow.CartBean"/>
 <jsp:useBean id="cMgr" class="saymeow.CartMgr"/>
 <%
-	String id = request.getParameter("id");
+	String oid = request.getParameter("oid");
 	String snum[] = request.getParameterValues("cch");
 	String msg = "";
 	String flag = request.getParameter("flag");
@@ -30,6 +30,7 @@
 </head>
 <%}else if(flag.equals("order")){%>
 <body>
+<!-- <%@ include file="top2.jsp" %> -->
 <form method="post" name="chFrm" action="orderProc.jsp">
 <h1>배송 입력</h1>
 <p>수취주소<p><input name="address" size="20">
