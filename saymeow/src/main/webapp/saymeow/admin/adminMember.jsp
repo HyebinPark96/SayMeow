@@ -61,7 +61,6 @@ if(sid==null || sid.equals("")) {
 								<th>연락처</th>
 								<th>이메일</th>
 								<th>회원등급</th>
-								<th>수정</th>
 								<th>메일발송</th>
 							</tr>
 						</thead>
