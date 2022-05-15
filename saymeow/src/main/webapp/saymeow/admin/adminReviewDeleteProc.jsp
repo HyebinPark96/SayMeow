@@ -7,11 +7,9 @@
 	String filename = request.getParameter("filename");
 	rMgr.deleteReview(rnum, filename);
 	cMgr.deleteAllRComment(rnum);
-	
-	String msg = "삭제되었습니다!";
 %>
 
 <script>
-	alert('<%=msg%> : <%=rnum%>');
+	alert('Review deleted successfully!');
 	location.href="adminReviewBoard.jsp";
 </script>

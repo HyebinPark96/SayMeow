@@ -3,18 +3,6 @@
 <%@page import="saymeow.ReviewBean"%>
 <%@page contentType="text/html; charset=EUC-KR"%>
 <jsp:useBean id="rMgr" class="saymeow.ReviewMgr"/>
-<%
-/* 	int onum = Integer.parseInt(request.getParameter("onum"));
-	int pnum = Integer.parseInt(request.getParameter("pnum")); 
-	// 마이페이지의 주문내역조회에 리뷰쓰기 버튼 활성화시키고, 세션에 저장된 id값으로 리뷰 작성자 id 받아오기
-	String rid = session.getAttribute("idKey"); 
-	*/
-	
-	// 테스트
-	int onum = 1;
-	int pnum = 1;
-	String rid = "aaa";
-%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -31,7 +19,14 @@
 	rel="stylesheet"
 	integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
 	crossorigin="anonymous">
-<%@ include file="top.jsp" %>
+<%@ include file="top2.jsp" %>
+<%
+	int onum = Integer.parseInt(request.getParameter("onum"));
+	int pnum = Integer.parseInt(request.getParameter("pnum")); 
+	String flag = request.getParameter("flag"); // value = flagForReview
+	// 마이페이지의 주문내역조회에 리뷰쓰기 버튼 활성화시키고, 세션에 저장된 id값으로 리뷰 작성자 id 받아오기
+	String rid = id;
+%>
 </head>
 <body>
 	<div id="review-board-container" style="text-align:center;">
@@ -58,7 +53,7 @@
   					<!-- DB insert할때는 /2 해서 insert -->
   					<input type="range" oninput="star(this)" value="0" step="1" min="0" max="10" name="score"> <!-- 오픈소스 참고 -->
 				</span>
-				<input type="hidden" name="onum" value="<%=onum%>"> <!-- 마이페이지에서 들고오기 -->
+				<input type="hidden" name="onum" value="<%=onum%>"> 
 				<input type="hidden" name="rid" value="<%=rid%>">
 				<input type="hidden" name="pnum" value="<%=pnum%>">
 				

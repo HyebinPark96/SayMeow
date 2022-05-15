@@ -11,7 +11,7 @@ public class MemberBean {
 	private String address;
 	private String petName;
 	private String petAge;
-	private String petGender;
+	private int petGender;
 	private String petBreed;
 	private int grade, mode;
 	
@@ -69,10 +69,10 @@ public class MemberBean {
 	public void setPetAge(String petAge) {
 		this.petAge = petAge;
 	}
-	public String getPetGender() {
+	public int getPetGender() {
 		return petGender;
 	}
-	public void setPetGender(String petGender) {
+	public void setPetGender(int petGender) {
 		this.petGender = petGender;
 	}
 	public String getPetBreed() {
@@ -93,6 +93,8 @@ public class MemberBean {
 	public void setMode(int mode) {
 		this.mode = mode;
 	}
+	
+	
 	
 	
 }

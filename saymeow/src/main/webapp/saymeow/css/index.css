@@ -1,3 +1,5 @@
+/*취합완료*/
+
 /* Index(main) css 파일 */
 @charset "EUC-KR";
 
@@ -15,29 +17,26 @@ body {
 	display: flex;
     align-items: center;
     background-color: beige;
-    height: 360px;
     align-content: center;
 }
+
  img { 
  	display: block;
 	margin:auto;
  	}
-
-
+ 	
 .psection {
 	background-color: beige;
-    height: 740px;
 }
 
 .plist {
     align-content: center;
-    color: black;
     font-weight: bold;
-    
 }
 
 .new {
 	text-align: center;
+	font-weight: bold;
 }
 
 .prow {

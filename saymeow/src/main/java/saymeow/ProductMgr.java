@@ -188,7 +188,6 @@ public class ProductMgr {
 				bean.setPstat(rs.getInt(10));
 				bean.setStock(rs.getInt(11));
 				vlist.addElement(bean); 
-				System.out.println("keyword="+keyWord);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

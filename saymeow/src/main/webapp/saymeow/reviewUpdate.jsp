@@ -29,7 +29,7 @@
 	rel="stylesheet"
 	integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
 	crossorigin="anonymous">
-<%@ include file="top.jsp" %>
+<%@ include file="top2.jsp" %>
 </head>
 <body>
 	<div id="review-board-container" style="text-align:center;">
@@ -42,18 +42,18 @@
 				<div class="mb-3">
   					<label for="exampleFormControlInput1" class="form-label">제목</label>
   					<input class="form-control" id="exampleFormControlInput1" name="subject" placeholder="제목을 입력하세요."
-  					value="<%=rBean.getSubject()%>">
+  					value="<%=rBean.getSubject()%>" style="width: 20vw; margin: 0 auto;">
 				</div>
 				<div class="mb-3">
   					<label for="exampleFormControlTextarea1" class="form-label">내용</label>
-  					<textarea class="form-control review-content" id="exampleFormControlTextarea1" name="content" maxlength="500"><%=rBean.getContent() %></textarea>
+  					<textarea class="form-control review-content" style="width: 20vw; margin: 0 auto;" id="exampleFormControlTextarea1" name="content" maxlength="500"><%=rBean.getContent() %></textarea>
 				</div>
 				
 				<!-- 파일 유지원하거나, 수정한다면 조건따라-->
 				<%if(rBean.getFilename()!=null && !rBean.getFilename().equals("")){// 기존 파일 업로드 했었다면 %>
 				<div class="mb-3">
  					<label for="exampleFormControlTextarea1" class="form-label">기존파일</label><br>
-					<input type="image" src="storage/<%=rBean.getFilename()%>" width="100vw" height="100vh">
+					<input type="image" onclick="return false;" src="storage/<%=rBean.getFilename()%>" width="400vw" height="200vw" style="display:block; margin: 0 auto; object-fit: cover; cursor:Default;" >
 				</div>
 				<%}%>
 				
@@ -62,7 +62,7 @@
 					<input type="button" class="btn btn-primary" value="change" onclick="updateFile()">
 				</div>
 				<div class="mb-3 fileInsertForm" style="display:none;">
- 					<input type="file" class="form-control" id="formFile" name="filename" value="<%=rBean.getFilename()%>">
+ 					<br><input type="file" class="form-control" id="formFile" name="filename" value="<%=rBean.getFilename()%>">
 				</div>
 				<div>
 					<%out.println("기존 별점 : " + rBean.getScore());%>
@@ -84,11 +84,5 @@
 			</form>
 		</div>
 	</div>
-<!-- 부트스트랩 JS -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" 
-        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
-        crossorigin="anonymous">
-</script>
-<%@ include file="bottom.jsp" %>
 </body>
 </html>

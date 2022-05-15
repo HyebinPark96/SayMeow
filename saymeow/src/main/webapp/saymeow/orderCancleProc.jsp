@@ -5,6 +5,7 @@
 	String snum[] = request.getParameterValues("och");
 	for(int i=0;i<snum.length;i++){
 		oMgr.cancleOrder(Integer.parseInt(snum[i]));
-	}
+	}%>
+	<%
 	response.sendRedirect("orderList.jsp");
-%>
+	%>

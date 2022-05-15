@@ -1,3 +1,4 @@
+<!--아마사용안할듯!! -->
 <!-- 한 개 리뷰 불러오는 페이지 -->
 <%@page import="saymeow.UtilMgr"%>
 <%@page import="saymeow.ReviewBean"%>

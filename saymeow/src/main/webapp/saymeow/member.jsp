@@ -1,72 +1,72 @@
+<!-- 취합완료 -->
 <%@page contentType="text/html; charset=EUC-KR" pageEncoding="EUC-KR"%>
 <jsp:useBean id="mBean" class="saymeow.MemberBean" />
 <jsp:setProperty name="mBean" property="*" />
 <html>
 <head>
 <title>saymeow</title>
-<script src="script.js"></script>	
+<script src="script.js"></script>
 </head>
-<!-- 외부 CSS -->						
-<link rel="stylesheet" href="css/style.css">						
-<link rel="stylesheet" href="css/styleTW.css">						
-<!-- 부트스트랩 CSS -->						
-<link						
-href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"						
-rel="stylesheet"						
-integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"						
-crossorigin="anonymous">
-<%@ include file="top.jsp"%>
-<body >
-<form name="regForm" method="post" action="memberProc.jsp">
-<table id="level" >
-
-<tr>  
-	<td id="level2">
-		<table id="level3">
-		<tr align="center" bgcolor="#A13FFF" id="level4">
-			<td colspan="3" id="level4">회원 가입</td>
-		</tr>
-		<tr>
+<!-- 외부 CSS -->
+<link rel="stylesheet" href="css/styleTW.css">
+<!-- 부트스트랩 CSS -->
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+	crossorigin="anonymous">
+<%@ include file="top2.jsp"%>
+<body>
+	<form name="regForm" method="post" action="memberProc.jsp">
+		<table class="regFormTb">
+			<tr>
+				<td>
+					<table>
+						<tr align="center" bgcolor="#A13FFF">
+							<td colspan="3" id="level4">회원 가입</td>
+						</tr>
+						<tr>
 							<td width="16%">아이디</td>
-							<td width="57%"><input name="id" size="17"> <input
-								type="button" value="ID중복확인"
-								onClick="idCheck(this.form.id.value)" class="lbtn"></td>
-							
+							<td width="57%">
+								<input name="id" size="17"> 
+								<input type="button" value="중복확인" onClick="idCheck(this.form.id.value)" 
+								class="btn btn-primary checkIdBtn">
+							</td>
 						</tr>
 						<tr>
 							<td>패스워드</td>
 							<td><input type="password" name="pwd" size="17"></td>
-							
+
 						</tr>
 						<tr>
 							<td>패스워드 확인</td>
 							<td><input type="password" name="repwd" size="17"></td>
-							
+
 						</tr>
 						<tr>
 							<td>이름</td>
 							<td><input name="name" size="17"></td>
-							
+
 						</tr>
-						
+
 						<tr>
 							<td>생년월일</td>
 							<td><input name="birthday" size="27"> ex)830815</td>
-							
+
 						</tr>
 						<tr>
-						<td>전화번호</td>
-						<td><input name="phone" size="27"></td>
+							<td>전화번호</td>
+							<td><input name="phone" size="27"></td>
 						</tr>
 						<tr>
 							<td>이메일</td>
 							<td><input name="email" size="27"></td>
-							
+
 						</tr>
 						<tr>
 							<td>주소</td>
 							<td><input name="address" size="40"></td>
-							
+
 						</tr>
 						<tr>
 							<td>고양이이름</td>
@@ -75,7 +75,7 @@ crossorigin="anonymous">
 						<tr>
 							<td>고양이나이</td>
 							<td><input name="petAge" size="27">xxxx-xx-xx/-포함입력</td>
-						
+
 						</tr>
 						<tr>
 							<td>고양이성별</td>
@@ -86,21 +86,31 @@ crossorigin="anonymous">
 						<tr>
 							<td>고양이품종</td>
 							<td><input name="petBreed" size="27"></td>
-						
+
 						</tr>
-		<tr> 
-							<td colspan="3" align="center"><input type="button"
-								value="회원가입" onclick="inputCheck()" class="lbtn"> &nbsp; &nbsp;
-								&nbsp; &nbsp; &nbsp; &nbsp; <input type="button" value="가입취소" onClick="location.href='login.jsp'" class="lbtn">
+						<tr>
+							<td colspan="3" align="center">
+								<div style="margin: 2vw;">
+									<input type="button" value="회원가입" onclick="inputCheck()" class="btn btn-primary"> 
+									&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+									<input type="button" value="가입취소" onClick="location.href='login.jsp'" class="btn btn-primary">
+								</div>
 							</td>
-		</tr>
-		<tr>
-</tr>
-</table>
-</td>
-</tr>
-</table>
-</form>
+						</tr>
+						<tr>
+						</tr>
+					</table>
+				</td>
+			</tr>
+		</table>
+	</form>
+	<!-- 부트스트랩 JS -->
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+		crossorigin="anonymous">
+		
+	</script>
 	<%@ include file="bottom.jsp"%>
 </body>
 </html>

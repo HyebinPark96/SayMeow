@@ -12,6 +12,6 @@
 %>
 <script>
 	alert('수정되었습니다!');
-	location.href = "reviewBoard.jsp";
+	location.href = "readMyReview.jsp";
 </script>
 

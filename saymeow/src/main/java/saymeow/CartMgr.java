@@ -1,3 +1,6 @@
+/* 1. insertDirectOrder 에서는 state insert 안되는지?
+ * 2. */
+
 package saymeow;
 
 import java.sql.Connection;
@@ -65,6 +68,7 @@ public class CartMgr {
 		}
 		return vlist;
 	}
+	
 	//update
 	public void updateCart(int qty,int pnum) {
 		Connection con = null;
@@ -106,7 +110,7 @@ public class CartMgr {
 		return flag;
 	}
 	
-	//search
+	//장바구니에 담겨있는지 조회 search
 	public boolean searchCartList(String oid,int pnum) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -160,55 +164,28 @@ public class CartMgr {
 		return cart;
 	}
 	
-	//directOrder insert
-	public void insertDirectOrder(DirectOrderBean dorder) {
-		Connection con = null;
-		PreparedStatement pstmt = null;
-		String sql = null;
-		try {
-			con = pool.getConnection();
-			sql = "insert directorder(oid,pnum,pname,price1,qty) values(?,?,?,?,?)";
-			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, dorder.getOid());
-			pstmt.setInt(2, dorder.getPnum());
-			pstmt.setString(3, dorder.getPname());
-			pstmt.setInt(4, dorder.getPrice1());
-			pstmt.setInt(5, dorder.getQty());
-			pstmt.executeUpdate();
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			pool.freeConnection(con, pstmt);
-		}
-		return;
-	}
+	/*
+	 * //바로 주문하기 directOrder insert public void insertDirectOrder(DirectOrderBean
+	 * dorder) { Connection con = null; PreparedStatement pstmt = null; String sql =
+	 * null; try { con = pool.getConnection(); sql =
+	 * "insert directorder(oid,pnum,pname,price1,qty) values(?,?,?,?,?)"; pstmt =
+	 * con.prepareStatement(sql); pstmt.setString(1, dorder.getOid());
+	 * pstmt.setInt(2, dorder.getPnum()); pstmt.setString(3, dorder.getPname());
+	 * pstmt.setInt(4, dorder.getPrice1()); pstmt.setInt(5, dorder.getQty());
+	 * pstmt.executeUpdate(); } catch (Exception e) { e.printStackTrace(); } finally
+	 * { pool.freeConnection(con, pstmt); } return; }
+	 * 
+	 * //directOrder select public DirectOrderBean selectDirectOrder(String oid) {
+	 * Connection con = null; PreparedStatement pstmt = null; ResultSet rs = null;
+	 * String sql = null; DirectOrderBean dorder = new DirectOrderBean(); try { con
+	 * = pool.getConnection(); sql = "select * from directorder where oid=?"; pstmt
+	 * = con.prepareStatement(sql); pstmt.setString(1, oid); rs =
+	 * pstmt.executeQuery(); if(rs.next()) { dorder.setDonum(rs.getInt("donum"));
+	 * dorder.setOid(rs.getString("oid")); dorder.setPnum(rs.getInt("pnum"));
+	 * dorder.setPname(rs.getString("pname"));
+	 * dorder.setPrice1(rs.getInt("price1")); dorder.setQty(rs.getInt("qty")); } }
+	 * catch (Exception e) { e.printStackTrace(); } finally {
+	 * pool.freeConnection(con, pstmt, rs); } return dorder; }
+	 */
 	
-	//directOrder select
-	public DirectOrderBean selectDirectOrder(String oid) {
-		Connection con = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		String sql = null;
-		DirectOrderBean dorder = new DirectOrderBean();
-		try {
-			con = pool.getConnection();
-			sql = "select * from directorder where oid=?";
-			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, oid);
-			rs = pstmt.executeQuery();
-			if(rs.next()) {
-				dorder.setDonum(rs.getInt("donum"));
-				dorder.setOid(rs.getString("oid"));
-				dorder.setPnum(rs.getInt("pnum"));
-				dorder.setPname(rs.getString("pname"));
-				dorder.setPrice1(rs.getInt("price1"));
-				dorder.setQty(rs.getInt("qty"));
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			pool.freeConnection(con, pstmt, rs);
-		}
-		return dorder;
-	}
 }

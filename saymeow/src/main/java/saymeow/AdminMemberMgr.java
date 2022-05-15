@@ -44,7 +44,7 @@ public class AdminMemberMgr {
 				bean.setMode(rs.getInt(9));
 				bean.setPetName(rs.getString(10));
 				bean.setPetAge(rs.getString(11));
-				bean.setPetGender(rs.getString(12));
+				bean.setPetGender(rs.getInt(12));
 				bean.setPetBreed(rs.getString(13));
 				vlist.addElement(bean);
 			}
@@ -85,7 +85,7 @@ public class AdminMemberMgr {
 				bean.setMode(rs.getInt(9));
 				bean.setPetName(rs.getString(10));
 				bean.setPetAge(rs.getString(11));
-				bean.setPetGender(rs.getString(12));
+				bean.setPetGender(rs.getInt(12));
 				bean.setPetBreed(rs.getString(13));
 				vlist.addElement(bean);
 			}
@@ -97,6 +97,32 @@ public class AdminMemberMgr {
 		System.out.println("[AdminMemberMgr] searchM 실행");
 		return vlist;
 	}
+	
+	
+	//3. [관리자용] 회원 grade 수정	
+	public void updateMemberGrade(int grade, String id) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		String sql = null;
+		try {
+			con = pool.getConnection();
+			sql = "UPDATE member "
+				+ "SET grade = ? "
+				+ "WHERE id = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, grade);
+			pstmt.setString(2, id);
+			pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			pool.freeConnection(con, pstmt);
+		}
+		return;
+	}
+	
+	
+	
 	
 }
 

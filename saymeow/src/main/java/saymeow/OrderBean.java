@@ -1,14 +1,17 @@
+// price1 컬럼 추가
 package saymeow;
 
 public class OrderBean {
 	private int onum;
 	private int pnum;
 	private int qty;
+	private int price1;
 	private String pname;
 	private String oid;
 	private String regdate;
 	private String oaddress;
 	private String state;
+	
 	public int getOnum() {
 		return onum;
 	}
@@ -27,13 +30,18 @@ public class OrderBean {
 	public void setQty(int qty) {
 		this.qty = qty;
 	}
+	public int getPrice1() {
+		return price1;
+	}
+	public void setPrice1(int price1) {
+		this.price1 = price1;
+	}
 	public String getPname() {
 		return pname;
 	}
 	public void setPname(String pname) {
 		this.pname = pname;
 	}
-
 	public String getOid() {
 		return oid;
 	}
@@ -58,4 +66,6 @@ public class OrderBean {
 	public void setState(String state) {
 		this.state = state;
 	}
+
+	
 }

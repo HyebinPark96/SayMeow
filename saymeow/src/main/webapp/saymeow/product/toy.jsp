@@ -1,3 +1,5 @@
+<!-- 취합완료했으나, 일부 상품 텍스트컬러 검정색으로 뜹니다. -->
+
 <!-- 장난감 카테고리 (메인에서 눌러서 들어옴) -->
 <%@page import="saymeow.UtilMgr"%>
 <%@page import="saymeow.ProductBean"%>
@@ -6,16 +8,6 @@
 <%@page contentType="text/html; charset=EUC-KR"%>
 
 <%
-
-//id값 받아오기
-String id = request.getParameter("id"); // 이전 페이지에서 받아오기
-if(session.getAttribute("idKey")!=null){ // id값이 세션으로 저장되어 있다면
-	id = (String) session.getAttribute("idKey");
-} 
-
-//테스트용 임의설정 
-id = "aaa";
-
 ProductMgr mgr = new ProductMgr();
 
 String mClass = request.getParameter("mClass");
@@ -35,7 +27,13 @@ Vector<ProductBean> pvlist = mgr.getP2(mClass, sClass, sort);
 <title>toy</title>
 <meta name='viewport' content='width=device-width, initial-scale=1'>
 <link rel='stylesheet' type='text/css' media='screen'href='../css/plist.css'>
-<jsp:include page = "../top2.jsp"/>
+    <!-- 부트스트랩 CSS -->
+	<link
+		href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+		rel="stylesheet"
+		integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+		crossorigin="anonymous">    
+<%@ include file="../top2.jsp" %>
 </head>
 <script>
 function send_form(frmId) { // form 제출

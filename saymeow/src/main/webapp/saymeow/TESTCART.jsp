@@ -19,7 +19,7 @@
 <td><input name="price1" value="3000" ></td>
 <td><input name="pname" value="입력용1"></td>
 <td><input name="qty" value="5"></td>
-<td><input name="oid" value="<%=oid%>"></td>
+<td><input name="oid" value="<%=id%>"></td>
 </tr>
 </table>
 <input type="button" value="장바구니 담기" onclick="javascript:cartInsert(this.form)">

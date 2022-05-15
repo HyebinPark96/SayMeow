@@ -121,7 +121,7 @@ function read(i) {
 	rel="stylesheet"
 	integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
 	crossorigin="anonymous">
-<%@ include file="../top.jsp" %>
+<%@ include file="../top2.jsp" %>
 </head>
 <body id="adminReviewBoard">
 	<div class="d-flex align-items-start">
@@ -130,7 +130,7 @@ function read(i) {
     		<a href="adminMember.jsp"><button class="nav-link" id="v-pills-profile-tab" data-bs-toggle="pill" data-bs-target="#v-pills-profile" type="button" role="tab" aria-controls="v-pills-profile" aria-selected="false">회원관리</button></a>
     		<a href="adminReviewBoard.jsp"><button class="nav-link active" id="v-pills-messages-tab" data-bs-toggle="pill" data-bs-target="#v-pills-messages" type="button" role="tab" aria-controls="v-pills-messages" aria-selected="false">리뷰관리</button></a>
     		<a href="adminProduct.jsp"><button class="nav-link" id="v-pills-settings-tab" data-bs-toggle="pill" data-bs-target="#v-pills-settings" type="button" role="tab" aria-controls="v-pills-settings" aria-selected="false">상품관리</button></a>
-    		<a href="adminSales.jsp"><button class="nav-link" id="v-pills-settings-tab" data-bs-toggle="pill" data-bs-target="#v-pills-settings" type="button" role="tab" aria-controls="v-pills-settings" aria-selected="false">매출관리</button></a>
+    		<a href="../sellHistory.jsp"><button class="nav-link" id="v-pills-settings-tab" data-bs-toggle="pill" data-bs-target="#v-pills-settings" type="button" role="tab" aria-controls="v-pills-settings" aria-selected="false">매출관리</button></a>
     		<a href="#"><button class="nav-link" id="v-pills-settings-tab" data-bs-toggle="pill" data-bs-target="#v-pills-settings" type="button" role="tab" aria-controls="v-pills-settings" aria-selected="false">판매데이터</button></a>
 		</div>
     	<div align="center" id="review-board" style="margin:0 auto;">
@@ -177,7 +177,7 @@ function read(i) {
 								<th width="100">순 번</td>
 								<th width="100">상품번호</td>
 								<th width="100">별 점</td>
-								<th width="150">제 목</td>
+								<th width="200">제 목</td>
 								<th width="100">아이디</td>
 								<th width="150">날 짜</td>
 								<th width="100">&nbsp;</td>
@@ -236,7 +236,7 @@ function read(i) {
 							</tr>
 							<!-- 리뷰누르면 페이지 이동없이 아래로 뜨도록 -->
 							<tr style="display:none; text-align:left" class="reviewDetail">
-								<td colspan="6" align="left" style="background-color:pink; width:200;">
+								<td colspan="7" align="left" >
 									<form name="reviewDetailFrm" action="reviewUpdate.jsp?rnum=<%=rnum%>" method="POST" class="reviewDetailFrm">
 										<input type="hidden" name="rnum" value="<%=rnum%>">
 										<input type="hidden" name="onum" value="<%=onum%>">
@@ -254,13 +254,12 @@ function read(i) {
 										내용 : <%=content%><br>
 										별점 : <%=score%><br>
 										<%if(filename!=null){ %>
-											<img src="../storage/<%=filename%>" width="50px" height="50px"><br><br>
+											<img src="../storage/<%=filename%>" width="800vw" height="400vw" style="display:block; margin: 0 auto; object-fit: cover;"><br>
 											<input type="hidden" name="filename" value="<%=filename%>">
 										<%} %>
 										<%if(id.equals(rid) || id==rid) { /*본인리뷰라면 수정버튼 활성화*/%>
 											<input type="submit" class="btn btn-primary submitBtn" value="수정">
 										<%}%>
-										<hr>
 									</form>
 									[댓글]<br>
 									<%
@@ -378,11 +377,5 @@ function read(i) {
 				</form>
 			</div>
 		</div>
-<!-- 부트스트랩 JS -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" 
-        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
-        crossorigin="anonymous">
-</script>
-<%@ include file="../bottom.jsp" %>
 </body>
 </html>

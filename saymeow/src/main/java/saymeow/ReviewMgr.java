@@ -1,3 +1,4 @@
+/*중요!!! rea*/
 // 리뷰와 댓글에관한 DB연동 메소드
 package saymeow;
 
@@ -19,7 +20,7 @@ public class ReviewMgr {
 	
 	/*리뷰 - 파일업로드*/
 	// 1. 업로드 파일 저장 위치(안 변하므로 상수)
-	public static final String SAVEFOLDER = "C:/Jsp/jspproject/src/main/webapp/saymeow/storage/"; // 상수는 대문자로 표기하는 것이 일반적
+	public static final String SAVEFOLDER = "C:/Jsp/team/src/main/webapp/saymeow/storage/"; // 상수는 대문자로 표기하는 것이 일반적
 
 	// 2. 업로드 파일명 인코딩
 	public static final String ENCODING = "EUC-KR";
@@ -118,7 +119,6 @@ public class ReviewMgr {
 		return maxNum;
 	}
 	
-	
 	// 총 리뷰 수 SELECT : 검색하든 안하든 조건에 맞는 총 리뷰 수 가져오는 메소드 
 	public int getTotalCount(String keyField, String keyWord) { // keyField : id, subject, content 들어올 수 있음
 		Connection con = null;
@@ -138,7 +138,44 @@ public class ReviewMgr {
 					+ "FROM review "
 					+ "WHERE " + keyField + " like ? "; // like '%test%'
 				pstmt = con.prepareStatement(sql);
-				pstmt.setString(1, "%" + keyWord + "%"); // '' 자동으로 붙여줌	
+				pstmt.setString(1, "%" + keyWord + "%"); // '' 자동으로 붙여줌
+			}
+			rs = pstmt.executeQuery();
+			if(rs.next())
+				totalCount = rs.getInt(1);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			pool.freeConnection(con, pstmt, rs);
+		}
+		return totalCount; // 전체 게시글 수 반환
+	}
+	
+	
+	// 총 리뷰 수 SELECT : 검색하든 안하든 조건에 맞는 총 리뷰 수 가져오는 메소드 
+	public int getTotalCountByPnum(String keyField, String keyWord, int pnum) { // keyField : id, subject, content 들어올 수 있음
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = null;
+		int totalCount = 0;
+		try {
+			con = pool.getConnection();
+			// 검색일 때 아닐 때 구분해서 SELECT
+			if(keyWord.trim().equals("") || keyWord==null) { // 검색이 아닐 때
+				sql = "SELECT COUNT(*) "
+					+ "FROM review "
+					+ "WHERE pnum = ?";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setInt(1, pnum);
+			} else { // 검색일 때
+				sql = "SELECT COUNT(*) "
+					+ "FROM review "
+					+ "WHERE " + keyField + " like ? AND " // like '%test%'
+					+ "pnum = ? ";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setString(1, "%" + keyWord + "%"); // '' 자동으로 붙여줌
+				pstmt.setInt(2, pnum);
 			}
 			rs = pstmt.executeQuery();
 			if(rs.next())
@@ -174,6 +211,62 @@ public class ReviewMgr {
 			pool.freeConnection(con, pstmt, rs);
 		}
 		return totalCount; // 전체 게시글 수 반환
+	}
+	
+	// 페이지별 정해진 개수만큼 리뷰 보기 SELECT : 검색하든 안하든 동일하게 적용되는 메소드 
+	public Vector<ReviewBean> getReviewListByPnum(String keyField, String keyWord, int start, int cnt, int pnum) { /*뒤 두개는 limit - SQL문*/
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = null;
+		Vector<ReviewBean> vlist = new Vector<ReviewBean>();
+		try {
+			con = pool.getConnection();
+			if(keyWord==null||keyWord.trim().equals("")) { // 검색이 아닐 때
+				sql = "SELECT * "
+					+ "FROM review "
+					+ "WHERE pnum = ? "
+					+ "ORDER BY rnum DESC "
+					+ "LIMIT ?,? ";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setInt(1, pnum);
+				pstmt.setInt(2, start);
+				pstmt.setInt(3, cnt);
+			} else { // 검색일 때 
+				sql = "SELECT * "
+					+ "FROM review "
+					+ "WHERE " + keyField + " LIKE ? AND " // 띄워쓰기 중요!!
+					+ "pnum = ? " 
+					+ "ORDER BY rnum DESC "
+					+ "LIMIT ?,? ";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setString(1, "%"+keyWord+"%"); // 2번째 매개변수 자리의 문자열에 자동으로 따옴표 생성 '%keyWord%'
+				pstmt.setInt(2, pnum);
+				pstmt.setInt(3, start);
+				pstmt.setInt(4, cnt);
+			}
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				ReviewBean bean = new ReviewBean();
+				
+				// 페이징처리에 필요한 것만 가져오기
+				bean.setRnum(rs.getInt("rnum")); // 리뷰순번
+				bean.setRid(rs.getString("rid")); // 리뷰 작성자 id 
+				bean.setPnum(rs.getInt("pnum")); // 상품번호 
+				bean.setDate(rs.getString("date"));
+				bean.setSubject(rs.getString("subject"));
+				bean.setContent(rs.getString("content"));
+				bean.setScore(rs.getDouble("score"));
+				bean.setFilename(rs.getString("filename"));
+				
+				vlist.addElement(bean); // 벡터에 빈즈단위로 담기
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			pool.freeConnection(con, pstmt, rs);
+		}
+		return vlist; // 디폴트로 10개씩 반환되고, 나머지 반환될 수 있음
 	}
 	
 	
@@ -436,6 +529,33 @@ public class ReviewMgr {
 		return;
 	}
 	
+	// 이미 리뷰썼는지 onum으로 확인하는 메소드
+	public boolean checkReivewInsert(int onum) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = null;
+		boolean flagForCheckReviewInsert = false;
+		try {
+			con = pool.getConnection();
+			sql = "SELECT * "
+				+ "FROM review "
+				+ "WHERE onum = ? ";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, onum);
+			rs = pstmt.executeQuery();
+			if(rs.next())
+				flagForCheckReviewInsert = true; // 이미 적었다면 true 반환
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			pool.freeConnection(con, pstmt, rs);
+		}
+		return flagForCheckReviewInsert;
+	}
+	
+	
+	
 	
 	// (테스트용 메소드) Post 1000 : (한 페이지당 10개의 게시글)1000개의 게시물 입력 
 	public void post1000(){
@@ -445,10 +565,11 @@ public class ReviewMgr {
 		try {
 			con = pool.getConnection();
 			sql = "INSERT review(onum,rid,pnum,date,subject,content,score,filename,filesize) "
-				+ "VALUES (1, 'bbb', 1, now(),'Hello','World!', 3, null, 0);";
+				+ "VALUES (?, 'bbb', 1, now(),'Hello','World!', 3, null, 0);";
 			pstmt = con.prepareStatement(sql);
 			// 1000번 반복
-			for (int i = 0; i < 1000; i++) {
+			for (int i = 0; i < 500; i++) {
+				pstmt.setInt(1, i+1);
 				pstmt.executeUpdate(); // 실행
 			}
 			System.out.println("Post1000 Success"); 

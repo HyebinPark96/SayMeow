@@ -1,3 +1,5 @@
+<!-- 취합완료 -->
+
 <!-- 메인화면 -->
 <%@page import="saymeow.UtilMgr"%>
 <%@page import="saymeow.ProductBean"%>
@@ -5,17 +7,6 @@
 <%@page import="saymeow.ProductMgr"%>
 <%@page contentType="text/html; charset=EUC-KR"%>
 <% 
-
-//id값 받아오기
-String id = request.getParameter("id"); // 이전 페이지에서 받아오기
-if(session.getAttribute("idKey")!=null){ // id값이 세션으로 저장되어 있다면
-	id = (String) session.getAttribute("idKey");
-} 
-
-//테스트용 임의설정 
-id = "aaa";
-
-
 ProductMgr mgr = new ProductMgr();
 Vector<ProductBean> pvlist = mgr.getP3(); 
 %>
@@ -28,7 +19,13 @@ Vector<ProductBean> pvlist = mgr.getP3();
     <title>Index</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <link rel='stylesheet' type='text/css' media='screen' href='css/index.css'>	
-<jsp:include page = "top2.jsp"/>
+    <!-- 부트스트랩 CSS -->
+	<link
+		href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+		rel="stylesheet"
+		integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+		crossorigin="anonymous">    
+<%@ include file="top2.jsp" %>
 </head>
 <script>
 function send_form(frmId) { // form 제출
@@ -36,7 +33,6 @@ function send_form(frmId) { // form 제출
 }
 </script>
 <body>
-<br><br>
 	<!-- 배너 -->
     <section class="bsection">
     <img src="image/banner.png" height="360" width="1100">
@@ -44,7 +40,7 @@ function send_form(frmId) { // form 제출
 	<!-- 상품리스트업 -->
 	<section class="psection">
 			<div class="plist">
-				<br><br><br><div class="new">NEW PRODUCT<br><br><br></div>
+				<br><br><h3 class="new">NEW PRODUCT<br><br><br></h3>
 				<ul class="prow">
 					<%
 						for (int i=0; i<pvlist.size(); i++) {
@@ -64,14 +60,10 @@ function send_form(frmId) { // form 제출
 				</ul>	
 			</div>
 			<div class="more">
-				<br><br><a href="product/food.jsp">more</a>
+				<a href="product/food.jsp">
+					<input type="button" value="more" class="btn btn-light">
+				</a>
             </div>
 		</section>
-</body>
-<!-- 부트스트랩 JS -->					
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"					
-integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"					
-crossorigin="anonymous">					
-</script>					
-<%@ include file="bottom.jsp" %>					
+</body>				
 </html>

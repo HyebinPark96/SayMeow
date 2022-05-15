@@ -1,3 +1,5 @@
+<!-- product폴더내에서는 로그아웃안됨 -->
+<!-- 취합완료 -->
 <!-- 사료 카테고리 (메인에서 눌러서 들어옴) -->
 <%@page import="saymeow.UtilMgr"%>
 <%@page import="saymeow.ProductBean"%>
@@ -5,15 +7,6 @@
 <%@page import="saymeow.ProductMgr"%>
 <%@page contentType="text/html; charset=EUC-KR"%>
 <%
-
-//id값 받아오기
-String id = request.getParameter("id"); // 이전 페이지에서 받아오기
-if(session.getAttribute("idKey")!=null){ // id값이 세션으로 저장되어 있다면
-	id = (String) session.getAttribute("idKey");
-} 
-
-id = "aaa";
-
 ProductMgr mgr = new ProductMgr();
 
 String mClass = request.getParameter("mClass");
@@ -32,9 +25,14 @@ Vector<ProductBean> pvlist = mgr.getP2(mClass, sClass, sort);
 <meta charset="EUC-KR">
 <title>food</title>
 <meta name='viewport' content='width=device-width, initial-scale=1'>
-<link rel='stylesheet' type='text/css' media='screen'
-	href='../css/plist.css'>
-<jsp:include page="../top2.jsp" />
+<link rel='stylesheet' type='text/css' media='screen' href='../css/plist.css'>
+    <!-- 부트스트랩 CSS -->
+	<link
+		href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+		rel="stylesheet"
+		integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+		crossorigin="anonymous">    
+<%@ include file="../top2.jsp" %>
 </head>
 <script>
 	function send_form(frmId) { // form 제출

@@ -1,12 +1,12 @@
-
+/*한글 에러나있어서 수정해야합니다!!!!*/
 function loginCheck(){
 	if(document.login.id.value==""){
-		alert("아이디를 입력해 주세요.");
+		alert("���대��瑜� ���ν�� 二쇱�몄��.");
 		document.login.id.focus();
 		return;
 	}
 	if(document.login.pwd.value==""){
-		alert("비밀번호를 입력해 주세요.");
+		alert("鍮�諛�踰��몃�� ���ν�� 二쇱�몄��.");
 		document.login.pwd.focus();
 		return;
 	}
@@ -19,67 +19,67 @@ function memberReg(){
 
 function inputCheck(){
 	if(document.regForm.id.value==""){
-		alert("아이디를 입력해 주세요.");
+		alert("���대��瑜� ���ν�� 二쇱�몄��.");
 		document.regForm.id.focus();
 		return;
 	}
 	if(document.regForm.pwd.value==""){
-		alert("비밀번호를 입력해 주세요.");
+		alert("鍮�諛�踰��몃�� ���ν�� 二쇱�몄��.");
 		document.regForm.pwd.focus();
 		return;
 	}
 	if(document.regForm.repwd.value==""){
-		alert("비밀번호를 확인해 주세요");
+		alert("鍮�諛�踰��몃�� ���명�� 二쇱�몄��");
 		document.regForm.repwd.focus();
 		return;
 	}
 	if(document.regForm.pwd.value != document.regForm.repwd.value){
-		alert("비밀번호가 일치하지 않습니다.");
+		alert("鍮�諛�踰��멸� �쇱���吏� ���듬����.");
 		document.regForm.repwd.focus();
 		return;
 	}
 	if(document.regForm.name.value==""){
-		alert("이름을 입력해 주세요.");
+		alert("�대��� ���ν�� 二쇱�몄��.");
 		document.regForm.name.focus();
 		return;
 	}
 	
 	
 	if(document.regForm.birthday.value==""){
-		alert("생년월일를 입력해 주세요.");
+		alert("�������쇰�� ���ν�� 二쇱�몄��.");
 		document.regForm.birthday.focus();
 		return;
 	}
 
 	
 	if(document.regForm.email.value==""){
-		alert("이메일을 입력해 주세요.");
+		alert("�대��쇱�� ���ν�� 二쇱�몄��.");
 		document.regForm.email.focus();
 		return;
 	}
 		if(document.regForm.address.value==""){
-		alert("주소를 입력해 주세요.");
+		alert("二쇱��瑜� ���ν�� 二쇱�몄��.");
 		document.regForm.address.focus();
 		return;
 	}
 	if(document.regForm.petName.value==""){
-		alert("고양이이름을 입력해 주세요.");
+		alert("怨����댁�대��� ���ν�� 二쇱�몄��.");
 		document.regForm.petName.focus();
 		return;
 	}
 	
 	if(document.regForm.petAge.value==""){
-		alert("고양이나이를 입력해 주세요.");
+		alert("怨����대���대�� ���ν�� 二쇱�몄��.");
 		document.regForm.petAge.focus();
 		return;
 	}
 	if(document.regForm.petGender.value==""){
-		alert("고양이성별을 입력해 주세요.");
+		alert("怨����댁�깅��� ���ν�� 二쇱�몄��.");
 		document.regForm.petGender.focus();
 		return;
 	}
 	if(document.regForm.petBreed.value==""){
-		alert("고양이품종을 입력해 주세요.");
+		alert("怨����댄��醫��� ���ν�� 二쇱�몄��.");
 		document.regForm.petBreed.focus();
 		return;
 	}
@@ -94,7 +94,7 @@ function inputCheck(){
 	   dotPos > 3 && spacePos == -1 && commaPos == -1 
 	   && atPos + 1 < dotPos && dotPos + 1 < eMailSize);
     else {
-          alert('E-mail주소 형식이 잘못되었습니다.\n\r다시 입력해 주세요!');
+          alert('E-mail二쇱�� ������ ��紐삳�����듬����.\n\r�ㅼ�� ���ν�� 二쇱�몄��!');
 	      document.regForm.email.focus();
 		  return;
     }
@@ -106,7 +106,7 @@ function inputCheck(){
 
 function idCheck(id){
 	if(id == ""){
-		alert("아이디를 입력해 주세요.");
+		alert("���대��瑜� ���ν�� 二쇱�몄��.");
 		document.regForm.id.focus();
 	}else{
 		url="idCheck.jsp?id=" + id;
@@ -118,17 +118,17 @@ function id_search() {
 	 	var frm = document.idfindscreen;
 
 	 	if (frm.name.value.length < 1) {
-		  alert("이름을 입력해주세요");
+		  alert("�대��� ���ν�댁＜�몄��");
 		  return;
 		 }
 
 		 if (frm.phone.value.length != 11) {
-			  alert("핸드폰번호를 정확하게 입력해주세요");
+			  alert("�몃���곕��몃�� ������寃� ���ν�댁＜�몄��");
 			  return;
 		 }
 
 	 frm.method = "post";
-	 frm.action = "findIdResult.jsp"; //넘어간화면
+	 frm.action = "findIdResult.jsp"; //���닿���硫�
 	 frm.submit();  
 	 }
 	  function pw_search(){
@@ -136,17 +136,17 @@ function id_search() {
   var frm=document.pwfindscreen;
 
   if(frm.mid.value.length<1){
-   alert("아이디를 올바르게 입력해주세요");
+   alert("���대��瑜� �щ�瑜닿� ���ν�댁＜�몄��");
    return;
   }
 
    if (frm.phone.value.length != 11) {
-			  alert("핸드폰번호를 정확하게 입력해주세요");
+			  alert("�몃���곕��몃�� ������寃� ���ν�댁＜�몄��");
 			  return;
 		 }
 	
   frm.method="post";
-  frm.action="findPwResult.jsp"; //넘어간화면
+  frm.action="findPwResult.jsp"; //���닿���硫�
   frm.submit(); 
   }
 

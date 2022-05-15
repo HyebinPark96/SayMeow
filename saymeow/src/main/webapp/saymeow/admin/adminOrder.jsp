@@ -61,8 +61,6 @@
 <title>Insert title here</title>
 <!-- 혜빈 CSS -->
 <link rel="stylesheet" href="../css/styleHB.css">
-<!-- 혜빈 JS -->
-<script src="../scriptHB.js"></script>
 <!-- 내부스크립트 -->
 <script>
 	function search(){ // 검색기능
@@ -123,20 +121,14 @@
 		document.deleteFrm.action = "adminDeleteOrderProc.jsp";
 		document.deleteFrm.submit();
 	}
-	
-	
-	
-	
 </script>
-<!-- 외부 CSS -->
-<link rel="stylesheet" href="../css/style.css">
 <!-- 부트스트랩 CSS -->
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
 	rel="stylesheet"
 	integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
 	crossorigin="anonymous">
-<%@ include file="../top.jsp" %>
+<%@ include file="../top2.jsp" %>
 </head>
 <body id="adminOrder">
 <!-- 사이드바 40%, 창 60% -->
@@ -146,7 +138,7 @@
 		<a href="adminMember.jsp"><button class="nav-link" id="v-pills-profile-tab" data-bs-toggle="pill" data-bs-target="#v-pills-profile" type="button" role="tab" aria-controls="v-pills-profile" aria-selected="false">회원관리</button></a>
 		<a href="adminReviewBoard.jsp"><button class="nav-link" id="v-pills-messages-tab" data-bs-toggle="pill" data-bs-target="#v-pills-messages" type="button" role="tab" aria-controls="v-pills-messages" aria-selected="false">리뷰관리</button></a>
 		<a href="adminProduct.jsp"><button class="nav-link" id="v-pills-settings-tab" data-bs-toggle="pill" data-bs-target="#v-pills-settings" type="button" role="tab" aria-controls="v-pills-settings" aria-selected="false">상품관리</button></a>
-		<a href="adminSales.jsp"><button class="nav-link" id="v-pills-settings-tab" data-bs-toggle="pill" data-bs-target="#v-pills-settings" type="button" role="tab" aria-controls="v-pills-settings" aria-selected="false">매출관리</button></a>
+		<a href="../sellHistory.jsp"><button class="nav-link" id="v-pills-settings-tab" data-bs-toggle="pill" data-bs-target="#v-pills-settings" type="button" role="tab" aria-controls="v-pills-settings" aria-selected="false">매출관리</button></a>
 		<a href="#"><button class="nav-link" id="v-pills-settings-tab" data-bs-toggle="pill" data-bs-target="#v-pills-settings" type="button" role="tab" aria-controls="v-pills-settings" aria-selected="false">판매데이터</button></a>
 	</div>
 	<div class="tab-content" id="v-pills-tabContent" style="margin:0 auto;">
@@ -161,6 +153,8 @@
 							<th width="100">상품번호</th>
 							<th width="100">상품명</th>
 							<th width="100">주문수량</th>
+							<th width="100">개당가격</th>
+							<th width="100">총가격</th>
 							<th width="150">주문날짜</th>
 							<th width="100">배송지</th>
 							<th width="100">주문상태</th>
@@ -184,6 +178,7 @@
 								int onum = bean.getOnum();
 								int pnum = bean.getPnum();
 								int qty = bean.getQty();
+								int price1 = bean.getPrice1();
 								String pname = bean.getPname();
 								String oid = bean.getOid();
 								String regdate = bean.getRegdate();
@@ -196,9 +191,19 @@
 							<td><%=pnum%></td>
 							<td><%=pname%></td>
 							<td><%=qty%></td>
+							<td><%=price1%></td>
+							<td><%=qty*price1%></td>
 							<td><%=regdate%></td>
 							<td><%=oaddress%></td>
-							<td><%=state%></td>
+							<td>
+							<%if(state.equals("1")){%>
+								결제 전
+							<%} else if(state.equals("2")){%>
+								결제완료(배송완료)
+							<%} else if(state.equals("3")){%>
+								주문취소
+							<%} %>
+							</td>
 							<td><input type="checkbox" class="chb" name="chb" value="<%=onum%>"></td>
 						</tr>
 						<%} // -- 반복문 끝%>
@@ -233,7 +238,7 @@
 					for(; pageStart<pageEnd; pageStart++){%>
 						<a href="javascript:pageing('<%=pageStart%>')">
 							<%if(pageStart == nowPage){%>
-								<font color="#A13FFF">[<%=pageStart%>]</font>
+								<font color="#9598CA">[<%=pageStart%>]</font>
 							<%}else { %>
 								[<%=pageStart%>]
 							<%} %>
@@ -279,11 +284,5 @@
   		
   	</div> <!-- 본문 끝-->
 </div><!-- 네비까지 포함한 본문 끝-->
-<!-- 부트스트랩 JS -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" 
-        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
-        crossorigin="anonymous">
-</script>
-<%@ include file="../bottom.jsp" %>
 </body>
 </html>
