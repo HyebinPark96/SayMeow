@@ -121,13 +121,13 @@ Vector<ProductBean> pvlist = mgr.getPList(pKeyWord);
 		</section>
 		<section class="plist">
 			<div class="ptop">
-				검색어: <%=pKeyWord%>
-				<div class="array">n개의 상품이 있습니다. 
+				<p>검색어: <b><%=pKeyWord%></b>
+				<div class="array">
+				<p><b><%=pvlist.size()%></b>개의 상품이 있습니다. 
 				</div>
 				
 			</div>
 			<div class="product_list" id="product_list">
-				여기서부터 상품진열<br>
 				<ul class="product_row">
 					<%
 							for (int i=0; i<pvlist.size(); i++) {
