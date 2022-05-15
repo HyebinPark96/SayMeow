@@ -3,7 +3,7 @@
 <jsp:useBean id="cart" class="saymeow.CartBean"/>
 <jsp:useBean id="cMgr" class="saymeow.CartMgr"/>
 <%
-	String id = request.getParameter("id");
+	String oid = request.getParameter("oid");
 	String snum[] = request.getParameterValues("cch");
 	String msg = "";
 	String flag = request.getParameter("flag");
@@ -58,6 +58,7 @@
 <%}%>
 </table>
 <p>총 주문금액은 <%=allTotal%>원 입니다.</p>
+<input type="button" value="취소" onclick="history.back()">
 <input type="submit" value="결제">
 </form>
 </body>

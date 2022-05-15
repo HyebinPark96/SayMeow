@@ -5,7 +5,7 @@
 <jsp:useBean id="oMgr" class="saymeow.OrderMgr"/>
 <%
 	//String id = (String)session.getAttribute("idKey");
-	String id = "1";
+	String oid = "1";
 	
 	
 	String msg = "주문이 완료되었습니다.";
@@ -20,7 +20,7 @@
 		order.setPnum(cart.getPnum());
 		order.setQty(cart.getQty());
 		order.setPname(cart.getPname());
-		order.setId(cart.getId());
+		order.setOid(cart.getOid());
 		oMgr.insertOrder(order);
 		//delete 추가하기
 		cMgr.deleteCart(cart.getCnum());
