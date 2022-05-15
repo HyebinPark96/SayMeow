@@ -1,3 +1,4 @@
+/*취합완료*/
 @charset "EUC-KR";
 @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@100&display=swap');
 
@@ -25,8 +26,8 @@
 }
 
 .logo {
-	width: 200px;
-	height: 150%;
+	width: 15vw;
+	height: 30vh; /*화면마다 높이가 다르게설정되어있어서 150%->vh 단위로 설정*/
 }
 
 .search {
@@ -38,32 +39,27 @@
 
 }
 .sTf {
+	display:inline-block;
 	width: 400px;
-	height: 30px;
+	height: 40px;
+	font-weight: bolder;
 
 }
 .searchBtn {
 	color: white;
-	font-size: 20px;
+	font-size: 1.1em;
 	width: 100px;
-	height: 30px;
 	background-color: #9598ca;
 	border: none;
+	font-weight: bolder;
 }
-
-.btns {
-	width: 250px;
-	height: 200px;
-	display: flex;
-	height: auto;
-}
-
 
 #login, #logout, #join, #cart, #my, #admin{
 	color: white;
-	font-size: 15px;
+	font-size: 1.1em;
 	background-color: #9598CA;
 	border: none;
+	font-weight: bold;
 }
 
 

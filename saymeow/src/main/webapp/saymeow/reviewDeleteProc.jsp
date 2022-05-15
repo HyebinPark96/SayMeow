@@ -3,15 +3,17 @@
 <jsp:useBean id="rMgr" class="saymeow.ReviewMgr"/>
 <jsp:useBean id="cMgr" class="saymeow.RCommentMgr"/>
 <%
+	int pnum = UtilMgr.parseInt(request, "pnum");
+	String keyField = request.getParameter("keyField");
+	String keyWord = request.getParameter("keyWord");
+	int nowPage = UtilMgr.parseInt(request, "nowPage");
 	int rnum = UtilMgr.parseInt(request, "rnum");
 	String filename = request.getParameter("filename");
 	rMgr.deleteReview(rnum, filename);
 	cMgr.deleteAllRComment(rnum);
-	
-	String msg = "삭제되었습니다!";
 %>
 
 <script>
-	alert('<%=msg%> : <%=rnum%>');
-	location.href="reviewBoard.jsp";
+	alert('Review deleted successfully!');
+	location.href = "product/productDetail.jsp?keyField=<%=keyField%>&keyWord=<%=keyWord%>&nowPage=<%=nowPage%>&pnum=<%=pnum%>";
 </script>

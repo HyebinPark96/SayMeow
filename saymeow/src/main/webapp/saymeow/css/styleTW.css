@@ -1,122 +1,29 @@
+/*디자인빼고 취합완료*/
 @charset "EUC-KR";
 
-#bootstrap-overrides .navbar {
-	margin:0;
-	padding:0;
-}
-
-#bootstrap-overrides .container-fluid{
-	margin: 0;
-	padding: 0;
-}
-
-#bootstrap-overrides .collapse{
-	height: 50px;
-}
-
-#bootstrap-overrides .navbar-brand{
-	color:#A13FFF;
-	vertical-align: middle;
-	line-height: 1; 
-	margin-left:10px;
-}
-
-#bootstrap-overrides .input-group{
-	text-align:center;
-	padding-left:10%;
-	width: 70%;
-}
-
-#bootstrap-overrides .form-control{
-	width:30%;
-}
-
-#bootstrap-overrides .input-group-text{
-	display:inline;
-	width:20%;
-	text-align: center;
-	text-decoration-line: none;
-	background-color:#A13FFF;
-	color:white;
-}
-
-#bootstrap-overrides .aTag {
-	color:#808080;
-	width:15%;
-	text-align: center;
-	font-size: 1.1em;
-	text-decoration-line: none;
-}
-
-#bootstrap-overrides .top-aTag{
-	background-color:#A13FFF;
-	color:white;
-	margin: 0 2px;
-	border: 3px solid #A13FFF;
-  	border-radius: 5px;
-
-}
-
-#bootstrap-overrides .second-nav{
-	height: 100%;
-}
-
-#bootstrap-overrides .categories{
-	width:50%;
-	font-size: 1.5em;
-	margin: 0 auto;
-	display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100%;
-    color:#d3d3d3;
-}
-
-
-#bootstrap-overrides .text-white{
-	background: linear-gradient(to right, #A13FFF, #FFB4FF);
-	color:#d3d3d3;
-}
-
-#bootstrap-overrides .container{
-	height:80px;
-	display: flex;
-	justify-content: center;
-	align-items:center;
-}
-
-#bootstrap-overrides .bottom-aTag{
-	background:none;
-}
 /*login.jsp*/
 #level{
-	height:30vw;
-	width:60vw;
 	margin:5vh auto;
-	border-radius: 5px;
-	border: 3px solid #A13FFF;
+	border: 1px solid #808080;
+}
 
-}
 #level2{
-	
 	width: 400px;
-	border-collapse: separate;
-	border-spacing: 0 20px;
-	 text-align: center;
+	/*border-collapse: separate;
+	border-spacing: 0 20px;*/
+	text-align: center;
 }
+
 #level3{
-	width:50vw;
-	height:15vw;
-	border:1;
 	margin:5vh auto;
-  	border-radius: 5px;
 }
+
 #level4{
 	height: 5vw;
 	margin:5vh auto;
-	background-color: #A13FFF;
-	color: white;
+	
 }
+
 .lbtn{
 	border:none;
 	display:inline;
@@ -124,41 +31,36 @@
 	height:1.5vw;
 	text-align: center;
 	text-decoration-line: none;
-	background-color:#A13FFF;
-	color:white;
 	border-radius: 5px;
 }
+
+
+
+/*member.jsp*/
+.regFormTb{
+	margin: 0 auto; 
+	border: 1px solid #808080; 
+	width: 40vw;
+}
+
+
+.checkIdBtn{
+	display:inline-block;
+	width:6vw;
+}
+
+
+
 
 .loginlo{
-
-	font-size: 30px;
 	border-radius: 5px;
-
 }
+
 .logbtn{
 	border:none;
 	display:inline;
 	width:8vw;
-	height:4vw;
 	text-align: center;
 	text-decoration-line: none;
-	font-size:40px;
-	background-color:#A13FFF;
-	color:white;
 	border-radius: 5px;
 }
-/*member.jsp*/
-
-
-/*memberinsert.jsp*/
-
-/*memberupdate.jsp*/
-
-/*findid.jsp*/
-
-/*findidresult.jsp*/
-
-/*findpw.jsp*/
-
-/*findpwresult.jsp*/
-

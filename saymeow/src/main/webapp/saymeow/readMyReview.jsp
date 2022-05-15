@@ -29,7 +29,7 @@
 	rel="stylesheet"
 	integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
 	crossorigin="anonymous">
-<%@ include file="top.jsp" %>
+<%@ include file="top2.jsp" %>
 <% // 페이징 처리에 필요한 변수 선언
 int totalRecord = 0; // 총 게시물 수 (최초 0개)
 int numPerPage = 10; // 한 페이지당 불러올 레코드 개수 (디폴트 10개)
@@ -103,7 +103,7 @@ function numPerFn(numPerPage) {
 
 // (처음으로 버튼 눌러야만 실행되는 메소드) 목록 이동
 function list() {
-	document.listFrm.action = "readMyReviews.jsp";
+	document.listFrm.action = "readMyReview.jsp";
 	document.listFrm.submit(); // reload와 nowPage VALUE를 POST방식으로 전달하여 재귀호출
 }
 
@@ -129,12 +129,12 @@ function read(i) {
 </head>
 <body id="adminReviewBoard">
 	<div class="d-flex align-items-start">
-		<div class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-			<a href="adminOrder.jsp"><button class="nav-link" id="v-pills-home-tab" data-bs-toggle="pill" data-bs-target="#v-pills-home" type="button" role="tab" aria-controls="v-pills-home" aria-selected="true">주문내역조회</button></a>
-    		<a href="adminMember.jsp"><button class="nav-link" id="v-pills-profile-tab" data-bs-toggle="pill" data-bs-target="#v-pills-profile" type="button" role="tab" aria-controls="v-pills-profile" aria-selected="false">회원정보 수정</button></a>
-    		<a href="adminReviewBoard.jsp"><button class="nav-link active" id="v-pills-messages-tab" data-bs-toggle="pill" data-bs-target="#v-pills-messages" type="button" role="tab" aria-controls="v-pills-messages" aria-selected="false">내리뷰목록</button></a>
-    		<a href="adminProduct.jsp"><button class="nav-link" id="v-pills-settings-tab" data-bs-toggle="pill" data-bs-target="#v-pills-settings" type="button" role="tab" aria-controls="v-pills-settings" aria-selected="false">회원탈퇴</button></a>
-		</div>
+	<div class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+		<a href="orderList.jsp"><button class="nav-link" id="v-pills-home-tab" data-bs-toggle="pill" data-bs-target="#v-pills-home" type="button" role="tab" aria-controls="v-pills-home" aria-selected="true">주문내역조회</button></a>
+		<a href="memberUpdate.jsp"><button class="nav-link" id="v-pills-profile-tab" data-bs-toggle="pill" data-bs-target="#v-pills-profile" type="button" role="tab" aria-controls="v-pills-profile" aria-selected="false">회원정보수정</button></a>
+		<a href="readMyReview.jsp"><button class="nav-link active" id="v-pills-messages-tab" data-bs-toggle="pill" data-bs-target="#v-pills-messages" type="button" role="tab" aria-controls="v-pills-messages" aria-selected="false">내 리뷰 목록</button></a>
+		<a href="deleteMember.jsp"><button class="nav-link" id="v-pills-settings-tab" data-bs-toggle="pill" data-bs-target="#v-pills-settings" type="button" role="tab" aria-controls="v-pills-settings" aria-selected="false">회원탈퇴</button></a>
+	</div>
     	<div align="center" id="review-board" style="margin:0 auto;">
 		<br />
 		<h2 class="review-board-topic">내가 작성한 리뷰</h2>
@@ -144,6 +144,7 @@ function read(i) {
 			<tr>
 				<td align="center" colspan="2">
 					<%
+					// 로그인한 id의 리뷰목록만 보여준다!
 					Vector<ReviewBean> vlist = rMgr.getReviewList(keyField, keyWord, start, cnt, id);
 					int listSize = vlist.size(); // 각 페이지가 담는 총 레코드갯수 (최대 10개, 마지막 페이지는 10 이하의 값을 가질 수도 있음)
 					if (vlist.isEmpty()) {
@@ -211,7 +212,7 @@ function read(i) {
 							</tr>
 							<!-- 리뷰누르면 페이지 이동없이 아래로 뜨도록 -->
 							<tr style="display:none; text-align:left" class="reviewDetail">
-								<td colspan="5" align="left" style="background-color:pink; width:200;">
+								<td colspan="6" align="left" style="">
 									<form name="reviewDetailFrm" action="reviewUpdate.jsp?rnum=<%=rnum%>" method="POST" class="reviewDetailFrm">
 										<input type="hidden" name="rnum" value="<%=rnum%>">
 										<input type="hidden" name="onum" value="<%=onum%>">
@@ -222,22 +223,22 @@ function read(i) {
 										<input type="hidden" name="content" value="<%=content%>">
 										<input type="hidden" name="score" value="<%=score%>">
 									
-										[게시글]<br>
+										<br><h4 style="text-align:center">[리뷰]</h4><br>
 										작성자 ID : <%=rid%><br>
 										작성날짜 : <%=date%><br>
 										제목 : <%=subject%><br>
 										내용 : <%=content%><br>
 										별점 : <%=score%><br>
 										<%if(filename!=null){ %>
-											<img src="../storage/<%=filename%>" width="50px" height="50px"><br><br>
+											<img src="storage/<%=filename%>" width="800vw" height="400vw" style="display:block; margin: 0 auto; object-fit: cover;"><br><br>
 											<input type="hidden" name="filename" value="<%=filename%>">
 										<%} %>
 										<%if(id.equals(rid) || id==rid) { /*본인리뷰라면 수정버튼 활성화*/%>
-											<input type="submit" class="btn btn-primary submitBtn" value="수정">
+											<br><input type="submit" class="btn btn-primary submitBtn" value="수정" style="font-size:0.8em;">
 										<%}%>
 										<hr>
 									</form>
-																		[댓글]<br>
+									<h4 style="text-align:center">[댓글]</h4><br>
 									<%
 									Vector<RCommentBean> cvlist = cMgr.listRComment(rnum);
 									for(int j=0; j<cvlist.size(); j++){
@@ -263,7 +264,6 @@ function read(i) {
 										</form>
 										<%} %>
 									<%} %>
-									<hr>
 								</td>
 							</tr>
 						<%} //-- if(rid==id)문%>
@@ -308,12 +308,14 @@ function read(i) {
 			<%} // --totalRecord>1 if문 %>
 				<tr>
 					<!-- '처음으로' 버튼 눌렀을 때 list()함수 호출 -> listFrm submit -> reload = true 전달 -> keyField, keyWord 초기화됨 -->
-					<td align="right">
+					<td style="">
 						<a href="javascript:list()" class="review-board-aTag"><button type="button" class="btn btn-primary" style="margin:1vw;">처음으로</button></a> 
 					</td>
 				</tr>
 			</table>
 			<!-- 게시물 리스트 End -->
+			
+			
 			<!-- 처음으로 버튼 누르면 list() 메소드를 위해 post방식으로 전달 (초기화)-->
 			<form name="listFrm" method="post">
 				<input type="hidden" name="reload" value="true"> 
@@ -329,11 +331,5 @@ function read(i) {
 			</form>
 		</div>
 	</div>
-<!-- 부트스트랩 JS -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" 
-        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
-        crossorigin="anonymous">
-</script>
-<%@ include file="bottom.jsp" %>
 </body>
 </html>

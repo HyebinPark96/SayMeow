@@ -1,18 +1,20 @@
+<!-- 메일 기능 넣기!!!! -->
+<%@page import="java.util.ArrayList"%>
 <%@page import="saymeow.MemberBean"%>
 <%@page import="java.util.Vector"%>
 <%@page import="saymeow.AdminMemberMgr"%>
 <%@ page language="java" contentType="text/html; charset=EUC-KR" pageEncoding="EUC-KR"%>
+<jsp:useBean id="amMgr" class="saymeow.AdminMemberMgr"/>
 <%
-String id = request.getParameter("id"); // 검색할 회원의 id
+String sid = request.getParameter("sid"); // 검색할 회원의 id
 Vector<MemberBean> mvlist = new Vector<MemberBean>();
-AdminMemberMgr mgr = new AdminMemberMgr();
 
  // 전체회원 리스트업 메소드
-if(id==null || id.equals("")) {
-	mvlist = mgr.getAllM(); // 전체회원 리스트업 메소드
+if(sid==null || sid.equals("")) {
+	mvlist = amMgr.getAllM(); // 전체회원 리스트업 메소드
 	// System.out.println("[adminMember.jsp] 전체 회원 출력");
 }else {
-	mvlist = mgr.searchM(id); // 회원id로 검색 메소드
+	mvlist = amMgr.searchM(sid); // 회원id로 검색 메소드
 	// System.out.println("[adminMember.jsp] 회원 ID로 검색");  
 } 
  
@@ -25,65 +27,90 @@ if(id==null || id.equals("")) {
     <title>adminMember</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <link rel='stylesheet' type='text/css' media='screen' href='../css/adminMember.css'>	
-<jsp:include page = "../top2.jsp"/>
+<!-- 부트스트랩 CSS -->
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+	crossorigin="anonymous">
+<%@ include file="../top2.jsp" %>
 </head>
-<script></script>
-<body >
-<!-- 사이드바-->
-<section class="side">
-	<div>
-		<a href="adminOrder.jsp"><button >주문관리</button></a>
-		<a href="adminMember.jsp"><button>회원관리</button></a>
-		<a href="adminReviewBoard.jsp"><button >리뷰관리</button></a>
-		<a href="adminProduct.jsp"><button >상품관리</button></a>
-		<a href="adminSales.jsp"><button >매출관리</button></a>
-		<a href="#"><button >판매데이터</button></a>
+
+<body>
+	
+	<!-- 사이드바 -->
+	<div class="d-flex align-items-start">
+		<div class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+			<a href="adminOrder.jsp"><button class="nav-link" id="v-pills-home-tab" data-bs-toggle="pill" data-bs-target="#v-pills-home" type="button" role="tab" aria-controls="v-pills-home" aria-selected="true">주문관리</button></a>
+			<a href="adminMember.jsp"><button class="nav-link active" id="v-pills-profile-tab" data-bs-toggle="pill" data-bs-target="#v-pills-profile" type="button" role="tab" aria-controls="v-pills-profile" aria-selected="false">회원관리</button></a>
+			<a href="adminReviewBoard.jsp"><button class="nav-link" id="v-pills-messages-tab" data-bs-toggle="pill" data-bs-target="#v-pills-messages" type="button" role="tab" aria-controls="v-pills-messages" aria-selected="false">리뷰관리</button></a>
+			<a href="adminProduct.jsp"><button class="nav-link" id="v-pills-settings-tab" data-bs-toggle="pill" data-bs-target="#v-pills-settings" type="button" role="tab" aria-controls="v-pills-settings" aria-selected="false">상품관리</button></a>
+			<a href="adminSales.jsp"><button class="nav-link" id="v-pills-settings-tab" data-bs-toggle="pill" data-bs-target="#v-pills-settings" type="button" role="tab" aria-controls="v-pills-settings" aria-selected="false">매출관리</button></a>
+			<a href="../sellHistory.jsp"><button class="nav-link" id="v-pills-settings-tab" data-bs-toggle="pill" data-bs-target="#v-pills-settings" type="button" role="tab" aria-controls="v-pills-settings" aria-selected="false">판매데이터</button></a>
+		</div>
+		
+		<!-- 본문 -->
+		<form name="adminMemberUpdateFrm" action="adminMemberUpdateProc.jsp" method="post">
+			<div class="tab-content" id="v-pills-tabContent" align="center" style="margin:0 auto;">
+				<section class="contents">
+					<div class="mlist">
+						<h1>회원관리</h1><br>
+						<table border="1">
+							<thead>
+								<tr>
+									<th>아이디</th>
+									<th>이름</th>
+									<th>연락처</th>
+									<th>이메일</th>
+									<th>회원등급</th>
+									<th>메일발송</th>
+								</tr>
+							</thead>
+							<tbody>
+								<%		
+									for (int i=0; i < mvlist.size(); i++) {
+										MemberBean mbean = mvlist.get(i); 
+								%>
+									<tr>
+										<td><input type="hidden" name="mId[]" value="<%=mbean.getId()%>"></td>
+										<td><%=mbean.getId()%></td>
+										<td><%=mbean.getName()%></td>
+										<td><%=mbean.getPhone()%></td>
+										<td><%=mbean.getEmail()%></td>
+										<td>						
+											<div class="count">
+												<input type="number" value="<%=mbean.getGrade()%>" autocomplete="off" min="0" max="5" name="grade[]" style="width:3vw;">
+												<div class="num_">
+													<div class="btn_ up"></div>
+													<div class="btn_ down"></div>
+												</div>
+											</div>
+										</td>
+										<td><a href="#">메일발송</a></td> <!-- 추후 구현 -->
+									</tr>
+								<%} // -- for문 끝%>	
+							</tbody>
+						</table>
+				  	</div>
+				</section>
+			</div>
+			<input type="submit" value="수정" name="updateBtn">
+		</form>
+		
+		<div class="memberSearch">
+			<form>
+				<input type="search" placeholder="회원 ID로 검색" name="sid">
+				<button type="submit">검색</button>
+				<button onClick="location.href='adminMember.jsp'">전체보기</button>
+			</form>
+		</div>
 	</div>
-</section>
-<!-- 본문 -->
-<section class="contents">
-	<div class="mlist">
-		<h1>회원관리</h1><br>
-		<table border="1">
-		<thead>
-		<tr>
-		<th>아이디</th>
-		<th>이름</th>
-		<th>연락처</th>
-		<th>이메일</th>
-		<th>회원등급</th>
-		<th>정보수정</th>
-		<th>메일발송</th>
-		<th>회원삭제</th>
-		</tr>
-		</thead>
-		<tbody>
-<%		
-	for (int i=0; i < mvlist.size(); i++) {
-		MemberBean mbean = mvlist.get(i); 
-%>
-		<tr>
-		<td><%=mbean.getId()%></td>
-		<td><%=mbean.getName()%></td>
-		<td><%=mbean.getPhone()%></td>
-		<td><%=mbean.getEmail()%></td>
-		<td><%=mbean.getGrade()%></td>
-		<td><a href="../memberUpdate.jsp?id=<%=mbean.getId()%>">수정</a></td>
-		<td><a href="#">메일발송</a></td> <!-- 추후 구현 -->
-		<td><a href="#">회원삭제</a></td> <!-- 바로 회원탈퇴페이지로 이어지도록 -->
-		</tr>
-<% } %>		
-		</tbody>
-		</table>
-  	</div>
-  	<br><br><br>
-  	<div class="memberSearch">
-  	<form >
-  	<input type="search" placeholder="회원 ID로 검색" name="id">
-	<button type="submit">검색</button>
-	<button onClick="location.href='adminMember.jsp'">전체보기</button>
-	</form>
-	</div>
-</section>
+	
+	
+	
+	
+
+	
+
 </body>
 </html>

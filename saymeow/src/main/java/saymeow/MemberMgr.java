@@ -57,7 +57,7 @@ public class MemberMgr {
 			pstmt.setString(7, bean.getAddress());
 			pstmt.setString(8, bean.getPetName());
 			pstmt.setString(9, bean.getPetAge());
-			pstmt.setString(10, bean.getPetGender());
+			pstmt.setInt(10, bean.getPetGender());
 			pstmt.setString(11, bean.getPetBreed());
 			if(pstmt.executeUpdate()==1)
 				flag = true;
@@ -75,21 +75,22 @@ public class MemberMgr {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		String sql = null;
-		int mode = 0;
-		
+		int mode = 2; // 회원정보없음 디폴트 2
 		try {
-			if (!checkId(id))
-				return mode;
 			con = pool.getConnection();
 			sql = "select id, pwd from member where id = ? and pwd = ?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, id);
 			pstmt.setString(2, pwd);
 			rs = pstmt.executeQuery();
-			if (rs.next())
-				mode = 2;
-			else
-				mode = 1;
+			if (rs.next()) {
+				if(rs.getString(1)=="admin" || rs.getString(1).trim().equals("admin")) {
+					mode = 1; // 관리자모드
+				} else {
+					mode = 0; // 회원
+				}
+			} 
+			// 조회값 없는 경우 mode = 2 유지된 채로 리턴됨
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -124,7 +125,7 @@ public class MemberMgr {
 				bean.setMode(rs.getInt("mode"));
 				bean.setPetName(rs.getString("petName"));
 				bean.setPetAge(rs.getString("petAge"));
-				bean.setPetGender(rs.getString("petGender"));
+				bean.setPetGender(rs.getInt("petGender"));
 				bean.setPetBreed(rs.getString("petBreed"));
 			}
 		} catch (Exception e) {
@@ -157,7 +158,7 @@ public class MemberMgr {
 			pstmt.setInt(9, bean.getMode());
 			pstmt.setString(10, bean.getPetName());
 			pstmt.setString(11, bean.getPetAge());
-			pstmt.setString(12, bean.getPetGender());
+			pstmt.setInt(12, bean.getPetGender());
 			pstmt.setString(13, bean.getPetBreed());
 			if(pstmt.executeUpdate()==1)
 				flag = true;
@@ -236,13 +237,5 @@ public class MemberMgr {
 			}
 			return pwd;
 		}
-	
+		
 	}
-
-
-
-
-
-
-
-

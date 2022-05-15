@@ -70,6 +70,7 @@ public class AdminOrderMgr {
 	
 	// 기간별 주문목록 가져오기
 	public Vector<OrderBean> getOrderList(String keyField, String keyWord, int start, int cnt, String interval){
+		System.out.println("keyField : " + keyField + ", keyWord : " + keyWord + ", start :" + start + ", cnt : " + cnt + ", interval :" + interval);
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -126,6 +127,7 @@ public class AdminOrderMgr {
 						pstmt.setInt(2, start);
 						pstmt.setInt(3, cnt);
 					} else if(interval.trim().equals("all")) { // 전체기간조회
+						System.out.println("전체기간 조회 선택");
 						sql = "SELECT * "
 							+ "FROM petorder "
 							+ "ORDER BY onum DESC " 
@@ -133,18 +135,29 @@ public class AdminOrderMgr {
 						pstmt = con.prepareStatement(sql);
 						pstmt.setInt(1, start);
 						pstmt.setInt(2, cnt);
+					} else {
+						System.out.println("error");
 					}
+				} else if(interval.trim().equals("")) { // 키워드검색X + 기간별검색X
+					System.out.println("기간선택 안한 상태 = 최초 창 로드");
+					sql = "SELECT * "
+						+ "FROM petorder "
+						+ "ORDER BY onum DESC " 
+						+ "LIMIT ?, ? ";
+					pstmt = con.prepareStatement(sql);
+					pstmt.setInt(1, start);
+					pstmt.setInt(2, cnt);
 				}
 			} else if(keyWord!=null){ // 키워드 검색O
 				System.out.println("검색은했다.");
 				if(interval.trim().equals("")) { // 키워드 검색O + 기간별 검색O
 					if(interval.trim().equals("1")) { // 1개월
 						sql = "SELECT * "
-								+ "FROM petorder "
-								+ "WHERE " + keyField + " LIKE ? AND "
-								+ "regdate > DATE_SUB(now(), INTERVAL ? MONTH)" 
-								+ "ORDER BY onum DESC "
-								+ "LIMIT ?, ? ";
+							+ "FROM petorder "
+							+ "WHERE " + keyField + " LIKE ? AND "
+							+ "regdate > DATE_SUB(now(), INTERVAL ? MONTH)" 
+							+ "ORDER BY onum DESC "
+							+ "LIMIT ?, ? ";
 							pstmt = con.prepareStatement(sql);
 							pstmt.setString(1, keyWord);
 							pstmt.setInt(2, Integer.parseInt(interval));
@@ -209,7 +222,7 @@ public class AdminOrderMgr {
 					pstmt.setInt(3, cnt);
 				} 
 			}
-			System.out.println("if문은 다 빠져나왔음");
+			System.out.println("다 빠져나왔음");
 			rs = pstmt.executeQuery(); // 실행
 			
 			while(rs.next()) {
@@ -218,11 +231,12 @@ public class AdminOrderMgr {
 				bean.setOnum(rs.getInt(1));
 				bean.setPnum(rs.getInt(2));
 				bean.setQty(rs.getInt(3));
-				bean.setPname(rs.getString(4));
-				bean.setOid(rs.getString(5));
-				bean.setRegdate(rs.getString(6));
-				bean.setOaddress(rs.getString(7));
-				bean.setState(rs.getString(8));
+				bean.setPrice1(rs.getInt(4));
+				bean.setPname(rs.getString(5));
+				bean.setOid(rs.getString(6));
+				bean.setRegdate(rs.getString(7));
+				bean.setOaddress(rs.getString(8));
+				bean.setState(rs.getString(9));
 				
 				vlist.addElement(bean);
 			}
@@ -254,6 +268,40 @@ public class AdminOrderMgr {
 			pool.freeConnection(con, pstmt);
 		}
 		return;
+	}
+	
+	
+	
+	// 총 주문 수 SELECT : 검색하든 안하든 조건에 맞는 총 주문 수 가져오는 메소드 
+	public int getTotalCount(String keyField, String keyWord) { // keyField : id, subject, content 들어올 수 있음
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = null;
+		int totalCount = 0;
+		try {
+			con = pool.getConnection();
+			// 검색일 때 아닐 때 구분해서 SELECT
+			if(keyWord.trim().equals("") || keyWord==null) { // 검색이 아닐 때
+				sql = "SELECT COUNT(*) "
+					+ "FROM petorder ";
+				pstmt = con.prepareStatement(sql);
+			} else { // 검색일 때
+				sql = "SELECT COUNT(*) "
+					+ "FROM petorder "
+					+ "WHERE " + keyField + " like ? "; // like '%test%'
+				pstmt = con.prepareStatement(sql);
+				pstmt.setString(1, "%" + keyWord + "%"); // '' 자동으로 붙여줌
+			}
+			rs = pstmt.executeQuery();
+			if(rs.next())
+				totalCount = rs.getInt(1);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			pool.freeConnection(con, pstmt, rs);
+		}
+		return totalCount; // 전체 게시글 수 반환
 	}
 	
 	

@@ -1,36 +1,21 @@
+<!-- 취합완료 -->
 <%@page import="saymeow.UtilMgr"%>
 <%@page import="saymeow.ProductBean"%>
 <%@page import="java.util.Vector"%>
 <%@page import="saymeow.ProductMgr"%>
 <%@page contentType="text/html; charset=EUC-KR"%>
-<%
-request.setCharacterEncoding("EUC-KR");
-
-//id값 받아오기
-String id = request.getParameter("id"); // 이전 페이지에서 받아오기
-if(session.getAttribute("idKey")!=null){ // id값이 세션으로 저장되어 있다면
-	id = (String) session.getAttribute("idKey");
-} 
-
-//테스트용 임의설정 
-id = "aaa";
-
-String mClass = request.getParameter("mClass");
-String sClass = request.getParameter("sClass");
-String keyWord = request.getParameter("keyWord"); // 검색할 상품이름
-
-ProductMgr mgr = new ProductMgr();
-Vector<ProductBean> pvlist = mgr.getPList(keyWord);
-	
-%>
-ml>
+<!DOCTYPE html>
 <html>
 <head>
 <meta charset="EUC-KR">
 <title>productSearch</title>
 <meta name='viewport' content='width=device-width, initial-scale=1'>
 <link rel='stylesheet' type='text/css' media='screen'href='../css/plist.css'>
-<jsp:include page = "../top2.jsp"/>
+<link rel="stylesheet" href="../css/styleHB.css">
+<%@ include file="../top2.jsp"%>
+<!-- 부트스트랩 CSS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+	rel="stylesheet">
 </head>
 <script>
 function send_form(frmId) { // form 제출
@@ -48,6 +33,20 @@ function sel(){
 
 </script>
 <body>
+<%
+// 값 받아오기
+String mClass = null;
+String sClass = null;
+pKeyWord = null;
+
+mClass = request.getParameter("mClass");
+sClass = request.getParameter("sClass");
+pKeyWord = request.getParameter("pKeyWord"); // 검색할 상품이름
+
+ProductMgr mgr = new ProductMgr();
+Vector<ProductBean> pvlist = mgr.getPList(pKeyWord);
+	
+%>
 	<div id="container">
 		<!-- 카테고리(sidebar) -->
 		<section class="category">
@@ -122,8 +121,7 @@ function sel(){
 		</section>
 		<section class="plist">
 			<div class="ptop">
-			
-				검색어: <%=keyWord%>
+				검색어: <%=pKeyWord%>
 				<div class="array">n개의 상품이 있습니다. 
 				</div>
 				

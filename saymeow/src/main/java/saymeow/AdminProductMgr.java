@@ -247,6 +247,39 @@ public class AdminProductMgr {
 		System.out.println("[AdminProductMgr] getPList실행");
 		return vlist;
 	}
+	
+	// 총 상품 개수 SELECT : 검색하든 안하든 조건에 맞는 총 주문 수 가져오는 메소드 
+	public int getTotalCount(String keyField, String keyWord) { // keyField : id, subject, content 들어올 수 있음
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = null;
+		int totalCount = 0;
+		try {
+			con = pool.getConnection();
+			// 검색일 때 아닐 때 구분해서 SELECT
+			if(keyWord.trim().equals("") || keyWord==null) { // 검색이 아닐 때
+				sql = "SELECT COUNT(*) "
+					+ "FROM product ";
+				pstmt = con.prepareStatement(sql);
+			} else { // 검색일 때
+				sql = "SELECT COUNT(*) "
+					+ "FROM product "
+					+ "WHERE " + keyField + " like ? "; // like '%test%'
+				pstmt = con.prepareStatement(sql);
+				pstmt.setString(1, "%" + keyWord + "%"); // '' 자동으로 붙여줌
+			}
+			rs = pstmt.executeQuery();
+			if(rs.next())
+				totalCount = rs.getInt(1);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			pool.freeConnection(con, pstmt, rs);
+		}
+		return totalCount; // 전체 게시글 수 반환
+	}
+	
 }
 	
 	
