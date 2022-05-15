@@ -9,6 +9,10 @@
 	padding: 0;
 }
 
+.blank {
+	background-color: beige;
+}
+
 body {
 	background-color: beige;
 }

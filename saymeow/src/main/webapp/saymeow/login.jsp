@@ -6,6 +6,7 @@
 <jsp:useBean id="mMgr" class="saymeow.MemberMgr" />                                      
 <%
 	//<input type="button" value="회원정보수정" onclick="location.href='memberUpdate.jsp';"><<회원정보수정 버튼
+
 %>
 <!DOCTYPE html> 
 <html> 
@@ -28,24 +29,29 @@ crossorigin="anonymous">
 				<td id="level2">
 					<table id="level3">
 						<tr> 
-							<td colspan="2" align="center"><span class="loginlo">로그인</span></td>
+							<td colspan="2" align="center"><span class="loginlo">로그인<br><br></span></td>
 						</tr>
 						<tr align="center"> 
-							<td><span class="loginlo">ID</span></td>
-							<td><input name="id" value="aaa"></td>
+							<td><span class="loginlo">아이디&nbsp;</span></td>
+							<td><input class="idTf" name="id" value="aaa"></td>
 						</tr>
-						<tr> 
-							<td align="center"><span class="loginlo">Password</span></td>
-							<td align="center"><input name="pwd" value="1234"></td>	
-						</tr>
-						<tr>
-							<td colspan="2" align="center" ><input type="submit" value="로그인" class="logbtn">
+						<tr align="center"> 
+							<td><span class="loginlo">비밀번호&nbsp;<br><br></span></td>
+							<td><input class="pwTf" name="pwd" value="1234"><br><br></td>	
 						</tr>
 						<tr>
-							<td colspan="2" align="center">
-								<input type="button" class="lbtn"value="회원가입" onclick="location.href='member.jsp';">
-								<input type="button" class="lbtn" value="아이디찾기" onclick="location.href='findid.jsp'">
-								<input type="button" class="lbtn" value="비밀번호찾기" onclick="location.href='findPw.jsp'">
+							<td style="padding:2px" colspan="4" align="center">
+							<button type="submit" class="logbtn">로그인</button></td>
+						</tr>
+						<tr>
+							<td style="padding:2px" colspan="4" align="center">	
+							<input type="button" class="joinbtn" value="회원가입" onclick="location.href='member.jsp'">
+							</td>
+						</tr>
+						<tr>
+							<td style="padding:2px" colspan="2" align="center">
+								<input type="button" class="lbtn" value="ID찾기" onclick="location.href='findid.jsp'">
+								<input type="button" class="lbtn" value="PW찾기" onclick="location.href='findPw.jsp'">
 							</td>
 						</tr>
 					</table>

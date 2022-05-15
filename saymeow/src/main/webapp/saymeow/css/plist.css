@@ -25,17 +25,18 @@
     background-color: beige;
     width: 200px;
     height: 100%;
+}
+
+
+.plist {
+	background-color: beige;
+    height: 100%;
+    align-content: center;
     
 }
 
-.plist {
-    align-items: center;
-	background-color: beige;
-    height: 800px;
-}
-
-.product_row {
-    list-style-type: none;
+.product_list {
+	align-items: center;
 }
 
 .ptop {
@@ -55,7 +56,8 @@
 }
 
 .product_row {
-	position: absolute;
+	list-style-type: none;
+    align-items: center;
 	justify-content: center;
 	display: grid;
 	grid-auto-rows: 10;

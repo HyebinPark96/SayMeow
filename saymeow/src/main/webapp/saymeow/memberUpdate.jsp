@@ -6,7 +6,7 @@
 <html>
 <head>
 <title>회원수정</title>
-<link href="style.css" rel="stylesheet" type="text/css">
+<link href="css/styleTW.css" rel="stylesheet" type="text/css">
 <script src="script.js"></script>
 </head>
 <!-- 외부 CSS -->						
@@ -36,7 +36,7 @@ crossorigin="anonymous">
 	<h2 style="text-align:center;">회원정보 수정</h2>
 		<table id="level">
 			<tr>
-				<td id="levl2">
+				<td id="level2">
 					<table id="level3">
 						<tr>
 							<td>아이디</td>
@@ -44,11 +44,11 @@ crossorigin="anonymous">
 						</tr>
 						<tr>
 							<td>패스워드</td>
-							<td><input name="pwd" value="<%=mBean.getPwd()%>"></td>
+							<td><input name="pwd" value="<%=mBean.getPwd()%>" size="17"></td>
 						</tr>
 						<tr>
 							<td>이름</td>
-							<td><input name="name" value="<%=mBean.getName()%>"></td>
+							<td><input name="name" value="<%=mBean.getName()%>" size="17"></td>
 						</tr>
 						<tr>
 							<td>생년월일</td>
@@ -57,25 +57,24 @@ crossorigin="anonymous">
 						</tr>
 						<tr>
 							<td>전화번호</td>
-							<td><input name="phone" value="<%=mBean.getPhone()%>"></td>
+							<td><input name="phone" value="<%=mBean.getPhone()%>" size="17"></td>
 						</tr>
 						<tr>
 							<td>이메일</td>
-							<td><input name="email" size="30"
-								value="<%=mBean.getEmail()%>"></td>
+							<td><input name="email" size="17"value="<%=mBean.getEmail()%>"></td>
 						</tr>
 						<tr>
 							<td>주소</td>
-							<td><input name="address" size="50"
+							<td><input name="address" size="17"
 								value="<%=mBean.getAddress()%>"></td>
 						</tr>
 						<tr>
 							<td>고양이이름</td>
-							<td><input name="petname" value="<%=mBean.getPetName()%>"></td>
+							<td><input name="petname" value="<%=mBean.getPetName()%>" size="17"></td>
 						</tr>
 						<tr>
 							<td>고양이나이</td>
-							<td><input name="petAge" value="<%=mBean.getPetAge()%>">ex)xxxx-xx-xx</td>
+							<td><input name="petAge" value="<%=mBean.getPetAge()%>" size="6">ex)xxxx-xx-xx</td>
 						</tr>
 						<tr>
 							<td>고양이성별</td>
@@ -88,16 +87,16 @@ crossorigin="anonymous">
 						</tr>
 						<tr>
 							<td>고양이품종</td>
-							<td><input name="Breed" value="<%=mBean.getPetBreed()%>"></td>
+							<td><input name="Breed" value="<%=mBean.getPetBreed()%>" size="17"></td>
 						</tr>
-						<tr>
-							<td colspan="2" align="center">
-								<input type="submit" value="수정완료" class="lbtn"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-								<input type="reset" value="다시쓰기" class="lbtn">
-								<input type="button" value="회원탈퇴" onclick="location.href='deleteMember.jsp'" class="lbtn">
-							</td>
-						</tr>
+						
+						
 					</table>
+					
+						<input type="submit" value="수정완료" class="lbtn">
+					<input type="reset" value="다시쓰기" class="lbtn">
+					<input type="button" value="회원탈퇴" onclick="location.href='deleteMember.jsp'" class="lbtn">
+					
 				</td>
 			</tr>
 		</table>

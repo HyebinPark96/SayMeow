@@ -16,7 +16,7 @@
 if(flag){%>
 	<script>
 	alert("회원가입이 완료 되었습니다.");
-	location.href="main.jsp";
+	location.href="index.jsp";
 </script>
 	<%}else{%>
 	 	<script>

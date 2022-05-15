@@ -1,4 +1,4 @@
-<!-- 취합완료, 더보기 예시는 테스트 못해봄 -->
+<!-- 취합완료, 더보기 예시는 테스트 못해봄 -> 더보기 접기 가능-->
 <!-- (중요) 지우님이 만드신 saymeowScript.js가 우선순위로 작동하여서, 인화님의 로그인 체크 스크립트문 아예 실행X 안되는 문제 해결을 위해
 지우님의 js파일 참조코드를 아예 빼버렸음. 
 -->
@@ -18,6 +18,7 @@
 request.setCharacterEncoding("EUC-KR");
 // pnum 값 받아오기 
 int pnum = UtilMgr.parseInt(request, "pnum");
+
 
 ProductBean pbean = pdMgr.getProduct(pnum);
 
@@ -435,6 +436,7 @@ function read(i) {
 	<div sp-edit="text" style="padding: 1rem 0; text-align: center;"
 		class="initialize" area="before"></div>
 	<table width="75%" align="center">
+		<form method="post" name="frmC" action="../cartInsertProc.jsp">
 		<tr>
 			<td align="center">
 				<table width="95%" border="1">
@@ -453,7 +455,7 @@ function read(i) {
 					<div class="img_area">
 						<img src="../image/<%=image%>" alt="#">
 					</div>
-					<form method="post" name="frmC" action="../cartInsertProc.jsp">
+				
 						<dl class="info_list">
 
 							<div class="category">

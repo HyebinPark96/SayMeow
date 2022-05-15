@@ -37,7 +37,6 @@ if(sid==null || sid.equals("")) {
 </head>
 
 <body>
-	
 	<!-- 사이드바 -->
 	<div class="d-flex align-items-start">
 		<div class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
@@ -47,70 +46,71 @@ if(sid==null || sid.equals("")) {
 			<a href="adminProduct.jsp"><button class="nav-link" id="v-pills-settings-tab" data-bs-toggle="pill" data-bs-target="#v-pills-settings" type="button" role="tab" aria-controls="v-pills-settings" aria-selected="false">상품관리</button></a>
 			<a href="adminSales.jsp"><button class="nav-link" id="v-pills-settings-tab" data-bs-toggle="pill" data-bs-target="#v-pills-settings" type="button" role="tab" aria-controls="v-pills-settings" aria-selected="false">매출관리</button></a>
 			<a href="../sellHistory.jsp"><button class="nav-link" id="v-pills-settings-tab" data-bs-toggle="pill" data-bs-target="#v-pills-settings" type="button" role="tab" aria-controls="v-pills-settings" aria-selected="false">판매데이터</button></a>
-		</div>
-		
+		</div>	
+
 		<!-- 본문 -->
+		<section class="contents">
 		<form name="adminMemberUpdateFrm" action="adminMemberUpdateProc.jsp" method="post">
-			<div class="tab-content" id="v-pills-tabContent" align="center" style="margin:0 auto;">
-				<section class="contents">
-					<div class="mlist">
-						<h1>회원관리</h1><br>
-						<table border="1">
-							<thead>
-								<tr>
-									<th>아이디</th>
-									<th>이름</th>
-									<th>연락처</th>
-									<th>이메일</th>
-									<th>회원등급</th>
-									<th>메일발송</th>
-								</tr>
-							</thead>
-							<tbody>
-								<%		
+		<div class="mlist"><br><br>
+		<h3>회원관리</h3><br>
+		<table border="1">
+						<thead>
+							<tr>
+								<th>아이디</th>
+								<th>이름</th>
+								<th>연락처</th>
+								<th>이메일</th>
+								<th>회원등급</th>
+								<th>수정</th>
+								<th>메일발송</th>
+							</tr>
+						</thead>
+						<tbody>
+							<%		
 									for (int i=0; i < mvlist.size(); i++) {
 										MemberBean mbean = mvlist.get(i); 
 								%>
-									<tr>
-										<td><input type="hidden" name="mId[]" value="<%=mbean.getId()%>"></td>
-										<td><%=mbean.getId()%></td>
-										<td><%=mbean.getName()%></td>
-										<td><%=mbean.getPhone()%></td>
-										<td><%=mbean.getEmail()%></td>
-										<td>						
-											<div class="count">
-												<input type="number" value="<%=mbean.getGrade()%>" autocomplete="off" min="0" max="5" name="grade[]" style="width:3vw;">
-												<div class="num_">
-													<div class="btn_ up"></div>
-													<div class="btn_ down"></div>
-												</div>
-											</div>
-										</td>
-										<td><a href="#">메일발송</a></td> <!-- 추후 구현 -->
-									</tr>
-								<%} // -- for문 끝%>	
-							</tbody>
-						</table>
+							<tr>
+								<!-- <td><input type="hidden" name="mId[]" value="<%=mbean.getId()%>"></td> -->
+								<td><%=mbean.getId()%></td>
+								<td><%=mbean.getName()%></td>
+								<td><%=mbean.getPhone()%></td>
+								<td><%=mbean.getEmail()%></td>
+								<td>
+									<div class="count">
+										<input type="number" value="<%=mbean.getGrade()%>"
+											autocomplete="off" min="0" max="5" name="grade[]"
+											style="width: 3vw;">
+										<div class="num_">
+											<div class="btn_ up"></div>
+											<div class="btn_ down"></div>
+										</div>
+									</div>
+								</td>
+								<td><a href="#">메일발송</a></td>
+								<!-- 추후 구현 -->
+							</tr>
+							<%} // -- for문 끝%>
+						</tbody>
+					</table>
 				  	</div>
-				</section>
-			</div>
+
+			<br><br>
 			<input type="submit" value="수정" name="updateBtn">
-		</form>
-		
+			</form>
+
+	
+		<section class="searchsection">
 		<div class="memberSearch">
 			<form>
+			<br><br>
 				<input type="search" placeholder="회원 ID로 검색" name="sid">
 				<button type="submit">검색</button>
 				<button onClick="location.href='adminMember.jsp'">전체보기</button>
+			<br><br>
 			</form>
 		</div>
-	</div>
-	
-	
-	
-	
-
-	
-
+		</section>
+</div>
 </body>
 </html>
