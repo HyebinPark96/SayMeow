@@ -10,9 +10,9 @@
 <head>
 <title>ID중복체크</title>
 <link href="styleTW.css" rel="stylesheet" type="text/css">
-<script  src="script.js"></script>
+<script src="script.js"></script>
 </head>
-<body bgcolor="#FFFFCC">
+<body>
 <br>
 <div align="center">
 <b><%=id%></b>

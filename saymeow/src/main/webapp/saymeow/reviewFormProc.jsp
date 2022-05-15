@@ -20,7 +20,6 @@
 				</script>
 			<%}
 		
-	
 		if(rMgr.insertReview(request)){/*true 반환 -> 등록성공*/%>
 			<script>
 				alert('작성되었습니다!'); // 한글깨짐. JS인코딩 방법 생각해보기
@@ -31,6 +30,6 @@
 					alert('작성에 실패하였습니다.');
 					history.back();
 				</script>
-			<%}
+			<%} %>
 
 	

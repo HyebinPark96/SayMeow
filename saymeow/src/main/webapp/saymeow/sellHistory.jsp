@@ -52,8 +52,14 @@ function selectMFn(month){
 		<a href="#"><button class="nav-link" id="v-pills-settings-tab" data-bs-toggle="pill" data-bs-target="#v-pills-settings" type="button" role="tab" aria-controls="v-pills-settings" aria-selected="false">판매데이터</button></a>
 	</div>
 	<div class="tab-content" id="v-pills-tabContent" align="center" style="margin:0 auto;">
+<br><br>	
 		<!-- 본문 -->
+<section class="contents">
+<h3>매출관리</h3>
+<div>
+
 <form name="sFrm">
+ <br>
 	<select name="year" onchange="selectYFn(this.form.year.value)">
 		<option value="2022" selected>2022년</option>
 	</select>
@@ -62,18 +68,27 @@ function selectMFn(month){
 		<option value="<%=i%>"><%=i%>월</option>
 		<%}%>
 	</select>
+	<br>
 </form>
 	<script>
 		document.sFrm.year.value=<%=year%>;
 		document.sFrm.month.value=<%=month%>;
 	</script>
-<table>
+</div>
+
+<div>
+
+<table border="1" style="width:100%;">
+<br>
+<br>
+	<thead>
 	<tr>
-		<td>상품 번호</td>
-		<td>상품명</td>
-		<td>판매 수량</td>
-		<td>판매 금액</td>
+		<th>상품 번호</th>
+		<th>상품명</th>
+		<th>판매 수량</th>
+		<th>판매 금액</th>
 	</tr>
+	</thead>
 	<%if(year==0&&month==0){
 		Vector<OrderBean> vlist = aMgr.showAllOrder();
 		for(int i=0;i<vlist.size();i++){
@@ -133,15 +148,17 @@ function selectMFn(month){
 	<%	}
 	}%>
 </table>
+<br><br>
 
-
-<h1>총 판매금액은 <%=sellTotal%>원 입니다.</h1>
-
+<h3>총 판매금액은 <%=sellTotal%>원 입니다.</h3>
+<br><br>
+</div>
 
 <form name="readFrm">
 <input type="hidden" name="year" value="<%=year%>">
 <input type="hidden" name="month" value="<%=month%>"> 
 </form>
+</section>
   	</div>
 </div>
 

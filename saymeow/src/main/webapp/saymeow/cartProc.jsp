@@ -34,6 +34,7 @@ if (flag.equals("delete")) {
 <!DOCTYPE html>
 <html>
 <head>
+    <link rel='stylesheet' type='text/css' media='screen' href='css/cart.css'>
 <title>결제하기</title>
 <script src="saymeowScript.js"></script>
 <!-- 부트스트랩 CSS -->
@@ -45,23 +46,27 @@ if (flag.equals("delete")) {
 <%@ include file="top2.jsp"%>
 </head>
 <body>
-	<h1>결제하기</h1>
-	<br>
-	<br>
+	<section class="contents">
+	<br><br>
+	<h3>결제하기</h3>
+	<br><br>
+
 	<form method="post" name="chFrm" action="orderProc.jsp">
-		<h3>[배송지 입력]</h3>
+		<h4>[배송지 입력]</h4>
 		<input name="address" size="22"><br><br>
 		<input type="hidden" name="flag" value="cart"><br><br>
 		
-		<h3>[주문정보]</h3>
+		<h4>[주문정보]</h4>
 		<table border="1">
+			<thead >
 			<tr>
-				<td width="100">순번</td>
-				<td width="100">상품명</td>
-				<td width="100">판매가</td>
-				<td width="100">수량</td>
-				<td width="100">주문금액</td>
+			<th>NO</th>
+			<th>상품명</th>
+			<th>판매가</th>
+			<th>수량</th>
+			<th>금액</th>
 			</tr>
+			</thead>
 			<%
 			for (int i = 1; i < snum.length; i++) {
 				cart = cMgr.checkCart(Integer.parseInt(snum[i]));
@@ -95,6 +100,7 @@ if (flag.equals("delete")) {
 		crossorigin="anonymous">
 		
 	</script>
+	</section>
 </body>
 </html>
 <%
