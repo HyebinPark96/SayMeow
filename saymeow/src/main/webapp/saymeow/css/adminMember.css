@@ -10,21 +10,35 @@
 .contents {
 	display: block;
     align-items: center;
-    background-color: beige;
-    height: 360px;
+    background-color: white;
+    width: 100%;
     align-content: center;
     text-align: center;
     height: 100%;
 }
 
 .mlist {
+	display: block;
 	margin: auto;
 }
 
 table {
 	margin: auto;
+	width: 60%;
+}
+
+.searchsection {
+	display: block;
+    align-items: center;
+    background-color: white;
+    width: 100%;
+    align-content: center;
+    text-align: center;
+    height: 100%;
 }
 
 .memberSearch {
 	margin: auto;
+	align-items: center;
+	align-content: center;
 }

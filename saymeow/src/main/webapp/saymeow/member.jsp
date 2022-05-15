@@ -16,77 +16,75 @@
 	integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
 	crossorigin="anonymous">
 <%@ include file="top2.jsp"%>
-<body>
+<body id="memberbd">
 	<form name="regForm" method="post" action="memberProc.jsp">
 		<table class="regFormTb">
+
 			<tr>
 				<td>
-					<table>
-						<tr align="center" bgcolor="#A13FFF">
-							<td colspan="3" id="level4">회원 가입</td>
-						</tr>
+				<h3 style="text-align:center"><br>회원가입</h3><br>
+					<table class="jointb">										
 						<tr>
-							<td width="16%">아이디</td>
-							<td width="57%">
+							<td style="padding:2px" width="16%">아이디</td>
+							<td style="padding:2px" width="57%">
 								<input name="id" size="17"> 
 								<input type="button" value="중복확인" onClick="idCheck(this.form.id.value)" 
 								class="btn btn-primary checkIdBtn">
 							</td>
 						</tr>
 						<tr>
-							<td>패스워드</td>
-							<td><input type="password" name="pwd" size="17"></td>
+							<td style="padding:2px">패스워드</td>
+							<td style="padding:2px"><input type="password" name="pwd" size="17"></td>
 
 						</tr>
 						<tr>
-							<td>패스워드 확인</td>
-							<td><input type="password" name="repwd" size="17"></td>
+							<td style="padding:2px">패스워드 확인</td>
+							<td style="padding:2px"><input type="password" name="repwd" size="17"></td>
 
 						</tr>
 						<tr>
-							<td>이름</td>
-							<td><input name="name" size="17"></td>
+							<td style="padding:2px">이름</td>
+							<td style="padding:2px"><input name="name" size="17"></td>
 
 						</tr>
 
 						<tr>
-							<td>생년월일</td>
-							<td><input name="birthday" size="27"> ex)830815</td>
+							<td style="padding:2px">생년월일</td>
+							<td style="padding:2px"><input name="birthday" size="17"> ex)830815</td>
 
 						</tr>
 						<tr>
-							<td>전화번호</td>
-							<td><input name="phone" size="27"></td>
+							<td style="padding:2px">전화번호</td>
+							<td style="padding:2px"><input name="phone" size="17"></td>
 						</tr>
 						<tr>
-							<td>이메일</td>
-							<td><input name="email" size="27"></td>
+							<td style="padding:2px">이메일</td>
+							<td style="padding:2px"><input name="email" size="17"></td>
 
 						</tr>
 						<tr>
-							<td>주소</td>
-							<td><input name="address" size="40"></td>
+							<td style="padding:2px">주소</td>
+							<td style="padding:2px"><input name="address" size="17"></td>
 
 						</tr>
 						<tr>
-							<td>고양이이름</td>
-							<td><input name="petName" size="27"></td>
+							<td style="padding:2px">고양이이름</td>
+							<td style="padding:2px"><input name="petName" size="17"></td>
 						</tr>
 						<tr>
-							<td>고양이나이</td>
-							<td><input name="petAge" size="27">xxxx-xx-xx/-포함입력</td>
+							<td style="padding:2px">고양이나이</td>
+							<td style="padding:2px"><input name="petAge" size="17"> xxxx-xx-xx/-포함입력</td>
 
 						</tr>
 						<tr>
-							<td>고양이성별</td>
-							<td>남<input type="radio" name="petGender" value="1" checked>
+							<td style="padding:2px">고양이성별</td>
+							<td style="padding:2px">남<input type="radio" name="petGender" value="1" checked>
 								여<input type="radio" name="petGender" value="2">
 							</td>
 						</tr>
 						<tr>
-							<td>고양이품종</td>
-							<td><input name="petBreed" size="27"></td>
-
+							<td style="padding:2px">고양이품종</td>
+							<td style="padding:2px"><input name="petBreed" size="17"></td>
 						</tr>
 						<tr>
 							<td colspan="3" align="center">
@@ -111,7 +109,7 @@
 		crossorigin="anonymous">
 		
 	</script>
-	<%@ include file="bottom.jsp"%>
+
 </body>
 </html>
 

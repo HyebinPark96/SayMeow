@@ -25,7 +25,7 @@ if(keyWord==null || keyWord.isEmpty()) {
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
     <title>adminProduct</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
-    <link rel='stylesheet' type='text/css' media='screen' href='../css/adminMember.css'>	
+    <link rel='stylesheet' type='text/css' media='screen' href='../css/adminProduct.css'>	
 <!-- 부트스트랩 CSS -->
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
@@ -93,6 +93,8 @@ function send_form(frmId) { // form 제출
 		</tbody>
 		</table><br><br><br>
   	</div>
+ </section>
+ <section> 	
   	<div class="productSearch">
   	<form method="post" action="adminProductProc.jsp?flag=search">
   	<input type="search" placeholder="상품명으로 검색" name="keyWord">

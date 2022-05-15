@@ -21,16 +21,19 @@ int onum = UtilMgr.parseInt(request, "onum");
 	integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
 	crossorigin="anonymous">
 <%@ include file="top2.jsp"%>
+    <link rel='stylesheet' type='text/css' media='screen' href='css/directOrder.css'>
 </head>
 <body>
-<h1>결제하기</h1><br><br>
+<br><br>
+<div class="title"><h3>결제하기</h3></div>
+<br><br>
 
-
+<section class="contents">
 <form name="paymentFrm" action="directOrderPaymentProc.jsp" method="post">
-		<h3>[배송지 입력]</h3>
-		<input name="oaddress" size="20"><br><br>
-		
-		<h3>[주문내역]</h3>
+		<h4>[배송지 입력]</h4><br>
+		<input name="oaddress" size="100px" height="50px"><br><br>
+		<br><br>
+		<h4>[주문내역]</h4><br>
 	<table>
 		<%
 		OrderBean oBean = oMgr.getOrderDetail(onum); // 주문내역 가져오기
@@ -61,7 +64,7 @@ int onum = UtilMgr.parseInt(request, "onum");
 			</tr>
 		</table>
 		</form>
-
+<br><br>
 	<!-- 부트스트랩 JS -->
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
@@ -69,5 +72,5 @@ int onum = UtilMgr.parseInt(request, "onum");
 		crossorigin="anonymous">
 		
 	</script>
-	<%@ include file="bottom.jsp"%>
-</html>
+</section>
+</bod>

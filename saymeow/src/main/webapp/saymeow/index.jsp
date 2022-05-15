@@ -33,9 +33,11 @@ function send_form(frmId) { // form 제출
 }
 </script>
 <body>
+	<div class="blank"><br><br></div>
+
 	<!-- 배너 -->
     <section class="bsection">
-    <img src="image/banner.png" height="360" width="1100">
+	<img src="image/banner.png" height="360" width="1100">
     </section>	
 	<!-- 상품리스트업 -->
 	<section class="psection">
@@ -47,7 +49,7 @@ function send_form(frmId) { // form 제출
 						ProductBean pbean = pvlist.get(i);
 					%>
 					<li>
-					<a href="#" onclick="send_form('frmP')">
+					<a href="product/productDetail.jsp?pnum=<%=pbean.getPnum()%>">
 					<img src="image/<%=pbean.getImage()%>" height="200" width="200">
 						<%=pbean.getPname()%></a>
 						<form method="post" id="frmP" action="product/productDetail.jsp">
