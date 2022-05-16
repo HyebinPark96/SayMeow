@@ -3,8 +3,10 @@
 <%@page import="java.util.Vector"%>
 <%@page contentType="text/html; charset=EUC-KR"%>
 <jsp:useBean id="cMgr" class="saymeow.CartMgr"/>
+
 <%
 	int allTotal=0;
+    String uAllTotal = "";
 %>
 <!DOCTYPE html>
 <html>
@@ -59,6 +61,7 @@
 			int quantity = cart.getQty();
 			int total = price*quantity;
 			allTotal += total;
+			uAllTotal = UtilMgr.monFormat(allTotal);
 		%>
 		<tr>
 			<td><input type="checkbox" name="cch" value="<%=cart.getCnum()%>" onclick="javascript:chk()"></td>
@@ -77,7 +80,7 @@
 	
 	<br><br>
 	<table>
-	<h2>장바구니의 총 금액은 <%=allTotal%>원 입니다</h2>
+	<h2>장바구니의 총 금액은 <%=uAllTotal%>원 입니다</h2>
 	</table>
 	<input type="button" value="삭제" onclick="javascript:cartDelete(this.form)">
 	<input type="button" value="주문하기" onclick="javascript:cartOrder(this.form)">
