@@ -3,6 +3,9 @@
 <%@ page import="java.util.*,saymeow.*"%>
 <%request.setCharacterEncoding("EUC-KR");%>
 <jsp:useBean id="mMgr" class="saymeow.MemberMgr" /> 
+<%
+%>
+
 <html>
 <head>
 <title>회원수정</title>

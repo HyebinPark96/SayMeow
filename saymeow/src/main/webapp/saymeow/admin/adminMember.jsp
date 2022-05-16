@@ -61,6 +61,7 @@ if(sid==null || sid.equals("")) {
 								<th>연락처</th>
 								<th>이메일</th>
 								<th>회원등급</th>
+								<th>수정</th>
 								<th>메일발송</th>
 							</tr>
 						</thead>
@@ -76,7 +77,7 @@ if(sid==null || sid.equals("")) {
 								<td><%=mbean.getPhone()%></td>
 								<td><%=mbean.getEmail()%></td>
 								<td>
-									<div class="count">
+							<%-- 		<div class="count">
 										<input type="number" value="<%=mbean.getGrade()%>"
 											autocomplete="off" min="0" max="5" name="grade[]"
 											style="width: 3vw;">
@@ -84,8 +85,9 @@ if(sid==null || sid.equals("")) {
 											<div class="btn_ up"></div>
 											<div class="btn_ down"></div>
 										</div>
-									</div>
+									</div> --%>
 								</td>
+								<td><a href="../memberUpdate.jsp?id=<%=mbean.getId()%>">수정</a></td>
 								<td><a href="#">메일발송</a></td>
 								<!-- 추후 구현 -->
 							</tr>
@@ -109,6 +111,7 @@ if(sid==null || sid.equals("")) {
 			<br><br>
 			</form>
 		</div>
+		</section>
 		</section>
 </div>
 </body>

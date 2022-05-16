@@ -3,6 +3,11 @@
 /* Index(main) css ÆÄÀÏ */
 @charset "EUC-KR";
 
+ a:link { text-decoration: none; color: black;}
+ a:visited { color: black; text-decoration: none;}
+ a:hover { text-decoration: underline;}
+ a:active { color: black;}
+
 * {
 	box-sizing: border-box;
 	margin: 0;
