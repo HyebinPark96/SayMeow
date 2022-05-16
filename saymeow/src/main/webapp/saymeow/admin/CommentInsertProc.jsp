@@ -10,5 +10,5 @@
 
 <script>
 	alert('댓글을 추가했습니다.');
-	location.href = "../reviewBoard.jsp"; // ../ : 이전경로 이동
+	location.href = "adminReviewBoard.jsp" // ../ : 이전경로 이동
 </script>
