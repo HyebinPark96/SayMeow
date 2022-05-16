@@ -58,7 +58,7 @@ function updateOneMember(value){
 
 		<!-- 본문 -->
 		<section class="contents">
-		<form name="adminMemberUpdateFrm" action="adminMemberUpdateProc.jsp" method="post">
+		<form name="adminMemberUpdateFrm" action="adminMemberGradeUpdateProc.jsp" method="post">
 		<div class="mlist"><br><br>
 		<h3>회원관리</h3><br>
 		<table border="1">
@@ -78,7 +78,7 @@ function updateOneMember(value){
 										MemberBean mbean = mvlist.get(i); 
 								%>
 							<tr>
-								<%-- <input type="hidden" name="mId[]" value="<%=mbean.getId()%>"> --%>
+								<input type="hidden" name="mId[]" value="<%=mbean.getId()%>">
 								<input type="hidden" name="mid" value="<%=mbean.getId()%>">
 								<td><%=mbean.getId()%></td>
 								<td><%=mbean.getName()%></td>
