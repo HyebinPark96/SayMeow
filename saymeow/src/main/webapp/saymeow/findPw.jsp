@@ -18,7 +18,7 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
 rel="stylesheet"						
 integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"						
 crossorigin="anonymous">
-<%@ include file="top.jsp"%>
+<%@ include file="top2.jsp"%>
 <body> 
 	
 		<form name="pwfindscreen" method = "POST">
@@ -27,30 +27,29 @@ crossorigin="anonymous">
 		<table id="level3">
 		<tr><td>
 			<div class = "search-title">
-				<h3><span class="loginlo">등록한 정보로 인증</span></h3>
+				<h3><span class="loginlo">등록한 정보로 인증</span></h3><br><br>
 			</div>
 		<section class = "form-search">
 			<div class = "find-id">
-				<label>I D</label>
-				<input type="text" name="mid" class = "btn-name" placeholder = "ID를 입력하세요.">
-			<br>
+				<label>아이디</label>
+				<input type="text" size="20" name="mid" class = "btn-name" placeholder = "ID를 입력하세요.">
+			<br><br>
 			</div>
 		
 		 <div class = "find-phone">
-				<label>번호</label>
-				<input type="text"  name="phone" class = "btn-phone" placeholder = "휴대폰번호를 '-'없이 입력">
+				<label>연락처</label>
+				<input type="text" size="20" name="phone" class = "btn-phone" placeholder = "휴대폰번호를 '-'없이 입력">
 			</div> 
-			<br>
+			<br><br>
 	</section>
 	<div class ="btnSearch">
-		<input type="button" class="lbtn"name="enter" value="찾기"  onClick="pw_search()">
-		<input type="button" class="lbtn"name="cancle" value="취소" onClick="location.href='login.jsp'">
+		<input type="button" class="find"name="enter" value="찾기"  onClick="pw_search()">
+		<input type="button" class="cancel"name="cancle" value="취소" onClick="location.href='login.jsp'">
  	</div>
  		</td></tr>
  	</table>
  	</td></tr>
  	</table>
  </form>
-	<%@ include file="bottom.jsp" %> 
 </body> 
 </html>

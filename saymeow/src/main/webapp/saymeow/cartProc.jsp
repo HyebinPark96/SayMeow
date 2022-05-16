@@ -54,7 +54,7 @@ if (flag.equals("delete")) {
 
 	<form method="post" name="chFrm" action="orderProc.jsp">
 		<h4>[배송지 입력]</h4>
-		<input name="address" size="22"><br><br>
+		<input name="address" size="60"><br><br>
 		<input type="hidden" name="flag" value="cart"><br><br>
 		
 		<h4>[주문정보]</h4>

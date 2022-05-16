@@ -24,7 +24,9 @@
 		<a href="deleteMember.jsp"><button class="nav-link" id="v-pills-settings-tab" data-bs-toggle="pill" data-bs-target="#v-pills-settings" type="button" role="tab" aria-controls="v-pills-settings" aria-selected="false">회원탈퇴</button></a>
 	</div>
 	<div class="tab-content" id="v-pills-tabContent" align="center" style="margin:0 auto;">
-		<h1>반가워요 <%=id%>님!</h1>
+		<br><br>
+		<h3><%=id%>님의 마이페이지 화면입니다.</h3>
+		<br><br>
   	</div>
 </div>
 
