@@ -20,7 +20,7 @@ public class ReviewMgr {
 	
 	/*리뷰 - 파일업로드*/
 	// 1. 업로드 파일 저장 위치(안 변하므로 상수)
-	public static final String SAVEFOLDER = "C:/Jsp/team/src/main/webapp/saymeow/storage/"; // 상수는 대문자로 표기하는 것이 일반적
+	public static final String SAVEFOLDER = "C:/Jsp/jspproject/src/main/webapp/saymeow/storage/"; // 상수는 대문자로 표기하는 것이 일반적
 
 	// 2. 업로드 파일명 인코딩
 	public static final String ENCODING = "EUC-KR";
