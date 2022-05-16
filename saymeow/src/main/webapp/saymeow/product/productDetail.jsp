@@ -745,8 +745,8 @@ function read(i) {
 									<%} %>
 								<%} %>
 									
-							<%if(id=="admin") {%>
-								<form name="commentFrm" action="admin/CommentInsertProc.jsp" method="post">
+							<%if(id.equals("admin")||id=="admin") {%>
+								<form name="commentFrm" action="../admin/CommentInsertProc.jsp" method="post">
 									<input type="hidden" name="rnum" value="<%=rnum%>">
 									<input type="hidden" name="cid" value="<%=id%>">
 									<input type="hidden" name="pnum" value="<%=pnum%>">
