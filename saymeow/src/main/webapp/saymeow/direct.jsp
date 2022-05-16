@@ -1,9 +1,11 @@
 <!-- 취합완료 -->
+<%@page import="saymeow.UtilMgr"%>
 <%@page import="saymeow.OrderBean"%>
 <%@page import="saymeow.DirectOrderBean"%>
 <%@page contentType="text/html; charset=EUC-KR"%>
 <jsp:useBean id="cMgr" class="saymeow.CartMgr"/>
 <jsp:useBean id="oMgr" class="saymeow.OrderMgr"/>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -30,6 +32,8 @@
 	int onum = oBean.getOnum();
 	String oid = oBean.getOid();
 	String state = oBean.getState();
+	String uPrice1 = UtilMgr.monFormat(price1);
+	String total = UtilMgr.monFormat(price1*qty);
 %>
 <form method="post" name="doFrm" action="directOrderProc.jsp">
 <h1>상품 바로 주문</h1><br>
@@ -47,9 +51,9 @@
 <tr>
 	<td><%=onum %>번</td>
 	<td><%=pnum %></td>
-	<td><%=price1%>원</td>
+	<td><%=uPrice1%>원</td>
 	<td><%=qty %>개</td>
-	<td><%=price1 * qty%>원</td>
+	<td><%=total%>원</td>
 	<td><%=regDate%></td>
 	<td>
 	<%if(state.equals("1")){%>

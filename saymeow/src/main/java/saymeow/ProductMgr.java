@@ -198,6 +198,29 @@ public class ProductMgr {
 		return vlist;
 	}
 	
+	//pnum¿« price1 »£√‚
+	public int getPrice(int pnum) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = null;
+		int price1 = 0;
+		try {
+			con = pool.getConnection();
+			sql = "select price1 from product where pnum=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, pnum);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				price1 = rs.getInt(1);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			pool.freeConnection(con, pstmt, rs);
+		}
+		return price1;
+	}
 }
 
 
