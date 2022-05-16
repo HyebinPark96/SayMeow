@@ -1,12 +1,12 @@
-/*í•œê¸€ ì—ëŸ¬ë‚˜ìžˆì–´ì„œ ìˆ˜ì •í•´ì•¼í•©ë‹ˆë‹¤!!!!*/
+/*ÇÑ±Û ¿¡·¯³ªÀÖ¾î¼­ ¼öÁ¤ÇØ¾ßÇÕ´Ï´Ù!!!!*/
 function loginCheck(){
 	if(document.login.id.value==""){
-		alert("ï¿½ï¿½ï¿½ëŒ€ï¿½ï¿½ç‘œï¿½ ï¿½ï¿½ï¿½Î½ï¿½ï¿½ äºŒì‡±ï¿½ëª„ï¿½ï¿½.");
+		alert("???´ë??ë¥? ???¥í?? ì£¼ì?¸ì??.");
 		document.login.id.focus();
 		return;
 	}
 	if(document.login.pwd.value==""){
-		alert("é®ï¿½è«›ï¿½è¸°ï¿½ï¿½ëªƒï¿½ï¿½ ï¿½ï¿½ï¿½Î½ï¿½ï¿½ äºŒì‡±ï¿½ëª„ï¿½ï¿½.");
+		alert("ë¹?ë°?ë²??¸ë?? ???¥í?? ì£¼ì?¸ì??.");
 		document.login.pwd.focus();
 		return;
 	}
@@ -19,67 +19,67 @@ function memberReg(){
 
 function inputCheck(){
 	if(document.regForm.id.value==""){
-		alert("ï¿½ï¿½ï¿½ëŒ€ï¿½ï¿½ç‘œï¿½ ï¿½ï¿½ï¿½Î½ï¿½ï¿½ äºŒì‡±ï¿½ëª„ï¿½ï¿½.");
+		alert("???´ë??ë¥? ???¥í?? ì£¼ì?¸ì??.");
 		document.regForm.id.focus();
 		return;
 	}
 	if(document.regForm.pwd.value==""){
-		alert("é®ï¿½è«›ï¿½è¸°ï¿½ï¿½ëªƒï¿½ï¿½ ï¿½ï¿½ï¿½Î½ï¿½ï¿½ äºŒì‡±ï¿½ëª„ï¿½ï¿½.");
+		alert("ë¹?ë°?ë²??¸ë?? ???¥í?? ì£¼ì?¸ì??.");
 		document.regForm.pwd.focus();
 		return;
 	}
 	if(document.regForm.repwd.value==""){
-		alert("é®ï¿½è«›ï¿½è¸°ï¿½ï¿½ëªƒï¿½ï¿½ ï¿½ï¿½ï¿½ëª…ï¿½ï¿½ äºŒì‡±ï¿½ëª„ï¿½ï¿½");
+		alert("ë¹?ë°?ë²??¸ë?? ???¸í?? ì£¼ì?¸ì??");
 		document.regForm.repwd.focus();
 		return;
 	}
 	if(document.regForm.pwd.value != document.regForm.repwd.value){
-		alert("é®ï¿½è«›ï¿½è¸°ï¿½ï¿½ë©¸ï¿½ ï¿½ì‡±ï¿½ï¿½ï¿½ï§žï¿½ ï¿½ï¿½ï¿½ë“¬ï¿½ï¿½ï¿½ï¿½.");
+		alert("ë¹?ë°?ë²??¸ê? ?¼ì???ì§? ???µë????.");
 		document.regForm.repwd.focus();
 		return;
 	}
 	if(document.regForm.name.value==""){
-		alert("ï¿½ëŒ€ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Î½ï¿½ï¿½ äºŒì‡±ï¿½ëª„ï¿½ï¿½.");
+		alert("?´ë??? ???¥í?? ì£¼ì?¸ì??.");
 		document.regForm.name.focus();
 		return;
 	}
 	
 	
 	if(document.regForm.birthday.value==""){
-		alert("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ì‡°ï¿½ï¿½ ï¿½ï¿½ï¿½Î½ï¿½ï¿½ äºŒì‡±ï¿½ëª„ï¿½ï¿½.");
+		alert("???????¼ë?? ???¥í?? ì£¼ì?¸ì??.");
 		document.regForm.birthday.focus();
 		return;
 	}
 
 	
 	if(document.regForm.email.value==""){
-		alert("ï¿½ëŒ€ï¿½ï¿½ì‡±ï¿½ï¿½ ï¿½ï¿½ï¿½Î½ï¿½ï¿½ äºŒì‡±ï¿½ëª„ï¿½ï¿½.");
+		alert("?´ë??¼ì?? ???¥í?? ì£¼ì?¸ì??.");
 		document.regForm.email.focus();
 		return;
 	}
 		if(document.regForm.address.value==""){
-		alert("äºŒì‡±ï¿½ï¿½ç‘œï¿½ ï¿½ï¿½ï¿½Î½ï¿½ï¿½ äºŒì‡±ï¿½ëª„ï¿½ï¿½.");
+		alert("ì£¼ì??ë¥? ???¥í?? ì£¼ì?¸ì??.");
 		document.regForm.address.focus();
 		return;
 	}
 	if(document.regForm.petName.value==""){
-		alert("æ€¨ï¿½ï¿½ï¿½ï¿½ëŒï¿½ëŒ€ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Î½ï¿½ï¿½ äºŒì‡±ï¿½ëª„ï¿½ï¿½.");
+		alert("ê³????´ì?´ë??? ???¥í?? ì£¼ì?¸ì??.");
 		document.regForm.petName.focus();
 		return;
 	}
 	
 	if(document.regForm.petAge.value==""){
-		alert("æ€¨ï¿½ï¿½ï¿½ï¿½ëŒ€ï¿½ï¿½ï¿½ëŒ€ï¿½ï¿½ ï¿½ï¿½ï¿½Î½ï¿½ï¿½ äºŒì‡±ï¿½ëª„ï¿½ï¿½.");
+		alert("ê³????´ë???´ë?? ???¥í?? ì£¼ì?¸ì??.");
 		document.regForm.petAge.focus();
 		return;
 	}
 	if(document.regForm.petGender.value==""){
-		alert("æ€¨ï¿½ï¿½ï¿½ï¿½ëŒï¿½ê¹…ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Î½ï¿½ï¿½ äºŒì‡±ï¿½ëª„ï¿½ï¿½.");
+		alert("ê³????´ì?±ë??? ???¥í?? ì£¼ì?¸ì??.");
 		document.regForm.petGender.focus();
 		return;
 	}
 	if(document.regForm.petBreed.value==""){
-		alert("æ€¨ï¿½ï¿½ï¿½ï¿½ëŒ„ï¿½ï¿½é†«ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Î½ï¿½ï¿½ äºŒì‡±ï¿½ëª„ï¿½ï¿½.");
+		alert("ê³????´í??ì¢??? ???¥í?? ì£¼ì?¸ì??.");
 		document.regForm.petBreed.focus();
 		return;
 	}
@@ -94,7 +94,7 @@ function inputCheck(){
 	   dotPos > 3 && spacePos == -1 && commaPos == -1 
 	   && atPos + 1 < dotPos && dotPos + 1 < eMailSize);
     else {
-          alert('E-mailäºŒì‡±ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï§ì‚³ï¿½ï¿½ï¿½ï¿½ï¿½ë“¬ï¿½ï¿½ï¿½ï¿½.\n\rï¿½ã…¼ï¿½ï¿½ ï¿½ï¿½ï¿½Î½ï¿½ï¿½ äºŒì‡±ï¿½ëª„ï¿½ï¿½!');
+          alert('E-mailì£¼ì?? ?????? ??ëª»ë?????µë????.\n\r?¤ì?? ???¥í?? ì£¼ì?¸ì??!');
 	      document.regForm.email.focus();
 		  return;
     }
@@ -106,7 +106,7 @@ function inputCheck(){
 
 function idCheck(id){
 	if(id == ""){
-		alert("ï¿½ï¿½ï¿½ëŒ€ï¿½ï¿½ç‘œï¿½ ï¿½ï¿½ï¿½Î½ï¿½ï¿½ äºŒì‡±ï¿½ëª„ï¿½ï¿½.");
+		alert("???´ë??ë¥? ???¥í?? ì£¼ì?¸ì??.");
 		document.regForm.id.focus();
 	}else{
 		url="idCheck.jsp?id=" + id;
@@ -118,17 +118,17 @@ function id_search() {
 	 	var frm = document.idfindscreen;
 
 	 	if (frm.name.value.length < 1) {
-		  alert("ï¿½ëŒ€ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Î½ï¿½ëŒï¼œï¿½ëª„ï¿½ï¿½");
+		  alert("?´ë??? ???¥í?´ì£¼?¸ì??");
 		  return;
 		 }
 
 		 if (frm.phone.value.length != 11) {
-			  alert("ï¿½ëªƒï¿½ï¿½ï¿½ê³•ï¿½ï¿½ëªƒï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½å¯ƒï¿½ ï¿½ï¿½ï¿½Î½ï¿½ëŒï¼œï¿½ëª„ï¿½ï¿½");
+			  alert("?¸ë???°ë??¸ë?? ??????ê²? ???¥í?´ì£¼?¸ì??");
 			  return;
 		 }
 
 	 frm.method = "post";
-	 frm.action = "findIdResult.jsp"; //ï¿½ï¿½ï¿½ë‹¿ï¿½ï¿½ï¿½ï§Žï¿½
+	 frm.action = "findIdResult.jsp"; //???´ê???ë©?
 	 frm.submit();  
 	 }
 	  function pw_search(){
@@ -136,17 +136,17 @@ function id_search() {
   var frm=document.pwfindscreen;
 
   if(frm.mid.value.length<1){
-   alert("ï¿½ï¿½ï¿½ëŒ€ï¿½ï¿½ç‘œï¿½ ï¿½Ñ‰ï¿½ç‘œë‹¿ï¿½ ï¿½ï¿½ï¿½Î½ï¿½ëŒï¼œï¿½ëª„ï¿½ï¿½");
+   alert("???´ë??ë¥? ?¬ë?ë¥´ê? ???¥í?´ì£¼?¸ì??");
    return;
   }
 
    if (frm.phone.value.length != 11) {
-			  alert("ï¿½ëªƒï¿½ï¿½ï¿½ê³•ï¿½ï¿½ëªƒï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½å¯ƒï¿½ ï¿½ï¿½ï¿½Î½ï¿½ëŒï¼œï¿½ëª„ï¿½ï¿½");
+			  alert("?¸ë???°ë??¸ë?? ??????ê²? ???¥í?´ì£¼?¸ì??");
 			  return;
 		 }
 	
   frm.method="post";
-  frm.action="findPwResult.jsp"; //ï¿½ï¿½ï¿½ë‹¿ï¿½ï¿½ï¿½ï§Žï¿½
+  frm.action="findPwResult.jsp"; //???´ê???ë©?
   frm.submit(); 
   }
 

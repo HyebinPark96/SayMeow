@@ -70,7 +70,7 @@ crossorigin="anonymous">
 						</tr>
 						<tr>
 							<td>고양이이름</td>
-							<td><input name="petname" value="<%=mBean.getPetName()%>" size="17"></td>
+							<td><input name="petName" value="<%=mBean.getPetName()%>" size="17"></td>
 						</tr>
 						<tr>
 							<td>고양이나이</td>
@@ -87,7 +87,7 @@ crossorigin="anonymous">
 						</tr>
 						<tr>
 							<td>고양이품종</td>
-							<td><input name="Breed" value="<%=mBean.getPetBreed()%>" size="17"></td>
+							<td><input name="petBreed" value="<%=mBean.getPetBreed()%>" size="17"></td>
 						</tr>
 						
 						
@@ -104,6 +104,7 @@ crossorigin="anonymous">
 	</form>
   	</div>
 </div>
+
 
 </body>
 </html>

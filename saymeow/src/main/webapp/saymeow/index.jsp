@@ -49,7 +49,7 @@ function send_form(frmId) { // form Á¦Ãâ
 						ProductBean pbean = pvlist.get(i);
 					%>
 					<li>
-					<a href="#" onclick="send_form('frmP')">
+					<a href="product/productDetail.jsp?pnum=<%=pbean.getPnum()%>">
 					<img src="image/<%=pbean.getImage()%>" height="200" width="200">
 						<%=pbean.getPname()%></a>
 						<form method="post" id="frmP" action="product/productDetail.jsp">
