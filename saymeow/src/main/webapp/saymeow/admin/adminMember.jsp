@@ -1,4 +1,4 @@
-<!-- 메일 기능 넣기!!!! -->
+<!-- 메일기능 뺐어요 -->
 <%@page import="java.util.ArrayList"%>
 <%@page import="saymeow.MemberBean"%>
 <%@page import="java.util.Vector"%>
@@ -34,6 +34,14 @@ if(sid==null || sid.equals("")) {
 	integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
 	crossorigin="anonymous">
 <%@ include file="../top2.jsp" %>
+<script> // 단일 회원수정 기능 : 반복문이므로 JS를 통해 동적으로 값을 전달받도록 합니다.
+function updateOneMember(value){
+	document.adminMemberUpdateFrm.selectedId.value=value;
+	document.adminMemberUpdateFrm.action="adminMemberUpdate.jsp";
+	document.adminMemberUpdateFrm.submit();
+}
+</script>
+
 </head>
 
 <body>
@@ -61,7 +69,7 @@ if(sid==null || sid.equals("")) {
 								<th>연락처</th>
 								<th>이메일</th>
 								<th>회원등급</th>
-								<th>메일발송</th>
+								<th>&nbsp;</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -70,7 +78,8 @@ if(sid==null || sid.equals("")) {
 										MemberBean mbean = mvlist.get(i); 
 								%>
 							<tr>
-								<!-- <td><input type="hidden" name="mId[]" value="<%=mbean.getId()%>"></td> -->
+								<%-- <input type="hidden" name="mId[]" value="<%=mbean.getId()%>"> --%>
+								<input type="hidden" name="mid" value="<%=mbean.getId()%>">
 								<td><%=mbean.getId()%></td>
 								<td><%=mbean.getName()%></td>
 								<td><%=mbean.getPhone()%></td>
@@ -86,10 +95,11 @@ if(sid==null || sid.equals("")) {
 										</div>
 									</div>
 								</td>
-								<td><a href="#">메일발송</a></td>
-								<!-- 추후 구현 -->
+								<td><input type="button" value="회원 수정하기" onclick="updateOneMember(this.form.mid[<%=i%>].value)"></td>
+								<!-- 메일은 추후 구현 -->
 							</tr>
 							<%} // -- for문 끝%>
+							<input type="hidden" name="selectedId">
 						</tbody>
 					</table>
 				  	</div>
