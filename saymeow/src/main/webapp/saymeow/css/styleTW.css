@@ -83,3 +83,15 @@
 	text-decoration-line: none;
 	border-radius: 5px;
 }
+
+.find, .cancel {
+	border:none;
+	background-color: #9598ca;
+	display:inline;
+	width:7.3vw;
+	height:3vw;
+	text-align: center;
+	text-decoration-line: none;
+	border-radius: 5px;
+	
+}

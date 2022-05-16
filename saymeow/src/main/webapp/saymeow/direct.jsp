@@ -11,8 +11,9 @@
 <head>
 <meta charset="EUC-KR">
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-    <title>Index</title>
+    <title>direct</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='css/direct.css'>
     <!-- 부트스트랩 CSS -->
 	<link
 		href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
@@ -35,9 +36,12 @@
 	String uPrice1 = UtilMgr.monFormat(price1);
 	String total = UtilMgr.monFormat(price1*qty);
 %>
+<section class="contents">
 <form method="post" name="doFrm" action="directOrderProc.jsp">
-<h1>상품 바로 주문</h1><br>
-<h2>주문정보를 확인해주세요.</h2>
+<div class="title">
+<br><br><h3>[상품 바로 주문]</h3><br><br>
+</div>
+<h5>아래 주문정보를 확인해주세요.</h5><br><br>
 <table border="1">
 <tr>
 	<td width="100">주문번호</td>
@@ -46,23 +50,25 @@
 	<td width="100">수량</td>
 	<td width="100">총 결제금액</td>
 	<td width="100">주문날짜</td>
-	<td width="200">현재상태</td>
+	<td width="100">현재상태</td>
+	<td width="100">결제</td>
 </tr>
 <tr>
 	<td><%=onum %>번</td>
-	<td><%=pnum %></td>
+	<td><%=pname%></td>
 	<td><%=uPrice1%>원</td>
 	<td><%=qty %>개</td>
 	<td><%=total%>원</td>
 	<td><%=regDate%></td>
-	<td>
+
 	<%if(state.equals("1")){%>
-		결제 전
-		<input type="submit" value="결제하기">
+		<td>결제 전</td>
+		<td><input type="submit" value="결제하기"></td>
 	<%} else if(state.equals("2")){ %>
-		결제완료(배송완료)
+		<td>결제완료(배송완료)</td>
+		<td>완료</td>
 	<%}%>
-	</td>
+	
 </tr>
 </table>
 <input type="hidden" name="pname" value="<%=pname%>">
@@ -73,5 +79,6 @@
 <input type="hidden" name="state" value="<%=state%>">
 <input type="hidden" name="onum" value="<%=onum%>">
 </form>
+</section>
 </body>				
 </html>

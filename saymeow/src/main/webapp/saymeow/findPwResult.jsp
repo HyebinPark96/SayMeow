@@ -17,15 +17,14 @@ MemberMgr mgr = new MemberMgr();
 <link rel="stylesheet" href="css/styleTW.css">
 </head> 
 <!-- 외부 CSS -->						
-<link rel="stylesheet" href="css/style.css">						
-<link rel="stylesheet" href="css/styleTW.css">						
+<link rel="stylesheet" href="css/style.css">												
 <!-- 부트스트랩 CSS -->						
 <link						
 href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"						
 rel="stylesheet"						
 integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"						
 crossorigin="anonymous">
-<%@ include file="top.jsp"%>
+<%@ include file="top2.jsp"%>
 <body> 
 	<form name="idsearch" method="post">
       <%
@@ -76,6 +75,5 @@ crossorigin="anonymous">
   }
  %> 
       </form>
-	<%@ include file="bottom.jsp" %> 
 </body> 
 </html>
