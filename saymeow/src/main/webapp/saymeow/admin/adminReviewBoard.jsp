@@ -274,7 +274,7 @@ function read(i) {
 										
 										if(!cvlist.isEmpty()) {
 									%>
-										<form name="commentListFrm" action="admin/commentDeleteProc.jsp" method="POST">
+										<form name="commentListFrm" action="commentDeleteProc.jsp" method="POST">
 											순번 : <%=j+1%><br>
 											작성자 ID : <%=cid %><br>
 											작성날짜 : <%=rcDate %><br>
@@ -289,7 +289,7 @@ function read(i) {
 									<%} %>
 									<hr>
 								<%if(id=="admin"||id.equals("admin")) {%>
-									<form name="commentFrm" action="commentInsertProc.jsp" method="post">
+									<form name="commentFrm" action="CommentInsertProc.jsp" method="post">
 										<input type="hidden" name="rnum" value="<%=rnum%>">
 										<input type="hidden" name="cid" value="<%=id%>">
 										<input type="hidden" name="pnum" value="<%=pnum%>">

@@ -711,7 +711,7 @@ function read(i) {
 									내용 : <%=content%><br>
 									별점 : <%=score%><br><br><br>
 									<%if(filename!=null){ %>
-										<img src="storage/<%=filename%>" width="800vw" height="400vw" style="display:block; margin: 0 auto; object-fit: cover;"><br>
+										<img src="../storage/<%=filename%>" width="800vw" height="400vw" style="display:block; margin: 0 auto; object-fit: cover;"><br>
 										<input type="hidden" name="filename" value="<%=filename%>">
 									<%} %>
 									<%if(id.equals(rid) || id==rid) { /*본인리뷰라면 수정버튼 활성화*/%>
@@ -745,8 +745,8 @@ function read(i) {
 									<%} %>
 								<%} %>
 									
-							<%if(id=="admin") {%>
-								<form name="commentFrm" action="admin/commentInsertProc.jsp" method="post">
+							<%if(id.equals("admin")||id=="admin") {%>
+								<form name="commentFrm" action="../admin/CommentInsertProc.jsp" method="post">
 									<input type="hidden" name="rnum" value="<%=rnum%>">
 									<input type="hidden" name="cid" value="<%=id%>">
 									<input type="hidden" name="pnum" value="<%=pnum%>">

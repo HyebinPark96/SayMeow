@@ -78,8 +78,8 @@
 						</tr>
 						<tr>
 							<td style="padding:2px">고양이성별</td>
-							<td style="padding:2px">남<input type="radio" name="petGender" value="1" checked>
-								여<input type="radio" name="petGender" value="2">
+							<td style="padding:2px">남<input type="radio" name="petGender" value="0" checked>
+								여<input type="radio" name="petGender" value="1">
 							</td>
 						</tr>
 						<tr>

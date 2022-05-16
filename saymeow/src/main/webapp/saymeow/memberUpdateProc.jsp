@@ -7,7 +7,7 @@
 if(flag){%>
 	<script>
 		alert("성공적으로 수정하였습니다");
-		location.href="main.jsp";
+		location.href="index.jsp";
 	</script>
 <%}else{%>
 	<script>

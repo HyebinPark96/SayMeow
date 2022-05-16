@@ -136,39 +136,38 @@ public class MemberMgr {
 		return bean;
 	}
 	
-	//회원정보 수정
-	public boolean updateMember(MemberBean bean) {
-		Connection con = null;
-		PreparedStatement pstmt = null;
-		String sql = null;
-		boolean flag = false;
-		try {
-			con = pool.getConnection();
-			sql = "update member set pwd=?, name=?, birthday=?,"
-					+ " phone=?, email=?, address=?, grade=?, mode=? "
-					+ " petName=?, petAge=?, petGender=?, petBreed=? where id=?";
-			pstmt.setString(1, bean.getId());
-			pstmt.setString(2, bean.getPwd());
-			pstmt.setString(3, bean.getName());
-			pstmt.setString(4, bean.getBirthday());
-			pstmt.setString(5, bean.getPhone());
-			pstmt.setString(6, bean.getEmail());
-			pstmt.setString(7, bean.getAddress());
-			pstmt.setInt(8, bean.getGrade());
-			pstmt.setInt(9, bean.getMode());
-			pstmt.setString(10, bean.getPetName());
-			pstmt.setString(11, bean.getPetAge());
-			pstmt.setInt(12, bean.getPetGender());
-			pstmt.setString(13, bean.getPetBreed());
-			if(pstmt.executeUpdate()==1)
-				flag = true;
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			pool.freeConnection(con, pstmt);
-		}
-		return flag;
-	}
+	   //회원정보 수정
+	   public boolean updateMember(MemberBean bean) {
+	      Connection con = null;
+	      PreparedStatement pstmt = null;
+	      String sql = null;
+	      boolean flag = false;
+	      try {
+	         con = pool.getConnection();
+	         sql = "update member set pwd=?, name=?, birthday=?,"
+	               + " phone=?, email=?, address=?,"
+	               + " petName=?, petAge=?, petGender=?, petBreed=? where id=?";
+	         pstmt = con.prepareStatement(sql);
+	         pstmt.setString(1, bean.getPwd());
+	         pstmt.setString(2, bean.getName());
+	         pstmt.setString(3, bean.getBirthday());
+	         pstmt.setString(4, bean.getPhone());
+	         pstmt.setString(5, bean.getEmail());
+	         pstmt.setString(6, bean.getAddress());
+	         pstmt.setString(7, bean.getPetName());
+	         pstmt.setString(8, bean.getPetAge());
+	         pstmt.setInt(9, bean.getPetGender());
+	         pstmt.setString(10, bean.getPetBreed());
+	         pstmt.setString(11, bean.getId());
+	         if(pstmt.executeUpdate()==1)
+	            flag = true;
+	      } catch (Exception e) {
+	         e.printStackTrace();
+	      } finally {
+	         pool.freeConnection(con, pstmt);
+	      }
+	      return flag;
+	   }
 	//회원탈퇴
 		public boolean deleteMember(String id) {
 			Connection con = null;

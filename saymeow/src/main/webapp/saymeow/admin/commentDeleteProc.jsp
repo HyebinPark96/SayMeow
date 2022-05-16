@@ -9,6 +9,6 @@
 	
 %>
 <script>
-	alert('<%=rcNum%>레코드가 삭제되었습니다!');
-	location.href = "../reviewBoard.jsp";
+	alert('댓글이 삭제되었습니다!');
+	location.href = "adminReviewBoard.jsp";
 </script>
