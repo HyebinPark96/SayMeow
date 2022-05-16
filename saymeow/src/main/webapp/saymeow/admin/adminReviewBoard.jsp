@@ -274,7 +274,7 @@ function read(i) {
 										
 										if(!cvlist.isEmpty()) {
 									%>
-										<form name="commentListFrm" action="admin/commentDeleteProc.jsp" method="POST">
+										<form name="commentListFrm" action="commentDeleteProc.jsp" method="POST">
 											순번 : <%=j+1%><br>
 											작성자 ID : <%=cid %><br>
 											작성날짜 : <%=rcDate %><br>
