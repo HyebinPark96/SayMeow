@@ -334,8 +334,8 @@ nowBlock = (int) Math.ceil((double) nowPage / pagePerBlock); // Ex. 현재 1페이지
 											<a href="javascript:read('<%=i%>')" class="review-board-aTag"><%=pname%></a>
 										</td>
 										<td><%=qty%></td>
-										<td><%=price%></td>
-										<td><%=qty*price%></td>
+										<td><%=price1%></td>
+										<td><%=qty*price1%></td>
 										<td><%=oid%></td>
 										<td><%=regdate%></td>
 										<td>
