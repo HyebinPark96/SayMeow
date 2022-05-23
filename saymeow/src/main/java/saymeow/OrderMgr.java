@@ -498,6 +498,39 @@ public class OrderMgr {
 		return vlist; // 디폴트로 10개씩 반환되고, 나머지 반환될 수 있음
 	}
 	
-
+    // 주문내역 1000개 입력 메소드
+    public void order1000(int pnum, int qty, int price1){
+       Connection con = null;
+       PreparedStatement pstmt = null;
+       String sql = null;
+       try {
+          con = pool.getConnection();
+          sql = "INSERT petorder(pnum,qty,price1,pname,oid,regdate,oaddress,state) "
+             + "VALUES(?,?,?,?,?,now(),?,?)";
+          pstmt = con.prepareStatement(sql);
+          // 1000번 반복
+          for (int i = 1; i < 300; i++) {
+             pstmt.setInt(1, pnum);
+             pstmt.setInt(2, qty);
+             pstmt.setInt(3, price1);
+             pstmt.setString(4, "건식사료1");
+             pstmt.setString(5, "aaa");
+             pstmt.setString(6, "주소"+i);
+             pstmt.setString(7, "1");
+             pstmt.executeUpdate(); // 실행
+          }
+          System.out.println("Post1000 Success"); 
+       } catch (Exception e) {
+          e.printStackTrace();
+       } finally {
+          pool.freeConnection(con, pstmt);
+       }
+    }
+    
+    // 메인메소드
+    public static void main(String[] args) {
+       OrderMgr oMgr = new OrderMgr();
+       oMgr.order1000(1,2,33000); // 테스트용 1000개 레코드 입력 메소드 호출
+    }
 	
 }
