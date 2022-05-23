@@ -9,7 +9,7 @@ public class ProductMgr {
 	
 	private DBConnectionMgr pool;
 	public static final String SAVEDIRECTORY = 
-			"C:/Jsp/test/src/main/webapp/saymeow/image/"; //경로주의
+			"C:/Jsp/jspproject/src/main/webapp/saymeow/image/"; //경로주의(혜빈경로)
 	public static final String ENCODING = "EUC-KR";
 	public static final int MAXPOSTSIZE = 10*1024*1024;//10mb
 

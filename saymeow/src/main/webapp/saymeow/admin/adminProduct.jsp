@@ -76,7 +76,7 @@ function send_form(frmId) { // form Á¦Ãâ
 %>
 		<tr>
 		<td><%=pbean.getPnum()%></td>
-		<td><%=pbean.getPname()%></td>
+		<td><a href="../product/productDetail.jsp?pnum=<%=pbean.getPnum()%>"><%=pbean.getPname()%></a></td>
 		<td><%=pbean.getMclass()%></td>
 		<td><%=pbean.getSclass()%></td>
 		<td><%=UtilMgr.monFormat(pbean.getPrice1())%></td>
