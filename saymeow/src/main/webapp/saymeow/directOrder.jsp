@@ -6,6 +6,7 @@
 	pageEncoding="EUC-KR"%>
 <jsp:useBean id="oMgr" class="saymeow.OrderMgr" />
 
+
 <%
 int onum = UtilMgr.parseInt(request, "onum");
 %>
@@ -36,7 +37,12 @@ int onum = UtilMgr.parseInt(request, "onum");
 		<h4>[주문내역]</h4><br>
 	<table>
 		<%
-		OrderBean oBean = oMgr.getOrderDetail(onum); // 주문내역 가져오기
+		OrderBean oBean = oMgr.getOrderDetail(onum);// 주문내역 가져오기
+		
+		int price1 = oBean.getPrice1();
+		int qty = oBean.getQty();
+		String uPrice1 = UtilMgr.monFormat(price1);
+		String total = UtilMgr.monFormat(price1*qty);
 		%>
 		<tr>
 			<th width="100">상품명</th>
@@ -46,7 +52,7 @@ int onum = UtilMgr.parseInt(request, "onum");
 		<tr>
 			<td><%=oBean.getPname()%></td>
 			<td><%=oBean.getQty()%>개</td>
-			<td><%=oBean.getPrice1() * oBean.getQty()%>원</td>
+			<td><%=total%>원</td>
 		</tr>
 		<tr>
 			<td><br><br></td>
@@ -56,7 +62,7 @@ int onum = UtilMgr.parseInt(request, "onum");
 				<input type="hidden" name="onum" value="<%=oBean.getOnum()%>"> 
 				<input type="hidden" name="state" value="<%=oBean.getState()%>">
 				
-				총 결제금액은 <%=oBean.getPrice1() * oBean.getQty()%> 원 입니다.
+				총 결제금액은 <%=total%> 원 입니다.
 				
 				<input type="button" value="취소" onclick="history.back()">
 				<input type="submit" value="결제">

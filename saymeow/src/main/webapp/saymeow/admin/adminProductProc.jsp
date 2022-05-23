@@ -1,6 +1,6 @@
 <%@page import="saymeow.UtilMgr"%>
 <%@page contentType="text/html; charset=EUC-KR" pageEncoding="EUC-KR"%>
-<jsp:useBean id="pMgr" class="saymeow.AdminProductMgr"></jsp:useBean>
+<jsp:useBean id="pMgr" class="saymeow.AdminProductMgr"/>
 <%
 request.setCharacterEncoding("EUC-KR");
 //상품관리: 상품 등록, 수정, 삭제, 검색

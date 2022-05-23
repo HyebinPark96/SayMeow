@@ -17,8 +17,7 @@ MemberMgr mgr = new MemberMgr();
 <link rel="stylesheet" href="css/styleTW.css">
 </head> 
 <!-- 외부 CSS -->						
-<link rel="stylesheet" href="css/style.css">						
-<link rel="stylesheet" href="css/styleTW.css">						
+<link rel="stylesheet" href="css/style.css">											
 <!-- 부트스트랩 CSS -->						
 <link						
 href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"						

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="src" path="saymeow/src/main/java"/>
+	<classpathentry kind="lib" path="saymeow/src/main/webapp/WEB-INF/lib/activation.jar"/>
+	<classpathentry kind="lib" path="saymeow/src/main/webapp/WEB-INF/lib/additionnal.jar"/>
+	<classpathentry kind="lib" path="saymeow/src/main/webapp/WEB-INF/lib/cos.jar"/>
+	<classpathentry kind="lib" path="saymeow/src/main/webapp/WEB-INF/lib/mail.jar"/>
+	<classpathentry kind="lib" path="saymeow/src/main/webapp/WEB-INF/lib/mysql-connector-java-8.0.21.jar"/>
+	<classpathentry kind="output" path="saymeow/build/classes"/>
+</classpath>
