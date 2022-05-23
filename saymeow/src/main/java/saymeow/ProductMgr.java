@@ -9,7 +9,7 @@ public class ProductMgr {
 	
 	private DBConnectionMgr pool;
 	public static final String SAVEDIRECTORY = 
-			"C:/Jsp/test/src/main/webapp/saymeow/image/"; //경로주의
+			"C:/Jsp/jspproject/src/main/webapp/saymeow/image/"; //경로주의(혜빈경로)
 	public static final String ENCODING = "EUC-KR";
 	public static final int MAXPOSTSIZE = 10*1024*1024;//10mb
 
@@ -198,6 +198,29 @@ public class ProductMgr {
 		return vlist;
 	}
 	
+	//pnum의 price1 호출
+	public int getPrice(int pnum) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = null;
+		int price1 = 0;
+		try {
+			con = pool.getConnection();
+			sql = "select price1 from product where pnum=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, pnum);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				price1 = rs.getInt(1);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			pool.freeConnection(con, pstmt, rs);
+		}
+		return price1;
+	}
 }
 
 
