@@ -69,23 +69,24 @@ function updateOneMember(value){
 								<th>연락처</th>
 								<th>이메일</th>
 								<th>회원등급</th>
-								<th>&nbsp;</th>
+								<th>수정</th>
+								<th>메일발송</th>
 							</tr>
 						</thead>
 						<tbody>
 							<%		
-									for (int i=0; i < mvlist.size(); i++) {
-										MemberBean mbean = mvlist.get(i); 
+								for (int i=0; i < mvlist.size(); i++) {
+								MemberBean mbean = mvlist.get(i); 
 								%>
 							<tr>
-								<input type="hidden" name="mId[]" value="<%=mbean.getId()%>">
-								<input type="hidden" name="mid" value="<%=mbean.getId()%>">
+							<input type="hidden" name="mId[]" value="<%=mbean.getId()%>">
+							<input type="hidden" name="mid" value="<%=mbean.getId()%>">
 								<td><%=mbean.getId()%></td>
 								<td><%=mbean.getName()%></td>
 								<td><%=mbean.getPhone()%></td>
 								<td><%=mbean.getEmail()%></td>
 								<td>
-									<div class="count">
+							<%-- 		<div class="count">
 										<input type="number" value="<%=mbean.getGrade()%>"
 											autocomplete="off" min="0" max="5" name="grade[]"
 											style="width: 3vw;">
@@ -93,10 +94,13 @@ function updateOneMember(value){
 											<div class="btn_ up"></div>
 											<div class="btn_ down"></div>
 										</div>
-									</div>
+									</div> --%>
 								</td>
-								<td><input type="button" value="회원 수정하기" onclick="updateOneMember(this.form.mid[<%=i%>].value)"></td>
-								<!-- 메일은 추후 구현 -->
+								<td><a href="../memberUpdate.jsp?id=<%=mbean.getId()%>">수정</a></td>
+								<td><a href="#">메일발송</a></td>
+								<!-- 추후 구현 -->
+
+
 							</tr>
 							<%} // -- for문 끝%>
 							<input type="hidden" name="selectedId">
@@ -119,6 +123,7 @@ function updateOneMember(value){
 			<br><br>
 			</form>
 		</div>
+		</section>
 		</section>
 </div>
 </body>
