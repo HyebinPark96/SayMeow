@@ -1,11 +1,13 @@
 <!-- 취합완료했으나 회원가입 시 고양이 정보 입력안했으면 에러남. -->
 <%@page contentType="text/html; charset=EUC-KR" pageEncoding="EUC-KR"%> 
 <%@ page import="java.util.*,saymeow.*"%>
-<%request.setCharacterEncoding("EUC-KR");%>
-<jsp:useBean id="mMgr" class="saymeow.MemberMgr" /> 
-<%
+<%request.setCharacterEncoding("EUC-KR");
+String mid = null;
+if(request.getParameter("mid")!=null){
+	mid = request.getParameter("mid");
+}
 %>
-
+<jsp:useBean id="mMgr" class="saymeow.MemberMgr" /> 
 <html>
 <head>
 <title>회원수정</title>
@@ -32,7 +34,12 @@ crossorigin="anonymous">
 	</div>
 	<div class="tab-content" id="v-pills-tabContent" align="center" style="margin:0 auto;">
 	<%
-		MemberBean mBean = mMgr.getMember(id);
+	MemberBean mBean;
+	if(request.getParameter("mid")!=null){
+		mBean = mMgr.getMember(mid);
+	} else {
+		mBean = mMgr.getMember(id);
+	}
 	%>
 	<form name="regForm" method="post" action="memberUpdateProc.jsp" >
 	<br>
