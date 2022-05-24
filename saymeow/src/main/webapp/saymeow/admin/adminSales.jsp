@@ -94,11 +94,9 @@
 			<a href="adminSales.jsp"><button class="nav-link active" id="v-pills-settings-tab" data-bs-toggle="pill" data-bs-target="#v-pills-settings" type="button" role="tab" aria-controls="v-pills-settings" aria-selected="false">판매데이터</button></a>
 		</div>
 		<!-- 본문 -->
-		<div>
-			<div id="donutchart" style="width: 900px; height: 500px;">
-			</div>
-			<div id="chart_div" style="margin-top:4vh;">
-			</div>
+		<div id="donutchart" style="width: 900px; height: 500px;">
+		</div>
+		<div id="chart_div" style="margin-top:4vh;">
 		</div>
 	</div>
 </body>
