@@ -15,11 +15,9 @@
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <link rel='stylesheet' type='text/css' media='screen' href='css/direct.css'>
     <!-- 부트스트랩 CSS -->
-	<link
-		href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
-		rel="stylesheet"
-		integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
-		crossorigin="anonymous">    
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+	rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+	crossorigin="anonymous">    
 <%@ include file="top2.jsp" %>
 </head>
 <body>
@@ -60,7 +58,7 @@
 	<td><%=qty %>개</td>
 	<td><%=total%>원</td>
 	<td><%=regDate%></td>
-
+	
 	<%if(state.equals("1")){%>
 		<td>결제 전</td>
 		<td><input type="submit" value="결제하기"></td>

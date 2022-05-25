@@ -5,10 +5,10 @@
 	request.setCharacterEncoding("EUC-KR"); 
 	
 	// id값 받아오기 
-	String id = null; // 디폴트
+	String id = request.getParameter("id");
 	if(session.getAttribute("idKey")!=null){
 			id = (String) session.getAttribute("idKey");
-	}
+	} 
 	
 	// top2.jsp 상단 검색어 받아오기
 	String pKeyWord = null; // 디폴트
@@ -54,7 +54,7 @@
 				<a href="/jspproject/saymeow/cartList.jsp"><input id="cart" type="button" value="장바구니" style="cursor: grab;" class="btn btn-primary"></a>&nbsp;
 			</div>
 		
-			<% if(id==null) { %>
+			<% if(id==null || id.equals("null")) { %>
 			<script>
 				btn('logout');
 				btn('my');

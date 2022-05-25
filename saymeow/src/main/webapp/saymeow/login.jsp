@@ -29,7 +29,7 @@ crossorigin="anonymous">
 				<td id="level2">
 					<table id="level3">
 						<tr> 
-							<td colspan="2" align="center"><span class="loginlo">로그인<br><br></span></td>
+							<td colspan="2" align="center"><span class="loginlo"><h3>로그인</h3><br><br></span></td>
 						</tr>
 						<tr align="center"> 
 							<td><span class="loginlo">아이디&nbsp;</span></td>

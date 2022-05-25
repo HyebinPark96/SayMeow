@@ -1,4 +1,5 @@
 <!-- 메일기능 뺐어요 -->
+<%@page import="saymeow.UtilMgr"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="saymeow.MemberBean"%>
 <%@page import="java.util.Vector"%>
@@ -6,6 +7,7 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR" pageEncoding="EUC-KR"%>
 <jsp:useBean id="amMgr" class="saymeow.AdminMemberMgr"/>
 <%
+request.setCharacterEncoding("EUC-KR");
 String sid = request.getParameter("sid"); // 검색할 회원의 id
 Vector<MemberBean> mvlist = new Vector<MemberBean>();
 
@@ -23,7 +25,6 @@ if(sid==null || sid.equals("")) {
 <html>
 <head>
 <meta charset="EUC-KR">
-    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
     <title>adminMember</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <link rel='stylesheet' type='text/css' media='screen' href='../css/adminMember.css'>	
@@ -36,14 +37,13 @@ if(sid==null || sid.equals("")) {
 <%@ include file="../top2.jsp" %>
 <script> // 단일 회원수정 기능 : 반복문이므로 JS를 통해 동적으로 값을 전달받도록 합니다.
 function updateOneMember(value){
-	document.adminMemberUpdateFrm.selectedId.value=value;
-	document.adminMemberUpdateFrm.action="adminMemberUpdate.jsp";
-	document.adminMemberUpdateFrm.submit();
+  	f = document.adminMemberUpdateFrm;
+	f.selectedId.value = value;
+	f.action="adminMemberUpdate.jsp";
+	f.submit(); 
 }
 </script>
-
 </head>
-
 <body>
 	<!-- 사이드바 -->
 	<div class="d-flex align-items-start">
@@ -53,59 +53,81 @@ function updateOneMember(value){
 			<a href="adminReviewBoard.jsp"><button class="nav-link" id="v-pills-messages-tab" data-bs-toggle="pill" data-bs-target="#v-pills-messages" type="button" role="tab" aria-controls="v-pills-messages" aria-selected="false">리뷰관리</button></a>
 			<a href="adminProduct.jsp"><button class="nav-link" id="v-pills-settings-tab" data-bs-toggle="pill" data-bs-target="#v-pills-settings" type="button" role="tab" aria-controls="v-pills-settings" aria-selected="false">상품관리</button></a>
 			<a href="../sellHistory.jsp"><button class="nav-link" id="v-pills-settings-tab" data-bs-toggle="pill" data-bs-target="#v-pills-settings" type="button" role="tab" aria-controls="v-pills-settings" aria-selected="false">매출관리</button></a>
-			<a href="#"><button class="nav-link" id="v-pills-settings-tab" data-bs-toggle="pill" data-bs-target="#v-pills-settings" type="button" role="tab" aria-controls="v-pills-settings" aria-selected="false">판매데이터</button></a>
+			<a href="adminSales.jsp"><button class="nav-link" id="v-pills-settings-tab" data-bs-toggle="pill" data-bs-target="#v-pills-settings" type="button" role="tab" aria-controls="v-pills-settings" aria-selected="false">판매데이터</button></a>
 		</div>	
 
 		<!-- 본문 -->
 		<section class="contents">
-		<form name="adminMemberUpdateFrm" action="adminMemberGradeUpdateProc.jsp" method="post">
+		<form name="adminMemberUpdateFrm" method="post">
 		<div class="mlist"><br><br>
 		<h3>회원관리</h3><br>
-		<table border="1">
+		<table style="border: 1px solid #eee;">
 						<thead>
-							<tr>
-								<th>아이디</th>
-								<th>이름</th>
-								<th>연락처</th>
-								<th>이메일</th>
-								<th>회원등급</th>
-								<th>&nbsp;</th>
+							<tr style="background-color:#eee;">
+								<th style="width:5vw; border-right:1px solid #FAF0E6; height:6vh;">
+									아이디
+								</th>
+								<th style="width:10vw; border-right:1px solid #FAF0E6;">
+									이름
+									<input type="image" src="../img/up-arrow-full.png" id="upArrowImg" width="30vw" height="20vh" onClick="sort('upArrowImg'); return false;">
+									<input type="image" src="../img/down-arrow-full.png" id="downArrowImg" width="30vw" height="20vh" onClick="sort('downArrowImg'); return false;">
+								</th>
+								<th style="width:10vw; border-right:1px solid #FAF0E6;">연락처</th>
+								<th style="width:15vw; border-right:1px solid #FAF0E6;">이메일</th>
+								<th style="width:5vw; border-right:1px solid #FAF0E6;">회원등급</th>
+								<th style="width:5vw;">수정</th>
 							</tr>
 						</thead>
 						<tbody>
 							<%		
-									for (int i=0; i < mvlist.size(); i++) {
-										MemberBean mbean = mvlist.get(i); 
+								for (int i=0; i < mvlist.size(); i++) {
+								MemberBean mbean = mvlist.get(i); 
+								
+								String mid[] = new String[mvlist.size()];
+								
+								if(request.getParameter("id")!=null){
+									mid[i] = request.getParameter("id");
+								}
+								String name[] = new String[mvlist.size()];
+								if(request.getParameter("name")!=null){
+									name[i] = request.getParameter("name");
+								}
+								String phone[] = new String[mvlist.size()];
+								if(request.getParameter("phone")!=null){
+									phone[i] = request.getParameter("phone");
+								}
+								String email[] = new String[mvlist.size()];
+								if(request.getParameter("email")!=null){
+									email[i] = request.getParameter("email");
+								}
+								int grade[] = new int[mvlist.size()];
+								if(request.getParameter("grade")!=null){
+									grade[i] = UtilMgr.parseInt(request, "grade");
+								}
 								%>
 							<tr>
-								<input type="hidden" name="mId[]" value="<%=mbean.getId()%>">
-								<input type="hidden" name="mid" value="<%=mbean.getId()%>">
-								<td><%=mbean.getId()%></td>
-								<td><%=mbean.getName()%></td>
-								<td><%=mbean.getPhone()%></td>
-								<td><%=mbean.getEmail()%></td>
+							<input type="hidden" name="mId[]" value="<%=(request.getParameter("id")!=null) ? mid[i] : mbean.getId()%>">
+							<%-- <input type="hidden" name="mid" value="<%=mbean.getId()%>"> --%>
+								<td><input style="width:5vw; border: 0; border-right:1px solid #FAF0E6;" name="id" value="<%=(request.getParameter("id")!=null) ? mid[i] : mbean.getId()%>" readonly></td>
+								<td><input style="width:10vw; border: 0; border-right:1px solid #FAF0E6;" name="name" value="<%=(request.getParameter("name")!=null) ? name[i] : mbean.getName()%>" readonly></td>
+								<td><input style="width:10vw; border: 0; border-right:1px solid #FAF0E6;" name="phone" value="<%=(request.getParameter("phone")!=null) ? phone[i] : mbean.getPhone()%>" readonly></td>
+								<td><input style="width:15vw; border: 0; border-right:1px solid #FAF0E6;" name="email" value="<%=(request.getParameter("email")!=null) ? email[i] : mbean.getEmail()%>" readonly></td>
 								<td>
-									<div class="count">
-										<input type="number" value="<%=mbean.getGrade()%>"
-											autocomplete="off" min="0" max="5" name="grade[]"
-											style="width: 3vw;">
-										<div class="num_">
-											<div class="btn_ up"></div>
-											<div class="btn_ down"></div>
-										</div>
-									</div>
+									<input style="width:5vw; border: 0; border-right:1px solid #FAF0E6;" value="<%=(request.getParameter("grade")!=null) ? grade[i] : mbean.getGrade()%>" name="grade" readonly>
 								</td>
-								<td><input type="button" value="회원 수정하기" onclick="updateOneMember(this.form.mid[<%=i%>].value)"></td>
-								<!-- 메일은 추후 구현 -->
+								<td>
+									<input type="image" src="../img/update.png" name="updateOneMemberBtn<%=i%>" 
+									onclick="updateOneMember(this.form.id[<%=i%>].value); return false;" width="20vw;" height="20vh;">
+								</td>
+								<!-- 추후 구현 -->
+
+
 							</tr>
 							<%} // -- for문 끝%>
 							<input type="hidden" name="selectedId">
 						</tbody>
 					</table>
 				  	</div>
-
-			<br><br>
-			<input type="submit" value="수정" name="updateBtn">
 			</form>
 
 	
@@ -113,13 +135,51 @@ function updateOneMember(value){
 		<div class="memberSearch">
 			<form>
 			<br><br>
-				<input type="search" placeholder="회원 ID로 검색" name="sid">
-				<button type="submit">검색</button>
-				<button onClick="location.href='adminMember.jsp'">전체보기</button>
+				<input type="search" placeholder="회원 ID로 검색" name="sid" style="font-size:0.8em;">
+				<button type="submit" style="border: 5px solid #eee; border-radius: 6px; background-color:#eee; font-size:0.8em;">검색</button>
+				<button onClick="location.href='adminMember.jsp'" style="border: 5px solid #eee; border-radius: 6px; background-color:#eee; font-size:0.8em;">전체보기</button>
 			<br><br>
 			</form>
 		</div>
 		</section>
+		</section>
 </div>
+<script>
+function sort(id){
+	
+	if(id=='upArrowImg'){
+		f = document.adminMemberUpdateFrm;
+		<%
+		mvlist = amMgr.getSortMember("up");
+		for(int i=0; i<mvlist.size(); i++){
+			MemberBean mbean = mvlist.get(i);%>
+			f.id[<%=i%>].value = "<%=mbean.getId()%>";
+			f.name[<%=i%>].value = "<%=mbean.getName()%>";
+			f.phone[<%=i%>].value = "<%=mbean.getPhone()%>";
+			f.email[<%=i%>].value = "<%=mbean.getEmail()%>";
+			f.grade[<%=i%>].value = <%=mbean.getGrade()%>;
+
+		<%}%>
+		
+	} else if(id='downArrowImg'){
+		f = document.adminMemberUpdateFrm;
+		f.action="adminMember.jsp";
+		<%
+		mvlist = amMgr.getSortMember("down");
+		for(int i=0; i<mvlist.size(); i++){
+			MemberBean mbean = mvlist.get(i);%>
+			f.id[<%=i%>].value = "<%=mbean.getId()%>";
+			f.name[<%=i%>].value = "<%=mbean.getName()%>";
+			f.phone[<%=i%>].value = "<%=mbean.getPhone()%>";
+			f.email[<%=i%>].value = "<%=mbean.getEmail()%>";
+			f.grade[<%=i%>].value = <%=mbean.getGrade()%>;
+
+		<%}%>
+	} else {
+		alert('error');
+	}
+	
+}
+</script>
 </body>
 </html>
