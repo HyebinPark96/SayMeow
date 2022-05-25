@@ -112,19 +112,16 @@
 	text-decoration-line: none;	
 }
 
-#adminOrder .table-column{/*리뷰게시판 컬럼*/
-	background-color:#9598CA;
-}
-
-
-#adminOrder .page > a {
-	text-decoration-line: none;
-	color:black;
+#adminOrder .table-column{/*게시판 컬럼*/
+	background-color:#eee;
 }
 
 #adminOrder .dateSearchBtn{
 	display:inline-block;
 	font-size:0.5em;
+	background-color:#eee;
+	border:1px solid #eee;
+	color:black;
 }
 
 #adminOrder .form-select, #adminOrder .form-text-input{
@@ -135,10 +132,16 @@
 
 #adminOrder .orderSearchBtn{
 	margin-bottom: 0.6vh;
+	background-color:#eee;
+	border:1px solid #eee;
+	color:black;
 }
 
 #adminOrder .deleteAllBtn, #adminOrder .deleteBtn{
 	margin-top:2vh;
+	background-color:#eee;
+	border:1px solid #eee;
+	color:black;
 }
 
 
