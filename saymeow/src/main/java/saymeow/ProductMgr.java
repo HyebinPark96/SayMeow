@@ -70,9 +70,10 @@ public class ProductMgr {
 		
 		Vector<ProductBean> vlist = new Vector<ProductBean>();
 		try {
+			
 			con = pool.getConnection();
 			sql1 = "SELECT pnum, pname, price1, image "
-					+ "FROM product ";
+				 + "FROM product ";
 			if(sort==null || sort.equals("0") || sort.equals("null")) { // 최신순
 				if(sClass==null || sClass.equals("null")) { //중분류X
 					sql2 = "WHERE (mclass = ? AND pstat = 1) ";
@@ -109,6 +110,66 @@ public class ProductMgr {
 					pstmt = con.prepareStatement(sql1+sql2+sql3);
 					pstmt.setString(1, sClass);	
 				}
+			}else if (sort.equals("3")) { //리뷰 많은순
+				if(sClass==null || sClass.equals("null")) { //중분류X
+					sql1 = "SELECT p.pnum, pname, price1, image, COUNT(r.pnum) AS cnt "
+						 + "FROM review r "
+						 + "RIGHT JOIN product p ON p.pnum = r.pnum ";
+					sql2 = "WHERE (mclass = ? AND pstat = 1) ";
+					sql3 = "GROUP BY p.pnum "
+						 + "ORDER BY cnt DESC";
+					pstmt = con.prepareStatement(sql1+sql2+sql3);
+					pstmt.setString(1, mClass);	
+				}else { // 중분류O
+					sql1 = "SELECT p.pnum, pname, price1, image, COUNT(r.pnum) AS cnt "
+						 + "FROM review r "
+						 + "RIGHT JOIN product p ON p.pnum = r.pnum ";
+					sql2 = "WHERE (sclass = ? AND pstat = 1) ";
+					sql3 = "GROUP BY p.pnum "
+						 + "ORDER BY cnt DESC";
+					pstmt = con.prepareStatement(sql1+sql2+sql3);
+					pstmt.setString(1, sClass);	
+				}
+			}else if(sort.equals("4")) { // 리뷰높은순 (리뷰평균으로 계산)
+				if(sClass==null || sClass.equals("null")) { //중분류X
+					sql1 = "SELECT p.pnum, pname, price1, image, AVG(r.score) AS avg "
+						 + "FROM review r "
+						 + "RIGHT JOIN product p ON p.pnum = r.pnum ";
+					sql2 = "WHERE (mclass = ? AND pstat = 1) ";
+					sql3 = "GROUP BY p.pnum "
+						 + "ORDER BY avg DESC";
+					pstmt = con.prepareStatement(sql1+sql2+sql3);
+					pstmt.setString(1, mClass);	
+				}else { // 중분류O
+					sql1 = "SELECT p.pnum, pname, price1, image, AVG(r.score) AS avg "
+						 + "FROM review r "
+						 + "RIGHT JOIN product p ON p.pnum = r.pnum ";
+					sql2 = "WHERE (sclass = ? AND pstat = 1) ";
+					sql3 = "GROUP BY p.pnum "
+						 + "ORDER BY cnt DESC";
+					pstmt = con.prepareStatement(sql1+sql2+sql3);
+					pstmt.setString(1, sClass);
+				}
+			}else if(sort.equals("5")) { // 판매량순 (인기순)
+				if(sClass==null || sClass.equals("null")) { //중분류X
+					sql1 = "SELECT p.pnum, p.pname, p.price1, image, SUM(o.qty) AS sum "
+						 + "FROM petorder o "
+						 + "RIGHT JOIN product p ON p.pnum = o.pnum ";
+					sql2 = "WHERE (mclass = ? AND pstat = 1) ";
+					sql3 = "GROUP BY p.pnum "
+						 + "ORDER BY sum DESC";
+					pstmt = con.prepareStatement(sql1+sql2+sql3);
+					pstmt.setString(1, mClass);	
+				}else { // 중분류O
+					sql1 = "SELECT p.pnum, p.pname, p.price1, image, SUM(o.qty) AS sum "
+						 + "FROM petorder o "
+						 + "RIGHT JOIN product p ON p.pnum = r.pnum ";
+					sql2 = "WHERE (sclass = ? AND pstat = 1) ";
+					sql3 = "GROUP BY p.pnum "
+						 + "ORDER BY sum DESC";
+					pstmt = con.prepareStatement(sql1+sql2+sql3);
+					pstmt.setString(1, sClass);
+				}						
 			}
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
@@ -124,7 +185,7 @@ public class ProductMgr {
 		} finally {
 			pool.freeConnection(con, pstmt, rs);
 		}
-		// System.out.println("[Mgr.getP2] mClass:"+mClass+" /sClass:"+sClass+" /sort:"+sort);
+		//System.out.println("[Mgr.getP2] mClass:"+mClass+" /sClass:"+sClass+" /sort:"+sort);
 		return vlist;
 	}	
 	
