@@ -22,12 +22,12 @@ public class AdminSalesDataMgr {
 		ProductBean pBean = new ProductBean();
 		try {
 			con = pool.getConnection();
-			/*카테고리 구분없이 top5 추출*/
+			/*주문 수량 많은 순으로 top5 추출*/
 			sql = "SELECT p.pname, o.pnum "
 				+ "FROM product p INNER JOIN petorder o "
-				+ "WHERE o.pnum = p.pnum "
+				+ "WHERE o.pnum = p.pnum AND state = 2 " // 무조건 판매완료된 상품만 판매데이터에 합산되도록
 				+ "GROUP BY o.pnum "
-				+ "ORDER BY COUNT(o.pnum) DESC "
+				+ "ORDER BY SUM(o.qty) DESC, p.pname " // 다중 정렬 우선순위 qty합 같다면 상품이름 오름차순으로
 				+ "LIMIT ?, 1;";
 			pstmt = con.prepareStatement(sql);
 			
@@ -48,8 +48,8 @@ public class AdminSalesDataMgr {
 		return pBean;
 	}
 	
-	// 위 메소드 결과를 1개씩 가져와서 백분율 변환 후 원형차트 요소에 넣기
-	public String getSalesDataPname(int index) { // 위 메소드 index변수와 같은 의미
+	// getSalesRanking 메소드 결과를 1개씩 가져와서 백분율 변환 후 원형차트 요소에 이름 넣기
+	public String getSalesDataPname(int index) { // getSalesRanking 메소드 index변수와 같은 의미
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -58,11 +58,9 @@ public class AdminSalesDataMgr {
 		try {
 			AdminSalesDataMgr dMgr = new AdminSalesDataMgr();
 			ProductBean pBean = dMgr.getSalesRanking(index);
-//			System.out.println(pBean.getPname());
-//			System.out.println(pBean.getPnum());
 			con = pool.getConnection();
-			// 백분율 구하기
-			sql = "SELECT pname, qty * 100/ (SELECT SUM(qty) FROM petorder) FROM petorder WHERE pnum = ?";
+			// 같은 상품 여러번 주문했더라도, 총 합계로 백분율 구하기 (Ex. 주문내역 중 pnum=1 qty=4, pnum=1 qty=4과 pnum=2 qty=8의 백분율은 같음)
+			sql = "SELECT pname, SUM(qty) * 100/ (SELECT SUM(qty) FROM petorder) FROM petorder WHERE pnum = ? AND state = 2";
 			pstmt = con.prepareStatement(sql);			
 			pstmt.setInt(1, pBean.getPnum());
 			rs = pstmt.executeQuery();
@@ -78,8 +76,8 @@ public class AdminSalesDataMgr {
 		return pName;
 	}
 	
-	// 위 메소드 결과를 1개씩 가져와서 백분율 변환 후 원형차트 요소에 넣기
-	public double getSalesDataPnum(int index) { // 위 메소드 index변수와 같은 의미
+	// getSalesRanking 메소드 결과를 1개씩 가져와서 백분율 변환 후 원형차트 요소에 퍼센트 넣기
+	public double getSalesDataPnum(int index) { // getSalesRanking 메소드 index변수와 같은 의미
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -88,11 +86,9 @@ public class AdminSalesDataMgr {
 		try {
 			AdminSalesDataMgr dMgr = new AdminSalesDataMgr();
 			ProductBean pBean = dMgr.getSalesRanking(index);
-//			System.out.println(pBean.getPname());
-//			System.out.println(pBean.getPnum());
 			con = pool.getConnection();
-			// 백분율 구하기
-			sql = "SELECT pname, qty * 100/ (SELECT SUM(qty) FROM petorder) FROM petorder WHERE pnum = ?";
+			// 같은 상품 여러번 주문했더라도, 총 합계로 백분율 구하기 (Ex. 주문내역 중 pnum=1 qty=4, pnum=1 qty=4과 pnum=2 qty=8의 백분율은 같음)
+			sql = "SELECT pname, SUM(qty) * 100/ (SELECT SUM(qty) FROM petorder) FROM petorder WHERE pnum = ? AND state = 2";
 			pstmt = con.prepareStatement(sql);			
 			pstmt.setInt(1, pBean.getPnum()); 
 			rs = pstmt.executeQuery();
@@ -145,7 +141,8 @@ public class AdminSalesDataMgr {
 			sql = "SELECT SUM(price1 * qty) "
 				+ "FROM petorder "
 				+ "WHERE DATE_FORMAT(regdate, '%Y') > (SELECT DATE_FORMAT(DATE_SUB(?, INTERVAL 1 YEAR), '%Y')) "
-				+ "AND DATE_FORMAT(regdate, '%Y') < (SELECT DATE_FORMAT(DATE_ADD(?, INTERVAL 1 YEAR), '%Y')) ";
+				+ "AND DATE_FORMAT(regdate, '%Y') < (SELECT DATE_FORMAT(DATE_ADD(?, INTERVAL 1 YEAR), '%Y')) "
+				+ "AND state = 2"; // 무조건 판매완료된 상품만 판매데이터에 합산되도록
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, standardYear+"-01-01");
 			pstmt.setString(2, standardYear+"-01-01");
@@ -174,7 +171,8 @@ public class AdminSalesDataMgr {
 				+ "FROM petorder o INNER JOIN product p "
 				+ "WHERE o.pnum = p.pnum "
 				+ "AND DATE_FORMAT(regdate, '%Y') > (SELECT DATE_FORMAT(DATE_SUB(?, INTERVAL 1 YEAR), '%Y')) "
-				+ "AND DATE_FORMAT(regdate, '%Y') < (SELECT DATE_FORMAT(DATE_ADD(?, INTERVAL 1 YEAR),'%Y')) ";
+				+ "AND DATE_FORMAT(regdate, '%Y') < (SELECT DATE_FORMAT(DATE_ADD(?, INTERVAL 1 YEAR),'%Y')) "
+				+ "AND state = 2"; // 무조건 판매완료된 상품만 판매데이터에 합산되도록
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, standardYear+"-01-01");
 			pstmt.setString(2, standardYear+"-01-01");
@@ -196,10 +194,7 @@ public class AdminSalesDataMgr {
 		AdminSalesDataMgr dMgr = new AdminSalesDataMgr();
 		ProductBean pBean = dMgr.getSalesRanking(0);
 		double percentage = dMgr.getSalesDataPnum(0);
-		//System.out.println(percentage);
 		String standardYear = dMgr.getStandardYear(0);
-		System.out.println("이번 년도 : " + standardYear);
 		int sales = dMgr.getSales(standardYear);
-		System.out.println("이번년도 총 판매가격의 합계 : " + sales);
 	}
 }
