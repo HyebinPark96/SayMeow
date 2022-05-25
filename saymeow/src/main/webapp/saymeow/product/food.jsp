@@ -16,7 +16,7 @@ String sort = request.getParameter("sort");
 if (sort==null||sort.equals("")) sort="0";
 if(mClass==null) mClass="food";
 
-// System.out.println("[product] mClass:"+ mClass + " /sClass:"+sClass + " /sort:" + sort);
+//System.out.println("[product] mClass:"+ mClass + " /sClass:"+sClass + " /sort:" + sort);
 Vector<ProductBean> pvlist = mgr.getP2(mClass, sClass, sort); 
 %>
 <!DOCTYPE html>
@@ -147,8 +147,9 @@ Vector<ProductBean> pvlist = mgr.getP2(mClass, sClass, sort);
 							<option value="0" <%=sort.equals("0")?"selected":""%>>최신순</option>
 							<option value="1" <%=sort.equals("1")?"selected":""%>>높은가격순</option> 
  							<option value="2" <%=sort.equals("2")?"selected":""%>>낮은가격순</option> 
- 						<!--<option value="3" >인기순</option>
-							<option value="4" >리뷰순</option> -->
+ 							<option value="3" <%=sort.equals("3")?"selected":""%>>리뷰많은순</option> 
+ 							<option value="4" <%=sort.equals("4")?"selected":""%>>리뷰높은순</option> 
+ 							<option value="5" <%=sort.equals("5")?"selected":""%>>판매량순</option> 
 						</select> 
 						<input type=hidden name="mClass" value="<%=mClass%>">
 						<input type=hidden name="sClass" value="<%=sClass%>">
