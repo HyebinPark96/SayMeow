@@ -48,7 +48,7 @@
 			<div class="btns">
 				<a href="/jspproject/saymeow/login.jsp"><input id="login" type="button" value="로그인" style="cursor: grab;" class="btn btn-primary"></a>&nbsp;
 				<a href="/jspproject/saymeow/logout.jsp"><input id="logout" type="button" value="로그아웃" style="cursor: grab;" class="btn btn-primary"></a>&nbsp;
-				<a href="/jspproject/saymeow/member.jsp"><input id="join" type="button" value="회원가입" style="cursor: grab;" class="btn btn-primary"></a>&nbsp;
+				<a href="/jspproject/saymeow/member2.jsp"><input id="join" type="button" value="회원가입" style="cursor: grab;" class="btn btn-primary"></a>&nbsp;
 				<a href="/jspproject/saymeow/myPageMain.jsp"><input id="my" type="button" value="마이페이지" style="cursor: grab;" class="btn btn-primary"></a>&nbsp;
 				<a href="/jspproject/saymeow/admin/adminMain.jsp"><input id="admin" type="button" value="관리자메뉴" style="cursor: grab;" class="btn btn-primary"></a>&nbsp;
 				<a href="/jspproject/saymeow/cartList.jsp"><input id="cart" type="button" value="장바구니" style="cursor: grab;" class="btn btn-primary"></a>&nbsp;

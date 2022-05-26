@@ -18,8 +18,8 @@
 <b><%=id%></b>
 <%
 	  if(check){
-	     out.println("는 이미 존재하는 ID입니다.<p/>");
-	}else{    
+	     out.println("는 이미 존재하는 ID입니다.<p/>");%>    
+<%	}else{    
 	     out.println("는 사용 가능 합니다.<p/>");
 	}
 %>

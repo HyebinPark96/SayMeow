@@ -45,7 +45,7 @@ crossorigin="anonymous">
 						</tr>
 						<tr>
 							<td style="padding:2px" colspan="4" align="center">	
-							<input type="button" class="joinbtn" value="회원가입" onclick="location.href='member.jsp'">
+							<input type="button" class="joinbtn" value="회원가입" onclick="location.href='member2.jsp'">
 							</td>
 						</tr>
 						<tr>
