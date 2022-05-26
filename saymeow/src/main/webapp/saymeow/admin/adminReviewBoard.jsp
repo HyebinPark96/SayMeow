@@ -227,7 +227,7 @@ function read(i) {
 										<form name="deleteReviewFrm" action="adminReviewDeleteProc.jsp" method="post">
 											<input type="hidden" name="rnum" value="<%=rnum%>">
 											<input type="hidden" name="filename" value="<%=filename%>">
-											<input type="submit" class="btn btn-primary submitBtn" value="삭제">
+											<input type="submit" name="deleteBtn" value="삭제" class="btn btn-primary deleteBtn">
 										</form>
 									<%}%>
 								</td>
@@ -306,7 +306,7 @@ function read(i) {
 						<!-- 페이징 및 블럭 Start --> 
 						<!-- 이전블럭 이동(첫블럭에서는 없어야 함)--> 
 						<%if (nowBlock > 1) {%>
-							<a href="javascript:block('<%=nowBlock - 1/*이전블럭*/%>')" class="review-board-aTag">&nbsp;이 전&nbsp;</a> 
+							<a href="javascript:block('<%=nowBlock - 1/*이전블럭*/%>')" class="review-board-aTag" style="color:#0d6efd">&nbsp;이 전&nbsp;</a> 
 						<%}%> <!-- 페이징(특정블럭) --> 
 						<%// 아래변수로 for문 돌리면 최초 1~16 -> 1~15까지 반복
 						int pageStart = (nowBlock - 1) * pagePerBlock + 1; /*최초1, 16, 31, ...*/
@@ -316,16 +316,16 @@ function read(i) {
  						// 반복문 (15번씩 반복, 마지막 블럭에서는 91~101페이지까지만 반복됨)
  						for (; pageStart < pageEnd; pageStart++) { // 비워진 조건 초기식은? pageStart = 1;부터 시작%> 
  							<a href="javascript:pageing('<%=pageStart%>')" class="review-board-aTag"> 
- 								<%if (pageStart == nowPage) {%>
- 									<font color="#A13FFF"><%}%> [<%=pageStart%>] 
-									<%if (pageStart == nowPage) {%>
-										</font>
-									<%}%> <!-- if절 두개인 이유: 조건에 맞아야만 font 코드 적용되도록-->
-									</a> 
-								<%} // --- for%> 
+								<%if(pageStart == nowPage){%>
+									<b><font color="blue">[<%=pageStart%>]</font></b>
+								<%}else { %>
+									<font color="gray">[<%=pageStart%>]</font>
+								<%} %>
+							</a> 
+							<%} // --- for%> 
 						<!-- 다음블럭 이동 기능 (마지막블럭만 없는 기능)--> 
 						<%if (totalBlock > nowBlock) {%>
-							<a href="javascript:block('<%=nowBlock + 1%>')" class="review-board-aTag">&nbsp;다 음&nbsp;</a> 
+							<a href="javascript:block('<%=nowBlock + 1%>')" class="review-board-aTag" style="color:#0d6efd">&nbsp;다 음&nbsp;</a> 
 						<%}%> 
 						<!-- 페이징 및 블럭 End -->
 						</td>
@@ -343,7 +343,7 @@ function read(i) {
 									</select> <!-- 디폴트 text type --> 
 									<input name="keyWord" size="16" class="form-control" style="display:inline"> 
 									<input type="hidden" name="nowPage" value="1"> <!-- 검색 후 초기화 : 검색 결과가 1페이지부터 보여지므로-->
-									<input type="button" value="검색" onclick="check()" class="btn btn-primary reviewSearchBtn">
+									<input type="button" value="검색" onclick="search()" class="btn btn-primary reviewSearchBtn">
 								</form>
 							</div>
 						</td>
@@ -351,7 +351,7 @@ function read(i) {
 					<tr>
 						<!-- '처음으로' 버튼 눌렀을 때 list()함수 호출 -> listFrm submit -> reload = true 전달 -> keyField, keyWord 초기화됨 -->
 						<td align="right">
-							<a href="javascript:list()" class="review-board-aTag"><button type="button" class="btn btn-primary" style="margin-bottom: 1.5vh;">처음으로</button></a> 
+							<a href="javascript:list()" class="review-board-aTag"><button type="button" class="btn btn-primary initBtn" style="margin-bottom: 1.5vh;">처음으로</button></a> 
 						</td>
 					</tr>
 				</table>
