@@ -57,7 +57,7 @@
 <html>
 <head>
 <meta charset="EUC-KR">
-<title>Insert title here</title>
+<title>관리자 주문관리</title>
 <!-- 혜빈 CSS -->
 <link rel="stylesheet" href="../css/styleHB.css">
 <!-- 내부스크립트 -->
@@ -92,32 +92,35 @@
 		document.readFrm.submit(); // 재귀호출
 	}
 	
-	function allCheck(){ // 전체선택기능
+	// 한 페이지 체크박스 전체 선택하여 삭제 기능
+	function allCheck(nowPageChbNum){ // nowPageChbNum는 totalRecord-start 가 들어온다.
 		if(document.getElementsByClassName('allCheckChb')[0].checked == true){
-			for(var i=0;i<<%=numPerPage%>;i++) {
-				document.getElementsByName("chb")[i].checked=true; //name 을 사용하여 배열 형태로 담아 호출
+			for(var i=0;i<nowPageChbNum;i++) {
+				document.getElementsByName("chb")[i].checked = true; //name 을 사용하여 배열 형태로 담아 호출
+			}
+		} else if(document.getElementsByClassName('allCheckChb')[0].checked == false){
+			for(var i=0;i<nowPageChbNum;i++) {
+				document.getElementsByName("chb")[i].checked = false; //name 을 사용하여 배열 형태로 담아 호출
 			}
 		}
-		if(document.getElementsByClassName('allCheckChb')[0].checked == false){
-			for(var i=0;i<<%=numPerPage%>;i++){
-				document.getElementsByName("chb")[i].checked=false; //name 을 사용하여 배열 형태로 담아 호출
-			}
-		}
+
 	}
 	
 	// 체크박스 레코드 삭제기능 
 	function deleteCheckedBox(){
-		var checkedBox = new Array();
-		for(var i=0;i<<%=numPerPage%>;i++){
-			if(document.getElementsByName("chb")[i].checked){
-				console.log("checkedBox 배열의 " + i + "번째 인덱스 : " + checkedBox[i]);
-				document.deleteFrm.onum.value += (document.getElementsByName("chb")[i].value+";");
+		var chb = document.querySelectorAll('.chb'); // 전체 체크박스 가져옴
+		
+		for(var i=0;i<chb.length;i++){ // 전체 체크박스 길이만큼 반복문 돌려서 체크된 거 찾기
+			if(document.getElementsByClassName('chb')[i].checked == true){ // 체크되었다면
+				// input 태그의 value가 2개이상이면 자동으로 배열로 전달된다.
+				document.deleteFrm.onum.value += document.getElementsByClassName('chb')[i].value + ";"; // onum 배열에 체크된 체크박스 onum 추가하여 submit하기
 			}
 		}
-		console.log(document.deleteFrm.onum.value);
+		
 		document.deleteFrm.action = "adminDeleteOrderProc.jsp";
 		document.deleteFrm.submit();
 	}
+	
 </script>
 <!-- 부트스트랩 CSS -->
 <link
@@ -164,7 +167,7 @@
 							<th width="150">주문날짜</th>
 							<th width="100">배송지</th>
 							<th width="100">주문상태</th>
-							<th width="130"><input type="checkbox" class="allCheckChb" onclick="allCheck()">&nbsp;[전체선택]</th>
+							<th width="130"><input type="checkbox" class="allCheckChb" onclick="allCheck(<%=totalRecord-start%>)">&nbsp;[전체선택]</th>
 						</tr>
 						<%
 						Vector<OrderBean> vlist = aoMgr.getOrderList(keyField, keyWord, start, cnt, interval);
@@ -188,7 +191,7 @@
 								String oaddress = bean.getOaddress();
 								String state = bean.getState();%>
 								<tr align="left">
-									<td><%=vlist.size()-i%></td>
+									<td><%=totalRecord-start-i%></td>
 									<td><%=oid%></td>
 									<td><%=pnum%></td>
 									<td><%=pname%></td>
@@ -206,11 +209,21 @@
 											주문취소
 										<%} %>
 									</td>
-									<td><input type="checkbox" class="chb" name="chb" value="<%=onum%>"></td>
+									<td><input type="checkbox" class="chb" name="chb" value="<%=onum%>" onchange="checkAllChbChecked()"></td>
 								</tr>
 								<%} // -- for문 끝 %>
 							<%} // -- if-else문 끝%>
 							</table>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<div style="text-align:right">
+								<form name="deleteFrm" method="post">
+									<input type="hidden" name="onum">
+									<input type="button" name="deleteBtn" value="삭제" onclick="deleteCheckedBox()" class="btn btn-primary deleteBtn">
+								</form>
+							</div>
 						</td>
 					</tr>
 					<tr>
@@ -251,27 +264,73 @@
 					for(; pageStart<pageEnd; pageStart++){%>
 						<a href="javascript:pageing('<%=pageStart%>')">
 							<%if(pageStart == nowPage){%>
-								<font color="#9598CA">[<%=pageStart%>]</font>
+								<b>[<%=pageStart%>]</b>
 							<%}else { %>
-								[<%=pageStart%>]
+								<font color="gray">[<%=pageStart%>]</font>
 							<%} %>
 						</a>
 					<%}// -- for문 끝 %>
 					<%if(nowBlock < totalBlock) {%>
 						<a href="javascript:block('<%=nowBlock+1%>')">&nbsp;다 음&nbsp;</a>
 					<%}%>			
-				</div>
-
-			
-				<div style="text-align:right">
-					<form name="deleteFrm" method="post">
-						<input type="hidden" name="onum">
-						<input type="button" name="deleteBtn" value="삭제" onclick="deleteCheckedBox()" class="btn btn-primary deleteBtn">
-						<input type="button" name="deleteAllBtn" value="전체삭제" class="btn btn-primary deleteAllBtn">
-					</form>
 				</div>	
 					
 			</div> <!-- 본문 끝-->
 		</div><!-- 네비까지 포함한 본문 끝-->
+		<script>
+			// 한 페이지 체크박스 모두 체크되었거나 하나라도 체크박스 풀렸을 경우 전체선택 체크박스 유동적으로 선택 or 해제하는 기능
+			function checkAllChbChecked(){
+				var chb = document.querySelectorAll('.chb'); // 전체 체크박스 가져옴
+				var qty = 0;
+				if(<%=totalRecord>=cnt%>){
+					// 마지막 페이지 (10의 배수 아님)
+					if(<%=nowPage%>==<%=totalPage%>){
+						var num = <%=totalRecord - ((totalPage-1)*10)%>;
+						for(var i=0;i<chb.length;i++){ // 전체 체크박스 길이만큼 반복문 돌려서 체크된 거 찾기
+							if(document.getElementsByClassName('chb')[i].checked == true){ // 체크되었다면
+								qty+=1;
+							}
+						}
+						if(qty==num){
+							console.log(document.querySelector('.allCheckChb').checked);
+							document.querySelector('.allCheckChb').checked = true;
+						} else { // 현재페이지 체크박스들 전체 체크되지 않았다면
+							document.querySelector('.allCheckChb').checked = false;
+						}
+					}
+					
+					// 이외 페이지 (10의 배수)
+					else if(<%=nowPage%>!=<%=totalPage%>){
+						var num = <%=totalRecord-(totalRecord - cnt)%>;
+						for(var i=0;i<chb.length;i++){ // 전체 체크박스 길이만큼 반복문 돌려서 체크된 거 찾기
+							if(document.getElementsByClassName('chb')[i].checked == true){ // 체크되었다면
+								qty+=1;
+							}
+						}
+						if(qty==num){
+							console.log(document.querySelector('.allCheckChb').checked);
+							document.querySelector('.allCheckChb').checked = true;
+						} else { // 현재페이지 체크박스들 전체 체크되지 않았다면
+							document.querySelector('.allCheckChb').checked = false;
+						}
+					}
+				} else if(<%=totalRecord<cnt%>){
+					// totalRecord 만큼 체크박스 선택되었다면 전체선택 체크박스 선택됨
+					for(var i=0;i<chb.length;i++){ // 전체 체크박스 길이만큼 반복문 돌려서 체크된 거 찾기
+						if(document.getElementsByClassName('chb')[i].checked == true){ // 체크되었다면
+							qty+=1;
+						}
+					}
+					console.log(qty);
+					if(qty==<%=totalRecord%>){
+						console.log(document.querySelector('.allCheckChb').checked);
+						document.querySelector('.allCheckChb').checked = true;
+					} else { // 현재페이지 체크박스들 전체 체크되지 않았다면
+						document.querySelector('.allCheckChb').checked = false;
+					}
+				}
+			}
+		
+		</script>
 </body>
 </html>
