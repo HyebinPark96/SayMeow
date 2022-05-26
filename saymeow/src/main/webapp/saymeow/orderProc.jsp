@@ -8,9 +8,9 @@
 <%@page contentType="text/html; charset=EUC-KR"%>
 <jsp:useBean id="cMgr" class="saymeow.CartMgr"/>
 <jsp:useBean id="oMgr" class="saymeow.OrderMgr"/>
+<jsp:useBean id="pMgr" class="saymeow.ProductMgr"/>
 <%
 	String oid = (String)session.getAttribute("idKey");
-
 	String flag = request.getParameter("flag");
 	
 	String msg = "결제가 완료되었습니다.";
@@ -32,14 +32,15 @@
 				order.setQty(cart.getQty());
 				order.setPname(cart.getPname());
 				order.setOid(cart.getOid());
-				oMgr.insertOrder(order);
+				oMgr.insertOrder(order); 
 			} // -- for문 끝
 		} // -- 중간 if문 끝
 	} else if(flag.equals("cart")){ // 장바구니에서 주문하면 -> order테이블에 바로 state=2(결제완료)로 insert되는거나 마찬가지
 		String snum[] = null;
 		snum = request.getParameterValues("cch");
 		OrderBean order = new OrderBean();
-		CartBean cart = new CartBean();
+		CartBean cart = new CartBean();		
+		
 		if(snum.length>0){
 			for(int i=0;i<snum.length;i++){
 				cart = cMgr.checkCart(Integer.parseInt(snum[i]));
@@ -53,10 +54,10 @@
 				cMgr.deleteCart(Integer.parseInt(snum[i]));// 장바구니에서 삭제
 			} // -- for문 끝
 		} // -- 중간 if문 끝
-	} else {
-		int onum = UtilMgr.parseInt(request, "onum");
-		oMgr.updateOrder(onum); // 결제완료했으니 상태 2로 바꾸기
-	} // -- 최종 if문 끝
+	} //else {
+		//int onum = UtilMgr.parseInt(request, "onum"); //onum 받아오기 
+		//oMgr.updateOrder(onum); // 결제완료했으니 상태 2로 바꾸기
+	// } // -- 최종 if문 끝
 %>
 <script>
 	alert("<%=msg%>");

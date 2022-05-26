@@ -11,6 +11,15 @@ public class CartBean {
 	}
 	private int pnum;
 	private String pname;
+	private String image;
+	
+	public String getImage() {
+		return image;
+	}
+	public void setImage(String image) {
+		this.image = image;
+	}
+	
 	private int price1;
 	private int qty;
 	public String getPname() {
