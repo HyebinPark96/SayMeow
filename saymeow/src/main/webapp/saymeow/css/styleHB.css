@@ -1,4 +1,11 @@
 @charset "EUC-KR";
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300&display=swap');
+
+* {
+	margin: 0;
+	padding: 0;
+}
+
 /*reviewForm.jsp*/
 #review-board-container {
 	margin:5vh auto;
@@ -61,8 +68,6 @@
 	margin:3vh 0;
 }
 
-
-
 /*reviewBoard.jsp*/
 #review-board .review-board-topic{
 	margin-bottom:1vh;
@@ -102,24 +107,72 @@
 
 
 /*adminReviewBoard.jsp*/
-#adminReviewBoard .nav > a{
-	text-decoration-line: none;
+#adminReviewBoard .heading{
+	text-align: center; 
+	margin: 1.5vw; 
+	margin-bottom: 2vw;
 }
 
+#adminReviewBoard .review-contents{
+	margin:0 auto;
+}
+
+#adminReviewBoard .table{
+	border: 1px solid #eee;
+}
+
+#adminReviewBoard .table-column{
+	height:6vh;
+	vertical-align:middle;
+	background-color:#eee;
+}
+
+#adminReviewBoard .table-data{
+	vertical-align:middle;
+}
+
+#adminReviewBoard .table-data .review-board-aTag{
+	color:black;
+}
+
+
 #adminReviewBoard .deleteBtn {
-	margin-top:2vh;
 	background-color:#eee;
 	border:1px solid #eee;
 	color:black;
 }
 
-#adminReviewBoard .reviewSearchBtn, #adminReviewBoard .initBtn {
+#adminReviewBoard .review-board-block-aTag{
+	color:black;
+}
+
+#adminReviewBoard .submitBtn{
+	background-color:#eee;
+	border:1px solid #eee;
+	color:black;
+}
+
+#adminReviewBoard .searchDiv{
+	text-align:center; 
+	margin: 2vw;
+	display:inline;
+}
+
+#adminReviewBoard .form-control, #adminReviewBoard .form-select{
+	display:inline;
+	width:10vw;
+}
+
+#adminReviewBoard .reviewSearchBtn, #adminReviewBoard .initBtn{
 	margin-bottom: 0.6vh;
 	background-color:#eee;
 	border:1px solid #eee;
 	color:black;
 }
 
+#adminReviewBoard .npFrm-td{
+	margin-bottom: 1vh;
+}
 
 /*adminOrder.jsp*/
 #adminOrder .nav > a{
@@ -127,15 +180,26 @@
 }
 
 #adminOrder .table-column{/*게시판 컬럼*/
+	height:6vh;
+	vertical-align:middle;
 	background-color:#eee;
 }
 
 #adminOrder .dateSearchBtn{
 	display:inline-block;
-	font-size:0.5em;
+	font-size:0.8em;
 	background-color:#eee;
 	border:1px solid #eee;
 	color:black;
+}
+
+#adminOrder .pagingATag{
+	color:black;
+}
+
+#adminOrder .searchDiv {
+	text-align:center;
+	margin-top: 3vh;
 }
 
 #adminOrder .form-select, #adminOrder .form-text-input{
@@ -152,7 +216,6 @@
 }
 
 #adminOrder .deleteBtn{
-	margin-top:2vh;
 	background-color:#eee;
 	border:1px solid #eee;
 	color:black;

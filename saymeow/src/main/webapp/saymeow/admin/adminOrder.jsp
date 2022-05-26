@@ -155,7 +155,7 @@
 		<table>
 			<tr>
 				<td>
-					<table class="table table-hover">
+					<table class="table">
 						<tr class="table-column">
 							<th width="100">순번</th>
 							<th width="100">주문자 ID</th>
@@ -228,7 +228,32 @@
 					</tr>
 					<tr>
 						<td>
-							<div style="text-align:center;">
+							<div style="text-align: center;">
+								<%if(nowBlock > 1) {%>
+									<a href="javascript:block('<%=nowBlock-1%>')" class="pagingATag">&nbsp;이 전&nbsp;</a>
+								<%}%>
+								<%
+								// 각 블럭의 첫페이지와 마지막 페이지 계산
+								int pageStart = (nowBlock - 1) * pagePerBlock + 1;
+								int pageEnd = (pageStart + pagePerBlock) < totalPage ? pageStart + pagePerBlock : totalPage + 1; 
+								for(; pageStart<pageEnd; pageStart++){%>
+									<a href="javascript:pageing('<%=pageStart%>')">
+										<%if(pageStart == nowPage){%>
+											<font color="black">[<%=pageStart%>]</font>
+										<%}else { %>
+											<font color="#a0a0a0">[<%=pageStart%>]</font>
+										<%} %>
+									</a>
+								<%}// -- for문 끝 %>
+								<%if(nowBlock < totalBlock) {%>
+									<a href="javascript:block('<%=nowBlock+1%>')" class="pagingATag">&nbsp;다 음&nbsp;</a>
+								<%}%>			
+							</div>	
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<div class="searchDiv">
 							  	<!-- 검색 폼 -->
 					  			<form name="searchOrderFrm"> <!-- 재귀호출되도록 -->
 									<select name="keyField" class="form-select"> <!-- 선택한 값이 keyField의 value로 가나요? -->
@@ -237,7 +262,7 @@
 										<option value="pname">상품명</option>
 										<option value="state">주문상태</option>
 									</select>
-									<input type="text" name="keyWord" class="form-control form-text-input"> <!-- 입력한 값이 keyWord의 value로 가나요? -->
+									<input type="text" name="keyWord" class="form-control form-text-input">
 									<input type="button" onclick="search()" value="검색" class="btn btn-primary orderSearchBtn">
 								</form>
 							</div>
@@ -253,27 +278,7 @@
 					</tr>
 				</table>
 			
-				<div style="text-align: center;">
-					<%if(nowBlock > 1) {%>
-						<a href="javascript:block('<%=nowBlock-1%>')">&nbsp;이 전&nbsp;</a>
-					<%}%>
-					<%
-					// 각 블럭의 첫페이지와 마지막 페이지 계산
-					int pageStart = (nowBlock - 1) * pagePerBlock + 1;
-					int pageEnd = (pageStart + pagePerBlock) < totalPage ? pageStart + pagePerBlock : totalPage + 1; 
-					for(; pageStart<pageEnd; pageStart++){%>
-						<a href="javascript:pageing('<%=pageStart%>')">
-							<%if(pageStart == nowPage){%>
-								<b>[<%=pageStart%>]</b>
-							<%}else { %>
-								<font color="gray">[<%=pageStart%>]</font>
-							<%} %>
-						</a>
-					<%}// -- for문 끝 %>
-					<%if(nowBlock < totalBlock) {%>
-						<a href="javascript:block('<%=nowBlock+1%>')">&nbsp;다 음&nbsp;</a>
-					<%}%>			
-				</div>	
+
 					
 			</div> <!-- 본문 끝-->
 		</div><!-- 네비까지 포함한 본문 끝-->
