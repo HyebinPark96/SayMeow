@@ -106,6 +106,20 @@
 	text-decoration-line: none;
 }
 
+#adminReviewBoard .deleteBtn {
+	margin-top:2vh;
+	background-color:#eee;
+	border:1px solid #eee;
+	color:black;
+}
+
+#adminReviewBoard .reviewSearchBtn, #adminReviewBoard.initBtn {
+	margin-bottom: 0.6vh;
+	background-color:#eee;
+	border:1px solid #eee;
+	color:black;
+}
+
 
 /*adminOrder.jsp*/
 #adminOrder .nav > a{
@@ -137,7 +151,7 @@
 	color:black;
 }
 
-#adminOrder .deleteAllBtn, #adminOrder .deleteBtn{
+#adminOrder .deleteBtn{
 	margin-top:2vh;
 	background-color:#eee;
 	border:1px solid #eee;
