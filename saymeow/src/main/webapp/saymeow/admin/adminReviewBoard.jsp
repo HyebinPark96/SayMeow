@@ -253,13 +253,9 @@ function read(i) { // 토글
 											<input type="hidden" name="subject" value="<%=subject%>">
 											<input type="hidden" name="content" value="<%=content%>">
 											<input type="hidden" name="score" value="<%=score%>">
-
-											[게시글]<br>
-											작성자 ID : <%=rid%><br>
-											작성날짜 : <%=date%><br>
-											제목 : <%=subject%><br>
-											내용 : <%=content%><br>
-											별점 : <%=score%><br>
+											<img src="../img/star-score.jpg" width="30vw" height="30vh"> * <%=score%>&nbsp;&nbsp;<label class="reviewInfo"><%=rid%>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%=date%><br></label>
+											<h6><%=subject%></h6>
+											<h6><%=content%></h6>
 											<%if(filename!=null){ %>
 												<img src="../storage/<%=filename%>" width="800vw" height="400vw" style="display:block; margin: 0 auto; object-fit: cover;"><br>
 												<input type="hidden" name="filename" value="<%=filename%>">
@@ -268,7 +264,8 @@ function read(i) { // 토글
 												<input type="submit" class="btn btn-primary submitBtn" value="수정">
 											<%}%>
 										</form>
-										[댓글]<br>
+										<br>
+										<h5>[댓글]</h5>
 										<%
 										Vector<RCommentBean> cvlist = cMgr.listRComment(rnum);
 										for(int j=0; j<cvlist.size(); j++){
@@ -282,15 +279,11 @@ function read(i) { // 토글
 											if(!cvlist.isEmpty()) {
 										%>
 												<form name="commentListFrm" action="commentDeleteProc.jsp" method="POST">
-													순번 : <%=j+1%><br>
-													작성자 ID : <%=cid %><br>
-													작성날짜 : <%=rcDate %><br>
-													댓글내용 : <%=comment%><br>
+													<%=j+1%>) <%=cid %> : <%=comment%>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[<%=rcDate%>에 작성되었습니다.]
 													<%if(id=="admin" || id.equals("admin")){%> <!-- 관리자만 모든 댓글 삭제 가능 -->
 													<input type="hidden" name="rcNum" value="<%=rcNum%>">
-													<input type="submit" class="btn btn-primary deleteBtn" value="삭제">
+													<input type="submit" class="btn btn-primary commentDeleteBtn" value="삭제">
 													<%}%>
-													<br><br>
 												</form>
 											<%} %>
 										<%} %>
