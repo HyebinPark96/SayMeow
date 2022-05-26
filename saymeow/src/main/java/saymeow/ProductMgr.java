@@ -146,7 +146,7 @@ public class ProductMgr {
 						 + "RIGHT JOIN product p ON p.pnum = r.pnum ";
 					sql2 = "WHERE (sclass = ? AND pstat = 1) ";
 					sql3 = "GROUP BY p.pnum "
-						 + "ORDER BY cnt DESC";
+						 + "ORDER BY avg DESC";
 					pstmt = con.prepareStatement(sql1+sql2+sql3);
 					pstmt.setString(1, sClass);
 				}
