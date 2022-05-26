@@ -54,7 +54,7 @@ function send_form(frmId) { // form 力免
 		<!-- 夯巩 -->
 <section class="contents">
 	<div class="plist">
-		<br><br><h1>惑前包府</h1><br><br><br>
+		<h3 style="text-align: center; margin: 1.5vw; margin-bottom: 2vw;">惑前包府</h3>
 		<table border="1">
 		<thead>
 		<tr>

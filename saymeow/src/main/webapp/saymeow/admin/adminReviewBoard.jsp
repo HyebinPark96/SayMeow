@@ -134,9 +134,7 @@ function read(i) {
     		<a href="adminSales.jsp"><button class="nav-link" id="v-pills-settings-tab" data-bs-toggle="pill" data-bs-target="#v-pills-settings" type="button" role="tab" aria-controls="v-pills-settings" aria-selected="false">판매데이터</button></a>
 		</div>
     	<div align="center" id="review-board" style="margin:0 auto;">
-		<br />
-		<h2>리뷰관리</h2>
-		<br/>
+		<h3 style="text-align: center; margin: 1.5vw; margin-bottom: 2vw;">리뷰관리</h3>
 		<table>
 			<tr>
 				<td>
@@ -172,8 +170,8 @@ function read(i) {
 						out.println("등록된 게시물이 없습니다.");
 					} else {
 					%>
-						<table cellspacing="0" class="table table-hover">
-							<tr align="center" class="table-column">
+						<table cellspacing="0" class="table table-hover" style="border: 1px solid #eee;">
+							<tr align="center" class="table-column" style="background-color:#eee;">
 								<th width="100">순 번</td>
 								<th width="100">상품번호</td>
 								<th width="100">별 점</td>

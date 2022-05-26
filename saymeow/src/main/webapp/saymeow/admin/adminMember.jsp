@@ -59,8 +59,8 @@ function updateOneMember(value){
 		<!-- 본문 -->
 		<section class="contents">
 		<form name="adminMemberUpdateFrm" method="post">
-		<div class="mlist"><br><br>
-		<h3>회원관리</h3><br>
+		<div class="mlist">
+		<h3 style="text-align: center; margin: 1.5vw; margin-bottom: 2vw;">회원관리</h3><br>
 		<table style="border: 1px solid #eee;">
 						<thead>
 							<tr style="background-color:#eee;">
