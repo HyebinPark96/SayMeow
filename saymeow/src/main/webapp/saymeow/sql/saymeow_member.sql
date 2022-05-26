@@ -1,18 +1,65 @@
-DROP TABLE IF EXISTS member;
+-- --------------------------------------------------------
+-- í˜¸ìŠ¤íŠ¸:                          127.0.0.1
+-- ì„œë²„ ë²„ì „:                        8.0.21 - MySQL Community Server - GPL
+-- ì„œë²„ OS:                        Win64
+-- HeidiSQL ë²„ì „:                  11.3.0.6295
+-- --------------------------------------------------------
 
-CREATE TABLE Member (
- id varchar(50) PRIMARY KEY,
- pwd varchar(50) NOT null,
- name varchar(50) NOT null,
- birthday varchar(6) NOT null,
- phone CHAR(11) NOT NULL,
- email varchar(30) NOT null,
- address varchar(200) NOT null, /*ÁÖ¼ÒÁö : ½Ã±º±¸¿Í ¹øÁö¼ö±îÁö Æ÷ÇÔÇÏ¸é Å©±â°¡ Ä¿Áú ¼ö ÀÖÀ¸¹Ç·Î ºñ±³Àû Å©°Ô ¼³Á¤*/
- grade tinyint DEFAULT 0, /*È¸¿øsaymeowµî±Ş : 0(È¸¿ø°¡ÀÔ½Ã µğÆúÆ®),1, 2, ... */ 
- mode tinyint DEFAULT 0, /*È¸¿ø : 0, °ü¸®ÀÚ : 1 ÀÌÁö¸¸, °ü¸®ÀÚ´Â ¼öµ¿À¸·Î Ãß°¡ÇÒ ¿¹Á¤ÀÌ¹Ç·Î È¸¿ø°¡ÀÔ ½Ã µğÆúÆ®¸¦ 0À¸·Î ÇÑ´Ù.*/
- /*¾Æ·¡ºÎÅÍ Æê °ü·Ã ÄÃ·³*/
- petName VARCHAR(30) NOT NULL, /*°í¾çÀÌ ÀÌ¸§*/
- petAge DATE NOT NULL, /*°í¾çÀÌ ³ªÀÌ*/
- petGender TINYINT NOT NULL DEFAULT 1, /*°í¾çÀÌ ¼ºº° : 0 - ³²¾Æ, 1 - ¿©¾Æ*/
- petBreed VARCHAR(50) NOT NULL /*°í¾çÀÌ Ç°Á¾*/
-);
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET NAMES utf8 */;
+/*!50503 SET NAMES utf8mb4 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+-- í…Œì´ë¸” saymeow.member êµ¬ì¡° ë‚´ë³´ë‚´ê¸°
+DROP TABLE IF EXISTS `member`;
+CREATE TABLE IF NOT EXISTS `member` (
+  `id` varchar(50) NOT NULL,
+  `pwd` varchar(50) DEFAULT NULL,
+  `name` varchar(50) DEFAULT NULL,
+  `birthday` date DEFAULT NULL,
+  `phone` varchar(30) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `email` varchar(30) DEFAULT NULL,
+  `address` varchar(200) DEFAULT NULL,
+  `grade` tinyint DEFAULT '0',
+  `mode` tinyint DEFAULT '0',
+  `petName` varchar(30) DEFAULT NULL,
+  `petAge` date DEFAULT NULL,
+  `petGender` tinyint DEFAULT NULL,
+  `petBreed` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- í…Œì´ë¸” ë°ì´í„° saymeow.member:~22 rows (ëŒ€ëµì ) ë‚´ë³´ë‚´ê¸°
+DELETE FROM `member`;
+/*!40000 ALTER TABLE `member` DISABLE KEYS */;
+INSERT INTO `member` (`id`, `pwd`, `name`, `birthday`, `phone`, `email`, `address`, `grade`, `mode`, `petName`, `petAge`, `petGender`, `petBreed`) VALUES
+	('aaa', '1234', 'ì‚¬ìš©ì1', '2002-09-08', '010-5721-8234', 'urna@icloud.com', 'ì„œìš¸', 0, 0, '', '2004-04-22', 0, 'ì½”ìˆ\r'),
+	('admin', '1234', 'ê´€ë¦¬ì', '2022-05-01', '010-1234-5678', 'admin@aaa.aaa', 'ë¶€ì‚°', 0, 1, '', '2004-04-21', 0, 'ì½”ìˆ\r'),
+	('aij', '1234', 'ì‚¬ìš©ì16', '1981-11-12', '010-4517-6374', 'etuer@hotmail.couk', 'ì„œìš¸', 0, 0, '', '2014-03-03', 0, 'ë™ëŒ\r'),
+	('bbb', '1234', 'ì‚¬ìš©ì2', '1972-12-29', '010-1714-5826', 'mas@google.edu', 'ê²½ê¸°', 0, 0, '', '2014-06-28', 0, 'ì½”ìˆ\r'),
+	('bng', '1234', 'ì‚¬ìš©ì11', '1996-10-09', '010-4208-3989', 'leifend.nec@hotmail.couk', 'ê²½ë¶', 0, 0, '', '2022-04-05', 1, 'ëŸ¬ë¸”\r'),
+	('bzr', '1234', 'ì‚¬ìš©ì10', '2006-06-09', '010-7346-4892', 'cursus@aol.couk', 'ê²½ë‚¨', 0, 0, 'ì•¼ì˜¹ì´', '2018-10-18', 1, 'ëŸ¬ë¸”'),
+	('ccc', '1234', 'ì‚¬ìš©ì3', '1969-11-02', '010-4797-1885', 'in.lobortis@hotmail.com', 'ì¸ì²œ', 0, 0, '', '2017-03-22', 0, 'ì½”ìˆ\r'),
+	('che', '1234', 'ì‚¬ìš©ì4', '1979-12-15', '010-5328-0508', 'mauris.ut.mi@aol.org', 'ë¶€ì‚°', 0, 0, '', '2009-05-09', 0, 'ìƒ´\r'),
+	('cyg', '1234', 'ì‚¬ìš©ì7', '2010-10-11', '010-6357-6830', 'felis@google.edu', 'ê²½ê¸°', 0, 0, '', '2010-04-06', 1, 'ë±…ê°ˆ\r'),
+	('dog', '1234', 'ì‚¬ìš©ì18', '2018-09-06', '010-4281-3862', 'nam@aol.edu', 'ì¸ì²œ', 0, 0, '', '2007-08-13', 1, 'ì•„ë©”ìˆ\r'),
+	('gix', '1234', 'ì‚¬ìš©ì6', '2014-10-17', '010-8719-2518', 'sapien.cursus@icloud.com', 'ì„œìš¸', 0, 0, '', '2011-09-01', 1, 'ì•„ë©”ìˆ\r'),
+	('jqy', '1234', 'ì‚¬ìš©ì5', '2003-11-12', '010-9161-9608', 'metus@aol.couk', 'ë¶€ì‚°', 0, 0, '', '2023-04-19', 0, 'ìƒ´\r'),
+	('len', '1234', 'ì‚¬ìš©ì15', '2009-01-19', '010-8250-1802', 'nullam@google.couk', 'ì„œìš¸', 0, 0, '', '2009-12-11', 1, 'í„°í‚¤ì‰¬\r'),
+	('may', '1234', 'ì‚¬ìš©ì14', '2005-09-24', '010-3855-4589', 'integer.aliquam.adipiscing@aol', 'ë¶€ì‚°', 0, 0, '', '2013-05-10', 1, 'í„°í‚¤ì‰¬\r'),
+	('mkp', '1234', 'ì‚¬ìš©ì17', '1967-03-03', '010-7018-6925', 'donec@google.org', 'ì¸ì²œ', 0, 0, '', '2000-11-08', 0, 'ì½”ìˆ\r'),
+	('nib', '1234', 'ì‚¬ìš©ì20', '1979-12-30', '010-8455-2383', 'fringilla.ornare@aol.com', 'ê°•ì›ë„', 0, 0, '', '2020-11-11', 0, 'ì•„ë©”ìˆ\r'),
+	('rny', '1234', 'ì‚¬ìš©ì8', '1995-12-03', '010-4550-5139', 'ante@aol.edu', 'ì¸ì²œ', 0, 0, '', '2014-02-05', 1, 'ë±…ê°ˆ\r'),
+	('sqe', '1234', 'ì‚¬ìš©ì13', '2008-04-16', '010-7265-7171', 'in@aol.edu', 'ì¶©ë‚¨', 0, 0, '', '2020-04-18', 1, 'ìƒ´\r'),
+	('tgx', '1234', 'ì‚¬ìš©ì9', '1971-06-23', '010-7576-3154', 'vestibulum.neque@icloud.org', 'ì œì£¼ë„', 0, 0, '', '2007-04-22', 1, 'ëŸ¬ë¸”\r'),
+	('tty', '1234', 'ì‚¬ìš©ì19', '1991-10-23', '010-8515-7344', 'et@hotmail.ca', 'ë¶€ì‚°', 0, 0, '', '2006-09-23', 1, 'ì•„ë©”ìˆ\r'),
+	('ucn', '1234', 'ì‚¬ìš©ì21', '1998-02-22', '010-1231-1111', 'ex@gmail.com', 'ëŒ€êµ¬', 0, 0, '', '2019-09-11', 0, 'í˜ë¥´ì‹œì•ˆ'),
+	('vlk', '1234', 'ì‚¬ìš©ì12', '2021-05-30', '010-1557-4058', 'purus@icloud.edu', 'ì¶©ë¶', 0, 0, '', '2017-09-10', 1, 'ì½”ìˆ\r');
+/*!40000 ALTER TABLE `member` ENABLE KEYS */;
+
+/*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
+/*!40014 SET FOREIGN_KEY_CHECKS=IFNULL(@OLD_FOREIGN_KEY_CHECKS, 1) */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40111 SET SQL_NOTES=IFNULL(@OLD_SQL_NOTES, 1) */;

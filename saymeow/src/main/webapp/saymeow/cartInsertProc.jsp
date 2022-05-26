@@ -1,3 +1,4 @@
+<%@page import="saymeow.ProductMgr"%>
 <%@page import="saymeow.UtilMgr"%>
 <%@page import="saymeow.CartBean"%>
 <%@page import="java.util.Vector"%>
@@ -25,8 +26,12 @@
 	String pname = request.getParameter("pname");
 	System.out.println("pname : " + pname);
 	
+	// 주문 상품이미지
+	String image = ProductMgr.getPImage(pnum);
+	System.out.println("[insert]image : " + image);
+	
 	// 개당 판매가
-	int price1 = UtilMgr.parseInt(request, "price1");
+	int price1 = ProductMgr.getPrice(pnum);
 	
 	// flag값
 	String flag = request.getParameter("flag");
@@ -39,7 +44,10 @@
 		cart.setPname(pname);
 		cart.setPrice1(price1);
 		cart.setQty(qty);
+		cart.setImage(image);
 		System.out.println("oid : " + oid);
+		
+		
 		Vector<CartBean> vlist = cMgr.getCartList(oid);
 		
 		/*장바구니에 존재하면 수정, 없으면 추가*/

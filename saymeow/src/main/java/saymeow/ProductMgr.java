@@ -146,7 +146,7 @@ public class ProductMgr {
 						 + "RIGHT JOIN product p ON p.pnum = r.pnum ";
 					sql2 = "WHERE (sclass = ? AND pstat = 1) ";
 					sql3 = "GROUP BY p.pnum "
-						 + "ORDER BY cnt DESC";
+						 + "ORDER BY avg DESC";
 					pstmt = con.prepareStatement(sql1+sql2+sql3);
 					pstmt.setString(1, sClass);
 				}
@@ -188,7 +188,7 @@ public class ProductMgr {
 		//System.out.println("[Mgr.getP2] mClass:"+mClass+" /sClass:"+sClass+" /sort:"+sort);
 		return vlist;
 	}	
-	
+
 	
 	// 메인화면 상품리스트업
 	public Vector<ProductBean> getP3() {
@@ -259,8 +259,12 @@ public class ProductMgr {
 		return vlist;
 	}
 	
-	//pnum의 price1 호출
-	public int getPrice(int pnum) {
+	//pnum의 price1 호출: 장바구니에서 쓰는용
+	public static int getPrice(int pnum) {
+
+		DBConnectionMgr pool;
+		pool = DBConnectionMgr.getInstance();	
+		
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -282,7 +286,63 @@ public class ProductMgr {
 		}
 		return price1;
 	}
+	
+	//pnum으로 image 호출: 장바구니에서 쓰는용
+	public static String getPImage(int pnum) {
+
+		DBConnectionMgr pool;
+		pool = DBConnectionMgr.getInstance();	
+		
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = null;
+		String image = "ready.png";
+		try {
+			con = pool.getConnection();
+			sql = "select image from product where pnum=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, pnum);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				image = rs.getString(1);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			pool.freeConnection(con, pstmt, rs);
+		}
+		return image;
+	}
+	
+	
+	// 주문완료시 상품 stock qty 갯수만큼 줄어들게
+	public boolean stockMinus(int pnum, int qty) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		String sql = null;
+		boolean flag = false;
+		try {
+			con = pool.getConnection();
+			sql = "UPDATE product SET stock = stock - ? WHERE pnum=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, pnum);
+			pstmt.setInt(2, qty);
+			System.out.println("[stock]pnum:"+pnum);
+			System.out.println("[stock]qty:"+qty);
+			if(pstmt.executeUpdate()==1) flag = true;
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			pool.freeConnection(con, pstmt);
+		}
+		System.out.println("[stock] 재고조정 실행");
+		return flag;
+	}
+	
+	
 }
+
 
 
 
