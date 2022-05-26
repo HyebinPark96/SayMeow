@@ -275,8 +275,8 @@ public class AdminOrderMgr {
 		String sql = null;
 		try {
 			con = pool.getConnection();
-			sql = "INSERT petorder(pnum,qty,pname,oid,regdate,oaddress,state) "
-				+ "VALUES (1, 22, '카샤카샤', 1, now(),'부산', '배송완료');";
+			sql = "INSERT petorder(pnum,qty,price1,pname,oid,regdate,oaddress,state) "
+				+ "VALUES (1, 22, 33000, '건식사료1', 'aaa', now(),'부산', 2);";
 			pstmt = con.prepareStatement(sql);
 			// 1000번 반복
 			for (int i = 0; i < 1000; i++) {
