@@ -44,7 +44,7 @@ function updateOneMember(value){
 }
 </script>
 </head>
-<body>
+<body id="adminMember">
 	<!-- 사이드바 -->
 	<div class="d-flex align-items-start">
 		<div class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
@@ -135,9 +135,9 @@ function updateOneMember(value){
 		<div class="memberSearch">
 			<form>
 			<br><br>
-				<input type="search" placeholder="회원 ID로 검색" name="sid" style="font-size:0.8em;">
-				<button type="submit" style="border: 5px solid #eee; border-radius: 6px; background-color:#eee; font-size:0.8em;">검색</button>
-				<button onClick="location.href='adminMember.jsp'" style="border: 5px solid #eee; border-radius: 6px; background-color:#eee; font-size:0.8em;">전체보기</button>
+				<input type="search" class="form-control form-text-input" placeholder="회원 ID로 검색" name="sid">
+				<button type="submit" style="border: 5px solid #eee; border-radius: 4px; background-color:#eee;">검색</button>
+				<button onClick="location.href='adminMember.jsp'" style="border: 5px solid #eee; border-radius: 4px; background-color:#eee;">전체보기</button>
 			<br><br>
 			</form>
 		</div>

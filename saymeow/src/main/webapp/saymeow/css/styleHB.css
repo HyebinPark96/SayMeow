@@ -1,4 +1,75 @@
 @charset "EUC-KR";
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300&display=swap');
+
+* {
+	margin: 0;
+	padding: 0;
+}
+
+/*readMyReview.jsp*/
+#readMyReview .review-contents{
+	margin:0 auto;
+}
+
+#readMyReview .heading{
+	text-align: center; 
+	margin: 1.5vw; 
+	margin-bottom: 2vw;
+}
+
+
+#readMyReview .table{
+	border: 1px solid #eee;
+}
+
+#readMyReview .table-column{
+	height:6vh;
+	vertical-align:middle;
+	background-color:#eee;
+}
+
+#readMyReview .table-data{
+	vertical-align:middle;
+}
+
+#readMyReview .table-data, #readMyReview .review-board-aTag{
+	color:black;
+}
+
+#readMyReview .deleteBtn {
+	background-color:#eee;
+	border:1px solid #eee;
+	color:black;
+}
+
+#readMyReview .submitBtn {
+	background-color:#eee;
+	border:1px solid #eee;
+	color:black;
+	height:3.7vh;
+	line-height: 2vh;
+	margin-bottom:0.5vh;
+}
+
+#readMyReview .review-board-block-aTag{
+	color:black;
+}
+
+#readMyReview .reviewInfo{
+	font-size:0.7em;
+	color:#a0a0a0;
+}
+
+#readMyReview .reviewSearchBtn, #readMyReview .initBtn{
+	margin-bottom: 0.6vh;
+	background-color:#eee;
+	border:1px solid #eee;
+	color:black;
+}
+
+
+
+
 /*reviewForm.jsp*/
 #review-board-container {
 	margin:5vh auto;
@@ -61,8 +132,6 @@
 	margin:3vh 0;
 }
 
-
-
 /*reviewBoard.jsp*/
 #review-board .review-board-topic{
 	margin-bottom:1vh;
@@ -102,24 +171,88 @@
 
 
 /*adminReviewBoard.jsp*/
-#adminReviewBoard .nav > a{
-	text-decoration-line: none;
+#adminReviewBoard .review-contents{
+	margin:0 auto;
+}
+
+#adminReviewBoard .heading{
+	text-align: center; 
+	margin: 1.5vw; 
+	margin-bottom: 2vw;
+}
+
+#adminReviewBoard .table{
+	border: 1px solid #eee;
+}
+
+#adminReviewBoard .table-column{
+	height:6vh;
+	vertical-align:middle;
+	background-color:#eee;
+}
+
+#adminReviewBoard .table-data{
+	vertical-align:middle;
+}
+
+#adminReviewBoard .table-data, #adminReviewBoard .review-board-aTag{
+	color:black;
 }
 
 #adminReviewBoard .deleteBtn {
-	margin-top:2vh;
 	background-color:#eee;
 	border:1px solid #eee;
 	color:black;
 }
 
-#adminReviewBoard .reviewSearchBtn, #adminReviewBoard .initBtn {
+#adminReviewBoard .review-board-block-aTag{
+	color:black;
+}
+
+#adminReviewBoard .reviewInfo{
+	font-size:0.7em;
+	color:#a0a0a0;
+}
+
+#adminReviewBoard .commentDeleteBtn{
+	font-size:0.3em;
+	background-color:black;
+	border:1px solid black;
+	height:0.3em;
+	color:white;
+	line-height: 0.3em;
+}
+
+#adminReviewBoard .submitBtn{
+	background-color:#eee;
+	border:1px solid #eee;
+	color:black;
+	height:3.7vh;
+	line-height: 2vh;
+	margin-bottom:0.5vh;
+}
+
+#adminReviewBoard .searchDiv{
+	text-align:center; 
+	margin: 2vw;
+	display:inline;
+}
+
+#adminReviewBoard .form-control, #adminReviewBoard .form-select{
+	display:inline;
+	width:10vw;
+}
+
+#adminReviewBoard .reviewSearchBtn, #adminReviewBoard .initBtn{
 	margin-bottom: 0.6vh;
 	background-color:#eee;
 	border:1px solid #eee;
 	color:black;
 }
 
+#adminReviewBoard .npFrm-td{
+	margin-bottom: 1vh;
+}
 
 /*adminOrder.jsp*/
 #adminOrder .nav > a{
@@ -127,15 +260,26 @@
 }
 
 #adminOrder .table-column{/*게시판 컬럼*/
+	height:6vh;
+	vertical-align:middle;
 	background-color:#eee;
 }
 
 #adminOrder .dateSearchBtn{
 	display:inline-block;
-	font-size:0.5em;
+	font-size:0.8em;
 	background-color:#eee;
 	border:1px solid #eee;
 	color:black;
+}
+
+#adminOrder .pagingATag{
+	color:black;
+}
+
+#adminOrder .searchDiv {
+	text-align:center;
+	margin-top: 3vh;
 }
 
 #adminOrder .form-select, #adminOrder .form-text-input{
@@ -152,7 +296,6 @@
 }
 
 #adminOrder .deleteBtn{
-	margin-top:2vh;
 	background-color:#eee;
 	border:1px solid #eee;
 	color:black;
