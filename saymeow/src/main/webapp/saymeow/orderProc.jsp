@@ -12,7 +12,7 @@
 <%
 	String oid = (String)session.getAttribute("idKey");
 	String flag = request.getParameter("flag");
-	
+
 	String msg = "결제가 완료되었습니다.";
 	String url = "cartList.jsp";
 	
@@ -23,6 +23,7 @@
 		snum = request.getParameterValues("cch");
 		OrderBean order = new OrderBean();
 		CartBean cart = new CartBean();
+		
 		if(snum.length>0){
 			for(int i=0;i<snum.length;i++){
 				cart = cMgr.checkCart(Integer.parseInt(snum[i]));
@@ -51,13 +52,20 @@
 				order.setPname(cart.getPname());
 				order.setOid(cart.getOid());
 				oMgr.insertOrderFromCart(order); // 업데이트로바꾸기
+				
+				OrderBean oBean = oMgr.getDirectOrderList(oid);
+				int onum = oBean.getOnum();
+				// System.out.println("[orderProc flag=cart] onum:"+onum);
+				pMgr.stockMinus(onum); // 구매수량만큼 재고빠지기
 				cMgr.deleteCart(Integer.parseInt(snum[i]));// 장바구니에서 삭제
+				
 			} // -- for문 끝
 		} // -- 중간 if문 끝
-	} //else {
-		//int onum = UtilMgr.parseInt(request, "onum"); //onum 받아오기 
-		//oMgr.updateOrder(onum); // 결제완료했으니 상태 2로 바꾸기
-	// } // -- 최종 if문 끝
+	} else { // 어디서 오는거임?
+		int onum = UtilMgr.parseInt(request, "onum"); //onum 받아오기 
+		oMgr.updateOrder(onum); // 결제완료했으니 상태 2로 바꾸기
+		pMgr.stockMinus(onum);
+	 } // -- 최종 if문 끝
 %>
 <script>
 	alert("<%=msg%>");
