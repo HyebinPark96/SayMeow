@@ -253,8 +253,27 @@ function read(i) { // 토글
 											<input type="hidden" name="subject" value="<%=subject%>">
 											<input type="hidden" name="content" value="<%=content%>">
 											<input type="hidden" name="score" value="<%=score%>">
-											<img src="../img/star-score.jpg" width="30vw" height="30vh"> * <%=score%>&nbsp;&nbsp;<label class="reviewInfo"><%=rid%>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%=date%><br></label>
-											<h6><%=subject%></h6>
+											<%if(score%1.0!=0 /*실수형*/){
+												int share = (int)(score / 1.0); // 몫
+												int remainder = (int)(Math.ceil(score % 1.0)); // 나머지
+
+												for(int j=0; j<share; j++){%>
+													<img src="../img/full-star-score.png" width="30vw" height="30vh">
+													  
+											<%} 
+												for(int j=0; j<remainder; j++){%>
+													<img src="../img/half-star-score.png" width="30vw" height="30vh">
+												<%}// --- for문 끝 
+											}else if(score%1.0==0 /*정수형*/){
+												int share = (int)(score / 1.0); // 몫
+												
+												for(int j=0; j<share; j++){%>
+													<img src="../img/full-star-score.png" width="30vw" height="30vh">
+												<%} // ---for문 끝%>
+											<%}%>
+											&nbsp;&nbsp;&nbsp;<label class="reviewInfo"><%=rid%>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%=date%><br></label>
+											<br><br>
+											<h4><%=subject%></h4>
 											<h6><%=content%></h6>
 											<%if(filename!=null){ %>
 												<img src="../storage/<%=filename%>" width="800vw" height="400vw" style="display:block; margin: 0 auto; object-fit: cover;"><br>
@@ -265,10 +284,10 @@ function read(i) { // 토글
 											<%}%>
 										</form>
 										<br>
-										<h5>[댓글]</h5>
 										<%
-										Vector<RCommentBean> cvlist = cMgr.listRComment(rnum);
-										for(int j=0; j<cvlist.size(); j++){
+										Vector<RCommentBean> cvlist = cMgr.listRComment(rnum);%>
+										<h6>해당 리뷰는 총 <%=cvlist.size()%>개의 댓글이 달렸습니다!</h6>
+										<%for(int j=0; j<cvlist.size(); j++){
 											rcBean = cvlist.get(j);
 											
 											int rcNum = rcBean.getRcNum();
@@ -279,7 +298,7 @@ function read(i) { // 토글
 											if(!cvlist.isEmpty()) {
 										%>
 												<form name="commentListFrm" action="commentDeleteProc.jsp" method="POST">
-													<%=j+1%>) <%=cid %> : <%=comment%>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[<%=rcDate%>에 작성되었습니다.]
+													<%=j+1%>) <%=cid %> : <%=comment%>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[<%=rcDate%>에 작성된 댓글입니다.]
 													<%if(id=="admin" || id.equals("admin")){%> <!-- 관리자만 모든 댓글 삭제 가능 -->
 													<input type="hidden" name="rcNum" value="<%=rcNum%>">
 													<input type="submit" class="btn btn-primary commentDeleteBtn" value="삭제">
@@ -287,7 +306,7 @@ function read(i) { // 토글
 												</form>
 											<%} %>
 										<%} %>
-										
+										<br>
 										<%if(id=="admin"||id.equals("admin")) {%>
 											<form name="commentFrm" action="CommentInsertProc.jsp" method="post">
 												<input type="hidden" name="rnum" value="<%=rnum%>">

@@ -180,16 +180,21 @@
 }
 
 #adminReviewBoard .commentDeleteBtn{
-	font-size:0.5em;
-	background-color:#eee;
-	border:1px solid #eee;
-	color:black;
+	font-size:0.3em;
+	background-color:black;
+	border:1px solid black;
+	height:0.3em;
+	color:white;
+	line-height: 0.3em;
 }
 
 #adminReviewBoard .submitBtn{
 	background-color:#eee;
 	border:1px solid #eee;
 	color:black;
+	height:3.7vh;
+	line-height: 2vh;
+	margin-bottom:0.5vh;
 }
 
 #adminReviewBoard .searchDiv{
