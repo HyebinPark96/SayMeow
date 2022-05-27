@@ -39,7 +39,7 @@
 		interval = request.getParameter("interval");
 	}
 	
-	totalRecord = aoMgr.getCountRecord(keyField, keyWord);
+	totalRecord = aoMgr.getCountRecord(keyField, keyWord, interval); // interval 까지 넣어줘서 토탈레코드 구해야 페이징처리 완벽히 됨
 	
 	if(request.getParameter("nowPage")!=null){
 		nowPage = UtilMgr.parseInt(request, "nowPage");
@@ -91,6 +91,8 @@
 		document.readFrm.nowPage.value = <%=pagePerBlock%> * (block - 1) + 1; // 다음 OR 이전 a태그의 블럭(+1 OR -1)값이 nowBlock이 됨
 		document.readFrm.submit(); // 재귀호출
 	}
+	
+
 	
 	// 한 페이지 체크박스 전체 선택하여 삭제 기능
 	function allCheck(nowPageChbNum){ // nowPageChbNum는 totalRecord-start 가 들어온다.
