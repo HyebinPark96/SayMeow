@@ -6,6 +6,70 @@
 	padding: 0;
 }
 
+/*readMyReview.jsp*/
+#readMyReview .review-contents{
+	margin:0 auto;
+}
+
+#readMyReview .heading{
+	text-align: center; 
+	margin: 1.5vw; 
+	margin-bottom: 2vw;
+}
+
+
+#readMyReview .table{
+	border: 1px solid #eee;
+}
+
+#readMyReview .table-column{
+	height:6vh;
+	vertical-align:middle;
+	background-color:#eee;
+}
+
+#readMyReview .table-data{
+	vertical-align:middle;
+}
+
+#readMyReview .table-data, #readMyReview .review-board-aTag{
+	color:black;
+}
+
+#readMyReview .deleteBtn {
+	background-color:#eee;
+	border:1px solid #eee;
+	color:black;
+}
+
+#readMyReview .submitBtn {
+	background-color:#eee;
+	border:1px solid #eee;
+	color:black;
+	height:3.7vh;
+	line-height: 2vh;
+	margin-bottom:0.5vh;
+}
+
+#readMyReview .review-board-block-aTag{
+	color:black;
+}
+
+#readMyReview .reviewInfo{
+	font-size:0.7em;
+	color:#a0a0a0;
+}
+
+#readMyReview .reviewSearchBtn, #readMyReview .initBtn{
+	margin-bottom: 0.6vh;
+	background-color:#eee;
+	border:1px solid #eee;
+	color:black;
+}
+
+
+
+
 /*reviewForm.jsp*/
 #review-board-container {
 	margin:5vh auto;
@@ -107,14 +171,14 @@
 
 
 /*adminReviewBoard.jsp*/
+#adminReviewBoard .review-contents{
+	margin:0 auto;
+}
+
 #adminReviewBoard .heading{
 	text-align: center; 
 	margin: 1.5vw; 
 	margin-bottom: 2vw;
-}
-
-#adminReviewBoard .review-contents{
-	margin:0 auto;
 }
 
 #adminReviewBoard .table{
@@ -131,7 +195,7 @@
 	vertical-align:middle;
 }
 
-#adminReviewBoard .table-data .review-board-aTag{
+#adminReviewBoard .table-data, #adminReviewBoard .review-board-aTag{
 	color:black;
 }
 
@@ -144,35 +208,6 @@
 #adminReviewBoard .review-board-block-aTag{
 	color:black;
 }
-
-
-/*별점*/
-#adminReviewBoard .star { /*전체 별점을 감싸는 span태그*/
-    position: relative; /*부모요소*/
-    font-size: 2rem;
-    color: #ddd;
-}
-  
-#adminReviewBoard .star input { /*바*/
-	/*position 속성으로 인해 왼쪽을 기준으로 하여 부모요소에 꽉 맞게 찬다.*/
-    width: 100%;
-    height: 100%;
-    position: absolute; /*자식요소*/
-    left: 0; 
-    opacity: 0;
-    cursor: pointer;
-}
-  
-#adminReviewBoard .star span { /*배경색 있는 별*/
-	/*position 속성으로 인해 왼쪽을 기준으로 하여 부모요소에 꽉 맞게 찬다.*/
-    width: 0;
-    position: absolute; /*자식요소*/
-    left: 0;
-    color: red;
-    overflow: hidden; /*width에서 초과되는 부분은 숨김처리*/
-    pointer-events: none;
-}
-
 
 #adminReviewBoard .reviewInfo{
 	font-size:0.7em;
