@@ -260,17 +260,23 @@ function read(i) { // 토글
 												for(int j=0; j<share; j++){%>
 													<img src="../img/full-star-score.png" width="30vw" height="30vh">
 													  
-											<%} 
+												<%}
 												for(int j=0; j<remainder; j++){%>
 													<img src="../img/half-star-score.png" width="30vw" height="30vh">
-												<%}// --- for문 끝 
+												<%}
+												for(int j=0; j<5-share-remainder; j++){%>
+													<img src="../img/blank-star-score.png" width="30vw" height="30vh">
+												<%}
 											}else if(score%1.0==0 /*정수형*/){
 												int share = (int)(score / 1.0); // 몫
 												
 												for(int j=0; j<share; j++){%>
 													<img src="../img/full-star-score.png" width="30vw" height="30vh">
-												<%} // ---for문 끝%>
-											<%}%>
+												<%}
+												for(int j=0; j<5-share; j++){%>
+												<img src="../img/blank-star-score.png" width="30vw" height="30vh">
+												<%}
+											}// -- if-else문 끝%>
 											&nbsp;&nbsp;&nbsp;<label class="reviewInfo"><%=rid%>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%=date%><br></label>
 											<br><br>
 											<h4><%=subject%></h4>
