@@ -316,8 +316,8 @@ public class ProductMgr {
 	}
 	
 	
-	// 주문완료시 상품 stock qty 갯수만큼 줄어들게
-	public boolean stockMinus(int pnum, int qty) {
+	// 주문완료시 상품 stock qty 갯수만큼 줄어들게 (안씀)
+	public boolean stockMinus2(int pnum, int qty) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		String sql = null;
@@ -341,6 +341,29 @@ public class ProductMgr {
 	}
 	
 	
+	// 주문번호 onum으로 qty만큼 stock 줄이는 메소드 
+	public boolean stockMinus(int onum) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		String sql = null;
+		boolean flag = false;
+		try {
+			con = pool.getConnection();
+			sql = "UPDATE product p JOIN petorder o "
+				+ "ON p.pnum = o.pnum "
+				+ "SET p.stock = p.stock-o.qty " 
+				+ "WHERE onum = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, onum);
+			if(pstmt.executeUpdate()==1) flag = true;
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			pool.freeConnection(con, pstmt);
+		}
+		System.out.println("[stock] 재고조정 실행 onum:"+onum);
+		return flag;
+	}
 }
 
 
