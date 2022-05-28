@@ -165,6 +165,18 @@
 	border-radius: 5px;
 }
 
+#productDetail .btn_wrap .side_btn2 {
+	width: 120px;
+	height: 40px;
+	background-color: #A6A6A6;
+	display: block;
+	text-align: center;
+	margin-right: 10px;
+	line-height: 40px;
+	color: #fff;
+	border-radius: 5px;
+}
+
 #productDetail .detail {
 	width: 1080px;
 	height: 100px;
