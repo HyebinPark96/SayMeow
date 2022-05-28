@@ -37,7 +37,7 @@ function send_form(frmId) { // form 제출
 
 	<!-- 배너 -->
     <section class="bsection">
-	<img src="image/banner.png" height="360" width="1100">
+	<img src="image/banner2.png" height="200" width="1000">
     </section>	
 	<!-- 상품리스트업 -->
 	<section class="psection">

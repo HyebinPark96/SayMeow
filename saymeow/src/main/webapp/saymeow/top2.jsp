@@ -35,7 +35,7 @@
 		<!-- 로고 / 검색창 / 로그인 버튼 -->
 		<section class = "ssection">
 			<div>
-    			<a href="/jspproject/saymeow/index.jsp"><img class="logo" src="/jspproject/saymeow/image/logo1.png"></a>
+    			<a href="/jspproject/saymeow/index.jsp"><img class="logo" src="/jspproject/saymeow/image/saymeow_logo_dark.png"></a>
     		</div>
     		<!-- 검색창 -->
     		<div class="search d-flex">
