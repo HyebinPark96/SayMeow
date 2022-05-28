@@ -22,6 +22,7 @@ String detail = pbean.getDetail();
 String mClass = pbean.getMclass();
 String cClass = pbean.getSclass();
 String pname = pbean.getPname();
+int stock = pbean.getStock();
 %>
 
 <% // 페이징 처리에 필요한 변수 선언
@@ -192,8 +193,13 @@ function read(i) { // 토글
 
 						<div class="btn_wrap">
 							<form name="cartFrm">
-								<input type="button" class="side_btn" value="장바구니" onclick="javascript:cartInsert(this.form)"> 
-									<input type="button" class="side_btn" value="구매하기" onclick="javascript:directOrder(this.form)"> 
+								<%if(stock == 0){%>
+										<input type="button" class="side_btn2" value="장바구니"> 
+										<input type="button" class="side_btn2" value="구매하기">
+									<%} else {%>
+										<input type="button" class="side_btn" value="장바구니" onclick="javascript:cartInsert(this.form)"> 
+										<input type="button" class="side_btn" value="구매하기" onclick="javascript:directOrder(this.form)"> 
+									<%}%>
 									<input type="hidden" name="flag" value="insert"> 
 									<input type="hidden" name="id" value="<%=id%>"> 
 									<input type="hidden" name="pnum" value="<%=pnum%>"> 
