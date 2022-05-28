@@ -188,6 +188,65 @@ public class AdminSalesDataMgr {
 		return expenses;
 	}
 	
+	//-- 대분류별 매출금액 (mclass sales)
+	public int getMSales(String mClass) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = null;
+		int Msales = 0;
+		try {
+			con = pool.getConnection();
+			
+			sql = "SELECT SUM(o.price1*o.qty) "
+				+ "FROM product p "
+				+ "JOIN petorder o ON p.pnum = o.pnum "
+				+ "WHERE p.mclass = ? AND o.state = 2";
+			
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, mClass);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				Msales = rs.getInt(1); // 해당 대분류의 매출액
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			pool.freeConnection(con, pstmt, rs);
+		}
+		return Msales;
+	}
+	
+	//-- 중분류별 매출금액 (sclass sales)
+	public int getSSales(String sClass) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = null;
+		int Ssales = 0;
+		try {
+			con = pool.getConnection();
+			
+			sql = "SELECT SUM(o.price1*o.qty) "
+				+ "FROM product p "
+				+ "JOIN petorder o ON p.pnum = o.pnum "
+				+ "WHERE p.sclass = ? AND o.state = 2";
+			
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, sClass);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				Ssales = rs.getInt(1); // 해당 중분류의 매출액
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			pool.freeConnection(con, pstmt, rs);
+		}
+		return Ssales;
+	}
+	
+	
 	
 	
 	public static void main(String[] args) {

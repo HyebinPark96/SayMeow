@@ -11,6 +11,7 @@
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     
     <!-- 원형그래프 -->
+    <!-- 주문수량별  -->
     <script type="text/javascript">
 		google.charts.load("current", {packages:["corechart"]});
 		google.charts.setOnLoadCallback(drawChart);
@@ -35,6 +36,7 @@
 	</script>
       
 	<!-- 막대그래프 : 현재 년도를 기준으로 4년치 가져옴 (Ex.23년되면 20~23년 가져옴) -->
+	<!-- 연도별 매출액, 비용, 매출이익 막대 그래프 -->
 	<script type="text/javascript">
 		google.charts.load('current', {packages:['bar']});
 		google.charts.setOnLoadCallback(drawChart);
@@ -63,7 +65,6 @@
 	
 	        chart.draw(data, google.charts.Bar.convertOptions(options));
 	
-	
 	        btns.onclick = function (e) {
 	
 	        if (e.target.tagName === 'BUTTON') {
@@ -74,6 +75,61 @@
 	}
     </script>
     
+    
+    <!-- 대분류별 매출/전체 매출 원형그래프 -->
+    <script type="text/javascript">
+		google.charts.load("current", {packages:["corechart"]});
+		google.charts.setOnLoadCallback(drawChart);
+		function drawChart() {
+        	var data = google.visualization.arrayToDataTable([
+	          ['mClass',	 'Total Sales'],
+	          ['food',   	  <%=dMgr.getMSales("food")%>],
+	          ['treat',    	  <%=dMgr.getMSales("treat")%>],
+	          ['toy',  		  <%=dMgr.getMSales("toy")%>],
+	          ['litter',	  <%=dMgr.getMSales("litter")%>],
+
+	        ]);
+
+	        var options = {
+	          title: '전체 매출에서 대분류별 상품 매출액 비중',
+	          
+	        };
+	
+	        var chart = new google.visualization.PieChart(document.getElementById('piechart'))
+	        chart.draw(data, options);
+		}
+	</script>
+
+    <!-- 중분류별 매출/전체 매출 원형그래프 -->
+    <script type="text/javascript">
+		google.charts.load("current", {packages:["corechart"]});
+		google.charts.setOnLoadCallback(drawChart);
+		function drawChart() {
+        	var data = google.visualization.arrayToDataTable([
+	          ['sClass', 'Total Sales'],
+	          ['dry',     		<%=dMgr.getSSales("dry")%>],
+	          ['wet',     		<%=dMgr.getSSales("wet")%>],
+	          ['snack',  	  <%=dMgr.getSSales("snack")%>],
+	          ['stick', 	  <%=dMgr.getSSales("stick")%>],
+	          ['pole', 		   <%=dMgr.getSSales("pole")%>],
+	          ['plush',  	  <%=dMgr.getSSales("plush")%>],
+	          ['sand',		   <%=dMgr.getSSales("sand")%>],
+	          ['box',		 	<%=dMgr.getSSales("box")%>],
+
+	        ]);
+
+	        var options = {
+	          title: '전체 매출에서 중분류별 상품 매출액 비중',
+	          
+	        };
+	
+	        var chart = new google.visualization.PieChart(document.getElementById('piechart2'))
+	        chart.draw(data, options);
+		}
+	</script>
+
+ 
+    
 <!-- 부트스트랩 CSS -->
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
@@ -81,6 +137,7 @@
 	integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
 	crossorigin="anonymous">
 <%@ include file="../top2.jsp" %>
+<link rel='stylesheet' type='text/css' media='screen' href='../css/adminSales.css'>	
 </head>
 <body>
 	<div class="d-flex align-items-start">
@@ -93,11 +150,17 @@
 			<a href="../sellHistory.jsp"><button class="nav-link" id="v-pills-settings-tab" data-bs-toggle="pill" data-bs-target="#v-pills-settings" type="button" role="tab" aria-controls="v-pills-settings" aria-selected="false">매출관리</button></a>
 			<a href="adminSales.jsp"><button class="nav-link active" id="v-pills-settings-tab" data-bs-toggle="pill" data-bs-target="#v-pills-settings" type="button" role="tab" aria-controls="v-pills-settings" aria-selected="false">판매데이터</button></a>
 		</div>
+	
+		<section class="chart">
+		
 		<!-- 본문 -->
-		<div id="donutchart" style="width: 900px; height: 500px;">
+		<div id="donutchart" style="width: 900px; height: 500px;"></div>
+		<div id="chart_div" style="margin-top:4vh;"></div>
+		<div class="classpie">
+		<div id="piechart" style="width: 700px; height: 500px;"></div> 
+		<div id="piechart2" style="width: 700px; height: 500px;"></div>
 		</div>
-		<div id="chart_div" style="margin-top:4vh;">
-		</div>
+		</section>
 	</div>
 </body>
 </html>
