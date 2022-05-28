@@ -1,10 +1,11 @@
+<%@page import="saymeow.ProductBean"%>
 <%@page import="saymeow.ProductMgr"%>
 <%@page import="saymeow.UtilMgr"%>
 <%@page import="saymeow.CartBean"%>
 <%@page import="java.util.Vector"%>
 <%@page contentType="text/html; charset=EUC-KR"%>
 <jsp:useBean id="cMgr" class="saymeow.CartMgr"/>
-
+<jsp:useBean id="pdMgr" class="saymeow.ProductDetailMgr"/>
 <%
 	int allTotal=0;
     String uAllTotal = "";
@@ -66,6 +67,7 @@
 			int total = price*quantity;
 			allTotal += total;
 			uAllTotal = UtilMgr.monFormat(allTotal);
+			ProductBean pbean = pdMgr.getProduct(pnum);
 		%>
 		<tr>
 			<td><input type="checkbox" name="cch" value="<%=cart.getCnum()%>" onclick="javascript:chk()"></td>
@@ -75,11 +77,13 @@
 			<img src="image/<%=image%>" height="80" width="80">
 			</a>
 			</td>
-			<td>
-			<a href="product/productDetail.jsp?pnum=<%=cart.getPnum()%>">
-			<%=cart.getPname()%>
-			</a>
-			</td>
+			<%if(pbean.getStock()==0){%>
+			<td><a href="product/productDetail.jsp?pnum=<%=cart.getPnum()%>"><%=cart.getPname()%>&nbsp;[품절]</a></td>
+			<%}else if(pbean.getStock()<quantity){%>
+			<td><a href="product/productDetail.jsp?pnum=<%=cart.getPnum()%>"><%=cart.getPname()%>&nbsp;[재고부족]</a></td>
+			<%}else{%>
+			<td><a href="product/productDetail.jsp?pnum=<%=cart.getPnum()%>"><%=cart.getPname()%></a></td>
+			<%}%>
 			<td><%=UtilMgr.monFormat(price)%>원</td>
 			<td><%=quantity%></td>
 			<td><%=UtilMgr.monFormat(total)%>원</td>
