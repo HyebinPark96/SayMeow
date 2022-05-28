@@ -83,15 +83,15 @@ function selectMFn(month){
 
 <div>
 
-<table border="1" style="width:100%;">
+<table border="1" style="border: 1;width:620px;text-align: center;">
 <br>
 <br>
 	<thead>
 	<tr>
-		<th>상품 번호</th>
-		<th>상품명</th>
-		<th>판매 수량</th>
-		<th>판매 금액</th>
+		<th style="background:#9598CA;">상품 번호</th>
+		<th style="background:#9598CA;">상품명</th>
+		<th style="background:#9598CA;">판매 수량</th>
+		<th style="background:#9598CA;">판매 금액</th>
 	</tr>
 	</thead>
 	<%if(year==0&&month==0){
@@ -161,7 +161,7 @@ function selectMFn(month){
 </table>
 <br><br>
 
-<h3>총 판매금액은 <%=UtilMgr.monFormat(sellTotal)%>원 입니다.</h3>
+<h3>총 판매금액은 <span style="color:red;"><%=UtilMgr.monFormat(sellTotal)%></span>원 입니다.</h3>
 <br><br>
 </div>
 
