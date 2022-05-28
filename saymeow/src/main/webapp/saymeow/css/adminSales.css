@@ -1,0 +1,11 @@
+@charset "EUC-KR";
+
+
+.chart {
+	margin: auto;
+	text-align: center;
+}
+
+.classpie {
+	display: flex;
+}
