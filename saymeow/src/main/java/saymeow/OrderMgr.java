@@ -149,9 +149,6 @@ public class OrderMgr {
 	}
 
 	
-	
-	
-	
 	//list
 	public Vector<OrderBean> getOrderList(String oid){
 		Connection con = null;

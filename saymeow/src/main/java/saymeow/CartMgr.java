@@ -59,6 +59,7 @@ public class CartMgr {
 				cart.setPname(rs.getString("pname"));
 				cart.setPrice1(rs.getInt("price1"));
 				cart.setQty(rs.getInt("qty"));
+				cart.setImage(rs.getString("image"));
 				vlist.addElement(cart);
 			}
 		} catch (Exception e) {

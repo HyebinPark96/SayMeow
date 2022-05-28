@@ -1,5 +1,6 @@
 /* adminMember.jsp(包府磊:雀盔包府) css*/
 @charset "EUC-KR";
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300&display=swap');
 
 * {
 	box-sizing: border-box;
@@ -11,7 +12,7 @@
 	display: block;
     align-items: center;
     background-color: white;
-    width: 100%;
+    width: 90%;
     align-content: center;
     text-align: center;
     height: 100%;
@@ -41,4 +42,10 @@ table {
 	margin: auto;
 	align-items: center;
 	align-content: center;
+}
+
+#adminMember .form-text-input{
+	display:inline;
+	width:10vw;
+	margin-bottom:5vh;
 }

@@ -15,7 +15,7 @@ public class AdminProductMgr {
 	
 	private DBConnectionMgr pool;
 	public static final String SAVEDIRECTORY = 
-			"C:/Jsp/test/src/main/webapp/saymeow/image/"; //경로주의
+			"C:/Jsp/jspproject/src/main/webapp/saymeow/image/"; //경로주의 
 	public static final String ENCODING = "EUC-KR";
 	public static final int MAXPOSTSIZE = 10*1024*1024;//10mb
 
@@ -56,7 +56,7 @@ public class AdminProductMgr {
 		} finally {
 			pool.freeConnection(con, pstmt, rs);
 		}
-		System.out.println("[AdminProductMgr] getAllP실행");
+		//System.out.println("[AdminProductMgr] getAllP실행");
 		return vlist;
 	}
 		
@@ -85,7 +85,7 @@ public class AdminProductMgr {
 			else
 				pstmt.setString(7, "ready.png");
 			if(multi.getFilesystemName("detail")!=null) 
-				pstmt.setString(8, multi.getFilesystemName("image"));
+				pstmt.setString(8, multi.getFilesystemName("detail"));
 			else 
 				pstmt.setString(8, "ready.png");
 			pstmt.setInt(9, Integer.parseInt(multi.getParameter("stock")));     
@@ -107,12 +107,26 @@ public class AdminProductMgr {
 		PreparedStatement pstmt = null;
 		String sql = null;
 		boolean flag = false;
+	
 		try {
+			
 			MultipartRequest multi = new MultipartRequest
 					(req, SAVEDIRECTORY, MAXPOSTSIZE, ENCODING,
 							new DefaultFileRenamePolicy());
+			String image = null; 
+			if(multi.getFilesystemName("image")!=null) {
+				image = multi.getFilesystemName("image"); // 교체될 이미지
+			}
+			String detail = null; 
+			if(multi.getFilesystemName("detail")!=null){
+				detail = multi.getFilesystemName("detail"); // 교체될 디테일 
+			}
+			
 			con = pool.getConnection();
-			if(multi.getFilesystemName("image")!=null || multi.getFilesystemName("detail")!=null ) {//이미지도 수정
+			
+			// 썸네일&디테일 이미지 둘 다 수정
+			if(image!=null && detail!=null) {
+			//	System.out.println("[AdminProductMgr] 썸네일&디테일 이미지 둘 다 수정");
 				sql = "update product set pname=?, mclass=?, sclass=?, price1=?, price2=?, price3=?, "
 					+ "image=?, detail=?, pstat=?, stock=? where pnum=?";
 				pstmt = con.prepareStatement(sql);
@@ -127,10 +141,11 @@ public class AdminProductMgr {
 				pstmt.setInt(9, Integer.parseInt(multi.getParameter("pstat")));
 				pstmt.setInt(10, Integer.parseInt(multi.getParameter("stock"))); 
 				pstmt.setInt(11, Integer.parseInt(multi.getParameter("pnum")));
-
-			}else { // 이미지 수정x
-				sql = "update product set pname=?, mclass=?, sclass=?, price1=?, price2=?, price3=?,"
-					+ "pstat=?, stock=? where pnum=?";
+				
+			// 썸네일 이미지만 수정 (디테일은 그대로)
+			}else if (image!=null) { 
+				sql = "update product set pname=?, mclass=?, sclass=?, price1=?, price2=?, price3=?, "
+					+ "image=?, pstat=?, stock=? where pnum=?";
 				pstmt = con.prepareStatement(sql);
 				pstmt.setString(1, multi.getParameter("pname"));
 				pstmt.setString(2, multi.getParameter("mclass"));
@@ -138,9 +153,43 @@ public class AdminProductMgr {
 				pstmt.setInt(4, Integer.parseInt(multi.getParameter("price1"))); 
 				pstmt.setInt(5, Integer.parseInt(multi.getParameter("price2"))); 
 				pstmt.setInt(6, Integer.parseInt(multi.getParameter("price3"))); 
-				pstmt.setInt(7, Integer.parseInt(multi.getParameter("pstat")));
-				pstmt.setInt(8, Integer.parseInt(multi.getParameter("stock"))); 
-				pstmt.setInt(9, Integer.parseInt(multi.getParameter("pnum"))); 
+				pstmt.setString(7, multi.getFilesystemName("image"));
+				pstmt.setInt(8, Integer.parseInt(multi.getParameter("pstat")));
+				pstmt.setInt(9, Integer.parseInt(multi.getParameter("stock"))); 
+				pstmt.setInt(10, Integer.parseInt(multi.getParameter("pnum"))); 
+			//	System.out.println("[AdminProductMgr] 썸네일수정");
+		
+			//디테일 이미지만 수정 (썸네일은 그대로)	
+			}else if (detail!=null) {
+				sql = "update product set pname=?, mclass=?, sclass=?, price1=?, price2=?, price3=?, "
+					+ "detail=?, pstat=?, stock=? where pnum=?";
+					pstmt = con.prepareStatement(sql);
+					pstmt.setString(1, multi.getParameter("pname"));
+					pstmt.setString(2, multi.getParameter("mclass"));
+					pstmt.setString(3, multi.getParameter("sclass"));
+					pstmt.setInt(4, Integer.parseInt(multi.getParameter("price1"))); 
+					pstmt.setInt(5, Integer.parseInt(multi.getParameter("price2"))); 
+					pstmt.setInt(6, Integer.parseInt(multi.getParameter("price3"))); 
+					pstmt.setString(7, multi.getFilesystemName("detail"));
+					pstmt.setInt(8, Integer.parseInt(multi.getParameter("pstat")));
+					pstmt.setInt(9, Integer.parseInt(multi.getParameter("stock"))); 
+					pstmt.setInt(10, Integer.parseInt(multi.getParameter("pnum"))); 
+			//		System.out.println("[AdminProductMgr] 디테일 수정");		
+			// 썸네일&디테일 이미지 둘 다 수정X
+			}else if (image==null && detail==null) {
+				sql = "update product set pname=?, mclass=?, sclass=?, price1=?, price2=?, price3=?, "
+					+ "pstat=?, stock=? where pnum=?";
+					pstmt = con.prepareStatement(sql);
+					pstmt.setString(1, multi.getParameter("pname"));
+					pstmt.setString(2, multi.getParameter("mclass"));
+					pstmt.setString(3, multi.getParameter("sclass"));
+					pstmt.setInt(4, Integer.parseInt(multi.getParameter("price1"))); 
+					pstmt.setInt(5, Integer.parseInt(multi.getParameter("price2"))); 
+					pstmt.setInt(6, Integer.parseInt(multi.getParameter("price3"))); 
+					pstmt.setInt(7, Integer.parseInt(multi.getParameter("pstat")));
+					pstmt.setInt(8, Integer.parseInt(multi.getParameter("stock"))); 
+					pstmt.setInt(9, Integer.parseInt(multi.getParameter("pnum"))); 
+			//		System.out.println("[AdminProductMgr] 이미지 수정X");
 			}
 			if(pstmt.executeUpdate()==1) 
 				flag = true;
@@ -149,7 +198,6 @@ public class AdminProductMgr {
 		} finally {
 			pool.freeConnection(con, pstmt);
 		}
-		System.out.println("[AdminProductMgr] updateProduct 실행");
 		return flag;
 	}
 	

@@ -5,11 +5,10 @@
 <jsp:useBean id="aoMgr" class="saymeow.AdminOrderMgr"/>
 <%
 	String strOnums = request.getParameter("onum");
-   	out.println(strOnums);
+   	System.out.println(strOnums);
    	
    	String[] strOnumsArr = strOnums.split(";");
    	for(int i=0; i<strOnumsArr.length; i++){
-   		out.print(strOnumsArr[i]);
    		aoMgr.deleteOrder(strOnumsArr[i]);
    	}
    	

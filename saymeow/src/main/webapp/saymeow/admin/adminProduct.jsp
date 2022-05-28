@@ -48,13 +48,13 @@ function send_form(frmId) { // form 力免
 		<a href="adminReviewBoard.jsp"><button class="nav-link" id="v-pills-messages-tab" data-bs-toggle="pill" data-bs-target="#v-pills-messages" type="button" role="tab" aria-controls="v-pills-messages" aria-selected="false">府轰包府</button></a>
 		<a href="adminProduct.jsp"><button class="nav-link active" id="v-pills-settings-tab" data-bs-toggle="pill" data-bs-target="#v-pills-settings" type="button" role="tab" aria-controls="v-pills-settings" aria-selected="false">惑前包府</button></a>
 		<a href="../sellHistory.jsp"><button class="nav-link" id="v-pills-settings-tab" data-bs-toggle="pill" data-bs-target="#v-pills-settings" type="button" role="tab" aria-controls="v-pills-settings" aria-selected="false">概免包府</button></a>
-		<a href="#"><button class="nav-link" id="v-pills-settings-tab" data-bs-toggle="pill" data-bs-target="#v-pills-settings" type="button" role="tab" aria-controls="v-pills-settings" aria-selected="false">魄概单捞磐</button></a>
+		<a href="adminSales.jsp"><button class="nav-link" id="v-pills-settings-tab" data-bs-toggle="pill" data-bs-target="#v-pills-settings" type="button" role="tab" aria-controls="v-pills-settings" aria-selected="false">魄概单捞磐</button></a>
 	</div>
 	<div class="tab-content" id="v-pills-tabContent" align="center" style="margin:0 auto;">
 		<!-- 夯巩 -->
 <section class="contents">
 	<div class="plist">
-		<br><br><h1>惑前包府</h1><br><br><br>
+		<h3 style="text-align: center; margin: 1.5vw; margin-bottom: 2vw;">惑前包府</h3>
 		<table border="1">
 		<thead>
 		<tr>
@@ -76,7 +76,7 @@ function send_form(frmId) { // form 力免
 %>
 		<tr>
 		<td><%=pbean.getPnum()%></td>
-		<td><%=pbean.getPname()%></td>
+		<td><a href="../product/productDetail.jsp?pnum=<%=pbean.getPnum()%>"><%=pbean.getPname()%></a></td>
 		<td><%=pbean.getMclass()%></td>
 		<td><%=pbean.getSclass()%></td>
 		<td><%=UtilMgr.monFormat(pbean.getPrice1())%></td>

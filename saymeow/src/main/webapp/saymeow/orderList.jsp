@@ -7,6 +7,7 @@
 <jsp:useBean id="oMgr" class="saymeow.OrderMgr"/>
 <jsp:useBean id="rMgr" class="saymeow.ReviewMgr"/>
 <%
+	Vector<OrderBean> ovlist = new Vector<OrderBean>();
 	int price = 0;
 	int quantity = 0;
 	int totalPrice = 0;
@@ -282,7 +283,7 @@ nowBlock = (int) Math.ceil((double) nowPage / pagePerBlock); // Ex. 현재 1페이지
 				<tr>
 					<td align="center" colspan="9">
 						<%
-						Vector<OrderBean> ovlist = oMgr.getOrderList(keyField, keyWord, start, cnt, id);
+						ovlist = oMgr.getOrderList(keyField, keyWord, start, cnt, id);
 						int listSize = ovlist.size(); // 각 페이지가 담는 총 레코드갯수 (최대 10개, 마지막 페이지는 10 이하의 값을 가질 수도 있음)
 						if (ovlist.isEmpty()) {
 							out.println("등록된 게시물이 없습니다.");

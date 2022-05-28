@@ -65,7 +65,7 @@
 </tr>
 <tr>
 <td>상품마진</td>
-<td><input name="price3" value="<%=pbean.getPrice3()%>""></td>
+<td><input name="price3" value="<%=pbean.getPrice3()%>"></td>
 </tr>
 <tr>
 <td>상품이미지</td>
