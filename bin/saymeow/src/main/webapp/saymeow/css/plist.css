@@ -1,0 +1,66 @@
+/* 상품 리스트 css 파일 */
+@charset "EUC-KR";
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300&display=swap');
+
+
+ a:link { text-decoration: none;}
+ a:visited { color: black; text-decoration: none;}
+ a:hover { text-decoration: underline;}
+
+* {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+
+#container {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    font-family: 'Noto Sans KR', sans-serif;
+}
+
+.category {
+    align-items: center;
+    justify-content: center;
+    background-color: beige;
+    width: 200px;
+    height: 100%;
+}
+
+
+.plist {
+	background-color: beige;
+    height: 100%;
+    align-content: center;
+    
+}
+
+.product_list {
+	align-items: center;
+}
+
+.ptop {
+    background-color: beige;
+}
+
+.array {
+    display: flex;
+    background-color: beige;
+    justify-content: space-between;
+}
+
+.product {
+    position: relative;
+    display: block;
+    background-color: white;
+}
+
+.product_row {
+	list-style-type: none;
+    align-items: center;
+	justify-content: center;
+	display: grid;
+	grid-auto-rows: 10;
+	grid-template-columns: repeat(5, 250px);
+	text-align: center;
+}
