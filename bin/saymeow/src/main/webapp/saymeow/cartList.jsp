@@ -1,10 +1,13 @@
+<%@page import="saymeow.ProductMgr"%>
 <%@page import="saymeow.UtilMgr"%>
 <%@page import="saymeow.CartBean"%>
 <%@page import="java.util.Vector"%>
 <%@page contentType="text/html; charset=EUC-KR"%>
 <jsp:useBean id="cMgr" class="saymeow.CartMgr"/>
+
 <%
 	int allTotal=0;
+    String uAllTotal = "";
 %>
 <!DOCTYPE html>
 <html>
@@ -30,12 +33,13 @@
 	<table id="carttb" border="1">
 		<thead >
 		<tr>
-		<th><input type="checkbox" name="allCh" onclick="javascript:allChk()"></th>
-		<th>NO</th>
-		<th>상품명</th>
-		<th>판매가</th>
-		<th>수량</th>
-		<th>금액</th>
+		<th width="50"><input type="checkbox" name="allCh" onclick="javascript:allChk()"></th>
+		<th width="100">NO</th>
+		<th width="200">상품이미지</th>
+		<th width="200">상품명</th>
+		<th width="200">판매가</th>
+		<th width="100">수량</th>
+		<th width="200">금액</th>
 		</tr>
 		</thead>
 		<tbody>
@@ -55,15 +59,27 @@
 		<%}else{
 			for(int i=0;i<vlist.size();i++){
 			CartBean cart = vlist.get(i);
-			int price = cart.getPrice1();
+			int pnum = cart.getPnum();
+			String image = ProductMgr.getPImage(pnum);
+			int price = ProductMgr.getPrice(pnum);
 			int quantity = cart.getQty();
 			int total = price*quantity;
 			allTotal += total;
+			uAllTotal = UtilMgr.monFormat(allTotal);
 		%>
 		<tr>
 			<td><input type="checkbox" name="cch" value="<%=cart.getCnum()%>" onclick="javascript:chk()"></td>
 			<td><%=i+1%></td>
-			<td><%=cart.getPname()%></td>
+			<td> 
+			<a href="product/productDetail.jsp?pnum=<%=cart.getPnum()%>">
+			<img src="image/<%=image%>" height="80" width="80">
+			</a>
+			</td>
+			<td>
+			<a href="product/productDetail.jsp?pnum=<%=cart.getPnum()%>">
+			<%=cart.getPname()%>
+			</a>
+			</td>
 			<td><%=UtilMgr.monFormat(price)%>원</td>
 			<td><%=quantity%></td>
 			<td><%=UtilMgr.monFormat(total)%>원</td>
@@ -77,7 +93,7 @@
 	
 	<br><br>
 	<table>
-	<h2>장바구니의 총 금액은 <%=allTotal%>원 입니다</h2>
+	<h2>장바구니의 총 금액은 <%=uAllTotal%>원 입니다</h2>
 	</table>
 	<input type="button" value="삭제" onclick="javascript:cartDelete(this.form)">
 	<input type="button" value="주문하기" onclick="javascript:cartOrder(this.form)">

@@ -6,6 +6,7 @@
 <jsp:useBean id="cart" class="saymeow.CartBean" />
 <jsp:useBean id="cMgr" class="saymeow.CartMgr" />
 <jsp:useBean id="oMgr" class="saymeow.OrderMgr" />
+
 <%
 String pname = null;
 pname = request.getParameter("pname");
@@ -17,7 +18,7 @@ snum = request.getParameterValues("cch");
 String msg = "";
 
 int allTotal = 0;
-
+String uAllTotal = "";
 if (flag.equals("delete")) {
 	for (int i = 0; i < snum.length; i++) {
 		cMgr.deleteCart(Integer.parseInt(snum[i]));
@@ -53,7 +54,7 @@ if (flag.equals("delete")) {
 
 	<form method="post" name="chFrm" action="orderProc.jsp">
 		<h4>[배송지 입력]</h4>
-		<input name="address" size="22"><br><br>
+		<input name="address" size="60"><br><br>
 		<input type="hidden" name="flag" value="cart"><br><br>
 		
 		<h4>[주문정보]</h4>
@@ -74,13 +75,14 @@ if (flag.equals("delete")) {
 				int quantity = cart.getQty();
 				int total = price * quantity;
 				allTotal += total;
+				uAllTotal = UtilMgr.monFormat(allTotal);
 			%>
 			<tr>
 				<td><%=i%></td>
 				<td><%=cart.getPname()%></td>
-				<td><%=cart.getPrice1()%>원</td>
+				<td><%=UtilMgr.monFormat(cart.getPrice1())%>원</td>
 				<td><%=cart.getQty()%></td>
-				<td><%=total%>원</td>
+				<td><%=UtilMgr.monFormat(total)%>원</td>
 				<input type="hidden" name="cch" value="<%=Integer.parseInt(snum[i])%>">
 				<input type="hidden" name="cnum" value="<%=cart.getCnum()%>">
 			</tr>
@@ -89,7 +91,7 @@ if (flag.equals("delete")) {
 			%>
 		</table>
 		<br><br>
-		총 결제금액은 <%=allTotal %>원 입니다.
+		총 결제금액은 <%=uAllTotal %>원 입니다.
 		<input type="button" value="취소" onclick="history.back()"> <input
 			type="submit" value="결제">
 	</form>

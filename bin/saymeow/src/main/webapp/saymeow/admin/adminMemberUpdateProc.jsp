@@ -1,21 +1,20 @@
-<!-- 관리자의 회원정보수정 페이지 -->
+<!-- 관리자의 회원정보수정 처리페이지 -->
 <!-- 취합완료했으나 회원가입 시 고양이 정보 입력안했으면 에러남. -->
 <%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html; charset=EUC-KR" pageEncoding="EUC-KR"%> 
-<jsp:useBean id="adMgr" class="saymeow.AdminMemberMgr"/>
-<%
+<jsp:useBean id="mMgr" class="saymeow.MemberMgr" />
+<jsp:useBean id="mBean" class="saymeow.MemberBean" /> 
+<jsp:setProperty name="mBean" property="*" />
 
-// 관리자의경우 회원수정하면 관리자 아이디가 들어가지므로, 멤버 관련 정보를 따로 받아온다. -> 동적으로 받아온 mid로 회원정보 빈즈로 가져오기
-ArrayList<String> gradeArrList = new ArrayList<String>();
-ArrayList<String> idArrList = new ArrayList<String>();
-
-for(int i=0; i<request.getParameterValues("grade[]").length; i++){
-	gradeArrList.add(i, request.getParameterValues("grade[]")[i]);
-	idArrList.add(i, request.getParameterValues("mId[]")[i]);
-	adMgr.updateMemberGrade(Integer.parseInt(gradeArrList.get(i)),idArrList.get(i));
-}
-%>
-<script>
-alert("Grade update was successful!");
-location.href="adminMember.jsp";
-</script>
+<%boolean flag = mMgr.updateMember(mBean);
+if(flag){%>
+	<script>
+		alert("성공적으로 수정하였습니다");
+		location.href="adminMember.jsp";
+	</script>
+<%}else{%>
+	<script>
+		alert("수정도중 에러가 발생하였습니다.");
+		history.back();
+	</script>
+<%}%>

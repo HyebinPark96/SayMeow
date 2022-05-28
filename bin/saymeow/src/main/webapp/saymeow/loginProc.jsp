@@ -16,7 +16,7 @@
 	<%
 	} else if(mode==0 || mode==1){ // 회원이거나 관리자인경우
 		session.setAttribute("idKey",id); // 로그인 성공한 id를 세션에 저장
-		response.sendRedirect("index.jsp");
+		 response.sendRedirect("index.jsp"); 
 	}
 	%>
 

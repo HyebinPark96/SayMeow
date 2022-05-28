@@ -10,19 +10,13 @@
 <jsp:useBean id="rMgr" class="saymeow.ReviewMgr" />
 <jsp:useBean id="cMgr" class="saymeow.RCommentMgr" />
 <jsp:useBean id="rcBean" class="saymeow.RCommentBean"/>
-
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="EUC-KR">
-<title>회원 리뷰관리</title>
-
+<title>내 리뷰 목록</title>
 <!-- 혜빈 CSS -->
 <link rel="stylesheet" href="css/styleHB.css">
-<!-- 혜빈 JS -->
-<script src="scriptHB.js"></script>
-<!-- 외부 CSS -->
-<link rel="stylesheet" href="css/style.css">
 <!-- 부트스트랩 CSS -->
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
@@ -76,10 +70,7 @@ totalBlock = (int) Math.ceil((double) totalPage / pagePerBlock); // Ex. 총 67페�
 
 // 현재 몇번째 블럭인지 
 nowBlock = (int) Math.ceil((double) nowPage / pagePerBlock); // Ex. 현재 1페이지 / 한 블럭당 15페이지
-
 %>
-
-
 
 <script type="text/javascript">
 // 페이징 처리
@@ -118,218 +109,226 @@ function check() {
 }
 
 // 게시글 읽기
-function read(i) {
-	/*테스트 : 토글식으로 구현해보기*/
-	if(document.getElementsByClassName('reviewDetail')[i].style.display = 'hidden'){
+function read(i) { // 토글
+	if(document.getElementsByClassName('reviewDetail')[i].style.display == 'none'){
 		document.getElementsByClassName('reviewDetail')[i].setAttribute("style","display:table-row"); // block 대신 table-row해야 colspan 먹힘
+	} else if(document.getElementsByClassName('reviewDetail')[i].style.display == 'table-row'){
+		document.getElementsByClassName('reviewDetail')[i].style.display = 'none';
 	}
 }
-
 </script>
 </head>
-<body id="adminReviewBoard">
+<body id="readMyReview">
 	<div class="d-flex align-items-start">
-	<div class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-		<a href="orderList.jsp"><button class="nav-link" id="v-pills-home-tab" data-bs-toggle="pill" data-bs-target="#v-pills-home" type="button" role="tab" aria-controls="v-pills-home" aria-selected="true">주문내역조회</button></a>
-		<a href="memberUpdate.jsp"><button class="nav-link" id="v-pills-profile-tab" data-bs-toggle="pill" data-bs-target="#v-pills-profile" type="button" role="tab" aria-controls="v-pills-profile" aria-selected="false">회원정보수정</button></a>
-		<a href="readMyReview.jsp"><button class="nav-link active" id="v-pills-messages-tab" data-bs-toggle="pill" data-bs-target="#v-pills-messages" type="button" role="tab" aria-controls="v-pills-messages" aria-selected="false">내 리뷰 목록</button></a>
-		<a href="deleteMember.jsp"><button class="nav-link" id="v-pills-settings-tab" data-bs-toggle="pill" data-bs-target="#v-pills-settings" type="button" role="tab" aria-controls="v-pills-settings" aria-selected="false">회원탈퇴</button></a>
-	</div>
-    	<div align="center" id="review-board" style="margin:0 auto;">
-		<br />
-		<h2 class="review-board-topic">내가 작성한 리뷰</h2>
-		<br/>
-		<!-- 게시물 리스트 Start -->
-		<table>
-			<tr>
-				<td align="center" colspan="2">
-					<%
-					// 로그인한 id의 리뷰목록만 보여준다!
-					Vector<ReviewBean> vlist = rMgr.getReviewList(keyField, keyWord, start, cnt, id);
-					int listSize = vlist.size(); // 각 페이지가 담는 총 레코드갯수 (최대 10개, 마지막 페이지는 10 이하의 값을 가질 수도 있음)
-					if (vlist.isEmpty()) {
-						out.println("등록된 게시물이 없습니다.");
-					} else {
-					%>
-						<table cellspacing="0" class="table table-hover">
-							<tr align="center" class="table-column">
-								<th width="100">번 호</th>
-								<th width="100">별 점</th>
-								<th width="200">제 목</th>
-								<th width="100">아이디</th>
-								<th width="100">날 짜</th>
-								<th width="100">&nbsp;</th>
-							</tr>
-						<%
-						/* for문 if절의 조건인 i==listSize의 listSize는 LIMIT 함수로 게시글을 불러와서 담은 Vector의 크기이며,
-						(마지막페이지 제외) 한 페이지당 listSize=10이므로 절대 if절 조건에 참값을 가질 수 없지만(i는 최대 9임),
-						마지막페이지는 10미만의 레코드개수를 가질 수 있으므로, 그만큼만 반복문 돌리고 빠져나간다는 의미 */
-							for (int i = 0; i < numPerPage; /*10개*/ i++) {
-								if (i == listSize)
-									break;
-
-								// vlist에서 순차적으로 가져와서 bean 객체 생성 후 담는다.
-								ReviewBean bean = vlist.get(i);
-
-								// bean에서 값 get
-								int rnum = bean.getRnum();
-								int onum = bean.getOnum();
-								String rid = bean.getRid();
-								int pnum = bean.getPnum();
-								String date = bean.getDate();
-								String subject = bean.getSubject();
-								String content = bean.getContent();
-								double score = bean.getScore();
-								String filename = bean.getFilename(); // 파일 업로드 한 경우 제목 옆 아이콘 뜨게
-								int filesize = bean.getFilesize();
-
-								// 리뷰 댓글 수 count
-								int rCount = cMgr.getRCommentCount(rnum);
-								if(rid.equals(id)){
-						%>
-							<!-- 각 열(주제)에 맞는 값 반복문으로 들고옴 -->
-							<tr align="center">
-								<td><%=totalRecord - start - i%></td><!-- 리뷰순번 : 가장 최신글이 위에 오는 구조 -->
-								<td><%=score%></td>
-								<td align="left">
-									<a href="javascript:read('<%=i%>')" class="review-board-aTag"><%=subject%></a> <!-- 리뷰제목 --> 
-									<%if (filename != null) {%>
-										<img src="img/file_icon1.png" width="15px" height="15px" align="middle"> <!-- 파일있으면 이모티콘 보임 -->
-									<%}%>
-									<%if (rCount > 0) {%> <!-- 댓글있다면 --> 
-										<font color="red">(<%=rCount%>)</font> <!-- 빨간색으로 (댓글수) 보임 --> 
-									<%}%>
-								</td>
-								<td><%=rid%></td><!-- 리뷰작성자 -->
-								<td><%=date%></td><!-- 리뷰작성날짜 -->
-								<td>
-									<form name="deleteReviewFrm" action="myReviewDeleteProc.jsp" method="post">
-										<input type="hidden" name="rnum" value="<%=rnum%>">
-										<input type="hidden" name="filename" value="<%=filename%>">
-										<input type="submit" class="btn btn-primary submitBtn" value="삭제">
-									</form>
-								</td>
-							</tr>
-							<!-- 리뷰누르면 페이지 이동없이 아래로 뜨도록 -->
-							<tr style="display:none; text-align:left" class="reviewDetail">
-								<td colspan="6" align="left" style="">
-									<form name="reviewDetailFrm" action="reviewUpdate.jsp?rnum=<%=rnum%>" method="POST" class="reviewDetailFrm">
-										<input type="hidden" name="rnum" value="<%=rnum%>">
-										<input type="hidden" name="onum" value="<%=onum%>">
-										<input type="hidden" name="rid" value="<%=rid%>">
-										<input type="hidden" name="pnum" value="<%=pnum%>">
-										<input type="hidden" name="date" value="<%=date%>">
-										<input type="hidden" name="subject" value="<%=subject%>">
-										<input type="hidden" name="content" value="<%=content%>">
-										<input type="hidden" name="score" value="<%=score%>">
-									
-										<br><h4 style="text-align:center">[리뷰]</h4><br>
-										작성자 ID : <%=rid%><br>
-										작성날짜 : <%=date%><br>
-										제목 : <%=subject%><br>
-										내용 : <%=content%><br>
-										별점 : <%=score%><br>
-										<%if(filename!=null){ %>
-											<img src="storage/<%=filename%>" width="800vw" height="400vw" style="display:block; margin: 0 auto; object-fit: cover;"><br><br>
-											<input type="hidden" name="filename" value="<%=filename%>">
-										<%} %>
-										<%if(id.equals(rid) || id==rid) { /*본인리뷰라면 수정버튼 활성화*/%>
-											<br><input type="submit" class="btn btn-primary submitBtn" value="수정" style="font-size:0.8em;">
-										<%}%>
-										<hr>
-									</form>
-									<h4 style="text-align:center">[댓글]</h4><br>
-									<%
-									Vector<RCommentBean> cvlist = cMgr.listRComment(rnum);
-									for(int j=0; j<cvlist.size(); j++){
-										rcBean = cvlist.get(j);
-										
-										int rcNum = rcBean.getRcNum();
-										String cid = rcBean.getCid();
-										String rcDate = rcBean.getRcDate();
-										String comment = rcBean.getComment();
-										
-										if(!cvlist.isEmpty()) {
-									%>
-										<form name="commentListFrm" action="admin/commentDeleteProc.jsp" method="POST">
-											순번 : <%=j+1%><br>
-											작성자 ID : <%=cid %><br>
-											작성날짜 : <%=rcDate %><br>
-											댓글내용 : <%=comment%><br>
-											<%if(id=="admin" || id.equals("admin")){%> <!-- 관리자만 모든 댓글 삭제 가능 -->
-											<input type="hidden" name="rcNum" value="<%=rcNum%>">
-											<input type="submit" class="btn btn-primary submitBtn" value="삭제">
-											<%}%>
-											<br><br>
-										</form>
-										<%} %>
-									<%} %>
-								</td>
-							</tr>
-						<%} //-- if(rid==id)문%>
-					<%} // --- for문%>
-					</table> 
-				<%} // ---if-else문%>
-			</td>
-		</tr>
-		<%if(totalRecord>1){ %>
-		<%-- <%out.println(totalRecord); %> 테스트용 !! --%>
-		<tr>
-			<td align="center" style="font-size:1em;">
-				<!-- 페이징 및 블럭 Start --> 
-				<!-- 이전블럭 이동(첫블럭에서는 없어야 함)--> 
-				<%if (nowBlock > 1) {%>
-					<a href="javascript:block('<%=nowBlock - 1/*이전블럭*/%>')" class="review-board-aTag">&nbsp;이 전&nbsp;</a> 
-				<%}%> <!-- 페이징(특정블럭) --> 
-				<%// 아래변수로 for문 돌리면 최초 1~16 -> 1~15까지 반복
-				int pageStart = (nowBlock - 1) * pagePerBlock + 1; /*최초1, 16, 31, ...*/
-				/*마지막 블럭은 15페이지가 안될 수 있으므로 삼항연산자 사용*/
-				int pageEnd = (pageStart + pagePerBlock /*15*/) < totalPage ? pageStart + pagePerBlock : totalPage + 1; 
-
- 				// 반복문 (15번씩 반복, 마지막 블럭에서는 91~101페이지까지만 반복됨)
- 				for (; pageStart < pageEnd; pageStart++) { // 비워진 조건 초기식은? pageStart = 1;부터 시작%> 
- 					<a href="javascript:pageing('<%=pageStart%>')" class="review-board-aTag"> 
- 						<%if (pageStart == nowPage) {%>
- 								<font color="#A13FFF">
- 						<%}%> 
- 						[<%=pageStart%>] 
-						<%if (pageStart == nowPage) {%>
-							</font>
-						<%}%> <!-- if절 두개인 이유: 조건에 맞아야만 font 코드 적용되도록-->
-						</a> 
-					<%} // --- for%> 
-					<!-- 다음블럭 이동 기능 (마지막블럭만 없는 기능)--> 
-					<%if (totalBlock > nowBlock) {%>
-						<a href="javascript:block('<%=nowBlock + 1%>')" class="review-board-aTag">&nbsp;다 음&nbsp;</a> 
-					<%}%> 
-					<!-- 페이징 및 블럭 End -->
-				</td>
-			</tr>
-			<%} // --totalRecord>1 if문 %>
-				<tr>
-					<!-- '처음으로' 버튼 눌렀을 때 list()함수 호출 -> listFrm submit -> reload = true 전달 -> keyField, keyWord 초기화됨 -->
-					<td style="">
-						<a href="javascript:list()" class="review-board-aTag"><button type="button" class="btn btn-primary" style="margin:1vw;">처음으로</button></a> 
-					</td>
-				</tr>
-			</table>
-			<!-- 게시물 리스트 End -->
-			
-			
-			<!-- 처음으로 버튼 누르면 list() 메소드를 위해 post방식으로 전달 (초기화)-->
-			<form name="listFrm" method="post">
-				<input type="hidden" name="reload" value="true"> 
-				<input type="hidden" name="nowPage" value="1">
-			</form>
-
-			<!-- 아래 값들을 GET방식으로 전달하며, 10개 15개 등 아이템 바꿀때마다 재귀호출 -->
-			<form name="readFrm">
-				<input type="hidden" name="nowPage" value="<%=nowPage%>"> 
-				<input type="hidden" name="numPerPage" value="<%=numPerPage%>"> 
-				<input type="hidden" name="keyField" value="<%=keyField%>"> 
-				<input type="hidden" name="keyWord" value="<%=keyWord%>"> 
-			</form>
+		<div class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+			<a href="orderList.jsp"><button class="nav-link" id="v-pills-home-tab" data-bs-toggle="pill" data-bs-target="#v-pills-home" type="button" role="tab" aria-controls="v-pills-home" aria-selected="true">주문내역조회</button></a>
+			<a href="memberUpdate.jsp"><button class="nav-link" id="v-pills-profile-tab" data-bs-toggle="pill" data-bs-target="#v-pills-profile" type="button" role="tab" aria-controls="v-pills-profile" aria-selected="false">회원정보수정</button></a>
+			<a href="readMyReview.jsp"><button class="nav-link active" id="v-pills-messages-tab" data-bs-toggle="pill" data-bs-target="#v-pills-messages" type="button" role="tab" aria-controls="v-pills-messages" aria-selected="false">내 리뷰 목록</button></a>
+			<a href="deleteMember.jsp"><button class="nav-link" id="v-pills-settings-tab" data-bs-toggle="pill" data-bs-target="#v-pills-settings" type="button" role="tab" aria-controls="v-pills-settings" aria-selected="false">회원탈퇴</button></a>
 		</div>
-	</div>
+    	<div align="center" class="review-contents">
+			<h3 class="heading">내가 작성한 리뷰</h3>
+			<!-- 게시물 리스트 Start -->
+			<table>
+				<tr>
+					<td align="center" colspan="2">
+						<%
+						// 로그인한 id의 리뷰목록만 보여준다!
+						Vector<ReviewBean> vlist = rMgr.getReviewList(keyField, keyWord, start, cnt, id);
+						int listSize = vlist.size(); // 각 페이지가 담는 총 레코드갯수 (최대 10개, 마지막 페이지는 10 이하의 값을 가질 수도 있음)
+						if (vlist.isEmpty()) {
+							out.println("등록된 게시물이 없습니다.");
+						} else {
+						%>
+							<table cellspacing="0" class="table">
+								<tr align="center" class="table-column">
+									<th width="100">번 호</th>
+									<th width="100">별 점</th>
+									<th width="200">제 목</th>
+									<th width="100">아이디</th>
+									<th width="100">날 짜</th>
+									<th width="100">&nbsp;</th>
+								</tr>
+								<%
+								/* for문 if절의 조건인 i==listSize의 listSize는 LIMIT 함수로 게시글을 불러와서 담은 Vector의 크기이며,
+								(마지막페이지 제외) 한 페이지당 listSize=10이므로 절대 if절 조건에 참값을 가질 수 없지만(i는 최대 9임),
+								마지막페이지는 10미만의 레코드개수를 가질 수 있으므로, 그만큼만 반복문 돌리고 빠져나간다는 의미 */
+									for (int i = 0; i < numPerPage; /*10개*/ i++) {
+										if (i == listSize)
+											break;
+
+											// vlist에서 순차적으로 가져와서 bean 객체 생성 후 담는다.
+											ReviewBean bean = vlist.get(i);
+			
+											// bean에서 값 get
+											int rnum = bean.getRnum();
+											int onum = bean.getOnum();
+											String rid = bean.getRid();
+											int pnum = bean.getPnum();
+											String date = bean.getDate();
+											String subject = bean.getSubject();
+											String content = bean.getContent();
+											double score = bean.getScore();
+											String filename = bean.getFilename(); // 파일 업로드 한 경우 제목 옆 아이콘 뜨게
+											int filesize = bean.getFilesize();
+			
+											// 리뷰 댓글 수 count
+											int rCount = cMgr.getRCommentCount(rnum);
+											if(rid.equals(id)){
+								%>
+												<!-- 각 열(주제)에 맞는 값 반복문으로 들고옴 -->
+												<tr align="center" class="table-data">
+													<td><%=totalRecord - start - i%></td><!-- 리뷰순번 : 가장 최신글이 위에 오는 구조 -->
+													<td><%=score%></td>
+													<td align="left">
+														<a href="javascript:read('<%=i%>')" class="review-board-aTag"><%=subject%></a> <!-- 리뷰제목 --> 
+														<%if (filename != null) {%>
+															<img src="img/file_icon1.png" width="15px" height="15px" align="middle"> <!-- 파일있으면 이모티콘 보임 -->
+														<%}%>
+														<%if (rCount > 0) {%> <!-- 댓글있다면 --> 
+															(<%=rCount%>)
+														<%}%>
+													</td>
+													<td><%=rid%></td><!-- 리뷰작성자 -->
+													<td><%=date%></td><!-- 리뷰작성날짜 -->
+													<td>
+														<form name="deleteReviewFrm" action="myReviewDeleteProc.jsp" method="post">
+															<input type="hidden" name="rnum" value="<%=rnum%>">
+															<input type="hidden" name="filename" value="<%=filename%>">
+															<input type="submit" name="deleteBtn" value="삭제" class="btn btn-primary deleteBtn">
+														</form>
+													</td>
+												</tr>
+												<!-- 리뷰누르면 페이지 이동없이 아래로 뜨도록 -->
+												<tr style="display:none; text-align:left" class="reviewDetail">
+													<td colspan="6" align="left" style="">
+														<form name="reviewDetailFrm" action="reviewUpdate.jsp?rnum=<%=rnum%>" method="POST" class="reviewDetailFrm">
+															<input type="hidden" name="rnum" value="<%=rnum%>">
+															<input type="hidden" name="onum" value="<%=onum%>">
+															<input type="hidden" name="rid" value="<%=rid%>">
+															<input type="hidden" name="pnum" value="<%=pnum%>">
+															<input type="hidden" name="date" value="<%=date%>">
+															<input type="hidden" name="subject" value="<%=subject%>">
+															<input type="hidden" name="content" value="<%=content%>">
+															<input type="hidden" name="score" value="<%=score%>">
+													
+															<%if(score%1.0!=0 /*실수형*/){
+																int share = (int)(score / 1.0); // 몫
+																int remainder = (int)(Math.ceil(score % 1.0)); // 나머지
+				
+																for(int j=0; j<share; j++){%>
+																	<img src="img/full-star-score.png" width="30vw" height="30vh">
+																	  
+																<%}
+																for(int j=0; j<remainder; j++){%>
+																	<img src="img/half-star-score.png" width="30vw" height="30vh">
+																<%}
+																for(int j=0; j<5-share-remainder; j++){%>
+																	<img src="img/blank-star-score.png" width="30vw" height="30vh">
+																<%}
+															}else if(score%1.0==0 /*정수형*/){
+																int share = (int)(score / 1.0); // 몫
+																
+																for(int j=0; j<share; j++){%>
+																	<img src="img/full-star-score.png" width="30vw" height="30vh">
+																<%}
+																for(int j=0; j<5-share; j++){%>
+																<img src="img/blank-star-score.png" width="30vw" height="30vh">
+																<%}
+															}// -- if-else문 끝%>
+															&nbsp;&nbsp;&nbsp;<label class="reviewInfo"><%=rid%>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%=date%><br></label>
+															&nbsp;&nbsp;&nbsp;<%if(id.equals(rid) || id==rid) { /*본인리뷰라면 수정버튼 활성화*/%>
+																<input type="submit" class="btn btn-primary submitBtn" value="수정">
+															<%}%>
+															<br><br>
+															<h4><%=subject%></h4>
+															<h6><%=content%></h6>
+															<%if(filename!=null){ %>
+																<img src="storage/<%=filename%>" width="800vw" height="400vw" style="display:block; margin: 0 auto; object-fit: cover;"><br>
+																<input type="hidden" name="filename" value="<%=filename%>">
+															<%} %>
+															</form>
+															<br>
+															<%
+															Vector<RCommentBean> cvlist = cMgr.listRComment(rnum);%>
+															<h6>해당 리뷰는 총 <%=cvlist.size()%>개의 댓글이 달렸습니다!</h6>
+															<%for(int j=0; j<cvlist.size(); j++){
+																rcBean = cvlist.get(j);
+																
+																int rcNum = rcBean.getRcNum();
+																String cid = rcBean.getCid();
+																String rcDate = rcBean.getRcDate();
+																String comment = rcBean.getComment();
+															
+															if(!cvlist.isEmpty()) {
+															%>
+																<form name="commentListFrm" action="commentDeleteProc.jsp" method="POST">
+																	<%=j+1%>) <%=cid %> : <%=comment%>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[<%=rcDate%>에 작성된 댓글입니다.]
+																</form>
+															<%} %>
+														<%} %>
+													</td>
+												</tr>
+											<%} //-- if(rid==id)문%>
+										<%} // --- for문%>
+								</table> 
+							<%} // ---if-else문%>
+						</td>
+					</tr>
+					<%if(totalRecord>1){ %>
+						<tr>
+							<td align="center">
+								<!-- 페이징 및 블럭 Start --> 
+								<!-- 이전블럭 이동(첫블럭에서는 없어야 함)--> 
+								<%if (nowBlock > 1) {%>
+									<a href="javascript:block('<%=nowBlock - 1/*이전블럭*/%>')" class="review-board-block-aTag">&nbsp;이 전&nbsp;</a> 
+								<%}%> <!-- 페이징(특정블럭) --> 
+								<%// 아래변수로 for문 돌리면 최초 1~16 -> 1~15까지 반복
+								int pageStart = (nowBlock - 1) * pagePerBlock + 1; /*최초1, 16, 31, ...*/
+								/*마지막 블럭은 15페이지가 안될 수 있으므로 삼항연산자 사용*/
+								int pageEnd = (pageStart + pagePerBlock /*15*/) < totalPage ? pageStart + pagePerBlock : totalPage + 1; 
+				
+				 				// 반복문 (15번씩 반복, 마지막 블럭에서는 91~101페이지까지만 반복됨)
+				 				for (; pageStart < pageEnd; pageStart++) { // 비워진 조건 초기식은? pageStart = 1;부터 시작%> 
+				 					<a href="javascript:pageing('<%=pageStart%>')"> 
+										<%if(pageStart == nowPage){%>
+											<font color="black">[<%=pageStart%>]</font>
+										<%}else { %>
+											<font color="#a0a0a0">[<%=pageStart%>]</font>
+										<%} %>	
+									</a> 
+								<%} // --- for%> 
+								<!-- 다음블럭 이동 기능 (마지막블럭만 없는 기능)--> 
+								<%if (totalBlock > nowBlock) {%>
+									<a href="javascript:block('<%=nowBlock + 1%>')" class="review-board-block-aTag">&nbsp;다 음&nbsp;</a> 
+								<%}%> 
+								<!-- 페이징 및 블럭 End -->
+							</td>
+						</tr>
+					<%} // --totalRecord>1 if문 %>
+					<tr>
+						<!-- '처음으로' 버튼 눌렀을 때 list()함수 호출 -> listFrm submit -> reload = true 전달 -> keyField, keyWord 초기화됨 -->
+						<td>
+							<a href="javascript:list()"><button type="button" class="btn btn-primary initBtn">처음으로</button></a> 
+						</td>
+					</tr>
+				</table>
+				<!-- 게시물 리스트 End -->
+				
+				<!-- 처음으로 버튼 누르면 list() 메소드를 위해 post방식으로 전달 (초기화)-->
+				<form name="listFrm" method="post">
+					<input type="hidden" name="reload" value="true"> 
+					<input type="hidden" name="nowPage" value="1">
+				</form>
+	
+				<!-- 아래 값들을 GET방식으로 전달하며, 10개 15개 등 아이템 바꿀때마다 재귀호출 -->
+				<form name="readFrm">
+					<input type="hidden" name="nowPage" value="<%=nowPage%>"> 
+					<input type="hidden" name="numPerPage" value="<%=numPerPage%>"> 
+					<input type="hidden" name="keyField" value="<%=keyField%>"> 
+					<input type="hidden" name="keyWord" value="<%=keyWord%>"> 
+				</form>
+			</div>
+		</div>
 </body>
 </html>

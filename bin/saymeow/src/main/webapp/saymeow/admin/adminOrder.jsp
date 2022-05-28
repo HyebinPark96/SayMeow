@@ -39,7 +39,7 @@
 		interval = request.getParameter("interval");
 	}
 	
-	totalRecord = aoMgr.getCountRecord(keyField, keyWord);
+	totalRecord = aoMgr.getCountRecord(keyField, keyWord, interval); // interval 까지 넣어줘서 토탈레코드 구해야 페이징처리 완벽히 됨
 	
 	if(request.getParameter("nowPage")!=null){
 		nowPage = UtilMgr.parseInt(request, "nowPage");
@@ -52,13 +52,12 @@
 	totalPage = (int)Math.ceil((double)totalRecord / numPerPage); // 올림
 	totalBlock = (int)Math.ceil((double)totalPage / pagePerBlock); // 올림
 	nowBlock = (int)Math.ceil((double)nowPage / pagePerBlock); // 올림
-	
 %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="EUC-KR">
-<title>Insert title here</title>
+<title>관리자 주문관리</title>
 <!-- 혜빈 CSS -->
 <link rel="stylesheet" href="../css/styleHB.css">
 <!-- 내부스크립트 -->
@@ -78,7 +77,6 @@
 		document.resetOrderFrm.submit(); // 재귀호출
 	}
 	
-	
 	function moveDate(interval){
 		document.orderDateSearchFrm.interval.value = interval; // 매개변수로 들어온 값을 기간 값으로 전달한다.
 		document.orderDateSearchFrm.submit(); // 재귀호출
@@ -94,33 +92,37 @@
 		document.readFrm.submit(); // 재귀호출
 	}
 	
+
 	
-	function allCheck(){ // 전체선택기능
+	// 한 페이지 체크박스 전체 선택하여 삭제 기능
+	function allCheck(nowPageChbNum){ // nowPageChbNum는 totalRecord-start 가 들어온다.
 		if(document.getElementsByClassName('allCheckChb')[0].checked == true){
-			for(var i=0;i<<%=numPerPage%>;i++) {
-				document.getElementsByName("chb")[i].checked=true; //name 을 사용하여 배열 형태로 담아 호출
+			for(var i=0;i<nowPageChbNum;i++) {
+				document.getElementsByName("chb")[i].checked = true; //name 을 사용하여 배열 형태로 담아 호출
+			}
+		} else if(document.getElementsByClassName('allCheckChb')[0].checked == false){
+			for(var i=0;i<nowPageChbNum;i++) {
+				document.getElementsByName("chb")[i].checked = false; //name 을 사용하여 배열 형태로 담아 호출
 			}
 		}
-		if(document.getElementsByClassName('allCheckChb')[0].checked == false){
-			for(var i=0;i<<%=numPerPage%>;i++){
-				document.getElementsByName("chb")[i].checked=false; //name 을 사용하여 배열 형태로 담아 호출
-			}
-		}
+
 	}
 	
 	// 체크박스 레코드 삭제기능 
 	function deleteCheckedBox(){
-		var checkedBox = new Array();
-		for(var i=0;i<<%=numPerPage%>;i++){
-			if(document.getElementsByName("chb")[i].checked){
-				console.log("checkedBox 배열의 " + i + "번째 인덱스 : " + checkedBox[i]);
-				document.deleteFrm.onum.value += (document.getElementsByName("chb")[i].value+";");
+		var chb = document.querySelectorAll('.chb'); // 전체 체크박스 가져옴
+		
+		for(var i=0;i<chb.length;i++){ // 전체 체크박스 길이만큼 반복문 돌려서 체크된 거 찾기
+			if(document.getElementsByClassName('chb')[i].checked == true){ // 체크되었다면
+				// input 태그의 value가 2개이상이면 자동으로 배열로 전달된다.
+				document.deleteFrm.onum.value += document.getElementsByClassName('chb')[i].value + ";"; // onum 배열에 체크된 체크박스 onum 추가하여 submit하기
 			}
 		}
-		console.log(document.deleteFrm.onum.value);
+		
 		document.deleteFrm.action = "adminDeleteOrderProc.jsp";
 		document.deleteFrm.submit();
 	}
+	
 </script>
 <!-- 부트스트랩 CSS -->
 <link
@@ -131,22 +133,31 @@
 <%@ include file="../top2.jsp" %>
 </head>
 <body id="adminOrder">
-<!-- 사이드바 40%, 창 60% -->
 <div class="d-flex align-items-start">
+	<!-- 사이드바 -->
 	<div class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
 		<a href="adminOrder.jsp"><button class="nav-link active" id="v-pills-home-tab" data-bs-toggle="pill" data-bs-target="#v-pills-home" type="button" role="tab" aria-controls="v-pills-home" aria-selected="true">주문관리</button></a>
 		<a href="adminMember.jsp"><button class="nav-link" id="v-pills-profile-tab" data-bs-toggle="pill" data-bs-target="#v-pills-profile" type="button" role="tab" aria-controls="v-pills-profile" aria-selected="false">회원관리</button></a>
 		<a href="adminReviewBoard.jsp"><button class="nav-link" id="v-pills-messages-tab" data-bs-toggle="pill" data-bs-target="#v-pills-messages" type="button" role="tab" aria-controls="v-pills-messages" aria-selected="false">리뷰관리</button></a>
 		<a href="adminProduct.jsp"><button class="nav-link" id="v-pills-settings-tab" data-bs-toggle="pill" data-bs-target="#v-pills-settings" type="button" role="tab" aria-controls="v-pills-settings" aria-selected="false">상품관리</button></a>
 		<a href="../sellHistory.jsp"><button class="nav-link" id="v-pills-settings-tab" data-bs-toggle="pill" data-bs-target="#v-pills-settings" type="button" role="tab" aria-controls="v-pills-settings" aria-selected="false">매출관리</button></a>
-		<a href="#"><button class="nav-link" id="v-pills-settings-tab" data-bs-toggle="pill" data-bs-target="#v-pills-settings" type="button" role="tab" aria-controls="v-pills-settings" aria-selected="false">판매데이터</button></a>
+		<a href="adminSales.jsp"><button class="nav-link" id="v-pills-settings-tab" data-bs-toggle="pill" data-bs-target="#v-pills-settings" type="button" role="tab" aria-controls="v-pills-settings" aria-selected="false">판매데이터</button></a>
 	</div>
+	<!-- 본문 -->
 	<div class="tab-content" id="v-pills-tabContent" style="margin:0 auto;">
-		<h2 style="text-align: center; margin: 1.5vw; margin-bottom: 2vw;">주문관리</h2>
-		<table class="orderTable">
+		<h3 style="text-align: center; margin: 1.5vw; margin-bottom: 2vw;">주문관리</h3>
+		<form name="orderDateSearchFrm" style="margin-bottom: 1vw;">
+			<a href="javascript:moveDate('12')"><input type="button" value="1년이내" class="btn btn-primary dateSearchBtn"></a>
+			<a href="javascript:moveDate('6')"><input type="button" value="6개월이내" class="btn btn-primary dateSearchBtn"></a>
+			<a href="javascript:moveDate('3')"><input type="button" value="3개월이내" class="btn btn-primary dateSearchBtn"></a>
+			<a href="javascript:moveDate('1')"><input type="button" value="1개월이내" class="btn btn-primary dateSearchBtn"></a>
+			<a href="javascript:moveDate('all')"><input type="button" value="전체" class="btn btn-primary dateSearchBtn"></a>
+			<input type="hidden" name="interval" value="">
+		</form>
+		<table>
 			<tr>
-				<td align="center" colspan="2">
-					<table class="table table-hover" >
+				<td>
+					<table class="table">
 						<tr class="table-column">
 							<th width="100">순번</th>
 							<th width="100">주문자 ID</th>
@@ -158,19 +169,16 @@
 							<th width="150">주문날짜</th>
 							<th width="100">배송지</th>
 							<th width="100">주문상태</th>
-							<th width="130"><input type="checkbox" class="allCheckChb" onclick="allCheck()">&nbsp;[전체선택]</th>
+							<th width="130"><input type="checkbox" class="allCheckChb" onclick="allCheck(<%=totalRecord-start%>)">&nbsp;[전체선택]</th>
 						</tr>
 						<%
 						Vector<OrderBean> vlist = aoMgr.getOrderList(keyField, keyWord, start, cnt, interval);
-						if(vlist.size()==0){%>
+						if(vlist.size()==0){
+						%>
 							<tr>
-								<td colspan="8" width="300" align="center">
-									<br>
+								<td colspan="11" width="300" align="center"><br>
 									<%out.println("주문내역이 없습니다."); %>
 								</td>
-							</tr>
-							<tr>
-								<td><br></td>
 							</tr>
 						<%} else {
 							for(int i=0; i<vlist.size(); i++){
@@ -183,106 +191,153 @@
 								String oid = bean.getOid();
 								String regdate = bean.getRegdate();
 								String oaddress = bean.getOaddress();
-								String state = bean.getState();
-							%>
-						<tr align="left">
-							<td><%=onum%></td>
-							<td><%=oid%></td>
-							<td><%=pnum%></td>
-							<td><%=pname%></td>
-							<td><%=qty%></td>
-							<td><%=price1%></td>
-							<td><%=qty*price1%></td>
-							<td><%=regdate%></td>
-							<td><%=oaddress%></td>
-							<td>
-							<%if(state.equals("1")){%>
-								결제 전
-							<%} else if(state.equals("2")){%>
-								결제완료(배송완료)
-							<%} else if(state.equals("3")){%>
-								주문취소
-							<%} %>
-							</td>
-							<td><input type="checkbox" class="chb" name="chb" value="<%=onum%>"></td>
-						</tr>
-						<%} // -- 반복문 끝%>
-					<%} // -- if-else문 끝%>
-					</table>			
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<form name="orderDateSearchFrm">
-						<a href="javascript:moveDate('12')"><input type="button" value="1년이내" class="btn btn-primary dateSearchBtn"></a>
-						<a href="javascript:moveDate('6')"><input type="button" value="6개월이내" class="btn btn-primary dateSearchBtn"></a>
-						<a href="javascript:moveDate('3')"><input type="button" value="3개월이내" class="btn btn-primary dateSearchBtn"></a>
-						<a href="javascript:moveDate('1')"><input type="button" value="1개월이내" class="btn btn-primary dateSearchBtn"></a>
-						<a href="javascript:moveDate('all')"><input type="button" value="전체" class="btn btn-primary dateSearchBtn"></a>
-						<input type="hidden" name="interval" value="">
-					</form>
-				</td>
-			</tr>
-			<tr>
-				<td align="center" class="page" style="font-size:1em;">
-					<%if(nowBlock > 1) {%>
-						<a href="javascript:block('<%=nowBlock-1%>')">&nbsp;이 전&nbsp;</a>
-					<%}%>
-					<%
-					// 각 블럭의 첫페이지와 마지막 페이지 계산
-					int pageStart = (nowBlock - 1) * pagePerBlock + 1;
-					int pageEnd = (pageStart + pagePerBlock) < totalPage ? pageStart + pagePerBlock : totalPage + 1; 
-/*  					out.println("*totalPage : " + totalPage);
-					out.println("*pageStart : " + pageStart);
-					out.println("*pageEnd : " + pageEnd); */
-					for(; pageStart<pageEnd; pageStart++){%>
-						<a href="javascript:pageing('<%=pageStart%>')">
-							<%if(pageStart == nowPage){%>
-								<font color="#9598CA">[<%=pageStart%>]</font>
-							<%}else { %>
-								[<%=pageStart%>]
-							<%} %>
-						</a>
-					<%}%>
-					<%if(nowBlock < totalBlock) {%>
-						<a href="javascript:block('<%=nowBlock+1%>')">&nbsp;다 음&nbsp;</a>
-					<%}%>
-				</td>
-			</tr>
-		</table>
+								String state = bean.getState();%>
+								<tr align="left">
+									<td><%=totalRecord-start-i%></td>
+									<td><%=oid%></td>
+									<td><%=pnum%></td>
+									<td><%=pname%></td>
+									<td><%=qty%></td>
+									<td><%=price1%></td>
+									<td><%=qty*price1%></td>
+									<td><%=regdate%></td>
+									<td><%=oaddress%></td>
+									<td>
+										<%if(state.equals("1")){%>
+											결제 전
+										<%} else if(state.equals("2")){%>
+											결제완료(배송완료)
+										<%} else if(state.equals("3")){%>
+											주문취소
+										<%} %>
+									</td>
+									<td><input type="checkbox" class="chb" name="chb" value="<%=onum%>" onchange="checkAllChbChecked()"></td>
+								</tr>
+								<%} // -- for문 끝 %>
+							<%} // -- if-else문 끝%>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<div style="text-align:right">
+								<form name="deleteFrm" method="post">
+									<input type="hidden" name="onum">
+									<input type="button" name="deleteBtn" value="삭제" onclick="deleteCheckedBox()" class="btn btn-primary deleteBtn">
+								</form>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<div style="text-align: center;">
+								<%if(nowBlock > 1) {%>
+									<a href="javascript:block('<%=nowBlock-1%>')" class="pagingATag">&nbsp;이 전&nbsp;</a>
+								<%}%>
+								<%
+								// 각 블럭의 첫페이지와 마지막 페이지 계산
+								int pageStart = (nowBlock - 1) * pagePerBlock + 1;
+								int pageEnd = (pageStart + pagePerBlock) < totalPage ? pageStart + pagePerBlock : totalPage + 1; 
+								for(; pageStart<pageEnd; pageStart++){%>
+									<a href="javascript:pageing('<%=pageStart%>')">
+										<%if(pageStart == nowPage){%>
+											<font color="black">[<%=pageStart%>]</font>
+										<%}else { %>
+											<font color="#a0a0a0">[<%=pageStart%>]</font>
+										<%} %>
+									</a>
+								<%}// -- for문 끝 %>
+								<%if(nowBlock < totalBlock) {%>
+									<a href="javascript:block('<%=nowBlock+1%>')" class="pagingATag">&nbsp;다 음&nbsp;</a>
+								<%}%>			
+							</div>	
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<div class="searchDiv">
+							  	<!-- 검색 폼 -->
+					  			<form name="searchOrderFrm"> <!-- 재귀호출되도록 -->
+									<select name="keyField" class="form-select"> <!-- 선택한 값이 keyField의 value로 가나요? -->
+										<option value="oid">주문자 ID</option>
+										<option value="pnum">상품번호</option>
+										<option value="pname">상품명</option>
+										<option value="state">주문상태</option>
+									</select>
+									<input type="text" name="keyWord" class="form-control form-text-input">
+									<input type="button" onclick="search()" value="검색" class="btn btn-primary orderSearchBtn">
+								</form>
+							</div>
+				
+							<form name="readFrm">
+								<input type="hidden" name="nowPage" value="<%=nowPage%>">
+								<input type="hidden" name="keyField" value="<%=keyField%>">
+								<input type="hidden" name="keyWord" value="<%=keyWord%>">
+								<input type="hidden" name="numPerPage" value="<%=numPerPage%>">
+								<input type="hidden" name="interval" value="<%=interval%>">
+							</form>
+						</td>
+					</tr>
+				</table>
+			
+
+					
+			</div> <!-- 본문 끝-->
+		</div><!-- 네비까지 포함한 본문 끝-->
+		<script>
+			// 한 페이지 체크박스 모두 체크되었거나 하나라도 체크박스 풀렸을 경우 전체선택 체크박스 유동적으로 선택 or 해제하는 기능
+			function checkAllChbChecked(){
+				var chb = document.querySelectorAll('.chb'); // 전체 체크박스 가져옴
+				var qty = 0;
+				if(<%=totalRecord>=cnt%>){
+					// 마지막 페이지 (10의 배수 아님)
+					if(<%=nowPage%>==<%=totalPage%>){
+						var num = <%=totalRecord - ((totalPage-1)*10)%>;
+						for(var i=0;i<chb.length;i++){ // 전체 체크박스 길이만큼 반복문 돌려서 체크된 거 찾기
+							if(document.getElementsByClassName('chb')[i].checked == true){ // 체크되었다면
+								qty+=1;
+							}
+						}
+						if(qty==num){
+							console.log(document.querySelector('.allCheckChb').checked);
+							document.querySelector('.allCheckChb').checked = true;
+						} else { // 현재페이지 체크박스들 전체 체크되지 않았다면
+							document.querySelector('.allCheckChb').checked = false;
+						}
+					}
+					
+					// 이외 페이지 (10의 배수)
+					else if(<%=nowPage%>!=<%=totalPage%>){
+						var num = <%=totalRecord-(totalRecord - cnt)%>;
+						for(var i=0;i<chb.length;i++){ // 전체 체크박스 길이만큼 반복문 돌려서 체크된 거 찾기
+							if(document.getElementsByClassName('chb')[i].checked == true){ // 체크되었다면
+								qty+=1;
+							}
+						}
+						if(qty==num){
+							console.log(document.querySelector('.allCheckChb').checked);
+							document.querySelector('.allCheckChb').checked = true;
+						} else { // 현재페이지 체크박스들 전체 체크되지 않았다면
+							document.querySelector('.allCheckChb').checked = false;
+						}
+					}
+				} else if(<%=totalRecord<cnt%>){
+					// totalRecord 만큼 체크박스 선택되었다면 전체선택 체크박스 선택됨
+					for(var i=0;i<chb.length;i++){ // 전체 체크박스 길이만큼 반복문 돌려서 체크된 거 찾기
+						if(document.getElementsByClassName('chb')[i].checked == true){ // 체크되었다면
+							qty+=1;
+						}
+					}
+					console.log(qty);
+					if(qty==<%=totalRecord%>){
+						console.log(document.querySelector('.allCheckChb').checked);
+						document.querySelector('.allCheckChb').checked = true;
+					} else { // 현재페이지 체크박스들 전체 체크되지 않았다면
+						document.querySelector('.allCheckChb').checked = false;
+					}
+				}
+			}
 		
-		<div style="text-align:right">
-		<form name="deleteFrm" method="post">
-			<input type="hidden" name="onum">
-			<input type="button" name="deleteBtn" value="삭제" onclick="deleteCheckedBox()" class="btn btn-primary deleteBtn">
-			<input type="button" name="deleteAllBtn" value="전체삭제" class="btn btn-primary deleteAllBtn">
-		</form>
-		</div>
-		
-		<div style="text-align:center;">
-		  	<!-- 검색 폼 -->
-  			<form name="searchOrderFrm"> <!-- 재귀호출되도록 -->
-				<select name="keyField" class="form-select"> <!-- 선택한 값이 keyField의 value로 가나요? -->
-					<option value="oid">주문자 ID</option>
-					<option value="pnum">상품번호</option>
-					<option value="pname">상품명</option>
-					<option value="state">주문상태</option>
-				</select>
-				<input type="text" name="keyWord" class="form-control form-text-input"> <!-- 입력한 값이 keyWord의 value로 가나요? -->
-				<input type="button" onclick="search()" value="검색" class="btn btn-primary orderSearchBtn">
-		</form>
-		</div>
-		
-		<form name="readFrm">
-			<input type="hidden" name="nowPage" value="<%=nowPage%>">
-			<input type="hidden" name="keyField" value="<%=keyField%>">
-			<input type="hidden" name="keyWord" value="<%=keyWord%>">
-			<input type="hidden" name="numPerPage" value="<%=numPerPage%>">
-			<input type="hidden" name="interval" value="<%=interval%>">
-		</form>
-		
-  		
-  	</div> <!-- 본문 끝-->
-</div><!-- 네비까지 포함한 본문 끝-->
+		</script>
 </body>
 </html>

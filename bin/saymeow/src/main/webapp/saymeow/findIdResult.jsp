@@ -17,15 +17,14 @@ MemberMgr mgr = new MemberMgr();
 <link rel="stylesheet" href="css/styleTW.css">
 </head> 
 <!-- 외부 CSS -->						
-<link rel="stylesheet" href="css/style.css">						
-<link rel="stylesheet" href="css/styleTW.css">						
+<link rel="stylesheet" href="css/style.css">											
 <!-- 부트스트랩 CSS -->						
 <link						
 href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"						
 rel="stylesheet"						
 integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"						
 crossorigin="anonymous">
-<%@ include file="top.jsp"%>
+<%@ include file="top2.jsp"%>
 <body> 
 	 <form name="idsearch" method="post" >
       <%
@@ -37,13 +36,13 @@ crossorigin="anonymous">
 		<tr><td>
       <div class = "container" >
       	<div class = "found-success">
-	      <h4>  회원님의 아이디는 </h4>  
-	      <div class ="found-id"><%=member_mid%></div>
-	      <h4>  입니다 </h4>
+	      <h5>회원님의 아이디는 </h5><br>  
+	      <div class ="found-id"><b><%=member_mid%></b><br><br></div>
+	      <h5>입니다.</h5><br>
 	     </div>
 	     <div class = "found-login">
- 		    <input type="button" class="lbtn"id="btnLogin" value="로그인" onClick ="location.href='login.jsp'"/>
- 		     <input type="button" class="lbtn"id="btnLogin" value="비밀번호 찾기" onClick ="location.href='findPw.jsp'"/>
+ 		    <input type="button" class="find"id="btnLogin" value="로그인" onClick ="location.href='login.jsp'"/>
+ 		     <input type="button" class="cancel"id="btnLogin" value="비밀번호 찾기" onClick ="location.href='findPw.jsp'"/>
        	</div>
        </div>
        </table>
@@ -58,7 +57,7 @@ crossorigin="anonymous">
 		<tr><td>
         <div class = "container" >
       	<div class = "found-fail" >
-	      <h4>  등록된 정보가 없습니다 </h4>  
+	      <h4>등록된 회원 정보가 없습니다 </h4><br><br> 
 	     </div>
        </div>
        
@@ -66,8 +65,8 @@ crossorigin="anonymous">
        </tr>
        <tr><td>
            <div class = "found-login">
- 		    <input type="button" class="lbtn"id="btnback" value="다시 찾기" onClick="history.back()"/>
- 		    <input type="button" class="lbtn"id="btnjoin" value="회원가입" onClick="location.href='member.jsp'"/>
+ 		    <input type="button" class="find"id="btnback" value="다시 찾기" onClick="history.back()"/>
+ 		    <input type="button" class="cancel"id="btnjoin" value="회원가입" onClick="location.href='member.jsp'"/>
        	</div>
        </td></tr>
        </table>
@@ -76,6 +75,5 @@ crossorigin="anonymous">
   }
  %> 
       </form>
-	<%@ include file="bottom.jsp" %> 
 </body> 
 </html>

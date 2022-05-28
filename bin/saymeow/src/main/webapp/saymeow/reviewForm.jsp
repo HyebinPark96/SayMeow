@@ -11,8 +11,6 @@
 <link rel="stylesheet" href="css/styleHB.css">
 <!-- Çýºó JS -->
 <script src="scriptHB.js"></script>
-<!-- ¿ÜºÎ CSS -->
-<link rel="stylesheet" href="css/style.css">
 <!-- ºÎÆ®½ºÆ®·¦ CSS -->
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"

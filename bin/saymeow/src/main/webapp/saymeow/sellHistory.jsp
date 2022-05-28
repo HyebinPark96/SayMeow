@@ -1,8 +1,11 @@
+<%@page import="saymeow.ProductBean"%>
 <%@page import="saymeow.UtilMgr"%>
 <%@page import="saymeow.OrderBean"%>
 <%@page import="java.util.Vector"%>
 <%@page contentType="text/html; charset=EUC-KR"%>
 <jsp:useBean id="aMgr" class="saymeow.AdminMgr"/>
+<jsp:useBean id="pMgr" class="saymeow.ProductMgr"/>
+
 <%
 	int sellTotal = 0;
 	String state = "1";
@@ -15,7 +18,7 @@
     if(request.getParameter("month")!=null){
     	month = UtilMgr.parseInt(request, "month");
     }
-    int getPrice = 1000;//재설정하기 (물품 가격)
+    int getPrice = 0;//재설정하기 (물품 가격)
     
 %>
 <!DOCTYPE html>
@@ -49,7 +52,7 @@ function selectMFn(month){
 		<a href="admin/adminReviewBoard.jsp"><button class="nav-link" id="v-pills-messages-tab" data-bs-toggle="pill" data-bs-target="#v-pills-messages" type="button" role="tab" aria-controls="v-pills-messages" aria-selected="false">리뷰관리</button></a>
 		<a href="admin/adminProduct.jsp"><button class="nav-link" id="v-pills-settings-tab" data-bs-toggle="pill" data-bs-target="#v-pills-settings" type="button" role="tab" aria-controls="v-pills-settings" aria-selected="false">상품관리</button></a>
 		<a href="sellHistory.jsp"><button class="nav-link active" id="v-pills-settings-tab" data-bs-toggle="pill" data-bs-target="#v-pills-settings" type="button" role="tab" aria-controls="v-pills-settings" aria-selected="false">매출관리</button></a>
-		<a href="#"><button class="nav-link" id="v-pills-settings-tab" data-bs-toggle="pill" data-bs-target="#v-pills-settings" type="button" role="tab" aria-controls="v-pills-settings" aria-selected="false">판매데이터</button></a>
+		<a href="admin/adminSales.jsp"><button class="nav-link" id="v-pills-settings-tab" data-bs-toggle="pill" data-bs-target="#v-pills-settings" type="button" role="tab" aria-controls="v-pills-settings" aria-selected="false">판매데이터</button></a>
 	</div>
 	<div class="tab-content" id="v-pills-tabContent" align="center" style="margin:0 auto;">
 <br><br>	
@@ -62,11 +65,13 @@ function selectMFn(month){
  <br>
 	<select name="year" onchange="selectYFn(this.form.year.value)">
 		<option value="2022" selected>2022년</option>
+		<option value="0">전체</option> 
 	</select>
 	<select name="month" onchange="selectMFn(this.form.month.value)">
 		<%for(int i=1;i<13;i++){%>
 		<option value="<%=i%>"><%=i%>월</option>
 		<%}%>
+		<option value="0" selected>전체</option> 
 	</select>
 	<br>
 </form>
@@ -78,15 +83,15 @@ function selectMFn(month){
 
 <div>
 
-<table border="1" style="width:100%;">
+<table border="1" style="border: 1;width:620px;text-align: center;">
 <br>
 <br>
 	<thead>
 	<tr>
-		<th>상품 번호</th>
-		<th>상품명</th>
-		<th>판매 수량</th>
-		<th>판매 금액</th>
+		<th style="background:#9598CA;">상품 번호</th>
+		<th style="background:#9598CA;">상품명</th>
+		<th style="background:#9598CA;">판매 수량</th>
+		<th style="background:#9598CA;">판매 금액</th>
 	</tr>
 	</thead>
 	<%if(year==0&&month==0){
@@ -96,14 +101,16 @@ function selectMFn(month){
 			int pnum = order.getPnum();
 			String pname = order.getPname();
 			int qty = order.getQty();
+			getPrice = pMgr.getPrice(pnum);
 			int total = qty*getPrice;
+			String UTotal = UtilMgr.monFormat(total);
 			sellTotal += total;
 	%>
 	<tr>
 		<td><%=pnum%></td>
 		<td><%=pname%></td>
 		<td><%=qty%></td>
-		<td><%=total%></td>
+		<td><%=UTotal%></td>
 	</tr>
 	<%	}
 	}else if(year!=0&&month==0){
@@ -113,14 +120,16 @@ function selectMFn(month){
 			int pnum = order.getPnum();
 			String pname = order.getPname();
 			int qty = order.getQty();
+			getPrice = pMgr.getPrice(pnum);
 			int total = qty*getPrice;
+			String UTotal = UtilMgr.monFormat(total);
 			sellTotal += total;
 	%>
 	<tr>
 		<td><%=pnum%></td>
 		<td><%=pname%></td>
 		<td><%=qty%></td>
-		<td><%=total%></td>
+		<td><%=UTotal%></td>
 	</tr>
 	<%	}
 	}else if(year!=0&&month!=0){
@@ -131,14 +140,16 @@ function selectMFn(month){
 				int pnum = order.getPnum();
 				String pname = order.getPname();
 				int qty = order.getQty();
+				getPrice = pMgr.getPrice(pnum);
 				int total = qty*getPrice;
+				String UTotal = UtilMgr.monFormat(total);
 				sellTotal += total;
 	%>
 	<tr>
 		<td><%=pnum%></td>
 		<td><%=pname%></td>
 		<td><%=qty%></td>
-		<td><%=total%></td>
+		<td><%=UTotal%></td>
 	</tr>
 	<%		}
 		}else if(vlist.size()==0){%>
@@ -150,7 +161,7 @@ function selectMFn(month){
 </table>
 <br><br>
 
-<h3>총 판매금액은 <%=sellTotal%>원 입니다.</h3>
+<h3>총 판매금액은 <span style="color:red;"><%=UtilMgr.monFormat(sellTotal)%></span>원 입니다.</h3>
 <br><br>
 </div>
 
