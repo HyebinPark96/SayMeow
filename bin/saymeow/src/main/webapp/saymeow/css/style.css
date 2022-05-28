@@ -1,0 +1,74 @@
+/*top.jsp 안쓰므로 이 파일 사용XX*/
+@charset "EUC-KR";
+
+* {
+	margin : 0;
+	padding: 0;
+}
+
+.top{
+    text-align: center;
+}
+
+#bootstrap-overrides .navbar-brand{
+	color:#A13FFF;
+	vertical-align: middle;
+	line-height: 1; 
+	margin-left:10px;
+}
+
+#bootstrap-overrides .nav-item-space{
+	font-size:1.3em;
+	letter-spacing: 5px; 
+	margin:0 10px;
+	
+}
+
+#bootstrap-overrides .input-group{
+	text-align:center;
+	padding-left:10%;
+	width: 50vw;
+}
+
+#bootstrap-overrides .form-control{
+	width:30vw;
+}
+
+#bootstrap-overrides .input-group-text{
+	display:inline;
+	width:10vw;
+	text-align: center;
+	text-decoration-line: none;
+	background-color:#A13FFF;
+	color:white;
+}
+
+#bootstrap-overrides .top-aTags{
+	width:17vw;
+}
+
+#bootstrap-overrides .aTag {
+	color:#808080;
+	text-align: center;
+	font-size: 1.1em;
+	width:10vw;
+	text-decoration-line: none;
+}
+
+#bootstrap-overrides .top-aTag{
+	background-color:#A13FFF;
+	color:white;
+	margin: 0 2px;
+	border: 3px solid #A13FFF;
+  	border-radius: 5px;
+}
+
+#bootstrap-overrides .categories{
+	width:50vw;
+	font-size: 1.5em;
+	margin: 0 auto;
+	display: flex;
+    align-items: center;
+    justify-content: center;
+    color:#d3d3d3;
+}

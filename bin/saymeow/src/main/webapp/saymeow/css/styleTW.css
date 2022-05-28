@@ -1,0 +1,85 @@
+/*디자인빼고 취합완료*/
+@charset "EUC-KR";
+
+
+/*login.jsp*/
+#level{
+	margin:5vh auto;
+	border: 1px solid #808080;
+}
+
+#level2{
+	width: 400px;
+	/*border-collapse: separate;
+	border-spacing: 0 20px;*/
+	text-align: center;
+}
+
+#level3{
+	margin:5vh auto;
+}
+
+#level4{
+	height: 5vw;
+	margin:auto;
+	
+}
+
+.joinbtn {
+	border:none;
+	background-color: #9598ca;
+	display:inline;
+	width:15vw;
+	height:1.5vw;
+	text-align: center;
+	text-decoration-line: none;
+	border-radius: 5px;
+}
+
+.lbtn{
+	border:none;
+	background-color: #9598ca;
+	display:inline;
+	width:7.3vw;
+	height:1.5vw;
+	text-align: center;
+	text-decoration-line: none;
+	border-radius: 5px;
+}
+
+.idTf, .pwTf {
+	height: 20px;
+	width: 10vw;
+}
+
+/*member.jsp*/
+
+#memberbd {
+	background-color: beige;
+}
+
+.regFormTb{
+	margin: 0 auto; 
+	border: 1px solid #808080; 
+	width: 40vw;
+}
+
+.checkIdBtn{
+	display:inline-block;
+	width:6vw;
+}
+
+.loginlo{
+	border-radius: 5px;
+
+}
+
+.logbtn{
+	border:none;
+	background-color: #9598ca;
+	display:inline;
+	width:15vw;
+	text-align: center;
+	text-decoration-line: none;
+	border-radius: 5px;
+}

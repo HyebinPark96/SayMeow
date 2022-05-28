@@ -1,0 +1,58 @@
+/*취합완료*/
+
+/* Index(main) css 파일 */
+@charset "EUC-KR";
+
+* {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+
+.blank {
+	background-color: beige;
+}
+
+body {
+	background-color: beige;
+}
+
+.bsection {
+	display: flex;
+    align-items: center;
+    background-color: beige;
+    align-content: center;
+}
+
+ img { 
+ 	display: block;
+	margin:auto;
+ 	}
+ 	
+.psection {
+	background-color: beige;
+}
+
+.plist {
+    align-content: center;
+    font-weight: bold;
+}
+
+.new {
+	text-align: center;
+	font-weight: bold;
+}
+
+.prow {
+	justify-content: center;
+	list-style-type: none;
+    position: relative;
+	display: grid;
+	grid-auto-rows: 10;
+	grid-template-columns: repeat(5, 250px);
+	text-align: center;
+}
+
+.more {
+    text-align: right;
+}
