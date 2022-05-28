@@ -1,4 +1,5 @@
 <!-- 구매처리페이지 -->
+<%@page import="saymeow.ProductBean"%>
 <%@page import="saymeow.OrderBean"%>
 <%@page import="saymeow.UtilMgr"%>
 <%@page import="saymeow.CartBean"%>
@@ -6,6 +7,7 @@
 <jsp:useBean id="cart" class="saymeow.CartBean" />
 <jsp:useBean id="cMgr" class="saymeow.CartMgr" />
 <jsp:useBean id="oMgr" class="saymeow.OrderMgr" />
+<jsp:useBean id="pdMgr" class="saymeow.ProductDetailMgr"/>
 
 <%
 String pname = null;
@@ -16,6 +18,14 @@ String flag = request.getParameter("flag");
 String snum[] = null;
 snum = request.getParameterValues("cch");
 String msg = "";
+String soldout = "";
+for(int j=1;j<snum.length;j++){
+	CartBean cart2 = cMgr.checkCart(Integer.parseInt(snum[j]));
+	ProductBean pbean2 = pdMgr.getProduct(cart2.getPnum());
+	if(pbean2.getStock()<cart2.getQty()){
+		soldout = "true";
+	}
+}
 
 int allTotal = 0;
 String uAllTotal = "";
@@ -29,9 +39,15 @@ if (flag.equals("delete")) {
 	location.href = "cartList.jsp";
 </script>
 <%
+} else if (soldout!="") {
+%>
+<script>
+	alert("선택한 제품 중 재고가 없거나 주문 할 수량보다 작습니다.");
+	location.href = "cartList.jsp";
+</script>
+<%
 } else if (flag.equals("order")) {
 %>
-
 <!DOCTYPE html>
 <html>
 <head>
