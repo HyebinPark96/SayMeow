@@ -9,3 +9,11 @@
 .classpie {
 	display: flex;
 }
+
+table {
+	margin: auto;
+}
+
+th, td {
+	border-width: thin;
+}
