@@ -20,7 +20,7 @@
 		pnum = UtilMgr.parseInt(request, "pnum");
 	}
 %>	
-	<%if(flag.equals("productDetail")){ // 상품상세에서 댓글 단경우%>
+	<%if(flag!=null&&flag.equals("productDetail")){ // 상품상세에서 댓글 단경우%>
 		<%if(comment.trim().equals("")||comment==null){%>
 			<script>
 				alert('(공백제외) 1자 이상 댓글을 입력해주세요.');
