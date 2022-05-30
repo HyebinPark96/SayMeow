@@ -190,7 +190,7 @@ public class ProductMgr {
 	}	
 
 	
-	// 메인화면 상품리스트업
+	// 메인화면 상품리스트업 (신상품순)
 	public Vector<ProductBean> getP3() {
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -200,6 +200,7 @@ public class ProductMgr {
 		try {
 			con = pool.getConnection();
 			sql = "select pnum, pname, price1, image from product "
+				+ "WHERE pstat = 1 "					
 				+ "order by pnum desc limit 10";
 			pstmt = con.prepareStatement(sql);
 			rs = pstmt.executeQuery();
@@ -219,6 +220,41 @@ public class ProductMgr {
 		return vlist;
 		
 	}
+	
+	// 메인화면 상품리스트업 (인기상품순)
+	public Vector<ProductBean> getP4() {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = null;
+		Vector<ProductBean> vlist = new Vector<ProductBean>();
+		try {
+			con = pool.getConnection();
+			sql = "SELECT p.pnum, p.pname, p.price1, p.image, SUM(o.qty) AS sum "
+				+ "FROM petorder o "
+				+ "RIGHT JOIN product p ON p.pnum = o.pnum "
+				+ "WHERE pstat = 1 "
+				+ "GROUP BY p.pnum "
+				+ "ORDER BY sum DESC limit 10";
+			pstmt = con.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				ProductBean bean = new ProductBean();
+				bean.setPnum(rs.getInt(1));
+				bean.setPname(rs.getString(2));
+				bean.setPrice1(rs.getInt(3));
+				bean.setImage(rs.getString(4));
+				vlist.addElement(bean);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			pool.freeConnection(con, pstmt, rs);
+		}
+		return vlist;
+	}	
+	
+	
 	
 	// 특정 상품검색 (상품이름으로)
 	public Vector<ProductBean> getPList(String keyWord){
