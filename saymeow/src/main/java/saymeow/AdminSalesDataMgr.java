@@ -13,7 +13,66 @@ public class AdminSalesDataMgr {
 		pool = DBConnectionMgr.getInstance(); // 인스턴스화
 	}
 	
-	// 원형차트 만들기 위해 판매순 1~5위 들고오기
+	/*막대그래프*/
+	// 막대그래프 만들기 위해 판매순 1~5위 이름 가져오기
+	public String getSalesDataName(int index) { // getSalesRanking 메소드 index변수와 같은 의미
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = null;
+		String pName = null;
+		try {
+			con = pool.getConnection();
+			sql = "SELECT pname "
+					+ "FROM petorder "
+					+ "GROUP BY pnum "
+					+ "ORDER BY SUM(qty) DESC, pname "
+					+ "LIMIT ?,1 ";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, index);
+			rs = pstmt.executeQuery();
+			if(rs.next())
+				pName = rs.getString(1);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			pool.freeConnection(con, pstmt, rs);
+		}
+		return pName;
+	}
+	
+	// 막대그래프 만들기 위해 판매순 1~5위 판매량 가져오기
+	public int getSalesDataQty(int index) { // getSalesRanking 메소드 index변수와 같은 의미
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = null;
+		int qty = 0;
+		try {
+			con = pool.getConnection();
+			sql = "SELECT SUM(qty) "
+					+ "FROM petorder "
+					+ "GROUP BY pnum "
+					+ "ORDER BY SUM(qty) DESC, pname "
+					+ "LIMIT ?,1 ";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, index);
+			rs = pstmt.executeQuery();
+			if(rs.next())
+				qty = rs.getInt(1);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			pool.freeConnection(con, pstmt, rs);
+		}
+		return qty;
+	}
+	
+	
+	
+	
+	/*원형차트*/
+	// 판매순 1~5위 들고오기
 	public ProductBean getSalesRanking(int index) { // index : ? = limit 조건인 첫 시작지점을 뜻하는 변수, 하나씩 가져오므로 1씩 증가시켜 사용하면됨
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -104,7 +163,11 @@ public class AdminSalesDataMgr {
 		return percentage;
 	}
 	
-	// 막대그래프 유동적으로 년도 변경되기 위해 현재날짜의 년도에서 몇년전?몇년후? 기준 넣어서 년도 반환하기
+	
+	
+	
+	/*막대그래프*/
+	// 유동적으로 년도 변경되기 위해 현재날짜의 년도에서 몇년전?몇년후? 기준 넣어서 년도 반환하기
 	public String getStandardYear(int interval) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -127,9 +190,7 @@ public class AdminSalesDataMgr {
 		return standardYear;
 	}
 	
-	
-	
-	// 막대그래프 특정 년도의 총 판매가격 구하기(원가차감 안된가격)
+	// 특정 년도의 총 판매가격 구하기(원가차감 안된가격)
 	public int getSales(String standardYear) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -158,7 +219,7 @@ public class AdminSalesDataMgr {
 		return sales;
 	}
 	
-	// 막대그래프 특정 년도의 원가 구하기
+	// 특정 년도의 원가 구하기
 	public int getExpenses(String standardYear) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -187,7 +248,11 @@ public class AdminSalesDataMgr {
 		}
 		return expenses;
 	}
+
 	
+	
+	
+	/*원형그래프*/
 	//-- 대분류별 매출금액 (mclass sales)
 	public int getMSales(String mClass) {
 		Connection con = null;
@@ -246,14 +311,12 @@ public class AdminSalesDataMgr {
 		return Ssales;
 	}
 	
-	
-	
-	
 	public static void main(String[] args) {
 		AdminSalesDataMgr dMgr = new AdminSalesDataMgr();
 		ProductBean pBean = dMgr.getSalesRanking(0);
 		double percentage = dMgr.getSalesDataPnum(0);
 		String standardYear = dMgr.getStandardYear(0);
 		int sales = dMgr.getSales(standardYear);
+		//System.out.println(dMgr.getSalesDataName(0));
 	}
 }

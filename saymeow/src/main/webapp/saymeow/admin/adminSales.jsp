@@ -10,30 +10,51 @@
 	<!-- 외부 JS -->
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     
-    <!-- 원형그래프 -->
+    <!-- 막대그래프 -->
     <!-- 주문수량별  -->
     <script type="text/javascript">
-		google.charts.load("current", {packages:["corechart"]});
-		google.charts.setOnLoadCallback(drawChart);
-		function drawChart() {
-        	var data = google.visualization.arrayToDataTable([
-	          ['Task', 'Hours per Day'],
-	          ['<%=dMgr.getSalesDataPname(0)%>',     <%=dMgr.getSalesDataPnum(0)%>],
-	          ['<%=dMgr.getSalesDataPname(1)%>',      <%=dMgr.getSalesDataPnum(1)%>],
-	          ['<%=dMgr.getSalesDataPname(2)%>',  <%=dMgr.getSalesDataPnum(2)%>],
-	          ['<%=dMgr.getSalesDataPname(3)%>', <%=dMgr.getSalesDataPnum(3)%>],
-	          ['<%=dMgr.getSalesDataPname(4)%>',    <%=dMgr.getSalesDataPnum(4)%>]
-	        ]);
+      google.charts.load("current", {packages:['corechart']});
+      google.charts.setOnLoadCallback(drawChart);
+      
+      function getValueAt(column, dataTable, row) {
+    	  return dataTable.getFormattedValue(row, column);
+      }
+      
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ["상품명", "판매량", { role: "style" } ],
+          ["<%=dMgr.getSalesDataName(0)%>", <%=dMgr.getSalesDataQty(0)%>, "color: #fb6a31"],
+          ["<%=dMgr.getSalesDataName(1)%>", <%=dMgr.getSalesDataQty(1)%>, "color: #92beaf"],
+          ["<%=dMgr.getSalesDataName(2)%>", <%=dMgr.getSalesDataQty(2)%>, "color: #ffcc56"],
+          ["<%=dMgr.getSalesDataName(3)%>", <%=dMgr.getSalesDataQty(3)%>, "color: #104a56"],
+          ["<%=dMgr.getSalesDataName(4)%>", <%=dMgr.getSalesDataQty(4)%>, "color: #424242"],
+          ["<%=dMgr.getSalesDataName(5)%>", <%=dMgr.getSalesDataQty(5)%>, "color: #cccccc"],
+          ["<%=dMgr.getSalesDataName(6)%>", <%=dMgr.getSalesDataQty(6)%>, "color: #cccccc"],
+          ["<%=dMgr.getSalesDataName(7)%>", <%=dMgr.getSalesDataQty(7)%>, "color: #cccccc"],
+          ["<%=dMgr.getSalesDataName(8)%>", <%=dMgr.getSalesDataQty(8)%>, "color: #cccccc"],
+          ["<%=dMgr.getSalesDataName(9)%>", <%=dMgr.getSalesDataQty(9)%>, "color: #cccccc"]
+        ]);
 
-	        var options = {
-	          title: 'Sales Data',
-	          pieHole: 0.4,
-	        };
-	
-	        var chart = new google.visualization.PieChart(document.getElementById('donutchart'));
-	        chart.draw(data, options);
-		}
-	</script>
+        var view = new google.visualization.DataView(data);
+        view.setColumns([0, 1,
+                         { calc: getValueAt.bind(undefined, 1),
+                           sourceColumn: 1,
+                           type: "string",
+                           role: "annotation" },
+                         2]);
+
+        var options = {
+          title: "판매순 TOP10 [상품명, 판매량]",
+          width: 1500,
+          height: 600,
+          bar: {groupWidth: "30%"},
+          legend: { position: "none" },
+        };
+        
+        var chart = new google.visualization.ColumnChart(document.getElementById("columnchart_values"));
+        chart.draw(view, options);
+    }
+    </script>
       
 	<!-- 막대그래프 : 현재 년도를 기준으로 4년치 가져옴 (Ex.23년되면 20~23년 가져옴) -->
 	<!-- 연도별 매출액, 비용, 매출이익 막대 그래프 -->
@@ -154,8 +175,8 @@
 		<section class="chart">
 		
 		<!-- 본문 -->
-		<div id="donutchart" style="width: 900px; height: 500px;"></div>
-		<div id="chart_div" style="margin-top:4vh;"></div>
+		<div id="columnchart_values" style="margin: 0 auto"></div>
+		<div id="chart_div"></div>
 		<div class="classpie">
 		<div id="piechart" style="width: 700px; height: 500px;"></div> 
 		<div id="piechart2" style="width: 700px; height: 500px;"></div>
