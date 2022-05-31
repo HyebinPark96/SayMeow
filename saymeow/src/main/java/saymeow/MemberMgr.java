@@ -188,8 +188,9 @@ public class MemberMgr {
 			}
 			return flag;
 		}
+		
 		//아이디찾기
-		public String findid(String member_name, String member_phone) {
+		public String findId(String name, String email) {
 			Connection con = null;
 			PreparedStatement pstmt = null;
 			ResultSet rs = null;
@@ -197,10 +198,10 @@ public class MemberMgr {
 			String mid = null;
 			try {
 				con = pool.getConnection();
-				sql = "select id from member where name=? and phone=?";
+				sql = "select id from member where name=? and email=?";
 				pstmt = con.prepareStatement(sql);
-				pstmt.setString(1, member_name);
-				pstmt.setString(2, member_phone);
+				pstmt.setString(1, name);
+				pstmt.setString(2, email);
 				rs = pstmt.executeQuery();
 				if(rs.next()) {
 					mid = rs.getString("id");
@@ -212,8 +213,9 @@ public class MemberMgr {
 			}
 			return mid;
 		}
+		
 		//비밀번호 찾기
-		public String findPw(String mid, String member_phone) {
+		public String findPwd(String mid, String email) {
 			Connection con = null;
 			PreparedStatement pstmt = null;
 			ResultSet rs = null;
@@ -221,10 +223,10 @@ public class MemberMgr {
 			String pwd = null;
 			try {
 				con = pool.getConnection();
-				sql = "select pwd from member where id=? and phone=?";
+				sql = "select pwd from member where id=? and email=?";
 				pstmt = con.prepareStatement(sql);
 				pstmt.setString(1, mid);
-				pstmt.setString(2, member_phone);
+				pstmt.setString(2, email);
 				rs = pstmt.executeQuery();
 				if(rs.next()) {
 					pwd = rs.getString("pwd");

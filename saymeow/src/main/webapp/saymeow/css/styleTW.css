@@ -1,31 +1,8 @@
-/*디자인빼고 취합완료*/
 @charset "EUC-KR";
-
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300&display=swap');
 
 /*login.jsp*/
-/* #level{
-	margin:5vh auto;
-	border: 1px solid #808080;
-}
-
-#level2{
-	width: 400px;
-	border-collapse: separate;
-	border-spacing: 0 20px;
-	text-align: center;
-}
-
-#level3{
-	margin:5vh auto;
-}
-
-#level4{
-	height: 5vw;
-	margin:auto;
-	
-} */
-
-#loginTbl * {
+* {
 	margin: 0;
 	padding: 0;
 }
@@ -34,7 +11,7 @@
 	margin: 0 auto;
 	width:25vw;
 	height:30vh;
-	margin-top:10vh;
+	margin-top:5vh;
 	border:1px solid #d1d3d4;
 }
 
@@ -148,6 +125,173 @@
 	height:3vw;
 	text-align: center;
 	text-decoration-line: none;
-	border-radius: 5px;
-	
+	border-radius: 5px;	
 }
+
+
+/*findid.jsp*/
+#findIdBd .findIdFrm{
+	width:25vw;
+	height:33vh;
+	border:1px solid #d1d3d4;
+	margin:0 auto;
+	margin-top:5vh;
+}
+
+#findIdBd .subject{
+	text-align:center;
+	margin:1vw auto;
+}
+
+#findIdBd .findIdSec{
+	display:block;
+	width:25vw;
+	margin: 0 auto;
+	margin-top:4vh;
+	text-align:center;
+}
+
+#findIdBd .nameLb, #findIdBd .emailLb {
+	text-align:left;
+	width: 10vw;
+}
+
+#findIdBd .nameTf, #findIdBd .emailTf {
+	width: 13vw;
+	text-align:left;
+}
+
+#findIdBd .findBtn{
+	border:none;
+	background-color:#eee;
+	width:9vw;
+	height:5vh;
+	font-size:1.1em;
+	border-radius: 5px;	
+	display:block;
+	margin: 4vh auto;
+	color:#404040;
+	font-weight: bold;
+}
+
+#findIdBd .back{
+	text-decoration:none;
+	color:#808080;
+	display:block;
+	width:8vw;
+	margin:1vh auto;
+	transform: translateX(-9.5vw);
+	cursor:pointer;
+}
+
+
+/*findPw.jsp*/
+#findPwdBd .findPwdFrm{
+	width:25vw;
+	height:33vh;
+	border:1px solid #d1d3d4;
+	margin:0 auto;
+	margin-top:5vh;
+}
+
+#findPwdBd .subject{
+	text-align:center;
+	margin:1vw auto;
+}
+
+#findPwdBd .findPwdSec{
+	display:block;
+	width:25vw;
+	margin: 0 auto;
+	margin-top:4vh;
+	text-align:center;
+}
+
+#findPwdBd .idLb, #findPwdBd .emailLb {
+	text-align:left;
+	width: 10vw;
+}
+
+#findPwdBd .idTf, #findPwdBd .emailTf {
+	width: 13vw;
+	text-align:left;
+}
+
+#findPwdBd .findBtn{
+	border:none;
+	background-color:#eee;
+	width:9vw;
+	height:5vh;
+	font-size:1.1em;
+	border-radius: 5px;	
+	display:block;
+	margin: 4vh auto;
+	color:#404040;
+	font-weight: bold;
+}
+
+#findPwdBd .back{
+	text-decoration:none;
+	color:#808080;
+	display:block;
+	width:8vw;
+	margin:1vh auto;
+	transform: translateX(-9.5vw);
+	cursor:pointer;
+}
+
+
+
+
+/*findidResult.jsp*/
+#findIdResultBd .searchRs{
+	border:1px solid #d1d3d4;
+	width:30vw;
+	height:30vh;
+	margin: 5vh auto;
+	text-align:center;
+}
+
+#findIdResultBd .lbDiv{
+	margin-top: 6vh;
+}
+
+#findIdResultBd .lb{
+	color:#404040;
+	display:block;
+}
+
+#findIdResultBd .mid{
+	font-size:2.3em;
+}
+
+#findIdResultBd .inlineLb {
+	display:inline;
+}
+
+#findIdResultBd .btns{
+	margin-top:5vh;
+	display:inline-block;
+}
+
+#findIdResultBd .loginBtn{
+	display:inline;
+	width:10vw;
+	font-size:1.2em;
+	height:5vh;
+	border:1px solid #eee;
+	border-radius:5px;
+	background-color:#eee;
+}
+
+#findIdResultBd .findPwdBtn{
+	display:inline;
+	width:10vw;
+	font-size:1.2em;
+	height:5vh;
+	border:1px solid #eee;
+	border-radius:5px;
+	background-color:#eee;
+}
+
+
