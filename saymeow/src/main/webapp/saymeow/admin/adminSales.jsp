@@ -1,7 +1,12 @@
 <!-- 판매데이터 -->
+<%@page import="saymeow.AdminSalesDataBean"%>
+<%@page import="java.util.Vector"%>
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
 <jsp:useBean id="dMgr" class="saymeow.AdminSalesDataMgr"/>
+<%
+Vector<AdminSalesDataBean> vlist = dMgr.getTopQtyInfo();
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -148,9 +153,7 @@
 	        chart.draw(data, options);
 		}
 	</script>
-
  
-    
 <!-- 부트스트랩 CSS -->
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
@@ -176,6 +179,39 @@
 		
 		<!-- 본문 -->
 		<div id="columnchart_values" style="margin: 0 auto"></div>
+		
+		<!-- 판매량top10 항목당 통계테이블 (판매량, 주요고양이 성별, 고양이 평균연령, 주요지역) -->
+		<div class="table">
+		<table border="1" width="60%">
+		<thead>
+		<tr>
+		<th width="50">순위</th>
+		<th width="150">상품명</th>
+		<th width="100">판매량</th>
+		<th width="100">고양이 성별</th>
+		<th width="100">고양이 평균 연령</th>
+		<th width="100">지역</th>
+		</tr>
+		</thead>
+		<tbody>
+<%		
+		for (int i=0; i < vlist.size(); i++) {
+		AdminSalesDataBean bean = vlist.get(i);
+%>
+		<tr>
+		<td><%=i+1%></td>
+		<td><%=bean.getPname()%></td>
+		<td><%=bean.getQty()%>개</td>
+		<td><%=bean.getPetGender()%></td>
+		<td><%=bean.getPetAge()%>살</td>
+		<td><%=bean.getAddress()%></td>
+		</tr>
+		<% } //-for %>		
+		</tbody>
+		</table>
+		
+		
+		</div>
 		<div id="chart_div"></div>
 		<div class="classpie">
 		<div id="piechart" style="width: 700px; height: 500px;"></div> 

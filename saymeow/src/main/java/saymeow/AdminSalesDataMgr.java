@@ -67,10 +67,7 @@ public class AdminSalesDataMgr {
 		}
 		return qty;
 	}
-	
-	
-	
-	
+		
 	/*원형차트*/
 	// 판매순 1~5위 들고오기
 	public ProductBean getSalesRanking(int index) { // index : ? = limit 조건인 첫 시작지점을 뜻하는 변수, 하나씩 가져오므로 1씩 증가시켜 사용하면됨
@@ -248,8 +245,6 @@ public class AdminSalesDataMgr {
 		}
 		return expenses;
 	}
-
-	
 	
 	
 	/*원형그래프*/
@@ -310,6 +305,44 @@ public class AdminSalesDataMgr {
 		}
 		return Ssales;
 	}
+	
+	/*테이블*/
+	//-- 판매수량 top10 항목 판매량, 주요 고양이성별, 평균 고양이연령, 주요 지역
+	public Vector<AdminSalesDataBean> getTopQtyInfo() {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = null;
+		Vector<AdminSalesDataBean> vlist = new Vector<AdminSalesDataBean>();
+		try {
+			con = pool.getConnection();
+			sql = "SELECT p.pnum, p.pname, SUM(o.qty) AS sum, petgender, ROUND(avg(year(CURRENT_DATE())-YEAR(m.petage))) AS age, m.address "
+				+ "FROM petorder o "
+				+ "RIGHT JOIN product p ON p.pnum = o.pnum "
+				+ "RIGHT JOIN member m ON m.id = o.oid "
+				+ "WHERE pstat = 1 "
+				+ "GROUP BY p.pnum "
+				+ "ORDER BY sum DESC, p.pname limit 10";
+			pstmt = con.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				AdminSalesDataBean bean = new AdminSalesDataBean();
+				bean.setPnum(rs.getInt(1));
+				bean.setPname(rs.getString(2));
+				bean.setQty(rs.getInt(3));
+				bean.setPetGender(rs.getInt(4));
+				bean.setPetAge(rs.getInt(5));
+				bean.setAddress(rs.getString(6));
+				vlist.addElement(bean);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			pool.freeConnection(con, pstmt, rs);
+		}
+		return vlist;
+	}
+	
 	
 	public static void main(String[] args) {
 		AdminSalesDataMgr dMgr = new AdminSalesDataMgr();
