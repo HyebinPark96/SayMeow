@@ -1,4 +1,5 @@
 <!-- 판매데이터 -->
+<%@page import="saymeow.UtilMgr"%>
 <%@page import="saymeow.AdminSalesDataBean"%>
 <%@page import="java.util.Vector"%>
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
@@ -6,6 +7,7 @@
 <jsp:useBean id="dMgr" class="saymeow.AdminSalesDataMgr"/>
 <%
 Vector<AdminSalesDataBean> vlist = dMgr.getTopQtyInfo();
+Vector<AdminSalesDataBean> vlist2 = dMgr.getTopSalesInfo();
 %>
 <!DOCTYPE html>
 <html>
@@ -49,10 +51,10 @@ Vector<AdminSalesDataBean> vlist = dMgr.getTopQtyInfo();
                          2]);
 
         var options = {
-          title: "판매순 TOP10 [상품명, 판매량]",
-          width: 1500,
-          height: 600,
-          bar: {groupWidth: "30%"},
+          title: "판매량순 TOP10 [상품명, 판매량]",
+          width: 800,
+          height: 500,
+          bar: {groupWidth: "50%"},
           legend: { position: "none" },
         };
         
@@ -60,6 +62,52 @@ Vector<AdminSalesDataBean> vlist = dMgr.getTopQtyInfo();
         chart.draw(view, options);
     }
     </script>
+    
+    <!-- 막대그래프 매출액별 순위  -->
+    <script type="text/javascript">
+      google.charts.load("current", {packages:['corechart']});
+      google.charts.setOnLoadCallback(drawChart);
+      
+      function getValueAt(column, dataTable, row) {
+    	  return dataTable.getFormattedValue(row, column);
+      }
+      
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ["상품명", "판매금액", { role: "style" } ],
+          ["<%=dMgr.getSalesDataName2(0)%>", <%=dMgr.getSalesData(0)%>, "color: #fb6a31"],
+          ["<%=dMgr.getSalesDataName2(1)%>", <%=dMgr.getSalesData(1)%>, "color: #92beaf"],
+          ["<%=dMgr.getSalesDataName2(2)%>", <%=dMgr.getSalesData(2)%>, "color: #ffcc56"],
+          ["<%=dMgr.getSalesDataName2(3)%>", <%=dMgr.getSalesData(3)%>, "color: #104a56"],
+          ["<%=dMgr.getSalesDataName2(4)%>", <%=dMgr.getSalesData(4)%>, "color: #424242"],
+          ["<%=dMgr.getSalesDataName2(5)%>", <%=dMgr.getSalesData(5)%>, "color: #cccccc"],
+          ["<%=dMgr.getSalesDataName2(6)%>", <%=dMgr.getSalesData(6)%>, "color: #cccccc"],
+          ["<%=dMgr.getSalesDataName2(7)%>", <%=dMgr.getSalesData(7)%>, "color: #cccccc"],
+          ["<%=dMgr.getSalesDataName2(8)%>", <%=dMgr.getSalesData(8)%>, "color: #cccccc"],
+          ["<%=dMgr.getSalesDataName2(9)%>", <%=dMgr.getSalesData(9)%>, "color: #cccccc"]
+        ]);
+
+        var view = new google.visualization.DataView(data);
+        view.setColumns([0, 1,
+                         { calc: getValueAt.bind(undefined, 1),
+                           sourceColumn: 1,
+                           type: "string",
+                           role: "annotation" },
+                         2]);
+
+        var options = {
+          title: "판매금액 TOP10 [상품명, 판매금액]",
+          width: 800,
+          height: 500,
+          bar: {groupWidth: "50%"},
+          legend: { position: "none" },
+        };
+        
+        var chart = new google.visualization.ColumnChart(document.getElementById("columnchart_values2"));
+        chart.draw(view, options);
+    }
+    </script>
+    
       
 	<!-- 막대그래프 : 현재 년도를 기준으로 4년치 가져옴 (Ex.23년되면 20~23년 가져옴) -->
 	<!-- 연도별 매출액, 비용, 매출이익 막대 그래프 -->
@@ -83,6 +131,7 @@ Vector<AdminSalesDataBean> vlist = dMgr.getTopQtyInfo();
 	          },
 	          bars: 'vertical',
 	          vAxis: {format: 'decimal'},
+	          width: 1200,
 	          height: 400,
 	          colors: ['#1b9e77', '#d95f02', '#7570b3']
 	        };
@@ -118,6 +167,8 @@ Vector<AdminSalesDataBean> vlist = dMgr.getTopQtyInfo();
 
 	        var options = {
 	          title: '전체 매출에서 대분류별 상품 매출액 비중',
+	          width: 700,
+	          height: 500,
 	          
 	        };
 	
@@ -146,7 +197,8 @@ Vector<AdminSalesDataBean> vlist = dMgr.getTopQtyInfo();
 
 	        var options = {
 	          title: '전체 매출에서 중분류별 상품 매출액 비중',
-	          
+	          width: 700,
+	          height: 500,
 	        };
 	
 	        var chart = new google.visualization.PieChart(document.getElementById('piechart2'))
@@ -160,7 +212,7 @@ Vector<AdminSalesDataBean> vlist = dMgr.getTopQtyInfo();
 	rel="stylesheet"
 	integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
 	crossorigin="anonymous">
-<%@ include file="../top2.jsp" %>
+<%@ include file="../top2.jsp"%>
 <link rel='stylesheet' type='text/css' media='screen' href='../css/adminSales.css'>	
 </head>
 <body>
@@ -178,18 +230,23 @@ Vector<AdminSalesDataBean> vlist = dMgr.getTopQtyInfo();
 		<section class="chart">
 		
 		<!-- 본문 -->
-		<div id="columnchart_values" style="margin: 0 auto"></div>
 		
+		
+		<div class="barandtable">
+	
+		<!-- 판매량top10 막대그래프 -->
+		<div id="columnchart_values"></div>
+	
 		<!-- 판매량top10 항목당 통계테이블 (판매량, 주요고양이 성별, 고양이 평균연령, 주요지역) -->
 		<div class="table">
-		<table border="1" width="60%">
+		<table border="1" width="500px">
 		<thead>
 		<tr>
 		<th width="50">순위</th>
-		<th width="150">상품명</th>
+		<th width="100">상품명</th>
 		<th width="100">판매량</th>
 		<th width="100">고양이 성별</th>
-		<th width="100">고양이 평균 연령</th>
+		<th width="100">고양이 연령</th>
 		<th width="100">지역</th>
 		</tr>
 		</thead>
@@ -209,14 +266,49 @@ Vector<AdminSalesDataBean> vlist = dMgr.getTopQtyInfo();
 		<% } //-for %>		
 		</tbody>
 		</table>
+		</div>
+		</div>
 		
-		
+		<!-- 판매금액top10 막대그래프 -->
+		<div class="barandtable">
+		<div id="columnchart_values2"></div>
+		<div class="table">
+		<table border="1" width="500px">
+		<thead>
+		<tr>
+		<th width="50">순위</th>
+		<th width="100">상품명</th>
+		<th width="100">판매금액</th>
+		<th width="100">고양이 성별</th>
+		<th width="100">고양이 연령</th>
+		<th width="100">지역</th>
+		</tr>
+		</thead>
+		<tbody>
+<%		
+		for (int i=0; i < vlist2.size(); i++) {
+		AdminSalesDataBean bean = vlist2.get(i);
+%>
+		<tr>
+		<td><%=i+1%></td>
+		<td><%=bean.getPname()%></td>
+		<td><%=UtilMgr.monFormat(bean.getPrice1())%>원</td>
+		<td><%=bean.getPetGender()%></td>
+		<td><%=bean.getPetAge()%>살</td>
+		<td><%=bean.getAddress()%></td>
+		</tr>
+		<% } //-for %>		
+		</tbody>
+		</table>
+		</div>
+		</div>
+		<div class="classpie">
+		<div id="piechart"></div> 
+		<div id="piechart2"></div>
 		</div>
 		<div id="chart_div"></div>
-		<div class="classpie">
-		<div id="piechart" style="width: 700px; height: 500px;"></div> 
-		<div id="piechart2" style="width: 700px; height: 500px;"></div>
-		</div>
+
+	
 		</section>
 	</div>
 </body>

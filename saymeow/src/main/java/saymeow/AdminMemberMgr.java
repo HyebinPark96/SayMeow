@@ -53,7 +53,7 @@ public class AdminMemberMgr {
 		} finally {
 			pool.freeConnection(con, pstmt, rs);
 		}
-		System.out.println("[AdminMemberMgr] getAllM 角青");
+		//System.out.println("[AdminMemberMgr] getAllM 角青");
 		return vlist;
 	}
 	
@@ -94,7 +94,7 @@ public class AdminMemberMgr {
 		} finally {
 			pool.freeConnection(con, pstmt, rs);
 		}
-		System.out.println("[AdminMemberMgr] searchM 角青");
+		//System.out.println("[AdminMemberMgr] searchM 角青");
 		return vlist;
 	}
 	

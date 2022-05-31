@@ -343,6 +343,98 @@ public class AdminSalesDataMgr {
 		return vlist;
 	}
 	
+	/*막대그래프*/
+	// 막대그래프 만들기 위해 매출액 높은 1~10위 이름 가져오기
+	public String getSalesDataName2(int index) { // getSalesRanking 메소드 index변수와 같은 의미
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = null;
+		String pName = null;
+		try {
+			con = pool.getConnection();
+			sql = "SELECT pname, SUM(price1*qty) as sum "
+				+ "FROM petorder "
+				+ "GROUP BY pname "
+				+ "ORDER BY sum DESC LIMIT ?, 1 ";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, index);
+			rs = pstmt.executeQuery();
+			if(rs.next())
+				pName = rs.getString(1);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			pool.freeConnection(con, pstmt, rs);
+		}
+		return pName;
+	}	
+	
+	
+	// 막대그래프 만들기 위해 매출액 1~10위 매출 가져오기
+	public int getSalesData(int index) { // getSalesRanking 메소드 index변수와 같은 의미
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = null;
+		int sum = 0;
+		try {
+			con = pool.getConnection();
+			sql = "SELECT SUM(price1*qty) as sum "
+				+ "FROM petorder "
+				+ "GROUP BY pname "
+				+ "ORDER BY sum DESC LIMIT ?, 1";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, index);
+			rs = pstmt.executeQuery();
+			if(rs.next())
+				sum = rs.getInt(1);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			pool.freeConnection(con, pstmt, rs);
+		}
+		return sum;
+	}
+	
+
+	/*테이블*/
+	//-- 판매금액 top10 항목 판매액, 주요 고양이성별, 평균 고양이연령, 주요 지역
+	public Vector<AdminSalesDataBean> getTopSalesInfo() {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = null;
+		Vector<AdminSalesDataBean> vlist = new Vector<AdminSalesDataBean>();
+		try {
+			con = pool.getConnection();
+			sql = "SELECT p.pnum, p.pname, SUM(o.qty*o.price1) AS sum, petgender, ROUND(avg(year(CURRENT_DATE())-YEAR(m.petage))) AS age, m.address "
+				+ "FROM petorder o "
+				+ "RIGHT JOIN product p ON p.pnum = o.pnum "
+				+ "RIGHT JOIN member m ON m.id = o.oid "
+				+ "WHERE pstat = 1 "
+				+ "GROUP BY p.pnum "
+				+ "ORDER BY sum DESC, p.pname limit 10";
+			pstmt = con.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				AdminSalesDataBean bean = new AdminSalesDataBean();
+				bean.setPnum(rs.getInt(1));
+				bean.setPname(rs.getString(2));
+				bean.setPrice1(rs.getInt(3));
+				bean.setPetGender(rs.getInt(4));
+				bean.setPetAge(rs.getInt(5));
+				bean.setAddress(rs.getString(6));
+				vlist.addElement(bean);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			pool.freeConnection(con, pstmt, rs);
+		}
+		return vlist;
+	}
+	
 	
 	public static void main(String[] args) {
 		AdminSalesDataMgr dMgr = new AdminSalesDataMgr();
