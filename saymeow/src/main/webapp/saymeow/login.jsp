@@ -6,7 +6,14 @@
 <jsp:useBean id="mMgr" class="saymeow.MemberMgr" />                                      
 <%
 	//<input type="button" value="회원정보수정" onclick="location.href='memberUpdate.jsp';"><<회원정보수정 버튼
-
+	String cookie = "";
+	Cookie[] cookies = request.getCookies(); // 저장된 쿠키들을 담기위한 배열
+	for(int i=0; i<cookies.length; i++){
+		if(cookies[i].getName().equals("userId"))
+			cookie = cookies[i].getValue();
+			// System.out.println("쿠키에 저장된 ID : " + cookie);
+	}
+	
 %>
 <!DOCTYPE html> 
 <html> 
@@ -23,38 +30,68 @@ crossorigin="anonymous">
 <%@include file="top2.jsp"%>
 </head> 
 <body> 
-	<form method="post" action="loginProc.jsp" id="item">
-		<table id="level">
-			<tr>  
-				<td id="level2">
-					<table id="level3">
-						<tr> 
-							<td colspan="2" align="center"><span class="loginlo"><h3>로그인</h3><br><br></span></td>
-						</tr>
-						<tr align="center"> 
-							<td><span class="loginlo">아이디&nbsp;</span></td>
-							<td><input class="idTf" name="id" value="aaa"></td>
-						</tr>
-						<tr align="center"> 
-							<td><span class="loginlo">비밀번호&nbsp;<br><br></span></td>
-							<td><input class="pwTf" name="pwd" value="1234"><br><br></td>	
-						</tr>
-						<tr>
-							<td style="padding:2px" colspan="4" align="center">
-							<button type="submit" class="logbtn">로그인</button></td>
-						</tr>
-						<tr>
-							<td style="padding:2px" colspan="4" align="center">	
-							<input type="button" class="joinbtn" value="회원가입" onclick="location.href='member2.jsp'">
-							</td>
-						</tr>
-						<tr>
-							<td style="padding:2px" colspan="2" align="center">
-								<input type="button" class="lbtn" value="ID찾기" onclick="location.href='findid.jsp'">
-								<input type="button" class="lbtn" value="PW찾기" onclick="location.href='findPw.jsp'">
-							</td>
-						</tr>
-					</table>
+	<form method="post" action="loginProc.jsp">
+		<table id="loginTbl">
+			<tr align="center"> 
+				<td colspan="2">
+					<h3>로그인</h3>
+				</td>
+			</tr>
+			<tr align="center" class="idPwdTr">
+				<td colspan="2">
+					<input class="idTf" name="id" value="<%=cookie%>" placeholder=" 아이디">
+					<input class="pwdTf" name="pwd" placeholder=" 비밀번호">
+				</td>	
+			</tr>
+			<tr align="left"> 
+				<td class="rememberTd">
+					<span class="remember">
+						아이디 저장&nbsp;
+						<input type="checkbox" name="checkbox" value="<%=cookie%>">
+					</span>
+				</td>
+			</tr>
+			<tr align="center">
+				<td>
+					<span>
+						<button type="submit" class="loginBtn">로그인</button>
+					</span>
+				</td>
+				<td>
+					<span>
+						<input type="button" class="joinBtn" value="회원가입" onclick="location.href='member2.jsp'">
+					</span>			
+				</td>
+			</tr>
+		</table>
+		<table id="findTbl">
+			<tr align="center">
+				<td>
+					<input type="button" class="findIdBtn" value="아이디찾기" onclick="location.href='findid.jsp'">
+					<lable style="color:#a0a0a0; font-size:0.7em;">|</lable>
+					<input type="button" class="findPwdBtn" value="비밀번호찾기" onclick="location.href='findPw.jsp'">
+				</td>
+			</tr>
+			<tr align="center">
+				<td>
+					<img src="image/banner.png" width="480vw" style="margin:4vh 0 1vh 0; object-fit: cover;">
+				</td>
+			</tr>
+		</table>
+		<table id="infoTbl">
+			<tr align="center">
+				<td>
+					<lable style="color:#a0a0a0; font-size:0.7em;">이용약관</lable> 
+					<lable style="color:#a0a0a0; font-size:0.7em;">|</lable>
+					<lable style="color:#a0a0a0; font-size:0.7em;">개인정보처리방침</lable>
+					<lable style="color:#a0a0a0; font-size:0.7em;">책임의 한계와 법적고지</lable>
+					<lable style="color:#a0a0a0; font-size:0.7em;">회원정보 고객센터</lable>
+				</td>
+			</tr>
+			<tr align="center">
+				<td>
+					<img src="image/saymeow_logo_dark.png" width="40px" height="35px">
+					<label style="color:#a0a0a0; font-size:0.7em;">Copyright SAYMEOW Corp. All Rights Reserved.</label>
 				</td>
 			</tr>
 		</table>

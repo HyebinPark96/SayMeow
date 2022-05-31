@@ -3,15 +3,15 @@
 
 
 /*login.jsp*/
-#level{
+/* #level{
 	margin:5vh auto;
 	border: 1px solid #808080;
 }
 
 #level2{
 	width: 400px;
-	/*border-collapse: separate;
-	border-spacing: 0 20px;*/
+	border-collapse: separate;
+	border-spacing: 0 20px;
 	text-align: center;
 }
 
@@ -23,34 +23,90 @@
 	height: 5vw;
 	margin:auto;
 	
+} */
+
+#loginTbl * {
+	margin: 0;
+	padding: 0;
 }
 
-.joinbtn {
+#loginTbl {
+	margin: 0 auto;
+	width:25vw;
+	height:30vh;
+	margin-top:10vh;
+	border:1px solid #d1d3d4;
+}
+
+#loginTbl .idPwdTr{
+	height:5vh;
+}
+
+#loginTbl .idTf, #loginTbl .pwdTf {
+	height: 5vh;
+	width: 21vw;
+	border: 1px solid #d3d3d3;
+}
+
+#loginTbl .pwdTf {
+	margin-bottom:1vh;
+	border-top:none;
+}
+
+#loginTbl .rememberTd{
+	height:1vh;
+}
+
+#loginTbl .remember{
+	margin-top:1vw;
+	margin-left:2vw;
+}
+
+#loginTbl .loginBtn{
 	border:none;
-	background-color: #9598ca;
+	background-color: #eee;
 	display:inline;
-	width:15vw;
-	height:1.5vw;
+	width:10vw;
+	height:4vh;
 	text-align: center;
 	text-decoration-line: none;
-	border-radius: 5px;
+	border-radius: 2px;
+	margin-left:2vw;
 }
 
-.lbtn{
+#loginTbl .joinBtn {
 	border:none;
-	background-color: #9598ca;
+	background-color:#eee;
+	display:inline;
+	width:10vw;
+	height:4vh;
+	text-align: center;
+	text-decoration-line: none;
+	border-radius: 2px;
+	margin-right:2vw;
+}
+
+#findTbl{
+	margin: 1vh auto;
+}
+
+#findTbl .findIdBtn, #findTbl .findPwdBtn{
+	border:none;
+	background-color:white;
+	color:#a0a0a0;
+	font-size:0.9em;
 	display:inline;
 	width:7.3vw;
 	height:1.5vw;
 	text-align: center;
 	text-decoration-line: none;
-	border-radius: 5px;
 }
 
-.idTf, .pwTf {
-	height: 20px;
-	width: 10vw;
+#infoTbl{
+	margin: 1vh auto;
 }
+
+
 
 /*member.jsp*/
 
@@ -78,7 +134,7 @@
 	border:none;
 	background-color: #9598ca;
 	display:inline;
-	width:15vw;
+	width:10vw;
 	text-align: center;
 	text-decoration-line: none;
 	border-radius: 5px;
