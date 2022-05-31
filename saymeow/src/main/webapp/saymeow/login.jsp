@@ -84,7 +84,9 @@ crossorigin="anonymous">
 					<lable style="color:#a0a0a0; font-size:0.7em;">이용약관</lable> 
 					<lable style="color:#a0a0a0; font-size:0.7em;">|</lable>
 					<lable style="color:#a0a0a0; font-size:0.7em;">개인정보처리방침</lable>
+					<lable style="color:#a0a0a0; font-size:0.7em;">|</lable>
 					<lable style="color:#a0a0a0; font-size:0.7em;">책임의 한계와 법적고지</lable>
+					<lable style="color:#a0a0a0; font-size:0.7em;">|</lable>
 					<lable style="color:#a0a0a0; font-size:0.7em;">회원정보 고객센터</lable>
 				</td>
 			</tr>
