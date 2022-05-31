@@ -18,7 +18,7 @@
 	<div class="plist">
 		<h1>상품수정</h1><br>
 		<form method="post" action="adminProductProc.jsp?flag=update" enctype="multipart/form-data">
-<table border="1">
+<table border="1" class="table" style="border: 1px solid #eee; width: 600px">
 <tr>
 <td>상품번호</td>
 <td><%=pbean.getPnum()%></td>
@@ -85,8 +85,8 @@
 <td>상품재고</td>
 <td><input name="stock" value="<%=pbean.getStock()%>"></td>
 </tr>
-</table><br><br><br>
- <button type="submit">상품수정</button><br><br><br>
+</table><br>
+ <button type="submit" style="background-color:#eee;border:1px solid #eee;color:black; width: 80px; height: 40px;">상품수정</button><br><br>
  <input type=hidden name=pnum value="<%=pbean.getPnum()%>">
   	</form>
   	 </div>

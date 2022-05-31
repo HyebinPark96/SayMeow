@@ -39,7 +39,7 @@ function send_form(frmId) { // form 제출
 	document.getElementById(frmId).submit();
 }
 </script>
-<body >
+<body>
 <!-- 사이드바 40%, 창 60% -->
 <div class="d-flex align-items-start">
 	<div class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
@@ -53,54 +53,52 @@ function send_form(frmId) { // form 제출
 	<div class="tab-content" id="v-pills-tabContent" align="center" style="margin:0 auto;">
 		<!-- 본문 -->
 <section class="contents">
-	<div class="plist">
+	<div style="margin-top:2vh;">
 		<h3 style="text-align: center; margin: 1.5vw; margin-bottom: 2vw;">상품관리</h3>
-		<table border="1">
-		<thead>
-		<tr>
-		<th>상품번호</th>
-		<th>상품이름</th>
-		<th>대분류</th>
-		<th>중분류</th>
-		<th>상품가격</th>
-		<th>판매상태</th>
-		<th>상품재고</th>
-		<th>상품수정</th>
-		<th>상품삭제</th>
+		<table class="table" style="border: 1px solid #eee;">
+		<tr style="height:6vh; vertical-align:middle; background-color:#eee; text-align:center; border-style: hidden;">
+		<th style="border-right:0.3px solid #FAF0E6;">상품번호</th>
+		<th style="border-right:0.3px solid #FAF0E6;">상품이름</th>
+		<th style="border-right:0.3px solid #FAF0E6;">대분류</th>
+		<th style="border-right:0.3px solid #FAF0E6;">중분류</th>
+		<th style="border-right:0.3px solid #FAF0E6;">상품가격</th>
+		<th style="border-right:0.3px solid #FAF0E6;">판매상태</th>
+		<th style="border-right:0.3px solid #FAF0E6;">상품재고</th>
+		<th style="border-right:0.3px solid #FAF0E6;">상품수정</th>
+		<th style="border-right:0.3px solid #FAF0E6;">상품삭제</th>
 		</tr>
-		</thead>
 		<tbody>
 <%		
 		for (int i=0; i < pvlist.size(); i++) {
 		ProductBean pbean = pvlist.get(i);
 %>
 		<tr>
-		<td><%=pbean.getPnum()%></td>
-		<td><a href="../product/productDetail.jsp?pnum=<%=pbean.getPnum()%>"><%=pbean.getPname()%></a></td>
-		<td><%=pbean.getMclass()%></td>
-		<td><%=pbean.getSclass()%></td>
-		<td><%=UtilMgr.monFormat(pbean.getPrice1())%></td>
-		<td><%=pbean.getPstat()%></td>
-		<td><%=pbean.getStock()%></td>
+		<td style="border-right:0.3px solid #FAF0E6;"><%=pbean.getPnum()%></td>
+		<td style="border-right:0.3px solid #FAF0E6;"><a href="../product/productDetail.jsp?pnum=<%=pbean.getPnum()%>"><%=pbean.getPname()%></a></td>
+		<td style="border-right:0.3px solid #FAF0E6;"><%=pbean.getMclass()%></td>
+		<td style="border-right:0.3px solid #FAF0E6;"><%=pbean.getSclass()%></td>
+		<td style="border-right:0.3px solid #FAF0E6;"><%=UtilMgr.monFormat(pbean.getPrice1())%></td>
+		<td style="border-right:0.3px solid #FAF0E6;"><%=pbean.getPstat()%></td>
+		<td style="border-right:0.3px solid #FAF0E6;"><%=pbean.getStock()%></td>
 		<td><a href="adminProductUpdate.jsp?pnum=<%=pbean.getPnum()%>">수정</a></td>
 		<td>
 		<form method="post" action="adminProductProc.jsp?flag=delete">
 		<input type=hidden name="pnum" value="<%=pbean.getPnum()%>">
-		<button type=submit>삭제</button>
+		<button type=submit style="background-color:#eee;border:1px solid #eee;color:black; width: 70px; height: 40px;">삭제</button>
 		</form></td> 
 		</tr>
 		<% } //-for %>		
 		</tbody>
-		</table><br><br><br>
+		</table><br>
   	</div>
  </section>
  <section> 	
   	<div class="productSearch">
   	<form method="post" action="adminProductProc.jsp?flag=search">
-  	<input type="search" placeholder="상품명으로 검색" name="keyWord">
-	<button type="submit">검색</button>
-	<button onClick="location.href='adminProduct.jsp'">전체보기</button>
-	<button onclick="window.open('adminProductInsert.jsp')">상품등록</button ><br><br><br>
+  	<input type="search"  style="text-align: center;" placeholder="상품명으로 검색" name="keyWord">
+	<button type="submit" style="background-color:#eee;border:1px solid #eee;color:black; width: 70px; height: 30px;">검색</button><br><br>
+	<button style="background-color:#eee;border:1px solid #eee;color:black; width: 130px; height: 40px;" onClick="location.href='adminProduct.jsp'">전체보기</button>
+	<button style="background-color:#eee;border:1px solid #eee;color:black; width: 130px; height: 40px;" onclick="window.open('adminProductInsert.jsp')">상품등록</button ><br><br><br>
 	</form>
 	</div>
  
