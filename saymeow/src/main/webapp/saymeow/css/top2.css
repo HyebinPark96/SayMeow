@@ -14,7 +14,7 @@
 }
 
 .ssection {
-	height: 200px;
+	height: 30%;
 	align-items: center;
 	display: flex;
 	justify-content: space-between;
@@ -25,21 +25,21 @@
 }
 
 .logo {
-	width: 25vh;
-	height: 25vh; /*화면마다 높이가 다르게설정되어있어서 150%->vh 단위로 설정*/
+	width: 10em;
+	height: 10em; /*화면마다 높이가 다르게설정되어있어서 150%->vh 단위로 설정*/
 }
 
 .search {
+	margin: 1em;
 	align-items: center;
-	width: 650px;
-	height: 200px;
+	text-align: center;
 	display: flex;
 	height: auto;
 
 }
 .sTf {
 	display:inline-block;
-	width: 400px;
+	width: 30em;
 	height: 40px;
 	font-weight: bolder;
 

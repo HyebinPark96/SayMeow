@@ -49,6 +49,7 @@
 }
 
 .array {
+	align-items: center;
     display: flex;
     background-color:#F0F0F0;
     justify-content: space-between;
@@ -61,6 +62,7 @@
 }
 
 .product_row {
+	padding: 0;
 	list-style-type: none;
     align-items: center;
 	justify-content: center;

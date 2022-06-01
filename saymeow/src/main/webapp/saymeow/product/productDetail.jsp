@@ -78,7 +78,7 @@ nowBlock = (int) Math.ceil((double) nowPage / pagePerBlock); // Ex. 현재 1페이지
 <html>
 <head>
 <!-- 혜빈 CSS -->
-<link rel="stylesheet" href="../css/productDetail.css">
+
 <script>
 // 페이징 처리
 function pageing(page) {
@@ -130,24 +130,18 @@ function read(i) { // 토글
 	rel="stylesheet"
 	integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
 	crossorigin="anonymous">
+<link rel="stylesheet" href="../css/productDetail.css">
 <%@ include file="../top2.jsp"%>
 </head>
 <body id = "productDetail">
-	<div sp-edit="text" class="initialize" area="before"></div>
-	<table width="75%" align="center">
+	
+	<table>
 		<form method="post" name="frmC" action="../cartInsertProc.jsp">
 			<tr>
 				<td align="center">
-					<table width="95%" border="1">
-						<tr>
-							<td colspan="2" align="center"><font color="#FFFFFF"></font></td>
-						</tr>
-					</table>
-
-					<div sp-edit="text" style="padding: 1rem 0; text-align: center;"
-						class="initialize" area="before">
-						<span sp-font="13" style="color: #333; margin-bottom: 20px;"><b>상품
-								상세 페이지&nbsp;</b></span></br>
+					<div class="initialize" area="before">
+						<span sp-font="13" style="color: #333; margin-bottom: 20px;">
+						<b>상품 상세 페이지</b></span>
 					</div>
 
 					<div class="shop_info">

@@ -22,6 +22,7 @@ section, body {
 
 .bsection {
 	display: flex;
+	padding-top: 5em;
     align-items: center;
     align-content: center;
 }
@@ -33,16 +34,19 @@ section, body {
  	
 
 .plist {
+	display: block;
+	width: 70%;
+	margin: auto;
     align-content: center;
 }
 
 .populartitle, .newtitle {
-	display: grid;
-	grid-template-columns: repeat(2, 150px);
-	width: 1250px;
+	width: 75em;
+	display: flex;
 	position: relative;
 	justify-content: space-between;
-	padding: 1rem;
+	padding-top: 1rem;
+	padding-bottom: 1rem;
 	margin: auto;
 	
 }
@@ -62,6 +66,7 @@ section, body {
 }
 
 .prow {
+	padding: 0;
 	justify-content: center;
 	list-style-type: none;
     position: relative;
