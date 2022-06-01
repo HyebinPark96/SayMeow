@@ -40,7 +40,7 @@ crossorigin="anonymous">
 			<tr align="center" class="idPwdTr">
 				<td colspan="2">
 					<input class="idTf" name="id" value="<%=cookie%>" placeholder=" 아이디">
-					<input class="pwdTf" name="pwd" placeholder=" 비밀번호">
+					<input class="pwdTf" name="pwd" type='password' placeholder=" 비밀번호">
 				</td>	
 			</tr>
 			<tr align="left"> 
