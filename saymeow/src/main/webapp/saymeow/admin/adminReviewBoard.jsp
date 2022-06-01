@@ -368,7 +368,7 @@ function read(i) { // 토글
 										<option value="subject">제 목</option>
 										<option value="content">내 용</option>
 									</select> <!-- 디폴트 text type --> 
-									<input name="keyWord" size="16" class="form-control"> 
+									<input name="keyWord" size="16" class="form-control review-keyword"> 
 									<input type="hidden" name="nowPage" value="1"> <!-- 검색 후 초기화 : 검색 결과가 1페이지부터 보여지므로-->
 									<input type="button" value="검색" onclick="search()" class="btn btn-primary reviewSearchBtn">
 									<!-- '처음으로' 버튼 눌렀을 때 list()함수 호출 -> listFrm submit -> reload = true 전달 -> keyField, keyWord 초기화됨 -->

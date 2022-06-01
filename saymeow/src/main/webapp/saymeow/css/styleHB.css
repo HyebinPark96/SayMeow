@@ -238,7 +238,7 @@
 	display:inline;
 }
 
-#adminReviewBoard .form-control, #adminReviewBoard .form-select{
+#adminReviewBoard .review-keyword, #adminReviewBoard .form-select{
 	display:inline;
 	width:10vw;
 }
