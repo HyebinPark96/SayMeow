@@ -66,7 +66,7 @@ nowBlock = (int) Math.ceil((double) nowPage / pagePerBlock); // Ex. 현재 1페이지
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-	<title>주문 내역 조회</title>
+<title>주문 내역 조회</title>
 <script>
 	function allChk() {
 		o = document.ofrm;
@@ -168,15 +168,15 @@ nowBlock = (int) Math.ceil((double) nowPage / pagePerBlock); // Ex. 현재 1페이지
 	}
 	
 </script>
-    <!-- 부트스트랩 CSS -->
-	<link
-		href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
-		rel="stylesheet"
-		integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
-		crossorigin="anonymous">    
-<%@ include file="top2.jsp" %>
+<!-- 부트스트랩 CSS -->
+<link
+href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+rel="stylesheet"
+integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+crossorigin="anonymous">    
+<%@ include file="top2.jsp"%>
 </head>
-	<body>
+<body>
 	<div class="d-flex align-items-start">
 		<div class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
 			<a href="orderList.jsp"><button class="nav-link active" id="v-pills-home-tab" data-bs-toggle="pill" data-bs-target="#v-pills-home" type="button" role="tab" aria-controls="v-pills-home" aria-selected="true">주문내역조회</button></a>
@@ -185,99 +185,9 @@ nowBlock = (int) Math.ceil((double) nowPage / pagePerBlock); // Ex. 현재 1페이지
 			<a href="deleteMember.jsp"><button class="nav-link" id="v-pills-settings-tab" data-bs-toggle="pill" data-bs-target="#v-pills-settings" type="button" role="tab" aria-controls="v-pills-settings" aria-selected="false">회원탈퇴</button></a>
 		</div>
 		<div class="tab-content" id="v-pills-tabContent" align="center" style="margin:0 auto;">
-		
-		
-		
- <%-- <table>
-<form name="ofrm" action="orderCancleProc.jsp">
-<input type="hidden" name="och" value="0">
-<h1>주문 현황</h1>
-</table>
-		<table border="1">
-			<tr align="center">
-				<td width="100"><input type="checkbox" name="allCh" onclick="allChk()"></td>
-				<td width="100">주문 번호</td>
-				<td width="100">주문 일자</td>
-				<td width="100">상품명</td>
-				<td width="100">주문 수량</td>
-				<td width="100">주문 금액</td>
-				<td width="200">주문 상태</td>
-			</tr>
-<!-- Is Empty Start -->
-		<%
-			Vector<OrderBean> vlist = oMgr.getOrderList(id);
-			if(vlist.isEmpty()){
-		%>
-			<tr>
-				<td colspan="5">주문하신 상품이 없습니다.</td>
-			</tr>
-<!-- Is Empty End -->
-<!-- Vector List Start -->
-		<%}else{
-				for(int i=0;i<vlist.size();i++){
-				OrderBean order = vlist.get(i);
-				int pnum = order.getPnum();
-				
-				quantity = order.getQty();
-				%>
-			<tr align="center">
-				<td>
-				<%if(order.getState().equals("2")||order.getState().equals("3")){ %>
-				<input type="checkbox" name="och" value="<%=order.getOnum()%>" onclick="chk()" disabled>
-				<%}else { %>
-				<input type="checkbox" name="och" value="<%=order.getOnum()%>" onclick="chk()">
-				<%}%>
-				</td>
-				<td><%=order.getOnum()%></td>
-				<td><%=order.getRegdate()%></td>
-				<td><%=order.getPname()%></td>
-				<td><%=quantity%></td>
-				<td><%=quantity * order.getPrice1() %></td>
-				<td>
-				<%
-					switch(order.getState()){
-						case"1": out.print("결제전");%>
-						<input type="button" value="단일결제" onclick="submitOrderProc('<%=order.getOnum()%>','<%=order.getPname()%>')">
-						<%break;
-						case"2": %>
-						<input type="button" value="리뷰쓰기" onclick="ReviewForm('<%=order.getOnum()%>','<%=order.getPnum()%>')">
-						<%break;
-						case"3": %><font color="red"><%out.print("주문취소");%></font><%break;
-					}
-				%>
-				</td>
-			</tr>
-				<%}//--for
-		}//--else-if %>
-<!-- Vector List End -->
-
-		</table>
-		<table>
-		<input type="submit" name="btn" value="주문취소" disabled>
-		<input type="submit" name="btnForPayment" value="결제하기" disabled>
-		</table>
-		</form>
-
-	<form name="review" method="post" action="reviewForm.jsp">
-		<input type="hidden" name="onum">
-		<input type="hidden" name="pnum">
-	</form>
-	
-	<form name="paymentFrm" method="post" action="directOrderProc.jsp">
-		<input type="hidden" name="flag" value="myOrderList">
-		<input type="hidden" name="pname">
-		<input type="hidden" name="onum">
-	</form>
-	
-  	</div>
-</div> 
- --%>
-
-
-
 		<form name="ofrm" action="orderCancleProc.jsp">
 			<input type="hidden" name="och" value="0">
-			<h1>주문 현황</h1>
+			<h3 style="margin: 5vh auto">주문 현황</h3>
 			<!-- 게시물 리스트 Start -->
 			<table>
 				<tr>
@@ -288,8 +198,8 @@ nowBlock = (int) Math.ceil((double) nowPage / pagePerBlock); // Ex. 현재 1페이지
 						if (ovlist.isEmpty()) {
 							out.println("등록된 게시물이 없습니다.");
 						} else {%>
-							<table cellspacing="0" class="table table-hover">
-								<tr align="center" class="table-column">
+							<table cellspacing="0" class="table">
+								<tr align="center" class="table-column" style="background-color: #eee;">
 									<td width="100"><input type="checkbox" name="allCh" onclick="allChk()"></td>
 									<th width="100">주문순번</th>
 									<th width="100">상품번호</th>
@@ -343,13 +253,13 @@ nowBlock = (int) Math.ceil((double) nowPage / pagePerBlock); // Ex. 현재 1페이지
 										<%
 											switch(bean.getState()){
 												case"1": out.print("결제전");%>
-												<input type="button" value="단일결제" onclick="submitOrderProc('<%=onum%>','<%=pname%>')">
+												|&nbsp;<input type="button" value="결제하기" style="border:1px solid #eee; background-color: #eee; font-size:0.9em; color:#495057;" onclick="submitOrderProc('<%=onum%>','<%=pname%>')">
 												<%break;
 												case"2": 
 												if(!rMgr.checkReivewInsert(onum)/*false -> 리뷰 작성 안한상태*/){%>
-												<input type="button" value="리뷰쓰기" onclick="ReviewForm('<%=onum%>','<%=pnum%>')">
+												<input type="button" value="리뷰쓰기" style="border:1px solid #eee; background-color: #eee; font-size:0.9em; color:#495057;" onclick="ReviewForm('<%=onum%>','<%=pnum%>')">
 												<%} else {%>
-													<font color="blue"><%out.print("리뷰작성완료");%></font> 
+													<%out.print("리뷰작성완료");%>
 												<%}
 												break;
 												case"3": %><font color="red"><%out.print("주문취소");%></font><%break;
@@ -380,14 +290,12 @@ nowBlock = (int) Math.ceil((double) nowPage / pagePerBlock); // Ex. 현재 1페이지
 			
 			 				// 반복문 (15번씩 반복, 마지막 블럭에서는 91~101페이지까지만 반복됨)
 			 				for (; pageStart < pageEnd; pageStart++) { // 비워진 조건 초기식은? pageStart = 1;부터 시작%> 
-			 					<a href="javascript:pageing('<%=pageStart%>')" class="review-board-aTag" style="color:black;"> 
-			 						<%if (pageStart == nowPage) {%>
-			 								<font color="blue">
-			 						<%}%> 
-			 						[<%=pageStart%>] 
-									<%if (pageStart == nowPage) {%>
-										</font>
-									<%}%> <!-- if절 두개인 이유: 조건에 맞아야만 font 코드 적용되도록-->
+				 					<a href="javascript:pageing('<%=pageStart%>')"> 
+										<%if(pageStart == nowPage){%>
+											<font color="black">[<%=pageStart%>]</font>
+										<%}else { %>
+											<font color="#a0a0a0">[<%=pageStart%>]</font>
+										<%} %>	
 									</a> 
 								<%} // --- for%> 
 								<!-- 다음블럭 이동 기능 (마지막블럭만 없는 기능)--> 
@@ -408,14 +316,15 @@ nowBlock = (int) Math.ceil((double) nowPage / pagePerBlock); // Ex. 현재 1페이지
 						</tr>
 						
 						<table>
-							<input type="submit" name="btn" value="주문취소" disabled>
+							<input type="submit" name="btn" value="주문취소" style="border:1px solid #eee; background-color: #eee;" disabled>
 						</table>
 					<%} // --totalRecord>1 if문 %>
-						
 					<tr>
 						<!-- '처음으로' 버튼 눌렀을 때 list()함수 호출 -> listFrm submit -> reload = true 전달 -> keyField, keyWord 초기화됨 -->
-						<td style="">
-							<a href="javascript:list()" class="review-board-aTag"><button type="button" class="btn btn-primary" style="margin:1vw;">처음으로</button></a> 
+						<td>
+							<a href="javascript:list()" class="review-board-aTag" style="display:block; width:5vw; border:1px solid #eee; background-color: #eee; margin:3vh; transform: translateX(30vw);">
+								<button type="button" style="border:none; height:4vh;">처음으로</button>
+							</a> 
 						</td>
 					</tr>
 				<%} %>

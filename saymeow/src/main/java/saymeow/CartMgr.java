@@ -165,28 +165,30 @@ public class CartMgr {
 		return cart;
 	}
 	
-	/*
-	 * //바로 주문하기 directOrder insert public void insertDirectOrder(DirectOrderBean
-	 * dorder) { Connection con = null; PreparedStatement pstmt = null; String sql =
-	 * null; try { con = pool.getConnection(); sql =
-	 * "insert directorder(oid,pnum,pname,price1,qty) values(?,?,?,?,?)"; pstmt =
-	 * con.prepareStatement(sql); pstmt.setString(1, dorder.getOid());
-	 * pstmt.setInt(2, dorder.getPnum()); pstmt.setString(3, dorder.getPname());
-	 * pstmt.setInt(4, dorder.getPrice1()); pstmt.setInt(5, dorder.getQty());
-	 * pstmt.executeUpdate(); } catch (Exception e) { e.printStackTrace(); } finally
-	 * { pool.freeConnection(con, pstmt); } return; }
-	 * 
-	 * //directOrder select public DirectOrderBean selectDirectOrder(String oid) {
-	 * Connection con = null; PreparedStatement pstmt = null; ResultSet rs = null;
-	 * String sql = null; DirectOrderBean dorder = new DirectOrderBean(); try { con
-	 * = pool.getConnection(); sql = "select * from directorder where oid=?"; pstmt
-	 * = con.prepareStatement(sql); pstmt.setString(1, oid); rs =
-	 * pstmt.executeQuery(); if(rs.next()) { dorder.setDonum(rs.getInt("donum"));
-	 * dorder.setOid(rs.getString("oid")); dorder.setPnum(rs.getInt("pnum"));
-	 * dorder.setPname(rs.getString("pname"));
-	 * dorder.setPrice1(rs.getInt("price1")); dorder.setQty(rs.getInt("qty")); } }
-	 * catch (Exception e) { e.printStackTrace(); } finally {
-	 * pool.freeConnection(con, pstmt, rs); } return dorder; }
-	 */
-	
+	// 카트 특정 선택상품의 가격*수량 들고오기
+	public int getCheckedTotalPrice(String oid, int index) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = null;
+		int checkedTotalPrice = 0;
+		try {
+			con = pool.getConnection();
+			sql = "SELECT qty*price1 "
+				+ "FROM cart "
+				+ "WHERE oid = ? "
+				+ "LIMIT ?,1";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, oid);
+			pstmt.setInt(2, index);
+			rs = pstmt.executeQuery();
+			if(rs.next())
+				checkedTotalPrice = rs.getInt(1);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			pool.freeConnection(con, pstmt, rs);
+		}
+		return checkedTotalPrice;
+	}
 }

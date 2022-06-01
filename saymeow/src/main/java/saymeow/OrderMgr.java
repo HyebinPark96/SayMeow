@@ -495,6 +495,33 @@ public class OrderMgr {
 		return vlist; // 디폴트로 10개씩 반환되고, 나머지 반환될 수 있음
 	}
 	
+	// [결제시 주소관련 메소드]주문하는 회원 아이디의 가장 최근 주문 배송지주소 가져오기
+	public String getNewestAddress(String oid) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = null;
+		String newestAddress = null;
+		try {
+			con = pool.getConnection();
+			sql = "SELECT oaddress "
+				+ "FROM petorder "
+				+ "WHERE oid = ? AND state='2' "
+				+ "ORDER BY onum DESC "
+				+ "LIMIT 0,1 ";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, oid);
+			rs = pstmt.executeQuery();
+			if(rs.next())
+				newestAddress = rs.getString(1);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			pool.freeConnection(con, pstmt, rs);
+		}
+		return newestAddress;
+	}
+	
     // 주문내역 1000개 입력 메소드
     public void order1000(int pnum, int qty, int price1){
        Connection con = null;
