@@ -14,8 +14,11 @@ body {
 	height: 100%; 
 }
 
+.heading{
+	margin:5vh;
+}
+
 .contents {
-	padding-top: 3em;
 	display: block;
     align-items: center;
     background-color:#F0F0F0;
@@ -24,35 +27,75 @@ body {
     text-align: center;
 }
 
-.total {
-	font-family: 'Noto Sans KR', sans-serif;
-	
-}
-
 table {
 	width: 60%;
 	margin: auto;
 }
 
-.cartbtn {
-	border-style: none;
-	width: 100px;
-	background-color: #9598ca;
-	margin: 2em;
-}
-
-.button {
-	display: flex;
-	justify-content: center;
+.th{
+	height:5vh;
 }
 
 td {
 	background-color: white;
-	height: 200px;
+	height: 20vh;
 }
 
 th {
 	background-color: #9598ca;
 	font-family: 'Noto Sans KR', sans-serif;
 	
+}
+
+.total{
+	font-family: 'Noto Sans KR', sans-serif;
+	margin: 5vh auto;
+	width:30vw;
+	height:9vh;
+	background-color: white;
+	align:left;
+}
+
+.total .lb1{
+	margin: 0.5vh;
+	background-color: white;
+	color:#a0a0a0;
+}
+
+.total .lb2{
+	margin: 0.5vh;
+	background-color: white;
+	color:#a0a0a0;
+}
+
+.cartAllpriceTxt{
+	border:none;
+	width:7vw;
+	text-align:center;
+	font-weight: bold;
+	background-color: white;
+	color:#495057;
+}
+
+.checkedPriceTxt{
+	border:none;
+	width:7vw;
+	text-align:center;
+	font-weight: bold;
+	background-color: white;
+	color:#495057;
+}
+
+.cartbtn {
+	border-style: none;
+	width: 14vw;
+	background-color: #9598ca;
+	margin: 1em;
+	color:#fff;
+}
+
+.button {
+	display: flex;
+	justify-content: center;
+	height:10vh;
 }
