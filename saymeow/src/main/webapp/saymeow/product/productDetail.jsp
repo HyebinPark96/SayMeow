@@ -392,10 +392,12 @@ function read(i) { // 토글
 																
 																if(!cvlist.isEmpty()) {
 															%>
-																	<form name="commentListFrm" action="commentDeleteProc.jsp" method="POST" style="text-align:left;">
+																	<form name="commentListFrm" action="../admin/commentDeleteProc.jsp" method="POST" style="text-align:left;">
 																		<%=j+1%>) <%=cid %> : <%=comment%>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[<%=rcDate%>에 작성된 댓글입니다.]
 																		<%if(id=="admin" || id.equals("admin")){%> <!-- 관리자만 모든 댓글 삭제 가능 -->
 																		<input type="hidden" name="rcNum" value="<%=rcNum%>">
+																		<input type="hidden" name="pnum" value="<%=pnum%>">
+																		<input type="hidden" name="flag" value="productDetail">
 																		<input type="submit" class="btn btn-primary commentDeleteBtn" value="삭제">
 																		<%}%>
 																	</form>

@@ -17,12 +17,14 @@
 		pnum = UtilMgr.parseInt(request, "pnum");
 	}
 	
-	if(flag.equals("productDetail")){ // 상품상세에서 댓글 삭제한 경우%>
+	if(flag.equals("productDetail") && flag!=null){ // 상품상세에서 댓글 삭제한 경우%>
+			System.out.println("아님");
 		<script>
 			alert('댓글이 삭제되었습니다!');
 			location.href = "../product/productDetail.jsp?pnum="+<%=pnum%>; // ../ : 이전경로 이동
 		</script>
-	<%} else { // 그외에서 댓글 삭제한 경우%>
+	<%} else if(flag==null || flag.trim().equals("")) { // 그외에서 댓글 삭제한 경우%>
+		System.out.println("null");
 		<script>
 			alert('댓글이 삭제되었습니다!');
 			location.href = "adminReviewBoard.jsp";
