@@ -7,7 +7,17 @@
 	padding: 0;
 }
 
+body {
+	background-color: #F0F0F0;
+}
+
+.loginsection, .membersection {
+	background-color: white;
+	padding-top: 3em;
+}
+
 #loginTbl {
+	background-color: white;
 	margin: 0 auto;
 	width:25vw;
 	height:30vh;
@@ -85,11 +95,6 @@
 
 
 
-/*member.jsp*/
-
-#memberbd {
-	background-color: beige;
-}
 
 .regFormTb{
 	margin: 0 auto; 

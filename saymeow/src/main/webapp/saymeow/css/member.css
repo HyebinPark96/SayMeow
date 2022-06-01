@@ -8,26 +8,43 @@
 }
 
 body {
-	background-color: white;
+	background-color: #F0F0F0;
 }
 
-section {
+.membersection {
 	display: block;
     align-items: center;
     background-color: white;
     align-content: center;
     margin: auto;
-   justify-content: space-between;
 }
+
+.title {
+	padding-top: 3em;
+}
+
+
 
 fieldset {
 	margin: auto;
 	text-align: center;
 	background-color: white;
+	margin-bottom: 1em;
 }
 
 legend {
 	text-align: center;	
+	font-size: 20px;
+}
+
+.lb {
+	margin-bottom: 1em;
+	text-align: left;
+	width: 180;
+}
+
+.memberinfo, .catinfo {
+	padding: 0;
 }
 
 li {
@@ -35,19 +52,9 @@ li {
 	display: block;
 	text-align: center;
 	margin: auto;
-	padding: 10;
+
 }
 
-label {
-	text-align: left;
-	width: 180;
-}
-
-input {
-	text-align: left;
-	width: 180;
-	
-}
 
 select {
 	text-align: left;
@@ -58,10 +65,12 @@ select {
 	width: 105;
 }
 
-.btn {
+.btn1 {
+	border: none;
 	width: 73;
 	height: 28;
 	padding: 0;
+	color: white;
 	background-color: #9598CA;
 }
 
@@ -71,13 +80,6 @@ select {
 
 .radio {
 	width: 70;
-}
-
-.column {
-	align-items: center;
-    background-color: white;
-    align-content: center;
-    margin: 0 20 0 auto;
 }
 
 .input{
