@@ -43,7 +43,7 @@ Vector<ProductBean> pvlist = mgr.getP2(mClass, sClass, sort);
 	<div id="container">
 	<!-- 카테고리(sidebar) -->
 		<section class="category">
-		<h3>카테고리</h3><br><br>
+		<h5>카테고리</h5><br><br>
 		<ul>
 			<li>
 			<a href="#" onclick="return send_form('frmFo')">고양이 사료</a>
@@ -142,7 +142,7 @@ Vector<ProductBean> pvlist = mgr.getP2(mClass, sClass, sort);
 					<div class="array">
 					<p><b><%=pvlist.size()%></b>개의 상품이 있습니다.
 					<form action="productProc.jsp">
-					<h5><b>정렬방식</b>
+					<b>정렬방식</b>
 						<select name="sort" onchange="this.form.submit()">
 							<option value="0" <%=sort.equals("0")?"selected":""%>>최신순</option>
 							<option value="1" <%=sort.equals("1")?"selected":""%>>높은가격순</option> 
@@ -153,7 +153,7 @@ Vector<ProductBean> pvlist = mgr.getP2(mClass, sClass, sort);
 						</select> 
 						<input type=hidden name="mClass" value="<%=mClass%>">
 						<input type=hidden name="sClass" value="<%=sClass%>">
-					</h5>
+					
 					</form>
 					</div>
 			</div>
@@ -163,7 +163,7 @@ Vector<ProductBean> pvlist = mgr.getP2(mClass, sClass, sort);
 						ProductBean pbean = pvlist.get(i); %>
 						<li>
 							<a href="productDetail.jsp?pnum=<%=pbean.getPnum()%>">
-							<br><img src="../image/<%=pbean.getImage()%>" height="200" width="200">
+							<br><img src="../image/<%=pbean.getImage()%>" height="180" width="180">
 							<br><%=pbean.getPname()%></a>
 							<br><b><%=UtilMgr.monFormat(pbean.getPrice1())%>원</b><br>
 						</li>

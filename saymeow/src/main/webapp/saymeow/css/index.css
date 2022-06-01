@@ -15,18 +15,14 @@
 	padding: 0;
 }
 
-.blank {
-	background-color: beige;
-}
 
-body {
-	background-color: beige;
+section, body {
+	background-color: #F0F0F0;
 }
 
 .bsection {
 	display: flex;
     align-items: center;
-    background-color: beige;
     align-content: center;
 }
 
@@ -35,9 +31,6 @@ body {
 	margin:auto;
  	}
  	
-.psection {
-	background-color: beige;
-}
 
 .plist {
     align-content: center;

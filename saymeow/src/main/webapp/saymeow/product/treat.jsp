@@ -42,7 +42,7 @@ function send_form(frmId) { // form 제출
 	<div id="container">
 	<!-- 카테고리(sidebar) -->
 		<section class="category">
-		<h3>카테고리</h3><br><br>
+		<h5>카테고리</h5><br><br>
 		<ul>
 			<li>
 			<a href="#" onclick="return send_form('frmFo')">고양이 사료</a>
@@ -141,7 +141,7 @@ function send_form(frmId) { // form 제출
 					<div class="array">
 					<p><b><%=pvlist.size()%></b>개의 상품이 있습니다.
 					<form action="productProc.jsp">
-					<h5><b>정렬방식</b>
+					<b>정렬방식</b>
 						<select name="sort" onchange="this.form.submit()">
 							<option value="0" <%=sort.equals("0")?"selected":""%>>최신순</option>
 							<option value="1" <%=sort.equals("1")?"selected":""%>>높은가격순</option> 
@@ -152,7 +152,7 @@ function send_form(frmId) { // form 제출
 						</select> 
 						<input type=hidden name="mClass" value="<%=mClass%>">
 						<input type=hidden name="sClass" value="<%=sClass%>">
-					</h5>
+					
 					</form>
 					</div>
 			</div>
