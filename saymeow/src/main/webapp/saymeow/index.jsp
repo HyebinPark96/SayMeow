@@ -34,20 +34,20 @@ function send_form(frmId) { // form 제출
 }
 </script>
 <body>
-	<div class="blank"><br><br></div>
-
 	<!-- 배너 -->
     <section class="bsection">
-	<img src="image/banner2.png" height="200" width="1000">
+	<img src="image/banner2.png" height="160em" width="1000em">
     </section>	
 	<!-- 상품리스트업 -->
 	<section class="psection">
-			<div class="plist">
-				<br><br><br>
-				<div class="populartitle">
+	
+	
+	<div class="populartitle">
 				<div class="popular">실시간 인기상품</div>
 				<div class="popualrmore"><a href="product/food.jsp?sort=5">더보기></a></div>
 				</div>
+			
+			<div class="plist">
 				<ul class="prow">
 					<%
 						for (int i=0; i<pvlist.size(); i++) {
@@ -65,12 +65,14 @@ function send_form(frmId) { // form 제출
 					</li>
 					<%} //--for%>
 				</ul>	
-				
-				<br><br><br>
+			</div>	
 				<div class="newtitle">
 				<div class="new">신상품</div>
 				<div class="newmore"><a href="product/food.jsp?sort=0">더보기></a></div>	
 				</div>
+							
+	<div class="plist">
+
 				
 				<ul class="prow">
 					<%

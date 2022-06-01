@@ -6,9 +6,16 @@
 	box-sizing: border-box;
 }
 
-#productDetail .initialize{
-	padding: 1rem 0; 
+#productDetail {
+	background-color: #F0F0F0;
 	text-align: center;
+}
+
+#productDetail .initialize{
+	width: 100%;
+	text-align: center;
+	padding-top: 5em;
+	padding-bottom: 1em;
 }
 
 #productDetail img {
@@ -29,6 +36,7 @@
 }
 
 #productDetail .shop_info {
+	background-color: white;
 	display: flex;
 	width: 1080px;
 	height: 300px;
@@ -98,7 +106,7 @@
 }
 
 #productDetail input {
-	outline: none;;
+	outline: none;
 }
 
 #productDetail input[type="number"]::-webkit-outer-spin-button, #productDetail input[type="number"]::-webkit-inner-spin-button
@@ -110,7 +118,7 @@
 #productDetail .info_list .num_ {
 	width: 15px;
 	height: 30px;
-	background-color: #eee;;
+	background-color: #F0F0F0;
 }
 
 #productDetail .info_list .num_ .btn_ {
@@ -154,6 +162,7 @@
 }
 
 #productDetail .btn_wrap .side_btn {
+	border: none;
 	width: 120px;
 	height: 40px;
 	background-color: #9598ca;
@@ -178,7 +187,7 @@
 }
 
 #productDetail .detail {
-	width: 1080px;
+	width: 70%;
 	height: 100px;
 	margin: auto;
 	overflow: hidden;
@@ -195,7 +204,7 @@
 	margin: auto;
 	cursor: pointer;
 	position: absolute;
-	bottom: 0;;
+	bottom: 0;
 	font-size: 20px;
 	font-weight: 700;
 	color: #fff;
@@ -211,7 +220,9 @@
 }
 
 #productDetail .detail.on {
-	height: auto
+	display: block;
+	height: auto;
+	background-color: white;
 }
 
 #productDetail .show_btn.show {
@@ -220,6 +231,7 @@
 
 /*¸®ºä*/
 #productDetail .review {
+	background-color: white;
 	width: 1080px;
 	border-top: 1px solid #000;
 	height: auto;
@@ -262,7 +274,7 @@
 	width:10vw;
 }
 
-#productDetail .review_wrap table {
+#productDetail .review_wrap, table {
 	width: 100%;
 	border-spacing: 0;
 	border-collapse: collapse

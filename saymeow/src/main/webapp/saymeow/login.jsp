@@ -20,16 +20,18 @@
 <head> 
 <meta charset="UTF-8"> 
 <!-- 외부 CSS -->				
-<link rel="stylesheet" href="css/styleTW.css">						
+					
 <!-- 부트스트랩 CSS -->						
 <link						
 href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"						
 rel="stylesheet"						
 integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"						
-crossorigin="anonymous">						
+crossorigin="anonymous">	
+<link rel="stylesheet" href="css/styleTW.css">						
 <%@include file="top2.jsp"%>
 </head> 
 <body> 
+<section class="loginsection">
 	<form method="post" action="loginProc.jsp">
 		<table id="loginTbl">
 			<tr align="center"> 
@@ -97,6 +99,7 @@ crossorigin="anonymous">
 				</td>
 			</tr>
 		</table>
-	</form>		
+	</form>	
+</section>	
 </body> 
 </html>

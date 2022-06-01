@@ -54,7 +54,7 @@ Vector<ProductBean> pvlist = mgr.getPList(pKeyWord);
 	<div id="container">
 		<!-- 카테고리(sidebar) -->
 		<section class="category">
-			<h3>카테고리</h3>
+			<h5>카테고리</h5><br><br>
 			<ul>
 				<li><a href="#" onclick="return send_form('frmFo')">고양이 사료</a>
 					<form method="post" id="frmFo" action="productProc.jsp">
@@ -139,7 +139,7 @@ Vector<ProductBean> pvlist = mgr.getPList(pKeyWord);
 					%>
 					<li>
 					<a href="productDetail.jsp?pnum=<%=pbean.getPnum()%>">
-					<img src="../image/<%=pbean.getImage()%>" height="200" width="200">
+					<img src="../image/<%=pbean.getImage()%>" height="180" width="180">
 					<br><%=pbean.getPname()%></a>
 					<br><%=UtilMgr.monFormat(pbean.getPrice1())%>원<br>
 					</li>
